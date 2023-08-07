@@ -15,5 +15,6 @@
   npm i @popperjs/core
 npm i web-vitals
 npm i react-router-dom
+npm install -S react-useanimations
 
 # Designed by Facogi team
