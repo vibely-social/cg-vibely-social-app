@@ -1,4 +1,4 @@
-FRONT END PROJECT
+#cg-vibely-social-app
 - Required:
   npm install -D sass
   npm i framer-motion
