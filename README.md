@@ -1,3 +1,4 @@
+FRONT END PROJECT
 - Required:
   npm install -D sass
   npm i framer-motion
@@ -14,3 +15,5 @@
   npm i @popperjs/core
 npm i web-vitals
 npm i react-router-dom
+
+# Designed by Facogi team
