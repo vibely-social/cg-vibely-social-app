@@ -301,12 +301,12 @@ $(document).ready(function() {
 
     
 
-    if($(window).width() < 1000){
-        $('.right-chat').removeClass('active-sidebar');
-    }
-    else{
-        $('.right-chat').addClass('active-sidebar');
-    }
+    // if($(window).width() < 1000){
+    //     $('.right-chat').removeClass('active-sidebar');
+    // }
+    // else{
+    //     $('.right-chat').addClass('active-sidebar');
+    // }
 
     $(window).scroll(function(){
         if ($(this).scrollTop() > 10) {
