@@ -59,7 +59,6 @@ function Header() {
                 <motion.i 
                  whileHover={{ scale: [null, 1.5, 1.5] }}
                  transition={{ duration: 0.3 }}
-                 
                     className={
                         window.location.pathname === item.path
                     ? "font-lg btn-round-md   text-vibe  bg-vibe-light"

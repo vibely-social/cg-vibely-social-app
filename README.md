@@ -13,5 +13,8 @@
   npm i normalize.css
   npm i owl.carousel
   npm i @popperjs/core
-npm i web-vitals
-npm i react-router-dom
+  npm i web-vitals
+  npm i react-router-dom
+  npm install -S react-useanimations
+
+# Designed by Facogi team
