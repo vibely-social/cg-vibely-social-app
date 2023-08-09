@@ -1,23 +1,50 @@
+import  friendsNav  from '../assets/img/sidebar/friends.png' 
+import  groupsNav  from '../assets/img/sidebar/groups.png' 
+import  marketNav  from '../assets/img/sidebar/marketplace.png' 
+import  pagesNav from '../assets/img/sidebar/pages.png' 
+import  storyNav  from '../assets/img/sidebar/story.png' 
+import  newfeedNav  from '../assets/img/sidebar/newfeed.png' 
+import  ppl  from '../assets/img/ppl.png'
+ 
  const SidebarData = [
     {
-        icon: 'feather-Home bg-blue-gradiant',
+// <<<<<<< HEAD
+//         icon: 'feather-Home bg-blue-gradiant',
+// =======
+        icon: ppl,
+        path: '/profile',
+        heading: 'Thành Nguyễn'
+    },
+    {
+        icon: friendsNav,
+        path: '/friends',
+        heading: 'Friends'
+    },
+    {
+        icon: groupsNav,
+        path: '/groups',
+        heading: 'Groups'
+    },
+    {
+        icon: newfeedNav,
+// >>>>>>> d13986e03ce5a0fb7376b9c4c4cd53912959a269
         path: '/',
-        heading: 'Trang chủ'
+        heading: 'Feeds'
     },
     {
-        icon: 'feather-shopping-bag bg-red-gradiant',
-        path: '/orders',
-        heading: 'Thu Ngân'
+        icon: storyNav,
+        path: '/stories',
+        heading: 'Stories'
     },
     {
-        icon: 'feather-clock bg-gold-gradiant',
-        path: '/history',
-        heading: 'Lịch sử hóa đơn'
+        icon: pagesNav,
+        path: '/pages',
+        heading: 'Pages'
     },
     {
-        icon: 'feather-users bg-mini-gradiant',
-        path: '/customers',
-        heading: 'Khách hàng'
+        icon: marketNav,
+        path: '/marketplace',
+        heading: 'Marketplace'
     }
   ];
 

@@ -1,4 +1,4 @@
-import './GlobalStyles.scss';
+import '../../assets/scss/main.scss';
 
 function GlobalStyles({children}) {
     return  children ;
