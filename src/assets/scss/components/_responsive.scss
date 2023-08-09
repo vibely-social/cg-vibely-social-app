@@ -74,12 +74,9 @@
 
     
 }
-@media (min-width: 1400px) {
-    .middle-sidebar-left {padding-right:0; margin-right: auto; margin-left: auto;}
-}
 
 @media (min-width: 1200px) {
-    .middle-sidebar-left {padding-right:0; margin-right: auto; margin-left: auto; }
+    .middle-sidebar-left {padding-right:150px; margin-right: auto; margin-left: auto; padding-left: 150px;}
     .vh-lg-100 {height: 100vh;}
 
     .pl-lg--5 {padding-left: 3rem !important;}
