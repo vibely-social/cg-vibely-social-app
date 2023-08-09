@@ -1,5 +1,8 @@
 function Login() {
-    return ( <></> );
+    return (
+        <>
+            <h1>hello</h1>
+        </>
+    )
 }
-
-export default Login;
+export default Login

@@ -1,6 +1,6 @@
  const SidebarData = [
     {
-        icon: 'feather-home bg-blue-gradiant',
+        icon: 'feather-Home bg-blue-gradiant',
         path: '/',
         heading: 'Trang chủ'
     },

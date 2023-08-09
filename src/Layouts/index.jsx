@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import React from "react";
 
 function Layouts({ children}) {
     
@@ -9,7 +10,7 @@ function Layouts({ children}) {
             <Sidebar />
             <div className="main-content">
               <div className="middle-sidebar-bottom">
-                <div className="middle-sidebar-left pe-0">
+                <div className="middle-sidebar-left">
                    {children}
                 </div>
               </div>
