@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import RightChat from "../components/RightChat";
 
 function Layouts({ children}) {
     
@@ -14,6 +15,7 @@ function Layouts({ children}) {
                 </div>
               </div>
             </div>
+            <RightChat />
       </div>  
      );
 }

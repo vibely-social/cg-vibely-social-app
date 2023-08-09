@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function Home() {
+function Feeds() {
   const [show, setShow] = useState(false);
   const [showComment, setShowComment] = useState(false);
 
@@ -14,45 +14,104 @@ function Home() {
     setShowComment(!showComment);
   };
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
   return (
     <div className="color-theme-green">
       <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
         <div className="card-body p-0"></div>
         <div className="card-body p-0 mt-3 positclassNameNamion-relative">
-          <figure className="avatar position-absolute ms-2 mt-1 top-5">
-            <img
-              src="https://via.placeholder.com/50x50.png"
-              alt="image"
-              className="shadow-sm rounded-circle w30"
-            />
-          </figure>
+          <div className="d-flex align-items-center">
+            <figure className="avatar ms-2 me-2">
+              <img
+                src="https://via.placeholder.com/50x50.png"
+                alt="image"
+                className="shadow-sm rounded-circle w30"
+              />
+            </figure>
 
-          <textarea
-            name="message"
-            className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
-            cols="30"
-            rows="10"
-            placeholder="What's on your mind?"
-            onClick={handleShow}
-            readOnly
-          ></textarea>
-
+            <textarea
+              name="message"
+              className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
+              cols="30"
+              rows="10"
+              placeholder="What's on your mind?"
+              onClick={handleShow}
+              readOnly
+            ></textarea>
+          </div>
+          {/* -------------------add your new post------------------- */}
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>Create your post here</Modal.Title>
             </Modal.Header>
+            <div className="d-flex align-items-center">
+              <figure className="avatar me-3">
+                <img
+                  src="https://via.placeholder.com/50x50.png"
+                  alt="image"
+                  className="shadow-sm rounded-circle w45"
+                />
+              </figure>
+              <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                Phuong Thao
+              </h4>
+            </div>
+            <div>
+              <textarea
+                name="message"
+                className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
+                cols="30"
+                rows="10"
+                placeholder="What's on your mind?"
+                onClick={handleShow}
+              ></textarea>
+            </div>
+
             <Modal.Body>
-              Woohoo, you are reading this text in a modal!
+              {/* Woohoo, you are reading this text in a modal! */}
+              <div className="col-xs-4 col-sm-4 p-1">
+                <a
+                  href="https://via.placeholder.com/1200x800.png"
+                  data-lightbox="roadtrip"
+                >
+                  <img
+                    src="https://via.placeholder.com/1200x800.png"
+                    className="rounded-3 w-100"
+                    alt="image"
+                  />
+                </a>
+              </div>
+              <Modal.Body>
+                <div className="d-flex align-items-center">
+                  <a
+                    href="#"
+                    className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                  >
+                    <i className="font-md text-danger feather-video me-2"></i>
+                    <span className="d-none-xs">Live Video</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                  >
+                    <i className="font-md text-success feather-image me-2"></i>
+                    <span className="d-none-xs">Photo/Video</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                  >
+                    <i className="font-md text-warning feather-camera me-2"></i>
+                    <span className="d-none-xs">Feeling/Activity</span>
+                  </a>
+                </div>
+              </Modal.Body>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
               <Button variant="primary" onClick={handleClose}>
-                Save Changes
+                Share your new post
               </Button>
             </Modal.Footer>
           </Modal>
@@ -136,7 +195,7 @@ function Home() {
             </div>
           </div>
         </div>
-        {/* ------------------------------------------------------------------------------- */}
+        {/* -----------------------posted contain-------------------- */}
 
         <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
           <div className="card-body p-0 d-flex">
@@ -216,7 +275,7 @@ function Home() {
               </a>
             </p>
           </div>
-          {/* -------------------------------------------------------------------- */}
+          {/* ------------------show picture in your post------------------- */}
           <div className="card-body d-block p-0">
             <div className="row ps-2 pe-2">
               <div className="col-xs-4 col-sm-4 p-1">
@@ -261,7 +320,7 @@ function Home() {
               </div>
             </div>
           </div>
-          {/* ---------------------------------------------------------------------------- */}
+          {/* -------------------------like and comment----------------------------- */}
           <div className="card-body d-flex p-0 mt-3">
             <a
               href="#"
@@ -412,4 +471,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Feeds;

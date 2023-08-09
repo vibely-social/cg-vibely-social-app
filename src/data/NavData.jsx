@@ -11,12 +11,12 @@ export const NavData = [
     },
     {
         icon: 'feather-clock',
-        path: '/history',
+        path: '/stories',
         url: ''
     },
     {
-        icon: 'feather-users',
-        path: '/customers',
+        icon: 'feather-log-out',
+        path: '/logout',
         url: ''
     }
 ]
