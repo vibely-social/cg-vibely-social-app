@@ -1,5 +1,5 @@
- import Feeds from "../pages/Feeds"
  import Login from "../pages/Login"
+ import Feeds from "../pages/Feeds"
  
 
  const PublicRoutes = [

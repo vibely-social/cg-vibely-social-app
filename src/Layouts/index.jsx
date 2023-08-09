@@ -8,7 +8,7 @@ function Layouts({ children}) {
       <div className="main-wrapper">
             <Header />
             <Sidebar />
-            <div className="main-content">
+            <div className="main-content ">
               <div className="middle-sidebar-bottom">
                 <div className="middle-sidebar-left pe-0">
                    {children}
