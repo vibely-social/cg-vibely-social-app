@@ -3,6 +3,7 @@ import { BrowserRouter,Route, Routes, useLocation } from "react-router-dom";
 import publicRoutes from "../data/RoutesData";
 import NotFound from "../Pages/NotFound";
 import Layouts from "../Layouts/index"
+import Home from "../pages/Home";
 
 
 function AppRoutes(){
@@ -19,6 +20,7 @@ function AppRoutes(){
                     }/>
                 })}
                 <Route path="*" element= {<NotFound />}/>
+                
             </Routes>
     )
 }

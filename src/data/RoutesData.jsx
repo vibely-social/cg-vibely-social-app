@@ -1,4 +1,4 @@
- import Home from "../Pages/Home"
+ import Home from "../pages/Home/index"
  import Login from "../Pages/Login"
  
  
