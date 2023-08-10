@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
-import NavData from "../../Data/NavData"
+import NavData from "../../data/NavData"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
 import Avatar from '../../assets/img/ppl.png'
@@ -75,7 +75,7 @@ function Header() {
 
                 <Dropdown.Menu style={{width: '350px', overflow:'auto'}} className='dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg'>
                 <h5 className="fw-600 font-xs mb-4 text-vibe">Thông báo</h5>
-                    <Dropdown.Item href="#" eventKey="1" style={(notificationItem ==1) ? {backgroundColor : '#DDFDE1'} : {backgroundColor : '#fff'}}  onMouseDown={() => setNotificationItem(1)} className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
+                    <Dropdown.Item href="#" eventKey="1" style={(notificationItem == 1) ? {backgroundColor : '#DDFDE1'} : {backgroundColor : '#fff'}}  onMouseDown={() => setNotificationItem(1)} className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0 "/>
                         <h5 style={{overflow:'auto' , whiteSpace: 'pre-wrap'}} className=" ms-3 mb-2 mt-0 d-block font-xsss text-grey-900"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2 "> 3 phút</h6>

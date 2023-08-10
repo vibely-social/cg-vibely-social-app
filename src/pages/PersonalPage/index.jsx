@@ -5,6 +5,7 @@ import "./index.css"
 import MediaTab from "./Tab/MediaTab/index.jsx";
 import FriendTab from "./Tab/FriendTab/index.jsx";
 
+
 function PersonalPage() {
     const tabs = ["posts", "introduction", "friend", "media"]
     const tabNames = ["Bài viết", "Giới thiệu", "Bạn bè", "Phương tiện"]
