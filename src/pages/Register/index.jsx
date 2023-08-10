@@ -16,8 +16,6 @@ function Register() {
             name: Yup
                 .string()
                 .required("You must fill in this section!"),
-            // .matches(/^[A-Za-z]+$/,
-            //     "Wrong name, name can't have number !"),
             email: Yup
                 .string()
                 .required("You must fill in this section!")
