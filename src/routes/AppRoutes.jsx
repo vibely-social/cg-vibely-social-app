@@ -19,10 +19,8 @@ function AppRoutes() {
                             <Page/> :
                                 <Layouts><Page/></Layouts>
                     }/>
-
                 })}
                 <Route path="*" element= {<NotFound />}/>
-                
             </Routes>
     )
 }
