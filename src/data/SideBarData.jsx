@@ -8,6 +8,9 @@ import  ppl  from '../assets/img/ppl.png'
  
  const SidebarData = [
     {
+// <<<<<<< HEAD
+//         icon: 'feather-Home bg-blue-gradiant',
+// =======
         icon: ppl,
         path: '/profile',
         heading: 'Thành Nguyễn'
@@ -24,6 +27,7 @@ import  ppl  from '../assets/img/ppl.png'
     },
     {
         icon: newfeedNav,
+// >>>>>>> d13986e03ce5a0fb7376b9c4c4cd53912959a269
         path: '/',
         heading: 'Feeds'
     },

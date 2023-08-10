@@ -1,19 +1,6 @@
-@import "./abstract/abstract";
-@import "bootstrap-scss/bootstrap.scss";
-@import "bootstrap/scss/bootstrap";
-@import "owl.carousel/dist/assets/owl.carousel.min.css";
-@import "owl.carousel/dist/assets/owl.theme.default.css";
-@import '../../assets/css/feather.css';
-@import '../../assets/css/themify-icons.css';
-
-@import "../../assets/css/themify-icons.css";
-@import "../../assets/css/feather.css";
-
-@import "./base/base";
-@import "./components/components";
 @import 'normalize.css';
+@import '../../assets/scss/main.scss';
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap%22");
-// @import 'bootstrap/scss/bootstrap';
 
 :root{
     --primary: #a61005;
@@ -42,7 +29,3 @@ body{
     color: inherit;
     text-decoration: none;
   }
-
-
-
-

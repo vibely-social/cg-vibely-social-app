@@ -1,13 +1,10 @@
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import SidebarData from '../../data/SideBarData'
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 import useViewport from "../../hooks/Viewport";
-import { useRef ,useState,useEffect } from "react";
+import {useEffect, useRef, useState} from "react";
 import Container from 'react-bootstrap/Container';
-import { Button, ListGroup } from "react-bootstrap";
-import UseAnimations from 'react-useanimations';
-import maximizeMinimize2 from 'react-useanimations/lib/maximizeMinimize2'
-
+import {ListGroup} from "react-bootstrap";
 
 
 function Sidebar() {
