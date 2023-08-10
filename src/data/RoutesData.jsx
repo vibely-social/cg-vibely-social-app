@@ -1,10 +1,11 @@
- import Login from "../pages/Login"
- import Feeds from "../pages/Feeds"
- 
+import Login from "../pages/Login"
+import PersonalPage from "../pages/PersonalPage";
+import Feeds from "../pages/Feeds"
 
- const PublicRoutes = [
-    { path: '/' , component: Feeds},
-    { path: '/login' , component: Login, layout: null},
+const publicRoutes = [
+    {path: '/profile', component: PersonalPage,},
+    {path: '/Login', component: Login, layout: null},
+    {path: '/', component: Feeds},
 ]
 
-export default PublicRoutes
+export default publicRoutes;

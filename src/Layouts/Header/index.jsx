@@ -1,12 +1,10 @@
-import { Link , useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
 import NavData from "../../Data/NavData"
 import Dropdown from 'react-bootstrap/Dropdown';
-import React from 'react';
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import Avatar from '../../assets/img/ppl.png'
 import Logo from '../../assets/img/logo.svg'
-import { event } from 'jquery';
 import ava from "../../assets/img/ava.jpg"
 import "./index.css"
 import { Form , FormGroup} from 'react-bootstrap';
