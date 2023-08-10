@@ -8,10 +8,14 @@ import '../node_modules/jquery/dist/jquery.js'
 import './assets/js/scripts.js'
 import '../node_modules/owl.carousel/dist/owl.carousel.js'
 import 'bootstrap/dist/js/bootstrap.bundle'
+import {Provider} from "react-redux";
+import {store} from "./app/store.js";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
       <GlobalStyles>
-        <App />
+          <Provider store={store}>
+              <App/>
+          </Provider>
       </GlobalStyles>
 )
 
