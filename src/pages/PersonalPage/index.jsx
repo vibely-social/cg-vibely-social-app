@@ -1,9 +1,9 @@
 import {useState} from "react";
-import PostTab from "../../components/PostTab/index.jsx";
-import IntroductionTab from "../../components/IntroductionTab/index.jsx";
+import PostTab from "./Tab/PostTab/index.jsx";
+import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
 import "./index.css"
-import MediaTab from "../../components/MediaTab/index.jsx";
-import FriendTab from "../../components/FriendTab/index.jsx";
+import MediaTab from "./Tab/MediaTab/index.jsx";
+import FriendTab from "./Tab/FriendTab/index.jsx";
 
 function PersonalPage() {
     const tabs = ["posts", "introduction", "friend", "media"]

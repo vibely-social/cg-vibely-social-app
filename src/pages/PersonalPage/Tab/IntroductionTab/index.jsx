@@ -1,17 +1,20 @@
-import Infomation from "./Infomation/index.jsx";
+import WorkAndStudy from "./Infomation/WorkAndStutdy/index.jsx";
 import {useState} from "react";
 import "./index.css"
+import Contact from "./Infomation/Contact/index.jsx";
+import UserDetail from "./Infomation/UserDetail/index.jsx";
+import OverView from "./Infomation/OverView/index.jsx";
 
 function IntroductionTab() {
-    const tabs = ["Tổng quan", "Công việc và học vấn", "Thông tin liên hệ cơ bản", "Gia đình và các mối quan hệ", "Chi tiết về bạn"]
+    const tabs = ["Tổng quan", "Công việc và học vấn", "Thông tin liên hệ cơ bản", "Chi tiết về bạn"]
 
     const [type, setType] = useState("Tổng quan")
 
     return (
         <>
-            <div className="card w-100 shadow-xss rounded-xxl border-0 d-block font-xssss text-grey-500 mt-3">
+            <div className="card w-100 shadow-xss rounded-xxl border-0 d-block font-xssss text-grey-500 mt-3" style={{height: 600}}>
                 <div className="card-body d-block font-xssss text-grey-500 p-4">
-                    <h3 className="fw-700 d-block font-xssss text-grey-500 font-xsss text-grey-900">About</h3>
+                    <h3 className="fw-700 d-block font-xssss text-grey-500 font-xsss text-grey-900">Giới thiệu</h3>
                 </div>
                 <div className="card-body">
                     <div className="row">
@@ -27,7 +30,13 @@ function IntroductionTab() {
                             ))}
                         </div>
                         <div className="col-lg-8">
-                            <Infomation/>
+                            {
+                                type === 'Tổng quan' ? <OverView/>
+                                    : type === 'Công việc và học vấn' ? <WorkAndStudy/>
+                                        : type === 'Thông tin liên hệ cơ bản' ? <Contact/>
+                                            : <UserDetail/>
+                            }
+
                         </div>
                     </div>
                 </div>
