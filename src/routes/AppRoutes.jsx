@@ -11,19 +11,13 @@ function AppRoutes() {
             {publicRoutes.map((route, index) => {
                 const Page = route.component;
                 const Layout = route.layout;
-                const Tab = route.tab;
                 return <Route
                     key={index}
                     path={route.path}
                     element={
                         Layout === null ?
-                            <Page/> : Tab === null ?
-                                <Layouts><Page/></Layouts> :
-                                <Layouts>
-                                    <Page>
-                                        <Tab/>
-                                    </Page>
-                                </Layouts>
+                            <Page/> :
+                                <Layouts><Page/></Layouts>
                     }/>
             })}
             <Route path="*" element={<NotFound/>}/>

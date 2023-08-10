@@ -1,35 +1,37 @@
+import Infomation from "./Infomation/index.jsx";
+import {useState} from "react";
+import "./index.css"
+
 function IntroductionTab() {
+    const tabs = ["Tổng quan", "Công việc và học vấn", "Thông tin liên hệ cơ bản", "Gia đình và các mối quan hệ", "Chi tiết về bạn"]
+
+    const [type, setType] = useState("Tổng quan")
+
     return (
         <>
-                <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
-                    <div className="card-body d-block p-4">
-                        <h4 className="fw-700 mb-3 font-xsss text-grey-900">About</h4>
-                        <p className="fw-500 text-grey-500 lh-24 font-xssss mb-0">Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi.
-                            Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus</p>
-                    </div>
-                    <div className="card-body border-top-xs d-flex">
-                        <i className="feather-lock text-grey-500 me-3 font-lg"></i>
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-0">Private <span
-                            className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">Whats up, how are you?</span>
-                        </h4>
-                    </div>
-
-                    <div className="card-body d-flex pt-0">
-                        <i className="feather-eye text-grey-500 me-3 font-lg"></i>
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-0">Visble <span
-                            className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">Anyone can find you</span>
-                        </h4>
-                    </div>
-                    <div className="card-body d-flex pt-0">
-                        <i className="feather-map-pin text-grey-500 me-3 font-lg"></i>
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">Flodia, Austia </h4>
-                    </div>
-                    <div className="card-body d-flex pt-0">
-                        <i className="feather-users text-grey-500 me-3 font-lg"></i>
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">Genarel Group</h4>
+            <div className="card w-100 shadow-xss rounded-xxl border-0 d-block font-xssss text-grey-500 mt-3">
+                <div className="card-body d-block font-xssss text-grey-500 p-4">
+                    <h3 className="fw-700 d-block font-xssss text-grey-500 font-xsss text-grey-900">About</h3>
+                </div>
+                <div className="card-body">
+                    <div className="row">
+                        <div className="col-lg-4 border-end ps-4 align-items-center">
+                            {tabs.map((tab) => (
+                                <span onClick={() => setType(tab)}
+                                      key={tab}
+                                      className={type === tab ?
+                                          "cursor-pointer p-2 fw-600 d-block font-xss text-grey-800 mb-2 bg-lightblue rounded-2 ps-2" :
+                                          "cursor-pointer p-2 d-block font-xsss text-grey-800 mb-2 hover-item"}>
+                                    {tab}
+                                </span>
+                            ))}
+                        </div>
+                        <div className="col-lg-8">
+                            <Infomation/>
+                        </div>
                     </div>
                 </div>
+            </div>
 
         </>
     )

@@ -1,18 +1,15 @@
-import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import PostTab from "../../components/PostTab/index.jsx";
+import IntroductionTab from "../../components/IntroductionTab/index.jsx";
+import "./index.css"
+import MediaTab from "../../components/MediaTab/index.jsx";
+import FriendTab from "../../components/FriendTab/index.jsx";
 
-function PersonalPage({children}) {
+function PersonalPage() {
     const tabs = ["posts", "introduction", "friend", "media"]
-    const tabNames = ["Posts", "Introduction", "Friend", "Media"]
+    const tabNames = ["Bài viết", "Giới thiệu", "Bạn bè", "Phương tiện"]
 
     const [type, setType] = useState("posts")
-
-    const param = window.location.href
-    const currentTab = param.substring(30)
-
-    useEffect(()=>{
-        setType(currentTab);
-    },[currentTab])
 
     return (<>
 
@@ -84,14 +81,14 @@ function PersonalPage({children}) {
                         <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
                             id="pills-tab" role="tablist">
                             {tabs.map((tab, index) => (
-                                <li key={tab} className="active list-inline-item me-5">
-                                    <Link to={`/profile/${tab}`} data-toggle="tab"
+                                <li key={tab} className="list-inline-item me-5 ">
+                                    <span data-toggle="tab"
                                           onClick={() => setType(tab)}
                                           className={type === tab ?
-                                              "fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active" :
-                                              "fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block"}>
+                                              "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer focus-item" :
+                                              "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
                                         {tabNames[index]}
-                                    </Link>
+                                    </span>
                                 </li>
                             ))}
                         </ul>
@@ -99,7 +96,12 @@ function PersonalPage({children}) {
                 </div>
             </div>
             <div className="col-lg-12">
-                {children}
+                {
+                    type === 'posts' ? <PostTab/>
+                        : type === 'introduction' ? <IntroductionTab/>
+                            : type === 'friend' ? <FriendTab/>
+                                : <MediaTab/>
+                }
             </div>
         </div>
     </>);
