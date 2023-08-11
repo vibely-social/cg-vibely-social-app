@@ -447,11 +447,8 @@ function Feeds() {
                   />
                 </div>
             </div>
-            
           </div>
-
-      </Card>
-      
+         </Card>
         </Col>
         <RightFeed />
     </Row>

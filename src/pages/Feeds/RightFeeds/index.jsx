@@ -3,35 +3,35 @@ import { Col, Card, CardGroup } from "react-bootstrap";
 
 function RightFeed() {
     return ( <Col xl={4} xxl={3} lg={4}>
-                  <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3">
+              <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3">
                 <div className="card-body d-flex align-items-center">
                   <h4 className="fw-700 mb-0 font-xssss text-grey-900">Friend Request</h4>
                   <Link to="/friends" className="fw-600 ms-auto font-xssss text-primary">See all</Link>
                 </div>
-                <div className="card-body d-flex pt-4 ps-4 pe-4 pb-0 border-top-xs bor-0">
+                <Card.Body className="d-flex pt-4 ps-4 pe-4 pb-0 border-top-xs bor-0">
                   <figure className="avatar me-3"><img src="https://via.placeholder.com/50x50.png" alt="image" className="shadow-sm rounded-circle w45" /></figure>
                   <h4 className="fw-700 text-grey-900 font-xssss mt-1">Anthony Daugloi <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">12 mutual friends</span></h4>
-                </div>
-                <div className="card-body d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
+                </Card.Body>
+                <Card.Body className="d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
                   <a href="#" className="p-2 lh-20 w100 bg-primary-gradiant me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl">Confirm</a>
                   <a href="#" className="p-2 lh-20 w100 bg-grey text-grey-800 text-center font-xssss fw-600 ls-1 rounded-xl">Delete</a>
-                </div>
-                <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0">
+                </Card.Body>
+                <Card.Body className="d-flex pt-0 ps-4 pe-4 pb-0">
                   <figure className="avatar me-3"><img src="https://via.placeholder.com/50x50.png" alt="image" className="shadow-sm rounded-circle w45" /></figure>
                   <h4 className="fw-700 text-grey-900 font-xssss mt-1">Mohannad Zitoun <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">12 mutual friends</span></h4>
-                </div>
-                <div className="card-body d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
+                </Card.Body>
+                <Card.Body className="d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
                   <a href="#" className="p-2 lh-20 w100 bg-primary-gradiant me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl">Confirm</a>
                   <a href="#" className="p-2 lh-20 w100 bg-grey text-grey-800 text-center font-xssss fw-600 ls-1 rounded-xl">Delete</a>
-                </div>
-                <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0">
+                </Card.Body>
+                <Card.Body className="d-flex pt-0 ps-4 pe-4 pb-0">
                   <figure className="avatar me-3"><img src="https://via.placeholder.com/50x50.png" alt="image" className="shadow-sm rounded-circle w45" /></figure>
                   <h4 className="fw-700 text-grey-900 font-xssss mt-1">Mohannad Zitoun <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">12 mutual friends</span></h4>
-                </div>
-                <div className="card-body d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
+                </Card.Body>
+                <Card.Body className="d-flex align-items-center pt-0 ps-4 pe-4 pb-4">
                   <a href="#" className="p-2 lh-20 w100 bg-primary-gradiant me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl">Confirm</a>
                   <a href="#" className="p-2 lh-20 w100 bg-grey text-grey-800 text-center font-xssss fw-600 ls-1 rounded-xl">Delete</a>
-                </div>
+                </Card.Body>
               </Card>
               <div className="card w-100 shadow-xss rounded-xxl border-0 p-0 ">
                 <div className="card-body d-flex align-items-center p-4 mb-0">

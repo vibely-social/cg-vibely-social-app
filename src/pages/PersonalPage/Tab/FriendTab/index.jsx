@@ -7,7 +7,6 @@ function FriendTab() {
                 </div>
 
             </div>
-
         </>
     )
 }

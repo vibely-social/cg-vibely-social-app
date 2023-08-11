@@ -7,9 +7,11 @@ import Avatar from '../../../assets/img/ppl.png'
 import Logo from '../../../assets/img/logo.svg'
 import ava from "../../../assets/img/ava.jpg"
 import { Form , FormGroup} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { toggleChatButton } from '../../../store/slices/toggleChat/index.js';
 
 function Header() { 
-    
+    const dispatch = useDispatch();
     let isFocusNotification = false;
     const [notificationItem,setNotificationItem] = useState(0);
     const [isOnMess,setIsOnMess] = useState(false);
@@ -93,6 +95,7 @@ function Header() {
                 </Dropdown.Menu>
             </Dropdown>
                 <motion.a 
+                    onClick={() => dispatch(toggleChatButton()) }
                      whileHover={{ scale: [null, 1.4, 1.3] }}
                      transition={{ duration: 0.3 }}  onClickCapture={() => {let mess = isOnMess ;setIsOnMess(!mess)}} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
                         <i style={{fontSize: '1.5rem'}}

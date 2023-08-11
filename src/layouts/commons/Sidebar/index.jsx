@@ -5,7 +5,7 @@ import useViewport from "../../../hooks/Viewport.jsx";
 import {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
-import  {toggle, selectSidebarPosition} from '../../../features/toggleSidebar/sidebarSlice'
+import  {toggle, selectSidebarPosition} from '../../../store/slices/toggleSidebar/'
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -14,7 +14,6 @@ function Sidebar({collapse = false}) {
     const viewPort = useViewport();
     const [isMobile, setIsMobile] = useState(false)
     const [sidebarHover, setSidebarHover] = useState(false)
-    // const [menuPosition, setMenuPosition] = useState(collapse)
     const position = useSelector(selectSidebarPosition)
     const dispatch = useDispatch()
 
