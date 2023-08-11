@@ -13,8 +13,7 @@ function Feeds() {
         setShowComment(!showComment);
     };
 
-    return (
-        <div className='middle-sidebar-bottom'>
+    return (<div className='middle-sidebar-bottom'>
             <div className=''>
                 <div className="row feed-body">
                     <div className="col-xl-10 col-xxl-10 col-lg-8">
@@ -454,26 +453,17 @@ function Feeds() {
                                 {/* ------------------create-commnet-frame---------------------------- */}
 
                                 <div>
-                                    {showComment ? (
-                                        <div className="card">
+                                    {showComment ? (<div className="card">
                                             <h4>hello Thao</h4>
-                                        </div>
-                                    ) : (
-                                        <></>
-                                    )}
+                                        </div>) : (<></>)}
                                 </div>
                             </div>
                         </div>
-
-
                         <RightFeed/>
-
-
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
 }
 
 export default Feeds;
