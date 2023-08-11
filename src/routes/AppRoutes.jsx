@@ -2,7 +2,6 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import publicRoutes from "../data/RoutesData";
 import NotFound from "../pages/NotFound";
-import Layouts from "../Layouts/index"
 
 
 function AppRoutes() {
@@ -15,9 +14,9 @@ function AppRoutes() {
                     key={index}
                     path={route.path}
                     element={
-                        Layout === null ?
-                            <Page/> :
-                                <Layouts><Page/></Layouts>
+                        Layout === null
+                            ? <Page/>
+                            : <Layout><Page/></Layout>
                     }/>
 
                 })}

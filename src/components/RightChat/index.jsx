@@ -1,13 +1,7 @@
 import { ListGroup } from "react-bootstrap";
 import { useState } from "react";
 
-function RightChat({onClick}) {
-    const [activeChat,setActiveChat] = useState(false);
-
-
-    const openChat = () => {
-
-    }
+function RightChat() {
 
 
     return ( 

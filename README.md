@@ -1,21 +1,21 @@
-#cg-vibely-social-app
-- Required:
-  npm install -D sass
-  npm i framer-motion
-  npm i react-bootstrap
-  npm i bootstrap
-  npm i jquery
-  npm i @mui/icons-material
-  npm i @reduxjs/toolkit
-  npm i bootstrap-scss
-  npm i feather-icons
-  npm i modernizr
-  npm i normalize.css
-  npm i owl.carousel
-  npm i @popperjs/core
-  npm i web-vitals
-  npm i react-router-dom
-  npm install -S react-useanimations
-  npm install react-spinners --save
-
+## cg-vibely-social-app
+## Required:
+  `npm install -D sass`
+  `npm install framer-motion`
+  `npm install react-bootstrap`
+  `npm install bootstrap`
+  `npm install jquery`
+  `npm install @mui/icons-material`
+  `npm install @reduxjs/toolkit`
+  `npm install bootstrap-scss`
+  `npm install feather-icons`
+  `npm install modernizr`
+  `npm install normalize.css`
+  `npm install owl.carousel`
+  `npm install @popperjs/core`
+  `npm install web-vitals`
+  `npm install react-router-dom`
+  `npm install -S react-useanimations`
+  `npm install prime-react`
+  `npm install react-redux`
 # Designed by Facogi team

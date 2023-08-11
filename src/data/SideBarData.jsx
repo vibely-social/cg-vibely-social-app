@@ -30,7 +30,7 @@ import  mess from "../assets/img/messenger.png"
     },
     {
         icon: mess,
-        path: '/messages',
+        path: '/messenger',
         heading: 'Messenger'
     },
     {
