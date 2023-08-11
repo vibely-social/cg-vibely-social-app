@@ -1,14 +1,25 @@
 import Header from "../commons/Header/index.jsx";
-import Sidebar from "../commons/Sidebar/index.jsx";
+import Sidebar from "../commons/Sidebar";
 import RightChat from "../../components/RightChat/index.jsx";
 import {useSelector} from "react-redux";
-import {selectSidebarPosition} from "../../features/toggleSidebar/sidebarSlice.js";
+import { useEffect,useState } from "react";
+import PreLoader from '../../components/Preloader'
+import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
 
 // eslint-disable-next-line react/prop-types
 function MainLayout({children}) {
     const position = useSelector(selectSidebarPosition)
 
-    return (
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }, []);
+
+    return (<>
+        {isLoading ? (<PreLoader />) :
         <div className="main-wrapper">
             <Header/>
             <Sidebar collapse={false}/>
@@ -20,7 +31,8 @@ function MainLayout({children}) {
                 </div>
             </div>
             <RightChat/>
-        </div>
+        </div>}
+        </>
     );
 }
 

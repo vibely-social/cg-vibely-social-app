@@ -6,11 +6,12 @@ import {motion} from 'framer-motion';
 import Avatar from '../../../assets/img/ppl.png'
 import Logo from '../../../assets/img/logo.svg'
 import ava from "../../../assets/img/ava.jpg"
-import "./index.css"
 import { Form , FormGroup} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { toggleChatButton } from '../../../store/slices/toggleChat/index.js';
 
 function Header() { 
-    
+    const dispatch = useDispatch();
     let isFocusNotification = false;
     const [notificationItem,setNotificationItem] = useState(0);
     const [isOnMess,setIsOnMess] = useState(false);
@@ -25,6 +26,7 @@ function Header() {
                 onClick(e);
                 isFocusNotification = !isFocusNotification
             }}
+            style={{fontSize: '1.5rem'}}
             className={isFocusNotification ? ' btn-round-md text-vibe bg-vibe-light' : ' btn-round-md text-grey-500 bg-greylight'}
             >
             <span  className="dot-count bg-warning"></span><i className="feather-bell"></i>
@@ -39,7 +41,7 @@ function Header() {
                   whileHover={{ scale: 1.2 }}
                   onHoverStart={e => {}}
                   onHoverEnd={e => {}}
-                  style={{maxWidth: 50}} className='d-inline-block logo-nav' src={Logo} /></Link>
+                  style={{maxWidth: 50}} className='d-inline-block  logo-nav' src={Logo} /></Link>
                 <a href="src/layouts/commons/Header#" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="default-video.html" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="src/layouts/commons/Header#" className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -74,32 +76,35 @@ function Header() {
                 <Dropdown.Toggle  as={CustomToggle}  />
 
                 <Dropdown.Menu style={{width: '350px', overflow:'auto'}} className='dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg'>
-                <h5 className="fw-600 font-xs mb-4 text-vibe">Thông báo</h5>
+                <h5 className="fw-700 font-xs mb-4 text-vibe">Notifications</h5>
                     <Dropdown.Item href="#" eventKey="1" style={(notificationItem == 1) ? {backgroundColor : '#DDFDE1'} : {backgroundColor : '#fff'}}  onMouseDown={() => setNotificationItem(1)} className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0 "/>
-                        <h5 style={{overflow:'auto' , whiteSpace: 'pre-wrap'}} className=" ms-3 mb-2 mt-0 d-block font-xsss text-grey-900"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
+                        <h5 style={{whiteSpace: 'pre-wrap'}} className=" ms-3 mb-2 mt-0 d-block font-xsss text-grey-900"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2 "> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item href="#" eventKey="2" style={(notificationItem == 2) ? {backgroundColor : '#DDFDE1'} : {backgroundColor : '#fff'}}  onMouseDown={() => setNotificationItem(2)} className='card bg-transparent-card w-100 border-0 ps-5   mb-2'>
                     <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
-                        <h5 style={{overflow:'auto' , whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
+                        <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item href="#" eventKey="3" style={(notificationItem == 3) ? {backgroundColor : '#DDFDE1'} : {backgroundColor : '#fff'}}  onMouseDown={() => setNotificationItem(3)}  className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                     <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
-                        <h5 style={{overflow:'auto' , whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
+                        <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block"><span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-0"> 3 phút</h6>
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
                 <motion.a 
+                    onClick={() => dispatch(toggleChatButton()) }
                      whileHover={{ scale: [null, 1.4, 1.3] }}
-                     transition={{ duration: 0.3 }} href="#" onClickCapture={() => {let test = isOnMess ;setIsOnMess(!test)}} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
-                        <i className={isOnMess ? "feather-message-square btn-round-md bg-vibe-light text-vibe" : "feather-message-square btn-round-md  bg-greylight text-grey-500"}></i></motion.a>
+                     transition={{ duration: 0.3 }}  onClickCapture={() => {let mess = isOnMess ;setIsOnMess(!mess)}} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
+                        <i style={{fontSize: '1.5rem'}}
+                        className={isOnMess ? "feather-message-square btn-round-md bg-vibe-light text-vibe" : "feather-message-square btn-round-md  bg-greylight text-grey-500"}></i></motion.a>
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{ scale: [null, 1.5, 1.4] }}
                     transition={{ duration: 0.3 }} src={Avatar} alt="user" className="w35 mt--1"/></Link>
+                        
         </div>
     ); 
 }
