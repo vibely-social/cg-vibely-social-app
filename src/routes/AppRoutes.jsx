@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import publicRoutes from "../data/RoutesData";
 import NotFound from "../pages/NotFound";
-import Layouts from "../Layouts/index"
+import Layouts from "../layouts/index"
 
 
 function AppRoutes() {

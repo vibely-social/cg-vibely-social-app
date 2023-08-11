@@ -6,13 +6,11 @@ import MediaTab from "./Tab/MediaTab/index.jsx";
 import FriendTab from "./Tab/FriendTab/index.jsx";
 
 function PersonalPage() {
-    const tabs = ["posts", "introduction", "friend", "media"]
-    const tabNames = ["Bài viết", "Giới thiệu", "Bạn bè", "Phương tiện"]
+    const tabs = ["Posts", "About", "Friends", "Media"]
 
-    const [type, setType] = useState("posts")
+    const [type, setType] = useState("Posts")
 
     return (<>
-
         <div className="row">
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
@@ -87,7 +85,7 @@ function PersonalPage() {
                                           className={type === tab ?
                                               "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer focus-item" :
                                               "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
-                                        {tabNames[index]}
+                                        {tab}
                                     </span>
                                 </li>
                             ))}
@@ -97,9 +95,9 @@ function PersonalPage() {
             </div>
             <div className="col-lg-12">
                 {
-                    type === 'posts' ? <PostTab/>
-                        : type === 'introduction' ? <IntroductionTab/>
-                            : type === 'friend' ? <FriendTab/>
+                    type === 'Posts' ? <PostTab/>
+                        : type === 'About' ? <IntroductionTab/>
+                            : type === 'Friends' ? <FriendTab/>
                                 : <MediaTab/>
                 }
             </div>

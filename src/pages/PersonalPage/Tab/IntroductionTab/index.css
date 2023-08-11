@@ -3,6 +3,10 @@
     border-radius: 4px;
 }
 
+.hover-button:hover {
+    background-color: #cacad0;
+}
+
 .hover-underline:hover {
     text-decoration: underline;
 }

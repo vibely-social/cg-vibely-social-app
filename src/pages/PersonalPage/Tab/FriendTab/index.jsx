@@ -5,9 +5,7 @@ function FriendTab() {
                 <div className="card-body d-block p-4" style={{height: 400}}>
                     <h4 className="fw-700 mb-3 font-xsss text-grey-900">Friend List</h4>
                 </div>
-
             </div>
-
         </>
     )
 }
