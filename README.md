@@ -16,5 +16,6 @@
   npm i web-vitals
   npm i react-router-dom
   npm install -S react-useanimations
+  npm install react-spinners --save
 
 # Designed by Facogi team

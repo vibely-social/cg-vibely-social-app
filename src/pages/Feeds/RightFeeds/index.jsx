@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
+
 function RightFeed() {
-    return ( 
- <div className="col-xl-4 col-xxl-3 col-lg-4 ps-md-0">
-  <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3">
-    <div className="card-body d-flex align-items-center p-4">
+    return ( <div className="col-xl-4 col-xxl-3 col-lg-4 ">
+       <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+    <div className="card-body d-flex align-items-center">
       <h4 className="fw-700 mb-0 font-xssss text-grey-900">Friend Request</h4>
-      <a href="#" className="fw-600 ms-auto font-xssss text-primary">See all</a>
+      <Link to="/friends" className="fw-600 ms-auto font-xssss text-primary">See all</Link>
     </div>
     <div className="card-body d-flex pt-4 ps-4 pe-4 pb-0 border-top-xs bor-0">
       <figure className="avatar me-3"><img src="https://via.placeholder.com/50x50.png" alt="image" className="shadow-sm rounded-circle w45" /></figure>
@@ -108,7 +109,6 @@ function RightFeed() {
     </div>
   </div>
 </div>
-
      );
 }
 

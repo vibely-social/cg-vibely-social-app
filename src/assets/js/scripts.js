@@ -5,27 +5,6 @@ $(document).ready(function() {
     PageScroll();
 
 
-    // Loading Box (Preloader)
-    function handlePreloader() {
-        if ($('.preloader').length > 0) {
-            $('.preloader').delay(200).fadeOut(500);
-        }
-    }
-
-    function PageLoad() {
-      $( window ).on( "load", function() {
-            setInterval(function(){ 
-                $('.preloader-wrap').fadeOut(300);
-            }, 400);
-            setInterval(function(){ 
-                $('body').addClass('loaded');
-            }, 600); 
-      });
-    }
-
-
-    handlePreloader();
-    PageLoad();
 
     $('.carousel-card').owlCarousel({
         loop:false,
@@ -290,14 +269,14 @@ $(document).ready(function() {
         return false;
     });
 
-    $(window).resize(function(){
-        if($(this).width() < 1000){
-            $('.right-chat').removeClass('active-sidebar');
-        }
-        else{
-            $('.right-chat').addClass('active-sidebar');
-        }
-    })
+    // $(window).resize(function(){
+    //     if($(this).width() < 1000){
+    //         $('.right-chat').removeClass('active-sidebar');
+    //     }
+    //     else{
+    //         $('.right-chat').addClass('active-sidebar');
+    //     }
+    // })
 
     
 
@@ -365,29 +344,6 @@ $(document).ready(function() {
         }
     });
     
-    $('.toggle-screen input').on('change', function () {
-        if (this.checked) {
-            $('body').addClass('theme-full');
-        } else {
-            $('body').removeClass('theme-full');
-        }
-    });
-    
-    
-    $('.toggle-dark input').on('change', function () {
-        if (this.checked) {
-            $('body').addClass('theme-dark');
-        } else {
-            $('body').removeClass('theme-dark');
-        }
-    });
-
-    $('input[name="color-radio"]').on('change', function () {
-        if (this.checked) {
-          $('body').removeClass('color-theme-teal color-theme-cadetblue color-theme-pink color-theme-deepblue color-theme-blue color-theme-red color-theme-black color-theme-gray color-theme-orange color-theme-yellow color-theme-green color-theme-white color-theme-brown color-theme-darkgreen color-theme-deeppink color-theme-darkorchid');
-          $('body').addClass('color-theme-' + $(this).val());
-        }
-    });
 
     
 

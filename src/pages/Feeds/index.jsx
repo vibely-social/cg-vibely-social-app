@@ -15,11 +15,12 @@ function Feeds() {
     setShowComment(!showComment);
   };
 
-  return (
-    <div class="row feed-body">
-      <div class="col-xl-8 col-xxl-9 col-lg-8">
+  return (<>
 
-      <div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0"></div>
+    <div className="row feed-body" >
+      <div className="col-xl-8 col-xxl-9 col-lg-8">
+
+      <div className="card shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0"></div>
 
           <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
             <div className="card-body p-0"></div>
@@ -445,7 +446,6 @@ function Feeds() {
                   <i className="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
                   <input
                     type="text"
-                    value="https://socia.be/1rGxjoJKVF0"
                     className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg"
                   />
                 </div>
@@ -462,16 +462,18 @@ function Feeds() {
                 )}
               </div>
             </div>
+            
           </div>
 
-          
-          <RightFeed/>
+
 
 
 
 
       </div>
+        <RightFeed />
     </div>
+    </>
   );
 }
 
