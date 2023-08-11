@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
-import NavData from "../../data/NavData"
+import NavData from "../../../data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
-import Avatar from '../../assets/img/ppl.png'
-import Logo from '../../assets/img/logo.svg'
-import ava from "../../assets/img/ava.jpg"
+import Avatar from '../../../assets/img/ppl.png'
+import Logo from '../../../assets/img/logo.svg'
+import ava from "../../../assets/img/ava.jpg"
 import "./index.css"
 import { Form , FormGroup} from 'react-bootstrap';
 
@@ -40,12 +40,12 @@ function Header() {
                   onHoverStart={e => {}}
                   onHoverEnd={e => {}}
                   style={{maxWidth: 50}} className='d-inline-block logo-nav' src={Logo} /></Link>
-                <a href="#" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="src/layouts/commons/Header#" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="default-video.html" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="#" className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="src/layouts/commons/Header#" className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <button className="nav-menu me-0 ms-2"></button> 
             </div>
-            <Form action="#" className="float-left header-search">
+            <Form action="src/layouts/commons/Header#" className="float-left header-search">
                 <FormGroup className=" mb-0 icon-input">
                     <i className="feather-search font-md text-grey-400 me-2 "></i>
                     <input type="text" placeholder="search on vibely..." className="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg"/>
