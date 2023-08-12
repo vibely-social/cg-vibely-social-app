@@ -14,10 +14,91 @@ function Feeds() {
         setShowComment(!showComment);
     };
 
-    return (
-    <Row className="feed-body">
-        <Col xl={8} xxl={9} lg={8} >
-                        <Card  className=" w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0"></Card>
+                return (
+                <Row className="feed-body">
+                    <Col xl={8} xxl={9}   >
+
+                        <div className="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
+                        <div className="owl-carousel category-card owl-theme overflow-hidden nav-none">
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <span className="btn-round-lg bg-white"><i className="feather-plus font-lg" /></span>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Add Story </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Victor Exrixon </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Surfiya Zakir </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">David Goria </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">David Goria </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">David Goria </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="item">
+                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
+                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                                    <div className="clearfix" />
+                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Seary Victor </h4>
+                                </a>
+                                </div>
+                            </div>
+                            </div>  
+                        </div>
+                        </div>
 
                         <Card className=" w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                             <Card.Body className=" p-0"></Card.Body>

@@ -11,19 +11,26 @@ function MainLayout({children}) {
     const position = useSelector(selectSidebarPosition)
 
     const [isLoading, setIsLoading] = useState(true);
+    const [loader,setLoader] = useState(false)
 
     useEffect(() => {
       setTimeout(() => {
         setIsLoading(false);
+      }, 1000);
+      setTimeout(() => {
+        setLoader(true);
       }, 2000);
     }, []);
 
+
+
     return (<>
-        {isLoading ? (<PreLoader />) :
+        {!loader && <PreLoader />}
+        {!isLoading &&
         <div className="main-wrapper">
             <Header/>
             <Sidebar collapse={false}/>
-            <div className={'main-content ' + (position ? 'menu-active' : '')}>
+            <div className={'main-content color-theme-green ' + (position ? 'menu-active' : '')}>
                 <div className="middle-sidebar-bottom">
                     <div className="middle-sidebar-left">
                         {children}

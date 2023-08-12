@@ -43,8 +43,7 @@ function Sidebar({collapse = false}) {
                     transition={!isMobile ? {duration: 0.8} : {}}
                     className={position ? "navigation scroll-bar menu-active" : "navigation scroll-bar"}
                     onMouseOver={() => setSidebarHover(true)}
-                    onMouseOut={() => setSidebarHover(false)}
-        >
+                    onMouseOut={() => setSidebarHover(false)}>
             <Container className="ps-0 pe-0">
                 <div className="nav-content">
                     <div className="nav-wrap bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2">
