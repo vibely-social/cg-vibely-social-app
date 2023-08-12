@@ -18,11 +18,12 @@
     	padding-left: 90px;
     	.middle-sidebar-header.sticky-header {left: 90px;}
     }
-    background-color: #fbfcfe;
+    background-color: #efefef;
     @include media-breakpoint-down(md) {
     	order:1;
     	position: relative;
-	    height: calc(100vh - 56px);
+	    //height: calc(100vh - 56px);
+	    height: calc(100vh);
 	    overflow-x: hidden;
 	    overflow-y: auto;
 	    // background-color: #f1f7fe;
