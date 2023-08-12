@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import reportWebVitals from '../reportWebVitals.js'
@@ -12,11 +11,11 @@ import {Provider} from "react-redux";
 import store from "./store"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-      <GlobalStyles>
-          <Provider store={store}>
-              <App/>
-          </Provider>
-      </GlobalStyles>
+    <GlobalStyles>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </GlobalStyles>
 )
 
 reportWebVitals(console.log);

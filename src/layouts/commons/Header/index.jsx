@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
-import NavData from "../../../data/NavData.jsx"
+import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
-import Avatar from '../../../assets/img/ppl.png'
-import Logo from '../../../assets/img/logo.svg'
-import ava from "../../../assets/img/ava.jpg"
+import Avatar from '~/assets/img/ppl.png'
+import Logo from '~/assets/img/logo.svg'
+import ava from "~/assets/img/ava.jpg"
 import { Form , FormGroup} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { toggleChatButton } from '../../../store/slices/toggleChat/index.js';
+import { toggleChatButton } from '~/store/slices/toggleChat/index.js';
 
 function Header() { 
     const dispatch = useDispatch();
@@ -39,8 +39,6 @@ function Header() {
             <div className="nav-top">
                 <Link to='/'> <motion.img 
                   whileHover={{ scale: 1.2 }}
-                  onHoverStart={e => {}}
-                  onHoverEnd={e => {}}
                   style={{maxWidth: 50}} className='d-inline-block  logo-nav' src={Logo} /></Link>
                 <a href="src/layouts/commons/Header#" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="default-video.html" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -99,7 +97,7 @@ function Header() {
                      whileHover={{ scale: [null, 1.4, 1.3] }}
                      transition={{ duration: 0.3 }}  onClickCapture={() => {let mess = isOnMess ;setIsOnMess(!mess)}} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
                         <i style={{fontSize: '1.5rem'}}
-                        className={isOnMess ? "feather-message-square btn-round-md bg-vibe-light text-vibe" : "feather-message-square btn-round-md  bg-greylight text-grey-500"}></i></motion.a>
+                        className={isOnMess ? "feather-message-square cursor-pointer btn-round-md bg-vibe-light text-vibe" : "feather-message-square cursor-pointer btn-round-md  bg-greylight text-grey-500"}></i></motion.a>
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{ scale: [null, 1.5, 1.4] }}

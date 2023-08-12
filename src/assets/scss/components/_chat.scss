@@ -203,6 +203,10 @@
       border-radius: 30px; 
     }
   }
+  ::placeholder{
+    color: #003400;
+    opacity: 0.5;
+  }
   input {
     width: 100%;
     border:0;
@@ -210,7 +214,7 @@
     font-size: 14px; 
     padding: 0 15px; 
     line-height: 40px; 
-    color: #ddd;
+    color: #626262;
     font-weight: 500;
   } 
   button {
@@ -253,7 +257,7 @@
         justify-content: flex-end;
     }
     .message-wrap {
-      background-color: var(--theme-color);
+      background-color: #3bb6b4;
       color: #fff;
     }
   }

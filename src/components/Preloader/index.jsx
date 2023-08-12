@@ -7,11 +7,11 @@ function PreLoader() {
         scale: "4"
     }
 
-    return (     
-    <div className="preloader">
-     <RingLoader cssOverride={loaderStyle} color="#36d7b7" />
-    </div> 
-  );
+    return (
+        <div className="preloader">
+            <RingLoader cssOverride={loaderStyle} color="#36d7b7"/>
+        </div>
+    );
 }
 
 export default PreLoader;
