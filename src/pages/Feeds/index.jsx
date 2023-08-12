@@ -2,6 +2,7 @@ import {useState} from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import RightFeed from "./RightFeeds";
+import { Row, Col, Card } from "react-bootstrap";
 
 function Feeds() {
     const [show, setShow] = useState(false);
@@ -14,17 +15,13 @@ function Feeds() {
     };
 
     return (
-        <div className='middle-sidebar-bottom'>
-            <div className=''>
-                <div className="row feed-body">
-                    <div className="col-xl-10 col-xxl-10 col-lg-8">
+    <Row className="feed-body">
+        <Col xl={8} xxl={9} lg={8} >
+                        <Card  className=" w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0"></Card>
 
-                        <div
-                            className="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0"></div>
-
-                        <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
-                            <div className="card-body p-0"></div>
-                            <div className="card-body p-0 mt-3 positclassNameNamion-relative">
+                        <Card className=" w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
+                            <Card.Body className=" p-0"></Card.Body>
+                            <Card.Body className="body p-0 mt-3 positclassNameNamion-relative">
                                 <div className="d-flex align-items-center">
                                     <figure className="avatar ms-2 me-2">
                                         <img
@@ -61,18 +58,18 @@ function Feeds() {
                                         </h4>
                                     </div>
                                     <div>
-                  <textarea
-                      name="message"
-                      className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
-                      cols="30"
-                      rows="10"
-                      placeholder="What's on your mind?"
-                      onClick={handleShow}
-                  ></textarea>
+                                    <textarea
+                                        name="message"
+                                        className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
+                                        cols="30"
+                                        rows="10"
+                                        placeholder="What's on your mind?"
+                                        onClick={handleShow}
+                                    ></textarea>
                                     </div>
 
                                     <Modal.Body>
-                                        <div className="col-xs-4 col-sm-4 p-1">
+                                        <Col xs={4} sm={4}  className="p-1">
                                             <a
                                                 href="https://via.placeholder.com/1200x800.png"
                                                 data-lightbox="roadtrip"
@@ -83,7 +80,7 @@ function Feeds() {
                                                     alt="image"
                                                 />
                                             </a>
-                                        </div>
+                                        </Col>
                                         <Modal.Body>
                                             <div className="d-flex align-items-center">
                                                 <a
@@ -162,8 +159,8 @@ function Feeds() {
                                             <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4">
                                                 Save Link
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Add this to your saved items
-                      </span>
+                                                    Add this to your saved items
+                                                </span>
                                             </h4>
                                         </div>
                                         <div className="card-body p-0 d-flex mt-2">
@@ -171,8 +168,8 @@ function Feeds() {
                                             <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4">
                                                 Hide Post
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Save to your saved items
-                      </span>
+                                            Save to your saved items
+                                        </span>
                                             </h4>
                                         </div>
                                         <div className="card-body p-0 d-flex mt-2">
@@ -180,8 +177,8 @@ function Feeds() {
                                             <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4">
                                                 Hide all from Group
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Save to your saved items
-                      </span>
+                                                Save to your saved items
+                                            </span>
                                             </h4>
                                         </div>
                                         <div className="card-body p-0 d-flex mt-2">
@@ -189,13 +186,13 @@ function Feeds() {
                                             <h4 className="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4">
                                                 Unfollow Group
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Save to your saved items
-                      </span>
+                                                Save to your saved items
+                                            </span>
                                             </h4>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Card.Body>
 
                             <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
                                 <div className="card-body p-0 d-flex">
@@ -231,8 +228,8 @@ function Feeds() {
                                             <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4">
                                                 Save Link
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Add this to your saved items
-                      </span>
+                                            Add this to your saved items
+                                        </span>
                                             </h4>
                                         </div>
                                         <div className="card-body p-0 d-flex mt-2">
@@ -240,8 +237,8 @@ function Feeds() {
                                             <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4">
                                                 Hide Post
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Save to your saved items
-                      </span>
+                                            Save to your saved items
+                                        </span>
                                             </h4>
                                         </div>
                                         <div className="card-body p-0 d-flex mt-2">
@@ -249,8 +246,8 @@ function Feeds() {
                                             <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4">
                                                 Hide all from Group
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Save to your saved items
-                      </span>
+                                            Save to your saved items
+                                        </span>
                                             </h4>
                                         </div>
                                         <div className="card-body p-0 d-flex mt-2">
@@ -258,8 +255,8 @@ function Feeds() {
                                             <h4 className="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4">
                                                 Unfollow Group
                                                 <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">
-                        Save to your saved items
-                      </span>
+                                                Save to your saved items
+                                            </span>
                                             </h4>
                                         </div>
                                     </div>
@@ -363,117 +360,99 @@ function Feeds() {
                                         <span className="d-none-xss" onClick={handleShowComment}>
                     22 Comment
                   </span>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        id="dropdownMenu21"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
-                                    >
-                                        <i className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
-                                        <span className="d-none-xs">Share</span>
-                                    </a>
-                                    <div
-                                        className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
-                                        aria-labelledby="dropdownMenu21"
-                                    >
-                                        <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">
-                                            Share
-                                            <i className="feather-x ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i>
-                                        </h4>
-                                        <div className="card-body p-0 d-flex">
-                                            <ul className="d-flex align-items-center justify-content-between mt-2">
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-facebook">
-                                                        <i className="font-xs ti-facebook text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-twiiter">
-                                                        <i className="font-xs ti-twitter-alt text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-linkedin">
-                                                        <i className="font-xs ti-linkedin text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-instagram">
-                                                        <i className="font-xs ti-instagram text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" className="btn-round-lg bg-pinterest">
-                                                        <i className="font-xs ti-pinterest text-white"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="card-body p-0 d-flex">
-                                            <ul className="d-flex align-items-center justify-content-between mt-2">
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-tumblr">
-                                                        <i className="font-xs ti-tumblr text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-youtube">
-                                                        <i className="font-xs ti-youtube text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-flicker">
-                                                        <i className="font-xs ti-flickr text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li className="me-1">
-                                                    <a href="#" className="btn-round-lg bg-black">
-                                                        <i className="font-xs ti-vimeo-alt text-white"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" className="btn-round-lg bg-whatsup">
-                                                        <i className="font-xs feather-phone text-white"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h4 className="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">
-                                            Copy Link
-                                        </h4>
-                                        <i className="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
-                                        <input
-                                            type="text"
-                                            value="https://socia.be/1rGxjoJKVF0"
-                                            className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg"
-                                        />
-                                    </div>
-                                </div>
-                                {/* ------------------create-commnet-frame---------------------------- */}
-
-                                <div>
-                                    {showComment ? (
-                                        <div className="card">
-                                            <h4>hello Thao</h4>
-                                        </div>
-                                    ) : (
-                                        <></>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <RightFeed/>
-
-
-                    </div>
+                </a>
+                <a
+                  href="#"
+                  id="dropdownMenu21"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
+                >
+                  <i className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
+                  <span className="d-none-xs">Share</span>
+                </a>
+                <div
+                  className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
+                  aria-labelledby="dropdownMenu21"
+                >
+                  <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">
+                    Share
+                    <i className="feather-x ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i>
+                  </h4>
+                  <div className="card-body p-0 d-flex">
+                    <ul className="d-flex align-items-center justify-content-between mt-2">
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-facebook">
+                          <i className="font-xs ti-facebook text-white"></i>
+                        </a>
+                      </li>
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-twiiter">
+                          <i className="font-xs ti-twitter-alt text-white"></i>
+                        </a>
+                      </li>
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-linkedin">
+                          <i className="font-xs ti-linkedin text-white"></i>
+                        </a>
+                      </li>
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-instagram">
+                          <i className="font-xs ti-instagram text-white"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="btn-round-lg bg-pinterest">
+                          <i className="font-xs ti-pinterest text-white"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="card-body p-0 d-flex">
+                    <ul className="d-flex align-items-center justify-content-between mt-2">
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-tumblr">
+                          <i className="font-xs ti-tumblr text-white"></i>
+                        </a>
+                      </li>
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-youtube">
+                          <i className="font-xs ti-youtube text-white"></i>
+                        </a>
+                      </li>
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-flicker">
+                          <i className="font-xs ti-flickr text-white"></i>
+                        </a>
+                      </li>
+                      <li className="me-1">
+                        <a href="#" className="btn-round-lg bg-black">
+                          <i className="font-xs ti-vimeo-alt text-white"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="btn-round-lg bg-whatsup">
+                          <i className="font-xs feather-phone text-white"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <h4 className="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">
+                    Copy Link
+                  </h4>
+                  <i className="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
+                  <input
+                    type="text"
+                    className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg"
+                  />
                 </div>
             </div>
-        </div>
-    );
+          </div>
+         </Card>
+        </Col>
+        <RightFeed />
+    </Row>
+  );
 }
 
 export default Feeds;

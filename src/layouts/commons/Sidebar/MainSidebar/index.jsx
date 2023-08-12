@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
-import useViewport from "../../../hooks/Viewport.jsx";
+import useViewport from "../../../../hooks/Viewport.jsx";
 import {useEffect, useState} from "react";
-import {selectSidebarPosition, toggle} from '../../../features/toggleSidebar/sidebarSlice'
+import {selectSidebarPosition, toggle} from '~/store/slices/toggleSidebar/index.js'
 import {useDispatch, useSelector} from "react-redux";
 import MainNavigate from "../MainNavigate/index.jsx";
 
@@ -16,10 +16,10 @@ function MainSidebar({collapse = false}) {
 
 
     useEffect(() => {
-        if (viewPort.width < 500) {
+        if (viewPort.width < 576) {
             dispatch(toggle(true))
             setIsMobile(true)
-        } else if (viewPort.width >= 500 && viewPort.width < 1000) {
+        } else if (viewPort.width >= 576 && viewPort.width < 992) {
             setIsMobile(false)
             dispatch(toggle(true))
         } else {

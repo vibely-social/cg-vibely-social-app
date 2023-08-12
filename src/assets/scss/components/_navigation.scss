@@ -374,7 +374,7 @@
     @include media-breakpoint-down(md) {
       width: auto;
       .nav-wrap {
-        box-shadow: none !important;
+        //box-shadow: none !important;
       }
     }
     @include media-breakpoint-up(lg) {
@@ -407,7 +407,7 @@
         list-style-type: none;
         margin: $nav-menu-link-margin;
         @include media-breakpoint-down(md) {
-          margin: 4px 0px;
+          margin: 1px 5px;
         }
 
         a {
@@ -622,9 +622,9 @@
 
     // background: var(--theme-color);
     @include media-breakpoint-down(md) {
-      width: auto;
+      //width: auto;
       .nav-wrap {
-        box-shadow: none !important;
+        //box-shadow: none !important;
       }
     }
     @include media-breakpoint-up(lg) {
@@ -657,7 +657,7 @@
         list-style-type: none;
         margin: $nav-menu-link-margin;
         @include media-breakpoint-down(md) {
-          margin: 4px 0px;
+          margin: 1px 5px;
         }
 
         a {

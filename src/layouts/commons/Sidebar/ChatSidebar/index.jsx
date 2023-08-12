@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
-import SidebarData from '../../../data/SideBarData.jsx'
+import SidebarData from '../../../../data/SideBarData.jsx'
 import {motion} from "framer-motion";
-import useViewport from "../../../hooks/Viewport.jsx";
+import useViewport from "../../../../hooks/Viewport.jsx";
 import {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
-import  {toggle, selectSidebarPosition} from '../../../features/toggleSidebar/sidebarSlice'
+import  {toggle, selectSidebarPosition} from '~/store/slices/toggleSidebar/index.js'
 import {useDispatch, useSelector} from "react-redux";
 // eslint-disable-next-line react/prop-types
 function ChatSidebar({collapse = false}) {
@@ -16,10 +16,10 @@ function ChatSidebar({collapse = false}) {
 
 
     useEffect(() => {
-        if (viewPort.width < 500) {
+        if (viewPort.width < 576) {
             dispatch(toggle(true))
             setIsMobile(true)
-        } else if (viewPort.width >= 500 && viewPort.width < 1000) {
+        } else if (viewPort.width >= 576 && viewPort.width < 992) {
             setIsMobile(false)
             dispatch(toggle(true))
         } else {
@@ -79,8 +79,8 @@ function ChatSidebar({collapse = false}) {
                     </div>
                 </div>
                 <div className="nav-content">
-                    <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
-                        <div className='hover-scale-1-1 more-btn d-flex justify-content-center hover-pointer'
+                    <div className="nav-wrap bg-gradient bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
+                        <div className='hover-scale-1-1 more-btn d-flex justify-content-center cursor-pointer'
                              onClick={()=> dispatch(toggle(!position))}
                         >
                             <i className="font-xxl feather-more-horizontal text-grey-500"></i>

@@ -1,12 +1,14 @@
 .main-content {
+	padding-top: $nav-logo-height;
+	//height: 100vh;
 	@include media-breakpoint-up(lg) {
 	    -webkit-box-flex: 1;
 	    -ms-flex-positive: 1;
 	    flex-grow: 1;
 	    padding-top: $nav-logo-height;
-	    padding-left: $nav-width;
+	    padding-left: $left-sidebar-width;
 	    padding-right: $chat-width;
-	    // padding-top: 96px;
+	     //padding-top: 96px;
 	    -webkit-transition: all .25s;
 	    -o-transition: all .25s;
 	    transition: all .25s;	
@@ -18,15 +20,32 @@
     	padding-left: 90px;
     	.middle-sidebar-header.sticky-header {left: 90px;}
     }
+	&.chat-menu-active{
+		padding-left: 180px;
+		@include media-breakpoint-down(md){
+			padding-left: 180px;
+		}
+		@include media-breakpoint-down(sm){
+			padding-left: 0;
+			.middle-sidebar-bottom{
+				padding: 0;
+			}
+		}
+	}
+	&.chat-menu{
+		padding-left: 360px;
+	}
     background-color: #efefef;
     @include media-breakpoint-down(md) {
     	order:1;
     	position: relative;
+		padding-top: $nav-logo-height;
 	    //height: calc(100vh - 56px);
 	    height: calc(100vh);
 	    overflow-x: hidden;
 	    overflow-y: auto;
-	    // background-color: #f1f7fe;
+		padding-left: 1em;
+	     //background-color: #0c1898;
 
     }
     .left-sidebar,.right-sidebar {
