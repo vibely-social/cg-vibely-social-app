@@ -4,7 +4,7 @@ import Register from "../pages/Register";
 import PersonalPage from "../pages/PersonalPage";
 import Chat from "../pages/Chat/index.jsx";
 import ChatLayout from "../layouts/ChatLayout/index.jsx";
-import MainLayout from "../layouts/MainLayout/index.jsx";
+import MainLayout from "../layouts/MainLayout";
 
 
 const publicRoutes = [

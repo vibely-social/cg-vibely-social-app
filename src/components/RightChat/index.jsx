@@ -1,36 +1,14 @@
+import {ListGroup} from "react-bootstrap";
+import {useSelector} from "react-redux";
+
 function RightChat() {
+    const isOpenChat = useSelector((state) => state.openChat.isOn);
     return ( 
-        <div className="right-chat nav-wrap mt-2 right-scroll-bar">
+        <div className={"right-chat nav-wrap mt-2 right-scroll-bar " + (isOpenChat ? "active-sidebar" : "")}>
             <div className="middle-sidebar-right-content bg-white shadow-xss rounded-xxl">
-                <div className="preloader-wrap p-3">
-                <div className="box shimmer">
-                    <div className="lines">
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    </div>
-                </div>
-                <div className="box shimmer mb-3">
-                    <div className="lines">
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    </div>
-                </div>
-                <div className="box shimmer">
-                    <div className="lines">
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    <div className="line s_shimmer" />
-                    </div>
-                </div>
-                </div>
                 <div className="section full pe-3 ps-3 pt-3 position-relative feed-body " style={{height: '100vh'}}>
                 <span className="font-md text-vibe fw-600 ls-3">Chats  <i className="feather-message-circle font-xs align-text-top"/></span> 
-                <ul className="list-group list-group-flush">
+                <ListGroup as="ul" className="list-group-flush">
                     <li className="bg-transparent list-group-item no-icon pe-0 ps-0 pt-2 pb-2 border-0 d-flex align-items-center">
                     <figure className="avatar float-left mb-0 me-2">
                         <img src="https://via.placeholder.com/50x50.png" alt="image" className="w35" />
@@ -103,7 +81,7 @@ function RightChat() {
                     </h3>
                     <span className="bg-success ms-auto btn-round-xss" />
                     </li>
-                </ul>
+                </ListGroup>
                 </div>
             </div>
         </div>
