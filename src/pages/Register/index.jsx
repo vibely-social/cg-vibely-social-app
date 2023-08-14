@@ -63,7 +63,6 @@ function Register() {
                 .required(),
         }),
         onSubmit: async (values, {resetForm}) => {
-
             let user = {
                 firstName: values.firstName,
                 lastName: values.lastName,
@@ -72,29 +71,16 @@ function Register() {
                 dayOfBirth: values.day + '/' + values.month + '/' + values.year,
                 gender: values.gender,
             }
-
-            try {
-                const response = await axios.post("http://localhost:8080/api/users", user)
-                console.log(user);
-                if(response.status === 200) {
+            await axios.post("http://localhost:8080/api/users", user)
+                .then(() => {
                     resetForm();
-                    // setMessage("Login successfully")
-                    console.log(user)
-                    alert("Register in successfully!!!");
-                    navigate("/login")
-                } else if (response.status === 400) {
-                    console.log("Email already registered");
-                } else  {
-                    // console.log(response.data)
-                    // setMessage("Invalid Credential")
-                    // console.log(message);
-                    console.log("Invalid Credential");
-                }
-            } catch (error) {
-                // setMessage("error")
-                // console.log(message)
-                console.error("Error:", error);
-            }
+                    navigate("/");
+                })
+                .catch(
+                    (e) => {
+                        console.log(e);
+
+                    })
         }
     });
 
@@ -178,7 +164,7 @@ function Register() {
                                                                : "style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                                                            }
                                                            placeholder="First name"/>
-                                                     <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                                                    <i className="font-sm ti-user text-grey-500 pe-0"></i>
                                                 </div>
                                             </div>
                                         </OverlayTrigger>

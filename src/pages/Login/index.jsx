@@ -1,37 +1,25 @@
 import google from "../../assets/img/google-icon.png";
-import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
 import axios from "axios";
 
 function Login() {
 
-    // const [user, setUser] = useState([])
-    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(() => {
-        console.log('Message changed:', message);
-    }, [message]);
-
-
     const handleLogin = async (e) => {
-
         e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:8080/api/auth/login", {email, password});
-            if (response.status === 200) {
-                setMessage("Login successfully")
+        await axios.post("http://localhost:8080/api/auth/login", {email, password})
+            .then(() => {
                 navigate("/");
-            } else {
-                console.log(response.data)
-                setMessage("Invalid Credential")
-                console.log(message);
-            }
-        } catch (error) {
-            setMessage("error");
-            console.log(message);
-        }
+            })
+            .catch(
+                (e) => {
+                    console.log(e);
+                })
     }
 
     return (
@@ -65,11 +53,6 @@ function Login() {
                             Register
                         </Link>
                     </div>
-                </div>
-                <div>
-                    {message && <p>
-                        {message}
-                    </p>}
                 </div>
                 <div className="row">
                     <div className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
