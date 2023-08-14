@@ -56,7 +56,7 @@ function Feeds() {
                                             />
                                         </figure>
                                         <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                                            Phuong Thao
+                                            Thanh nguyen
                                         </h4>
                                     </div>
                                     <div>
@@ -207,7 +207,7 @@ function Feeds() {
                                     </figure>
 
                                     <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                                        Phuong Thao
+                                        Thanh nguyen
                                         <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     3 hour ago
                   </span>
@@ -454,7 +454,7 @@ function Feeds() {
 
                                 <div>
                                     {showComment ? (<div className="card">
-                                            <h4>hello Thao</h4>
+                                            <h4>hello thanh</h4>
                                         </div>) : (<></>)}
                                 </div>
                             </div>
