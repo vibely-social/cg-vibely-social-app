@@ -1,0 +1,16 @@
+diff a/src/pages/Login/index.jsx b/src/pages/Login/index.jsx	(rejected hunks)
+@@ -1,11 +1,12 @@
+ import google from "../../assets/img/google-icon.png";
+-import {Link} from "react-router-dom";
++import { Link, useNavigate } from "react-router-dom";
+ import {useEffect, useState} from "react";
+ import axios from "axios";
+ 
+ function Login() {
+ 
+-    // const [user, setUser] = useState([])
++    const navigate = useNavigate();
++
+     const [message, setMessage] = useState("");
+     const [email, setEmail] = useState("");
+     const [password, setPassword] = useState("");

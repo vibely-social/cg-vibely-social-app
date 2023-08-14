@@ -3,7 +3,7 @@ import { Col, Card, CardGroup, Button } from "react-bootstrap";
 import "./index.css"
 
 function RightFeed() {
-    return ( <Col xl={4} xxl={3} lg={4} style={{paddingTop: '12px'}}  className="ps-3">
+    return ( <Col xl={4} xxl={3} lg={4} className="ps-3">
               <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3">
                 <Card.Body className="d-flex align-items-center  ">
                   <h4 className="fw-700 mb-0 font-xsss text-grey-600">Friend Request</h4>

@@ -28,7 +28,7 @@ function MainSidebar({collapse = false}) {
     }, [viewPort.width])
 
     return (
-        <motion.nav style={!isMobile ? {overflow: "visible", left: '-200px'} : {}}
+        <motion.nav style={!isMobile ? {overflow: "visible", left: '-200px',background: "none",zIndex: 1} : {}}
                     animate={!isMobile ? {x: 200} : {}}
                     transition={!isMobile ? {duration: 0.8} : {}}
                     className={position ? "navigation scroll-bar menu-active" : "navigation scroll-bar"}
