@@ -1,13 +1,25 @@
 import Header from "../commons/Header/index.jsx";
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
 import ChatSidebar from "../commons/Sidebar/ChatSidebar/index.jsx";
 import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
+import PreLoader from "~/components/Preloader/index.jsx";
 
 // eslint-disable-next-line react/prop-types
 function ChatLayout({children}) {
     const position = useSelector(selectSidebarPosition)
+    const firstLoad = useSelector((state) => state.firstLoad.isOn);
+    const dispatch = useDispatch()
 
-    return (
+    if(firstLoad === false ){
+        setTimeout(() => {
+          dispatch(turnOffLoader())
+        }, 1500);
+    }
+
+
+
+    return (<>
+        <PreLoader />
         <div className="main-wrapper color-theme-green">
             <Header/>
             <ChatSidebar collapse={false}/>
@@ -17,6 +29,7 @@ function ChatLayout({children}) {
                     {children}
             </div>
         </div>
+        </>
     );
 }
 

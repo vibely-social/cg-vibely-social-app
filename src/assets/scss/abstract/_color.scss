@@ -40,6 +40,13 @@
 .bg-youtube {background-color: #cd201f !important;}
 .bg-black {background-color: #000;}
 .bg-vibe-light {background-color: #DDFDE1;}
+.bg-vite-gradient{      
+    // background: rgb(4,167,168);
+    // background: radial-gradient(circle, rgba(4,167,168,1) 0%, rgb(16, 28, 24) 63%, rgba(9,230,227,1) 100%);
+    background: #136a8a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2596be, #21a19d);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2596be, #21a19d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 .bg-vibe {background-color: #007451;}
 
 .text-facebook {color: #0d66ff !important;}

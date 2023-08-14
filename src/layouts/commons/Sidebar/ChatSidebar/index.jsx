@@ -14,7 +14,6 @@ function ChatSidebar({collapse = false}) {
     const position = useSelector(selectSidebarPosition)
     const dispatch = useDispatch()
 
-
     useEffect(() => {
         if (viewPort.width < 576) {
             dispatch(toggle(true))
@@ -32,11 +31,10 @@ function ChatSidebar({collapse = false}) {
         <motion.nav style={!isMobile ? {overflow: "hidden", left: '-200px'} : {}}
                     animate={!isMobile ? {x: 200} : {}}
                     transition={!isMobile ? {duration: 0.8} : {}}
-                    className={position ? "navigation chat-navigation menu-active " : "navigation chat-navigation"}
-        >
+                    className={position ? "navigation chat-navigation menu-active " : "navigation chat-navigation"} >
             <Container className="ps-0 pe-0 d-flex">
                 <div className="chat-nav">
-                    <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+                    <div className="nav-wrap  bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
                         <ListGroup as="ul" className="mb-1 top-content ">
                             {SidebarData.map((item, index) => {
                                 return <ListGroup.Item as="li" style={{
@@ -79,7 +77,7 @@ function ChatSidebar({collapse = false}) {
                     </div>
                 </div>
                 <div className="nav-content">
-                    <div className="nav-wrap bg-gradient bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
+                    <div className="bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
                         <div className='hover-scale-1-1 more-btn d-flex justify-content-center cursor-pointer'
                              onClick={()=> dispatch(toggle(!position))}
                         >
