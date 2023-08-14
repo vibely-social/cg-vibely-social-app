@@ -107,8 +107,8 @@ function Friends() {
                             <img src={friend.avatar} className="bg-white avatar w-100 shadow-xss border border-dark" style={{minHeight:"220px",maxHeight:"220px"}} />
                             <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-left">{friend.username} </h4>
                             <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-left">{friend.mutualFriends} mutual friends</p>
-                            <Button className=" border-0 pt-2 pb-2 pe-3 ps-3 lh-20 me-1 ls-3 mb-2  rounded-sm bg-primary-gradiant font-xssss fw-700 text-white" style={{width: '80%'}}>Confirm</Button>
-                            <Button className=" border-0 pt-2 pb-2 pe-3 ps-3 lh-20 me-1 ls-3  rounded-sm bg-grey font-xssss fw-700 ls-lg text-grey-800" style={{width: '80%'}}>Delete</Button>
+                            <Button className=" border-0 pt-2 pb-2 pe-3 ps-3 lh-20 me-1 ls-3 mb-2  rounded-sm bg-primary-gradiant font-xsss fw-700 text-white" style={{width: '80%'}}>Confirm</Button>
+                            <Button className=" border-0 pt-2 pb-2 pe-3 ps-3 lh-20 me-1 ls-3  rounded-sm bg-grey font-xsss fw-700 ls-lg text-grey-800" style={{width: '80%'}}>Delete</Button>
                         </Card.Body>
                         </Card>
                         </motion.div>

@@ -8,6 +8,7 @@ import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSidebarPosition, toggle} from "~/store/slices/toggleSidebar/index.js";
 // eslint-disable-next-line react/prop-types
+
 function ChatSidebar({collapse = false}) {
     const viewPort = useViewport();
     const [isMobile, setIsMobile] = useState(false)
