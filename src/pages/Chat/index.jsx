@@ -1,66 +1,169 @@
-function Chat() {
-    return (
-        <div className="middle-sidebar-bottom d-flex pt-0 mt-3">
-            <div className="middle-sidebar-left ms-0 ps-0 pe-0 me-0 d-flex justify-content-center" style={{maxWidth: '100%'}}>
-                <div className="container ms-2 mb-0 pb-0 me-1" style={{maxWidth:'96%'}}>
-                    <div className="col-lg-12 position-relative">
-                        <div className="chat-wrapper pt-0 w-100 position-relative scroll-bar bg-white theme-dark-bg rounded-3">
-                            <div className="chat-body p-3 ">
-                                <div className="messages-content pb-0">
+import ChatBox from "~/components/ChatBox/index.jsx";
+import {motion} from "framer-motion";
+import Container from "react-bootstrap/Container";
+import {ListGroup} from "react-bootstrap";
+import SidebarData from "~/data/SideBarData.jsx";
+import {Link} from "react-router-dom";
+import {selectSidebarPosition, toggle} from "~/store/slices/toggleSidebar/index.js";
+import useViewport from "~/hooks/Viewport.jsx";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
-                                    <div className="message-item">
-                                        <div className="message-user">
-                                            <figure className="avatar">
-                                                <img src="https://via.placeholder.com/50x50.png" alt="image"/>
-                                            </figure>
-                                            <div>
-                                                <h5>Byrom Guittet</h5>
-                                                <div className="time">01:35 PM</div>
-                                            </div>
-                                        </div>
-                                        <div className="message-wrap">Hê lô, hao are dú 😃</div>
-                                    </div>
+// eslint-disable-next-line react/prop-types
+function Chat({collapse = false}){
+    const viewPort = useViewport();
+    const [smallScreen, setSmallScreen] = useState(false)
+    const position = useSelector(selectSidebarPosition)
+    const dispatch = useDispatch()
 
-                                    <div className="message-item outgoing-message">
-                                        <div className="message-user">
-                                            <figure className="avatar">
-                                                <img src="https://via.placeholder.com/50x50.png" alt="image"/>
-                                            </figure>
-                                            <div>
-                                                <h5>Byrom Guittet</h5>
-                                                <div className="time">01:35 PM<i
-                                                    className="ti-double-check text-info"></i></div>
-                                            </div>
-                                        </div>
-                                        <div className="message-wrap">
-                                            Ai am phai then kìu èn dú?
-                                        </div>
-                                    </div>
-
-                                    <div className="clearfix"></div>
-                                </div>
+    useEffect(() => {
+        if (viewPort.width < 576) {
+            dispatch(toggle(true))
+            setSmallScreen(true)
+        } else if (viewPort.width >= 576 && viewPort.width < 992) {
+            setSmallScreen(false)
+            dispatch(toggle(true))
+        } else {
+            setSmallScreen(false)
+            dispatch(toggle(collapse))
+        }
+    }, [viewPort.width])
+    return(
+        <>
+            <>
+                <motion.nav style={!smallScreen ? {overflow: "hidden", left: '-200px'} : {}}
+                            animate={!smallScreen ? {x: 200} : {}}
+                            transition={!smallScreen ? {duration: 0.8} : {}}
+                            className={position ? "navigation chat-navigation menu-active " : "navigation chat-navigation"}
+                >
+                    <Container className="ps-0 pe-0 d-flex">
+                        <div className="chat-nav">
+                            <div
+                                className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+                                <ListGroup as="ul" className="mb-1 top-content ">
+                                    {SidebarData.map((item, index) => {
+                                        return <ListGroup.Item as="li" style={{
+                                            border: 'none',
+                                            padding: '0',
+                                            filter: "hue-rotate(338deg)"
+                                        }} key={index}><Link
+                                            to={item.path} className="nav-content-bttn open-font">
+                                            {window.location.pathname === item.path
+                                                ? <motion.img
+                                                    className={" btn-sidebar me-3 "}
+                                                    whileHover={{scale: 1.2}}
+                                                    style={{maxWidth: 50}} src={item.icon}/>
+                                                : <motion.img
+                                                    whileHover={{scale: 1.2}}
+                                                    style={{maxWidth: 50}}
+                                                    className={" btn-sidebar me-3 "} src={item.icon}/>}
+                                            {window.location.pathname === item.path
+                                                ? <span className="text-primary">{item.heading}</span>
+                                                : <span className="">{item.heading}</span>}
+                                        </Link></ListGroup.Item>
+                                    })}
+                                </ListGroup>
+                            </div>
+                            <div
+                                className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2">
+                                <ul className="mb-1">
+                                    <li>
+                                        <Link to="/profile" className="nav-content-bttn open-font h-auto pt-2 pb-2 ">
+                                            <i className="font-sm feather-settings me-3 text-grey-500"></i>
+                                            <span>Settings</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/logout" className="nav-content-bttn open-font h-auto pt-2 pb-2">
+                                            <i className="font-sm feather-log-out me-3 text-grey-500"></i>
+                                            <span>Log out</span>
+                                        </Link>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div className="chat-bottom dark-bg p-3 shadow-none theme-dark-bg rounded-3" style={{width: "98%"}}>
-                            <div className="chat-form">
-                                <button className="bg-grey float-left"><i
-                                    className="ti-microphone text-grey-600"></i>
-                                </button>
-                                <div className="">
-                                    <input type="text"
-                                           className='form-group bg-light'
-                                           placeholder="Start typing..."
-                                    />
+                        <div className="nav-content">
+                            <div
+                                className="nav-wrap bg-gradient bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
+                                <div className='hover-scale-1-1 more-btn d-flex justify-content-center cursor-pointer'
+                                     onClick={() => dispatch(toggle(!position))}
+                                >
+                                    <i className="font-xxl feather-more-horizontal text-grey-500"></i>
                                 </div>
-                                <button className="bg-current"><i className="ti-arrow-right text-white"></i>
-                                </button>
+                                <ul className="mb-1 top-content scroll-bar">
+                                    <li className="logo d-none d-xl-block d-lg-block"></li>
+                                    <li><a id="default.html" className="nav-content-bttn open-font"><i
+                                        className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Newsfeed</span></a>
+                                    </li>
+
+                                    <li><a id="default-badge.html" className="nav-content-bttn open-font"><i
+                                        className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></a>
+                                    </li>
+                                    <li><a id="default-storie.html" className="nav-content-bttn open-font"><i
+                                        className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></a>
+                                    </li>
+                                    <li><a id="default-group.html" className="nav-content-bttn open-font"><i
+                                        className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></a>
+                                    </li>
+                                    <li><a id="default.html" className="nav-content-bttn open-font"><i
+                                        className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Newsfeed</span></a>
+                                    </li>
+                                    <li><a id="default-badge.html" className="nav-content-bttn open-font"><i
+                                        className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></a>
+                                    </li>
+                                    <li><a id="default-storie.html" className="nav-content-bttn open-font"><i
+                                        className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></a>
+                                    </li>
+                                    <li><a id="default-group.html" className="nav-content-bttn open-font"><i
+                                        className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></a>
+                                    </li>
+                                    <li><a id="default.html" className="nav-content-bttn open-font"><i
+                                        className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Newsfeed</span></a>
+                                    </li>
+                                    <li><a id="default-badge.html" className="nav-content-bttn open-font"><i
+                                        className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></a>
+                                    </li>
+                                    <li><a id="default-storie.html" className="nav-content-bttn open-font"><i
+                                        className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></a>
+                                    </li>
+                                    <li><a id="default-group.html" className="nav-content-bttn open-font"><i
+                                        className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></a>
+                                    </li>
+                                    <li><a id="user-page.html" className="nav-content-bttn open-font"><i
+                                        className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>Author Profile </span></a>
+                                    </li>
+                                    <li><a id="default-email-box.html" className="nav-content-bttn open-font"><i
+                                        className="font-xl text-current feather-inbox me-3"></i><span>Email Box</span><span
+                                        className="circle-count bg-warning mt-1">584</span></a></li>
+                                    <li><a id="default-hotel.html" className="nav-content-bttn open-font"><i
+                                        className="font-xl text-current feather-home me-3"></i><span>Near Hotel</span></a>
+                                    </li>
+                                    <li><a id="default-event.html" className="nav-content-bttn open-font"><i
+                                        className="font-xl text-current feather-map-pin me-3"></i><span>Latest Event</span></a>
+                                    </li>
+                                    <li><a id="default-live-stream.html" className="nav-content-bttn open-font"><i
+                                        className="font-xl text-current feather-youtube me-3"></i><span>Live Stream</span></a>
+                                    </li>
+                                </ul>
                             </div>
+                        </div>
+                    </Container>
+                </motion.nav>
+            </>
+            <div className={'main-content ' + (position ? 'chat-menu-active' : 'chat-menu')}
+                // style={{paddingLeft: position?'180px':'360px'}}
+            >
+                <div className="middle-sidebar-bottom d-flex pt-0 mt-3">
+                    <div className="middle-sidebar-left ms-0 ps-0 pe-0 me-0 d-flex justify-content-center"
+                         style={{maxWidth: '100%'}}>
+                        <div className="container ms-2 mb-0 pb-0 me-1" style={{maxWidth: '96%'}}>
+                            <ChatBox/>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        </>
     )
 }
-
-export default Chat;
+export default Chat
