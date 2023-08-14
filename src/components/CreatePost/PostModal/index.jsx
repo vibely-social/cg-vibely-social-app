@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from 'react-bootstrap';
+import "./index.css"
 
 
 
@@ -13,7 +14,7 @@ function NewPostModal({ isOpen,closeModal }) {
 					open={isOpen}
 					onClose={closeModal}
 					as="div"
-					className="d-flex justify-content-center overflow-y-auto"
+					className="d-flex justify-content-center overflow-y-auto "
                     style={{position: 'fixed',alignItems:"center",justifyContent:'center',zIndex: "1000",width:'100%',height:'100%' , top: "0%", right: "0%",backdropFilter: 'blur(5px)'}}
 				>
 					<div className="flex flex-col py-8 px-4 text-center">

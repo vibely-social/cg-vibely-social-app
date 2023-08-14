@@ -1,9 +1,10 @@
 @import "./abstract/abstract";
-@import "bootstrap/scss/bootstrap";
 @import "owl.carousel/dist/assets/owl.carousel.min.css";
 @import "owl.carousel/dist/assets/owl.theme.default.css";
 @import '../../assets/css/feather.css';
 @import '../../assets/css/themify-icons.css';
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
 
 @import "./base/base";
 @import "./components/components";
