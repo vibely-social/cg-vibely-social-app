@@ -5,7 +5,7 @@ import * as Yup from "yup";
 
 function Register() {
 
-    const formik = useFormik({
+    const formik  = useFormik({
         initialValues: {
             name: "",
             email: "",
