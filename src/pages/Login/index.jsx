@@ -14,14 +14,15 @@ function Login() {
         console.log('Message changed:', message);
     }, [message]);
 
+
     const handleLogin = async (e) => {
+
         e.preventDefault();
         try {
-
             const response = await axios.post("http://localhost:8080/api/auth/login", {email, password});
-
             if (response.status === 200) {
                 setMessage("Login successfully")
+                navigate("/");
             } else {
                 console.log(response.data)
                 setMessage("Invalid Credential")

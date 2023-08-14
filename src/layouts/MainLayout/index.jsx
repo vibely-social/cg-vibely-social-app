@@ -1,37 +1,37 @@
 import Header from "../commons/Header/index.jsx";
 import RightChat from "../../components/RightChat/index.jsx";
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import PreLoader from '../../components/Preloader'
 import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
-import Sidebar from "~/layouts/commons/Sidebar/index.jsx";
+import MainSidebar from "~/layouts/commons/Sidebar/MainSidebar/index.jsx";
 
 // eslint-disable-next-line react/prop-types
-function MainLayout({children}) {
+function MainLayout({children, path}) {
     const position = useSelector(selectSidebarPosition)
+    const [isLoading, setIsLoading] = useState(useSelector((state) => state.firstLoad.isOn));
 
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-    }, []);
+    if (!isLoading) {
+        setTimeout(() => {
+            setIsLoading(true);
+        }, 800);
+    }
 
     return (<>
-        {isLoading ? (<PreLoader />) :
-        <div className="main-wrapper color-theme-green">
-            <Header/>
-            <Sidebar collapse={false}/>
-            <div className={'main-content ' + (position ? 'menu-active' : '')}>
-                <div className="middle-sidebar-bottom">
-                    <div className="middle-sidebar-left">
-                        {children}
+            <PreLoader/>
+            {isLoading &&
+                <div className="main-wrapper color-theme-green">
+                    <Header/>
+                    <MainSidebar collapse={false}/>
+                    <div className={'main-content ' + (position ? 'menu-active' : '')}>
+                        <div className="middle-sidebar-bottom">
+                            <div className="middle-sidebar-left" id={(path === "/friends") ? "middle" : ""}>
+                                {children}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <RightChat/>
-        </div>}
+                    <RightChat/>
+                </div>}
         </>
     );
 }
