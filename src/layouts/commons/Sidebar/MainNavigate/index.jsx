@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import {selectSidebarPosition, toggle} from "~/store/slices/toggleSidebar/index.js";
+import {selectSidebarPosition, toggle} from "../../../../store/slices/toggleSidebar/index.js";
 import {ListGroup} from "react-bootstrap";
 import SidebarData from "../../../../data/SideBarData.jsx";
 import {Link} from "react-router-dom";

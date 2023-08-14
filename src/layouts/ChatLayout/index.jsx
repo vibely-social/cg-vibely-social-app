@@ -2,7 +2,7 @@ import Header from "../commons/Header/index.jsx";
 import {useSelector,useDispatch} from "react-redux";
 import ChatSidebar from "../commons/Sidebar/ChatSidebar/index.jsx";
 import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
-import PreLoader from "~/components/Preloader/index.jsx";
+import PreLoader from "../../components/Preloader";
 
 // eslint-disable-next-line react/prop-types
 function ChatLayout({children}) {

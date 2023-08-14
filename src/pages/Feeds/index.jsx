@@ -1,7 +1,7 @@
 import RightFeed from "./RightFeeds";
 import { Row, Col, Card } from "react-bootstrap";
-import CreatePost from "~/components/CreatePost";
-import PostDetail from "~/components/PostDetail";
+import CreatePost from "../../components/CreatePost";
+import PostDetail from "../../components/PostDetail";
 
 
 function Feeds() {
