@@ -5,6 +5,7 @@ import  pagesNav from '../assets/img/sidebar/pages.png'
 import  storyNav  from '../assets/img/sidebar/story.png' 
 import  newfeedNav  from '../assets/img/sidebar/newfeed.png' 
 import  ppl  from '../assets/img/ppl.png'
+import  mess from "../assets/img/messenger.png"
  
  const SidebarData = [
     {
@@ -26,6 +27,11 @@ import  ppl  from '../assets/img/ppl.png'
         icon: newfeedNav,
         path: '/',
         heading: 'Feeds'
+    },
+    {
+        icon: mess,
+        path: '/messenger',
+        heading: 'Messenger'
     },
     {
         icon: storyNav,
