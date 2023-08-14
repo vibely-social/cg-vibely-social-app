@@ -1,12 +1,11 @@
 import google from "../../assets/img/google-icon.png";
-import { Link, useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
 function Login() {
 
-    const navigate = useNavigate();
-
+    // const [user, setUser] = useState([])
     const [message, setMessage] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -149,4 +148,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default Login

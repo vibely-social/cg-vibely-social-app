@@ -1,6 +1,6 @@
 export const NavData = [
     {
-        icon: 'feather-Home',
+        icon: 'feather-home',
         path: '/',
         url: ''
     },

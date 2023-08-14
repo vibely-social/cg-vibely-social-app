@@ -1,21 +1,3 @@
-//  PRELOADER
-
-
-.preloader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 999999;
-    background-color: #ffffff;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-image: url(../images/preloader.svg);
-    background-size: 80px;
-}
-
-
 .box{
     position:relative;
     width:100%;
@@ -75,6 +57,3 @@
         transform:translateX(100%) rotate(0deg);
     }
 }
-
-.feed-body {visibility: hidden; overflow: hidden;height: 0;}
-.loaded .feed-body {visibility: visible; overflow: visible;height: 100%;}

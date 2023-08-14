@@ -242,5 +242,15 @@
 
 .list-style-disc li {list-style-type: disc;margin-bottom: 5px;}
 
+.hover-scale-1-1:hover{
+    transform: scale(1.1);
+}
+.hover-scale-1-2:hover{
+    transform: scale(1.2);
+}
+.hover-scale-1-3:hover{
+    transform: scale(1.3);
+}
+
 
 
