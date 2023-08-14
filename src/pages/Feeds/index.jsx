@@ -3,6 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import RightFeed from "./RightFeeds";
 import { Row, Col, Card } from "react-bootstrap";
+import story from "~/assets/img/story-5.jpg"
+import addStory from "~/assets/img/addStory.jpg"
+import Stories from 'react-insta-stories';
+import { useEffect } from "react";
+
 
 function Feeds() {
     const [show, setShow] = useState(false);
@@ -14,102 +19,46 @@ function Feeds() {
         setShowComment(!showComment);
     };
 
-                return (
-                <Row className="feed-body">
-                    <Col xl={8} xxl={9}   >
+ 
 
-                        <div className="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
-                        <div className="owl-carousel category-card owl-theme overflow-hidden nav-none">
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <span className="btn-round-lg bg-white"><i className="feather-plus font-lg" /></span>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Add Story </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Victor Exrixon </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Surfiya Zakir </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">David Goria </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">David Goria </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">David Goria </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div className="item">
-                            <div className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3" style={{backgroundImage: 'url(https://via.placeholder.com/200x300.png)'}}>
-                                <div className="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                <a href="#" data-target="#Modalstries" data-toggle="modal">
-                                    <figure className="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1"><img src="https://via.placeholder.com/50x50.png" alt="image" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
-                                    <div className="clearfix" />
-                                    <h4 className="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">Seary Victor </h4>
-                                </a>
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
+    const stories = [
+        addStory,
+        {
+            url: addStory,
+            duration: 2000,
+            seeMore: ({ close }) => {
+                return <div onClick={close}>Hello, click to close this.</div>;
+            },
+        },
+    ];
+    const story2 = [
+        story,
+    ]
 
-                        <Card className=" w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
-                            <Card.Body className=" p-0"></Card.Body>
-                            <Card.Body className="body p-0 mt-3 positclassNameNamion-relative">
-                                <div className="d-flex align-items-center">
-                                    <figure className="avatar ms-2 me-2">
-                                        <img
-                                            src="https://via.placeholder.com/50x50.png"
-                                            alt="image"
-                                            className="shadow-sm rounded-circle w30"
-                                        />
+    return (
+     <Row className="feed-body">
+         <Col xl={8} xxl={9}  lg={8} >
+            {/* <Row className="bg-transparent pb-2">
+                <Stories  stories={stories}
+                    defaultInterval={2000}
+                    width={150}
+                    height={250} />
+                <Stories  stories={story2}
+                    defaultInterval={2000}
+                    width={150}
+                    height={250} />
+                <Stories  stories={story2}
+                    defaultInterval={2000}
+                    width={150}
+                    height={250} />
+                
+            </Row> */}
+            <Card className="w-100  bg-transparent rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
+                     <Card.Body className="body p-0 mt-3 positclassNameNamion-relative">
+                         <div className="d-flex align-items-center">
+                            <figure className="avatar ms-2 me-2">
+                                <img src={"https://via.placeholder.com/50x50.png"}
+                                            className="shadow-sm rounded-circle w30"/>
                                     </figure>
 
                                     <textarea
@@ -433,12 +382,11 @@ function Feeds() {
                                             </li>
                                         </ul>
                                     </div>
-                                    <a
-                                        // href="#"
-                                        className="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
-                                    >
-                                        <i className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
-                                        <span className="d-none-xss" onClick={handleShowComment}>
+                <a
+                className="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
+                >
+            <i className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
+                <span className="d-none-xss" onClick={handleShowComment}>
                     22 Comment
                   </span>
                 </a>
