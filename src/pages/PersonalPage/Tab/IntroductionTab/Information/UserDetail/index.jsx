@@ -158,7 +158,7 @@ function UserDetail() {
                                         value={formikGender.values.gender}
                                         onChange={formikGender.handleChange}
                                         onBlur={formikBirthday.handleBlur}
-                                        className="form-select-sm form-gender">
+                                        className="form-select-md form-gender cursor-pointer">
                                         <option className="font-xsss"
                                                 defaultValue="">Select Gender
                                         </option>

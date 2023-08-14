@@ -1,8 +1,7 @@
 import Header from "../commons/Header/index.jsx";
-import MainSidebar from "../commons/Sidebar/MainSidebar/index.jsx";
 import RightChat from "../../components/RightChat/index.jsx";
 import {useSelector} from "react-redux";
-import { useEffect,useState } from "react";
+import {useEffect, useState} from "react";
 import PreLoader from '../../components/Preloader'
 import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
 import Sidebar from "~/layouts/commons/Sidebar/index.jsx";
