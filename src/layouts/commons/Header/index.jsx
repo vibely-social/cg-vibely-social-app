@@ -39,7 +39,7 @@ function Header() {
             <div className="nav-top">
                 <Link to='/'> <motion.img 
                   whileHover={{ scale: 1.2 }}
-                  style={{maxWidth: 50}} className='d-inline-block  logo-nav' src={Logo} /></Link>
+                  style={{maxWidth: 50,zIndex: "10000"}} className='d-inline-block  logo-nav' src={Logo} /></Link>
                 <a href="src/layouts/commons/Header#" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="default-video.html" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="src/layouts/commons/Header#" className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
