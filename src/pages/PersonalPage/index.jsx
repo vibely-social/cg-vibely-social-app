@@ -1,9 +1,9 @@
 import {useState} from "react";
 import PostTab from "./Tab/PostTab/index.jsx";
 import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
-import "./index.css"
 import MediaTab from "./Tab/MediaTab/index.jsx";
 import FriendTab from "./Tab/FriendTab/index.jsx";
+import "./Tab/IntroductionTab/index.css"
 
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
@@ -83,7 +83,7 @@ function PersonalPage() {
                                     <span data-toggle="tab"
                                           onClick={() => setType(tab)}
                                           className={type === tab ?
-                                              "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer focus-item" :
+                                              "fw-600 font-xsss text-dark pt-3 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark" :
                                               "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
                                         {tab}
                                     </span>
