@@ -1,51 +1,120 @@
 import google from "../../assets/img/google-icon.png";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
+import "./index.scss"
+import axios from "axios";
 
 function Register() {
 
+    // const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
-            name: "",
+            firstName: "",
+            lastName: "",
             email: "",
             password: "",
-            confirmedPassword: ""
+            confirmedPassword: "",
+            gender: "",
+            day: "",
+            month: "",
+            year: "",
         },
-        validationSchema: Yup.object({
-            name: Yup
+        validationSchema: Yup.object().shape({
+            firstName: Yup
                 .string()
-                .required("You must fill in this section!"),
-            // .matches(/^[A-Za-z]+$/,
-            //     "Wrong name, name can't have number !"),
+                .required("What's your name?"),
+            lastName: Yup
+                .string()
+                .required("What's your name?"),
             email: Yup
                 .string()
-                .required("You must fill in this section!")
+                .required()
                 .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
                     "Please enter a valid email address !"),
             password: Yup
                 .string()
-                .required("You must fill in this section!")
+                .required()
                 .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!]{8,16}$/,
                     "Password must be 6-18 characters and contain at least one letter, one number and a special character"),
             confirmedPassword: Yup
                 .string()
-                .required("You must fill in this section!")
+                .required()
                 .oneOf([Yup.ref("password"), null],
-                    "Password must match")
+                    "Password must match"),
+            gender: Yup
+                .string(),
+            day: Yup
+                .number()
+                .min(1)
+                .max(31)
+                .required(),
+            month: Yup
+                .number()
+                .min(1)
+                .max(31)
+                .required(),
+            year: Yup
+                .number()
+                .min(1905)
+                .max(new Date().getFullYear())
+                .required(),
         }),
-        onSubmit: (values, {resetForm}) => {
-            alert("Login in successfully!!!");
-            console.log(values);
-            resetForm();
+        onSubmit: async (values, {resetForm}) => {
+
+            let user = {
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                password: values.password,
+                dayOfBirth: values.day + '/' + values.month + '/' + values.year,
+                gender: values.gender,
+            }
+
+            try {
+                const response = await axios.post("http://localhost:8080/api/users", user)
+                console.log(user);
+                if(response.status === 200) {
+                    resetForm();
+                    // setMessage("Login successfully")
+                    console.log(user)
+                    alert("Register in successfully!!!");
+                    navigate("/login")
+                } else if (response.status === 400) {
+                    console.log("Email already registered");
+                } else  {
+                    // console.log(response.data)
+                    // setMessage("Invalid Credential")
+                    // console.log(message);
+                    console.log("Invalid Credential");
+                }
+            } catch (error) {
+                // setMessage("error")
+                // console.log(message)
+                console.error("Error:", error);
+            }
         }
     });
 
-    var isInvalidName = formik.errors.name;
-    var isFocusName = formik.touched.name;
-    var isInvalidEmail = formik.touched.email && formik.errors.email;
-    var isInvalidPassword = formik.touched.password && formik.errors.password;
-    var isInvalidConfirmedPassword = formik.touched.confirmedPassword && formik.errors.confirmedPassword;
+    // const isLeapYear = (year) => {
+    //     return ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0));
+    // }
+    const generateOptions = (start, end) => {
+        return Array.from({length: end - start + 1}, (_, index) => start + index);
+    };
+
+    let isInvalidFirstname = formik.touched.firstName && formik.errors.firstName;
+    let isInvalidLastname = formik.touched.lastName && formik.errors.lastName;
+    let isInvalidEmail = formik.touched.email && formik.errors.email;
+    let isInvalidPassword = formik.touched.password && formik.errors.password;
+    let isInvalidConfirmedPassword = formik.touched.confirmedPassword && formik.errors.confirmedPassword;
+    let isInvalidGender = formik.touched.gender && formik.errors.gender;
+    let isInvalidDay = formik.touched.day && formik.errors.day;
+    let isInvalidMonth = formik.touched.month && formik.errors.month;
+    let isInvalidYear = formik.touched.year && formik.errors.year;
 
     return (
         <>
@@ -86,83 +155,321 @@ function Register() {
                     <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                         <div className="card shadow-none border-0 ms-auto me-auto login-card">
                             <div className="card-bo00 display1-size display2dy rounded-0 text-left">
-                                    <h2 className="fw-7-md-size mb-4">Create your account</h2>
-                                <form className="infoform" onSubmit={formik.handleSubmit}>
-                                    <div className="form-group icon-input mb-3">
-                                        <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                                        <input type="text"
-                                               id="name"
-                                               name="name"
-                                               value={formik.values.name}
-                                               onBlur={formik.handleBlur}
-                                               onChange={formik.handleChange}
-                                               className={isInvalidName
-                                                   ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
-                                                   : isFocusName
-                                                   ? "style2-input ps-5 form-control is-valid text-grey-900 font-xsss fw-600"
-                                                   :"style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
-                                               }
-                                               placeholder="Your Name"/>
-                                        {isInvalidName
-                                            ? (<div className="errorMsg text-red font-xsss">{formik.errors.name}</div>)
-                                            : null}
+                                <h2 className="fw-7-md-size mb-4">Create your account</h2>
+                                <Form className="infoform" onSubmit={formik.handleSubmit}>
+                                    <div className="row">
+                                        <OverlayTrigger
+                                            placement='left'
+                                            show={isInvalidFirstname ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-left'>
+                                                    {formik.errors.firstName}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-lg-6 mb-3">
+                                                <div className="form-group icon-input">
+                                                    <input type="text"
+                                                           id="firstName"
+                                                           name="firstName"
+                                                           value={formik.values.firstName}
+                                                           onBlur={formik.handleBlur}
+                                                           onChange={formik.handleChange}
+                                                           className={isInvalidFirstname
+                                                               ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
+                                                               : "style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                                                           }
+                                                           placeholder="First name"/>
+                                                     <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                                                </div>
+                                            </div>
+                                        </OverlayTrigger>
+
+                                        <OverlayTrigger
+                                            placement='right'
+                                            show={isInvalidLastname ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-right'>
+                                                    {formik.errors.lastName}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-lg-6 mb-3">
+                                                <div className="form-group icon-input">
+                                                    <input type="text"
+                                                           id="lastName"
+                                                           name="lastName"
+                                                           value={formik.values.lastName}
+                                                           onBlur={formik.handleBlur}
+                                                           onChange={formik.handleChange}
+                                                           className={isInvalidLastname
+                                                               ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
+                                                               : "style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                                                           }
+                                                           placeholder="Last name"/>
+                                                </div>
+                                            </div>
+                                        </OverlayTrigger>
                                     </div>
-                                    <div className="form-group icon-input mb-3">
-                                        <i className="font-sm ti-email text-grey-500 pe-0"></i>
-                                        <input type="text"
-                                               id="email"
-                                               name="email"
-                                               value={formik.values.email}
-                                               onBlur={formik.handleBlur}
-                                               onChange={formik.handleChange}
-                                               className={isInvalidEmail
-                                                   ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
-                                                   : "style2-input ps-5 form-control is-valid text-grey-900 font-xsss fw-600"
-                                               }
-                                               placeholder="Your Email Address"/>
-                                        {isInvalidEmail
-                                            ? (<div className="errorMsg text-red font-xsss">{formik.errors.email}</div>)
-                                            : null}
+
+                                    <OverlayTrigger
+                                        placement='left'
+                                        show={isInvalidEmail ? true : false}
+                                        overlay={
+                                            <Tooltip id='tooltip-left'>
+                                                {formik.errors.email}
+                                            </Tooltip>
+                                        }>
+                                        <div className="form-group icon-input mb-3">
+                                            <i className="font-sm ti-email text-grey-500 pe-0"></i>
+                                            <input type="text"
+                                                   id="email"
+                                                   name="email"
+                                                   value={formik.values.email}
+                                                   onBlur={formik.handleBlur}
+                                                   onChange={formik.handleChange}
+                                                   className={isInvalidEmail && 'is-valid'
+                                                       ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
+                                                       : "style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                                                   }
+                                                   placeholder="Your Email Address"/>
+                                        </div>
+                                    </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement='left'
+                                        show={isInvalidPassword ? true : false}
+                                        overlay={
+                                            <Tooltip id='tooltip-left'
+
+                                            >
+                                                {formik.errors.password}
+                                            </Tooltip>
+                                        }>
+                                        <div className="form-group icon-input mb-3">
+                                            <input type="Password"
+                                                   id="password"
+                                                   name="password"
+                                                   value={formik.values.password}
+                                                   onBlur={formik.handleBlur}
+                                                   onChange={formik.handleChange}
+                                                   className={isInvalidPassword
+                                                       ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss ls-3"
+                                                       : "style2-input ps-5 form-control text-grey-900 font-xsss ls-3"
+                                                   }
+                                                   placeholder="Password"/>
+                                            <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                                        </div>
+                                    </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement='right'
+                                        show={isInvalidConfirmedPassword ? true : false}
+                                        overlay={
+                                            <Tooltip id='tooltip-right'>
+                                                {formik.errors.confirmedPassword}
+                                            </Tooltip>
+                                        } defaultShow={null}>
+                                        <div className="form-group icon-input mb-1">
+                                            <input type="Password"
+                                                   id="confirmedPassword"
+                                                   name="confirmedPassword"
+                                                   value={formik.values.confirmedPassword}
+                                                   onBlur={formik.handleBlur}
+                                                   onChange={formik.handleChange}
+                                                   className={isInvalidConfirmedPassword
+                                                       ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss ls-3"
+                                                       : "style2-input ps-5 form-control text-grey-900 font-xsss ls-3"
+                                                   }
+                                                   placeholder="Confirm Password"/>
+                                            <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                                        </div>
+                                    </OverlayTrigger>
+                                    <div
+                                        className="font-xssss"
+                                        style={{marginTop: "0.8rem"}}>Date of birth ?
                                     </div>
-                                    <div className="form-group icon-input mb-3">
-                                        <input type="Password"
-                                               id="password"
-                                               name="password"
-                                               value={formik.values.password}
-                                               onBlur={formik.handleBlur}
-                                               onChange={formik.handleChange}
-                                               className={isInvalidPassword
-                                                   ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss ls-3"
-                                                   : "style2-input ps-5 form-control is-valid text-grey-900 font-xsss ls-3"
-                                               }
-                                               placeholder="Password"/>
-                                        {isInvalidPassword
-                                            ? (<div
-                                                className="errorMsg text-red font-xsss">{formik.errors.password}</div>)
-                                            : null}
-                                        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                                    <div className="row">
+                                        <OverlayTrigger
+                                            placement='left'
+                                            show={isInvalidDay ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-left'>
+                                                    {formik.errors.day}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-md-4">
+                                                <div className="form-group">
+                                                    <select
+                                                        id="day"
+                                                        name="day"
+                                                        value={formik.values.day}
+                                                        onBlur={formik.handleBlur}
+                                                        onChange={formik.handleChange}
+                                                        style={{
+                                                            borderRadius: "1",
+                                                            height: "auto",
+                                                            paddingRight: "15px"
+                                                        }}
+                                                        className={isInvalidDay
+                                                            ? "style2-input ps-5 form-control-sm is-invalid text-grey-900 font-xsss fw-600"
+                                                            : "style2-input ps-5 form-control-sm text-grey-900 font-xsss fw-600"
+                                                        }>
+                                                        <option value="day">Day</option>
+                                                        {generateOptions(1, 31).map((day) => (
+                                                            <option key={day} value={day}>
+                                                                {day}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </OverlayTrigger>
+
+                                        <OverlayTrigger
+                                            placement='top'
+                                            show={isInvalidMonth ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-top'>
+                                                    {formik.errors.month}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-md-4">
+                                                <div className="form-group">
+                                                    <select
+                                                        id="month"
+                                                        name="month"
+                                                        value={formik.values.month}
+                                                        onBlur={formik.handleBlur}
+                                                        onChange={formik.handleChange}
+                                                        style={{borderRadius: "1", height: "auto", paddingRight: "0px"}}
+                                                        className={isInvalidMonth
+                                                            ? "style2-input ps-5 form-control-sm is-invalid text-grey-900 font-xsss fw-600"
+                                                            : "style2-input ps-5 form-control-sm text-grey-900 font-xsss fw-600"
+                                                        }
+                                                        placeholder="Month">
+                                                        <option value="">Month</option>
+                                                        {generateOptions(1, 12).map((month) => (
+                                                            <option key={month} value={month}>
+                                                                {month}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </OverlayTrigger>
+
+                                        <OverlayTrigger
+                                            placement='right'
+                                            show={isInvalidYear ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-right'>
+                                                    {formik.errors.year}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-md-4">
+                                                <div className="form-group">
+                                                    <select
+                                                        id="year"
+                                                        name="year"
+                                                        value={formik.values.year}
+                                                        onBlur={formik.handleBlur}
+                                                        onChange={formik.handleChange}
+                                                        style={{borderRadius: "1", height: "auto"}}
+                                                        className={isInvalidYear
+                                                            ? "style2-input ps-5 form-control-sm is-invalid font-xsss fw-600"
+                                                            : "style2-input ps-5 form-control-sm font-xsss fw-600"
+                                                        }>
+                                                        <option value="Year">Year</option>
+                                                        {generateOptions(1905, new Date().getFullYear()).map((year) => (
+                                                            <option key={year} value={year}>
+                                                                {year}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </OverlayTrigger>
                                     </div>
-                                    <div className="form-group icon-input mb-1">
-                                        <input type="Password"
-                                               id="confirmedPassword"
-                                               name="confirmedPassword"
-                                               value={formik.values.confirmPassword}
-                                               onBlur={formik.handleBlur}
-                                               onChange={formik.handleChange}
-                                               className={isInvalidConfirmedPassword
-                                                   ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss ls-3"
-                                                   : "style2-input ps-5 form-control is-valid text-grey-900 font-xsss ls-3"
-                                               }
-                                               placeholder="Confirm Password"/>
-                                        {isInvalidConfirmedPassword
-                                            ? (<div
-                                                className="errorMsg text-red font-xsss">{formik.errors.confirmedPassword}</div>)
-                                            : null}
-                                        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                                    <div
+                                        className="font-xssss"
+                                        style={{marginTop: "0.8rem"}}>Gender ?
                                     </div>
-                                    <div className="form-check text-left mb-3">
-                                        <input type="checkbox" className="form-check-input mt-2" id="exampleCheck1"/>
-                                        <label className="form-check-label font-xsss text-grey-500"
+
+                                    <div className="row">
+                                        <OverlayTrigger
+                                            placement='left'
+                                            show={isInvalidGender ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-left'>
+                                                    {formik.errors.gender}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-md-4" style={{marginTop: "-14px"}}>
+                                                <span style={{padding: 0}} className="form-control">
+                                                    <label htmlFor="female"
+                                                           className="ps-md-3 fw-600"
+                                                           style={{paddingRight: "30px"}}>Female</label>
+                                                    <input type="radio"
+                                                           value="FEMALE"
+                                                           checked={formik.values.gender === "FEMALE"}
+                                                           onChange={formik.handleChange}
+                                                           name="gender"
+                                                           id="FEMALE"/>
+                                                </span>
+                                            </div>
+                                        </OverlayTrigger>
+
+                                        <OverlayTrigger
+                                            placement='left'
+                                            show={isInvalidGender ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-left'>
+                                                    {formik.errors.gender}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-md-4" style={{marginTop: "-14px"}}>
+                                                <span style={{padding: 0}} className="form-control">
+                                                    <label htmlFor="male"
+                                                           className="ps-md-3 fw-600"
+                                                           style={{paddingRight: "38px"}}>Male</label>
+                                                    <input type="radio"
+                                                           value="MALE"
+                                                           checked={formik.values.gender === "MALE"}
+                                                           onChange={formik.handleChange}
+                                                           name="gender"
+                                                           id="MALE"/>
+                                                </span>
+                                            </div>
+                                        </OverlayTrigger>
+
+                                        <OverlayTrigger
+                                            placement='left'
+                                            show={isInvalidGender ? true : false}
+                                            overlay={
+                                                <Tooltip id='tooltip-left'>
+                                                    {formik.errors.gender}
+                                                </Tooltip>
+                                            }>
+                                            <div className="col-md-4" style={{marginTop: "-14px"}}>
+                                                <span style={{padding: 0}} className="form-control">
+                                                    <label htmlFor="gender"
+                                                           className="ps-md-3 fw-600"
+                                                           style={{paddingRight: "30px"}}>Other</label>
+                                                    <input type="radio"
+                                                           value="OTHER"
+                                                           checked={formik.values.gender === "OTHER"}
+                                                           onChange={formik.handleChange}
+                                                           name="gender"
+                                                           id="OTHER"/>
+                                                </span>
+                                            </div>
+                                        </OverlayTrigger>
+                                    </div>
+
+
+                                    <div className="form-check text-left text-center" style={{scale: "1"}}>
+                                        <input type="checkbox" className="form-check-input " style={{scale: "0.5"}}
+                                               id="exampleCheck1"/>
+                                        <label className="form-check-label font-xssss text-grey-500 "
                                                htmlFor="exampleCheck1">Accept Term and
                                             Conditions
                                         </label>
@@ -170,19 +477,18 @@ function Register() {
                                     <div className="col-sm-12 p-0 text-left">
                                         <div className="form-group mb-1">
                                             <button type="submit"
-                                                    className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                                                    className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                                            >
                                                 Register
                                             </button>
                                         </div>
                                         <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
                                             Already have account ?
-                                            <Link to="/login" className="fw-700 ms-1 text-vibe">Login</Link>
+                                            <Link to="/login" className="fw-700 ms-1 text-vibe">Login </Link>
+                                            Or, Sign in with your social account
                                         </h6>
                                     </div>
                                     <div className="col-sm-12 p-0 text-center mt-2">
-                                        <h6 className="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">
-                                            Or, Sign in with your social account
-                                        </h6>
                                         <div className="form-group mb-1">
                                             <a href="#"
                                                className="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
@@ -192,7 +498,7 @@ function Register() {
                                             </a>
                                         </div>
                                     </div>
-                                </form>
+                                </Form>
                             </div>
                         </div>
                     </div>
