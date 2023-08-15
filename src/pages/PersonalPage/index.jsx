@@ -75,7 +75,7 @@ function PersonalPage() {
                         </div>
                     </div>
 
-                    <div className="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
+                    <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
                         <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
                             id="pills-tab" role="tablist">
                             {tabs.map((tab, index) => (

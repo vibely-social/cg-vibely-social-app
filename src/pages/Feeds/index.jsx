@@ -1,19 +1,10 @@
-import {useState} from "react";
 import RightFeed from "./RightFeeds";
-import { Row, Col, Card } from "react-bootstrap";
-import story from "~/assets/img/story-5.jpg"
-import addStory from "~/assets/img/addStory.jpg"
+import {Card, Col, Row} from "react-bootstrap";
 import NewPost from "~/components/NewPost";
 
-
 function Feeds() {
-
-
-
-
     return (<Row className="feed-body pt-3">
                  <Col xl={8} xxl={9}  lg={8} >
-
                         <NewPost />
 
                          <Card className="w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
