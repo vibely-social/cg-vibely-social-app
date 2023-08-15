@@ -4,13 +4,13 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-function UserDetail() {
+function UserDetail({userDetails}) {
     const API = "https://64c33809eb7fd5d6ebd09f15.mockapi.io/api/v1/informations/1"
     const [nameStatus, setNameStatus] = useState(false)
     const [genderStatus, setGenderStatus] = useState(false)
     const [birthdayStatus, setBirthdayStatus] = useState(false)
     const [userInfo, setUserInfo] = useState({})
-
+    const {name, gender, brithday} = userDetails;
     useEffect(() => {
         axios.get(API)
             .then(res => {

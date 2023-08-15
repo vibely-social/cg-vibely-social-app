@@ -10,10 +10,6 @@ function MediaTab() {
             <div className="card w-100 d-block d-flex shadow-xss rounded-xxl border-0 mt-3">
                 <div className="card-body d-flex p-4">
                     <h2 className="fw-700 mb-0 mt-0 font-md text-grey-900">Media</h2>
-                    <span
-                       className="bg-lightblue ms-auto text-center text-dark font-xsss p-2 w175 rounded-3 d-inline-block cursor-pointer">
-                        Add Media
-                    </span>
                 </div>
                 <div className="card-body d-block w-100 mb-0 p-0">
                     <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
@@ -32,7 +28,7 @@ function MediaTab() {
                     </ul>
                 </div>
                 <div className="card-body">
-                    <div className="row ps-2 pe-1">
+                    <div className="row ps-2 pe-2">
                         <div className="col-md-3 col-xss-6 pe-2 ps-2">
                             <div
                                 className="card h240 w240 d-block border-0 rounded-3 mb-3 bg-image-cover"
