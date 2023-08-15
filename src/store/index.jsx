@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import sidebarReducer from './slices/toggleSidebar'
-import toggleChat from './slices/toggleChat';
-import toogleLoader from './slices/toggleLoader';
+import sidebarReducer from '../features/slices/toggleSidebar'
+import toggleChat from '../features/slices/toggleChat';
+import toogleLoader from '../features/slices/toggleLoader';
 
 const store = configureStore({
     reducer: {

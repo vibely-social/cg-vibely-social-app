@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {selectSidebarPosition, toggle} from "../../../../store/slices/toggleSidebar/index.js";
+import {selectSidebarPosition, toggle} from "../../../../features/slices/toggleSidebar/index.js";
 // eslint-disable-next-line react/prop-types
 
 function ChatSidebar({collapse = false}) {

@@ -1,25 +1,75 @@
 import { Dialog } from '@headlessui/react'
 import { motion, AnimatePresence } from "framer-motion"
-import { Button } from 'react-bootstrap';
+import { Button, Form, ListGroup } from 'react-bootstrap';
 import "./index.css"
+import Logo from "../../../assets/img/new_post_icons/Logo.png"
+import Gallery from "../../../assets/img/new_post_icons/gallery.svg"
+import Tag from "../../../assets/img/new_post_icons/tag.svg"
+import Emoji from "../../../assets/img/new_post_icons/emoji.svg"
+import Theme from "../../../assets/img/new_post_icons/theme.svg"
+import Smile from "../../../assets/img/new_post_icons/smile.svg"
+import More from "../../../assets/img/new_post_icons/more.svg"
+import Mic from "../../../assets/img/new_post_icons/mic.svg"
+import { useState  } from 'react'
+
+
+  const dialogStyle = {
+	position: 'fixed',
+	alignItems:"center",
+	justifyContent:'center',
+	zIndex: "1000",
+	width:'100%',
+	height:'100%' , 
+	top: "0%", right: "0%",
+	backdropFilter: 'blur(5px)',
+	overflow: "visible"
+}
 
 
 
 function NewPostModal({ isOpen,closeModal }) {
 
+	const [postContent,setPostContent] = useState("");
+	const [postImage,setPostImage] = useState([]);
+	const [postTag,setPostTag] = useState([]);
+	const [postPrivacy,setPostPrivacy] = useState("public");
+
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await fetch('https://64c0caa50d8e251fd1129902.mockapi.io/api/v1/post', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(createPost),
+			});
+	
+			if (response.ok) {
+				console.log('Post created successfully!');
+			} else {
+				console.error('Failed to create post');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	};
+
+
+
+
 
     return (
         <AnimatePresence>
-				<Dialog
+				{isOpen  &&(<Dialog
 					open={isOpen}
 					onClose={closeModal}
 					as="div"
-					className="d-flex justify-content-center overflow-y-auto "
-                    style={{position: 'fixed',alignItems:"center",justifyContent:'center',zIndex: "1000",width:'100%',height:'100%' , top: "0%", right: "0%",backdropFilter: 'blur(5px)'}}
-				>
-					<div className="flex flex-col py-8 px-4 text-center">
+					className="d-flex justify-content-center  "
+					style={dialogStyle}>
 						<motion.div
-							className="d-flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+							className="d-flex items-end justify-center dialog-post  pt-3 px-1 text-center "
 							initial={{
 								opacity: 0,
 								scale: 0.75,
@@ -29,7 +79,7 @@ function NewPostModal({ isOpen,closeModal }) {
 								scale: 1,
 								transition: {
 									ease: "easeOut",
-									duration: 0.75,
+									duration: 0.45,
 								},
 							}}
 							exit={{
@@ -37,56 +87,49 @@ function NewPostModal({ isOpen,closeModal }) {
 								scale: 0.75,
 								transition: {
 									ease: "easeIn",
-									duration: 0.15,
+									duration: 0.30,
 								},
 							}}
 						>
-
-							<div
-								className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all"
-								role="dialog"
-								aria-modal="true"
-								aria-labelledby="modal-headline"
-							>
-								<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-									<div className="sm:flex sm:items-start">
-										<div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-									
+						<div className="dialog-post-wrapper">
+							<section className="post-content">
+							<div className="header-dialog">Create Post<Button className='bg-grey feather-x rounded-circle text-grey-700 p-1 border w35 font-xs' 
+																			style={{float:'right',marginRight: "20px"}} 
+																			onClick={closeModal}/></div>
+							<Form onSubmit={handleSubmit}>
+									<Form.Group className="content-dialog">
+										<img src={Logo} alt="logo" />
+										<div className="details">
+											<p>Thanh Nguyen</p>
+											<Form.Select className="privacy">
+												<option value="public">Public </option>
+												<option value="friend">Friends</option>
+												<option value="onlyme">Only me</option>
+											</Form.Select>
 										</div>
-										<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-											<Dialog.Title
-												as="h3"
-												className="text-lg leading-6 font-medium text-gray-900"
-												id="modal-headline"
-											>
-												Deactivate account
-											</Dialog.Title>
-											<div className="mt-2">
-												<Dialog.Description
-													as="p"
-													className="text-sm text-gray-500"
-												>
-													Are you sure you want to deactivate your account? All
-													of your data will be permanently removed. This action
-													cannot be undone.
-												</Dialog.Description>
-											</div>
+									</Form.Group>
+										<textarea placeholder="What's on your mind ?" spellCheck="false" defaultValue={""} 
+													onChange={(e) => setPostContent(e.target.value) }/>
+										<div className="theme-emoji">
+											<img src={Theme} alt="theme" />
+											<img src={Smile} alt="smile" />
 										</div>
-									</div>
-								</div>
-								<div className=" px-4 py-3 d-flex justify-content-center">
-									<Button
-										type="button"
-										className="w-full  bg-primary-gradiant rounded-md border-0 shadow-sm px-4 py-2 font-medium"
-										onClick={closeModal}
-									>
-										Post
-									</Button>
-								</div>
-							</div>
+									<Form.Group className="options">
+										<p>Add to Your Post</p>
+										<ListGroup as="ul" className="list-items-post">
+											<ListGroup.Item as="li"><img src={Gallery}/></ListGroup.Item>
+											<ListGroup.Item as="li"><img src={Tag} /></ListGroup.Item>
+											<ListGroup.Item as="li"><img src={Emoji} /></ListGroup.Item>
+											<ListGroup.Item as="li"><img src={Mic} /></ListGroup.Item>
+											<ListGroup.Item as="li"><img src={More} /></ListGroup.Item>
+										</ListGroup>
+									</Form.Group>
+								<Button type='submit' className='border-0 button-post shadow-xss mt-2'>Post</Button>
+							</Form>
+							</section>
+						</div>
 						</motion.div>
-					</div>
-				</Dialog>
+				</Dialog>)}
 		</AnimatePresence>
 	)
 }

@@ -4,7 +4,7 @@ import RightChat from "../../components/RightChat/index.jsx";
 import {useSelector,useDispatch} from "react-redux";
 import { useEffect,useState } from "react";
 import PreLoader from '../../components/Preloader'
-import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
+import {selectSidebarPosition} from '../../features/slices/toggleSidebar'
 
 // eslint-disable-next-line react/prop-types
 function MainLayout({children,path}) {
