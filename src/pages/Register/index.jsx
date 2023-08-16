@@ -2,9 +2,10 @@ import google from "../../assets/img/google-icon.png";
 import {Link, useNavigate} from "react-router-dom"
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Form, Overlay, OverlayTrigger, Tooltip} from "react-bootstrap";
 import "./index.scss"
 import axios from "axios";
+import {useState} from "react";
 
 function Register() {
 
@@ -77,7 +78,7 @@ function Register() {
             try {
                 const response = await axios.post("http://localhost:8080/api/users", user)
                 console.log(user);
-                if(response.status === 200) {
+                if (response.status === 200) {
                     resetForm();
                     // setMessage("Login successfully")
                     console.log(user)
@@ -85,7 +86,7 @@ function Register() {
                     navigate("/login")
                 } else if (response.status === 400) {
                     console.log("Email already registered");
-                } else  {
+                } else {
                     // console.log(response.data)
                     // setMessage("Invalid Credential")
                     // console.log(message);
@@ -99,12 +100,36 @@ function Register() {
         }
     });
 
+    const [emailExists, setEmailExists] = useState(false);
+
+    const checkEmailExists = async (email) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/users?email=${email}`);
+            const statusCode = response.status;
+
+            if (statusCode === 200) {
+                setEmailExists(false);
+                console.log("Email Valid");
+            } else if (statusCode === 400) {
+                console.log("Email exist")
+                setEmailExists(true);
+            }
+            console.log(emailExists);
+
+        } catch (error) {
+            console.error("Error checking email:", error);
+            // console.log("Email exist");
+            // setEmailExists(true);
+        }
+    };
+
     // const isLeapYear = (year) => {
     //     return ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0));
     // }
     const generateOptions = (start, end) => {
         return Array.from({length: end - start + 1}, (_, index) => start + index);
     };
+
 
     let isInvalidFirstname = formik.touched.firstName && formik.errors.firstName;
     let isInvalidLastname = formik.touched.lastName && formik.errors.lastName;
@@ -179,7 +204,7 @@ function Register() {
                                                                : "style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                                                            }
                                                            placeholder="First name"/>
-                                                     <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                                                    <i className="font-sm ti-user text-grey-500 pe-0"></i>
                                                 </div>
                                             </div>
                                         </OverlayTrigger>
@@ -224,15 +249,24 @@ function Register() {
                                                    id="email"
                                                    name="email"
                                                    value={formik.values.email}
-                                                   onBlur={formik.handleBlur}
+                                                // onBlur={formik.handleBlur}
+                                                   onBlur={(e) => {
+                                                       formik.handleBlur(e);
+                                                       if (e.target.value && !formik.errors.email) {
+                                                           checkEmailExists(e.target.value);
+                                                       }
+                                                   }}
                                                    onChange={formik.handleChange}
                                                    className={isInvalidEmail && 'is-valid'
                                                        ? "style2-input ps-5 form-control is-invalid text-grey-900 font-xsss fw-600"
                                                        : "style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                                                    }
                                                    placeholder="Your Email Address"/>
+
+
                                         </div>
                                     </OverlayTrigger>
+                                    {emailExists && <div>Email is already registered.</div>}
 
                                     <OverlayTrigger
                                         placement='left'
