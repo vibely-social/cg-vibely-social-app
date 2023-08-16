@@ -15,9 +15,9 @@ function IntroductionTab() {
     return (
         <>
             <div className="card w-100 shadow-xss rounded-xxl border-0 d-block font-xssss text-grey-500 mt-3"
-                 style={{height: 600}}>
+                 style={{height: 800}}>
                 <div className="card-body d-block p-4">
-                    <h3 className="fw-700 font-xl">About</h3>
+                    <h3 className="fw-700 font-md">About</h3>
                 </div>
                 <div className="card-body">
                     <div className="row">
@@ -27,7 +27,7 @@ function IntroductionTab() {
                                       key={tab}
                                       className={type === tab ?
                                           "cursor-pointer p-2 fw-600 d-block font-xs text-grey-800 mb-2 bg-lightblue rounded-2 ps-2" :
-                                          "cursor-pointer p-2 d-block font-xss text-grey-800 mb-2 hover-item"}>
+                                          "cursor-pointer p-2 d-block font-xss text-grey-800 mb-2 hover-about-tab"}>
                                     {tab}
                                 </span>
                             ))}

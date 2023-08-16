@@ -46,8 +46,18 @@
 	    overflow-y: auto;
 		padding-left: 1em;
 	     //background-color: #0c1898;
+		 &.menu-active{
+			padding-left: 0px
+		}
 
     }
+
+	@include media-breakpoint-down(sm) {
+		padding-left: 0px;
+		&.menu-active{
+			padding-left: 0px
+		}
+	}
     .left-sidebar,.right-sidebar {
     	@include webkit-box();
 	    @include box-orient();
@@ -111,7 +121,7 @@
     .middle-sidebar-bottom {
 	    // overflow: scroll;
 	    width: 100%;
-	    padding: 20px 0px 10px 0px;
+	    padding: 0px 0px 10px 0px;
 	    
 	    @include media-breakpoint-up(xl) {
 	    	@include webkit-box();
@@ -119,7 +129,7 @@
 		}
 	    
 	    // @include media-breakpoint-down(xl) {width: 400px;}
-	    @include media-breakpoint-down(lg) {width: 100%;padding: 76px 15px 0; }	
+	    @include media-breakpoint-down(lg) {width: 100%;padding: 0px 15px 0; }	
 	    @include media-breakpoint-down(md) {}
 
 	    .middle-sidebar-left,.middle-sidebar-right {

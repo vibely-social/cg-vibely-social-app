@@ -3,6 +3,8 @@ import {useEffect, useRef, useState} from "react";
 import {STOMP_CLIENT} from "~/app/constants/appConstants.js";
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import {useSelector} from "react-redux";
+import {selectUserData} from "~/store/slices/userAccount/index.js";
 
 const oldMessages = [
     {
@@ -34,7 +36,7 @@ const oldMessages = [
     },
 ]
 
-function ChatBox() {
+function ChatBox({contactEmail}) {
     const [connected, setConnected] = useState(false)
     const [emojiVisible, setEmojiVisible] = useState(false)
     const chatInput = useRef();
@@ -42,28 +44,29 @@ function ChatBox() {
     const [newMessage, setNewMessage] = useState('');
     const [messages, setMessages] = useState([])
     const channel = 1235;
+    const user = useSelector(selectUserData)
+    const userEmail = user ? user.email : '';
 
-    const token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHVuZ25ndXllbiIsImlhdCI6MTY5MTczOTk5NSwiZXhwIjoxNjkyMzQ0Nzk1fQ.uJ5zJ9LXjirZKlgoU3Fmqoq6vCwrZyrFGOOeMhRBdSEKn-bEIpAJCefnb-Gxo4fS3w3QGJHd_2_2kQ835tD6jw'
+    const token = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaHVuZ0BnbWFpbC5jb20iLCJpYXQiOjE2OTIwMjg5MzQsImV4cCI6MTY5MjYzMzczNH0.uUBA0VT9KJimqZqRJYFxF93tHYAJJSnJ6tTqIMumSDI'
+    useEffect(() => {
+        STOMP_CLIENT.configure({
+            connectHeaders: {
+                Authorization: token,
+                email: userEmail
+            }
+        })
+    }, [user])
 
-    STOMP_CLIENT.configure({
-        connectHeaders: {
-            Authorization: token
-        }
-    })
     STOMP_CLIENT.onConnect = (frame) => {
-        frame.headers.Authorization = token;
         var url = STOMP_CLIENT.webSocket
         console.log(url)
         setConnected(true);
         console.log('channel ' + channel)
         console.log('Connected: ' + frame);
-        STOMP_CLIENT.subscribe('/topic/listen/' + channel, (message) => {
+        STOMP_CLIENT.subscribe('/users/queue/messages', (message) => {
                 console.log('received: ' + message.body);
                 const messageContent = JSON.parse(message.body);
                 setMessages(prevState => [...prevState, messageContent]);
-            },
-            {
-                Authorization: token
             }
         );
     };
@@ -94,14 +97,10 @@ function ChatBox() {
 
     function sendMessage() {
         if (connected) {
-            console.log(channel)
             STOMP_CLIENT.publish({
-                headers: {
-                    'Authorization': 'token'
-                },
-                destination: "/app/chat/" + channel,
+                destination: "/app/ws",
                 body: JSON.stringify({
-                    'username': "Chung",
+                    'sendTo': contactEmail,
                     'content': newMessage
                 })
             });
@@ -117,14 +116,16 @@ function ChatBox() {
                     <div className="messages-content pb-0"
                          onClick={() => setEmojiVisible(false)}>
 
-                        {
-                            oldMessages.map((message, index) =>
-                                <Message key={index} message={message}/>)
-                        }
+                        {/*{*/}
+                        {/*    oldMessages.map((message, index) =>*/}
+                        {/*        <Message key={index} message={message}/>)*/}
+                        {/*}*/}
 
                         {
-                            messages.map((message, index) =>
-                                <Message key={index} message={message}/>)
+                            messages.map((message, index) => {
+                                if (message.from !== contactEmail) message.income = true;
+                                return <Message key={index} message={message}/>
+                            })
                         }
 
                         <div className="clearfix"></div>

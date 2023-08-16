@@ -19,8 +19,7 @@ function MainSidebar({collapse = false}) {
         if (viewPort.width < 576) {
             dispatch(toggle(true))
             setIsMobile(true)
-        } else if (viewPort.width >= 576 && viewPort.width < 992) {
-            setIsMobile(false)
+        } else if (viewPort.width >= 576 && viewPort.width < 1200) {
             dispatch(toggle(true))
         } else {
             setIsMobile(false)
@@ -29,16 +28,13 @@ function MainSidebar({collapse = false}) {
     }, [viewPort.width])
 
     return (
-        <motion.nav style={!isMobile ? {overflow: "visible", left: '-200px'} : {}}
+        <motion.nav style={!isMobile ? {overflow: "visible", left: '-200px',background: "none",zIndex: 1} : {}}
                     animate={!isMobile ? {x: 200} : {}}
                     transition={!isMobile ? {duration: 0.8} : {}}
                     className={position ? "navigation scroll-bar menu-active" : "navigation scroll-bar"}
-                    onMouseOver={() => {
-                        setSidebarHover(true)
-                    }}
-                    onMouseOut={() => setSidebarHover(false)}
-        >
-            <MainNavigate/>
+                    onMouseOver={() => setSidebarHover(true)}
+                    onMouseOut={() => setSidebarHover(false)}>
+            <MainNavigate sidebarHover={sidebarHover}/>
         </motion.nav>
     );
 }

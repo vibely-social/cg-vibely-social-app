@@ -1,36 +1,42 @@
 import google from "../../assets/img/google-icon.png";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    loginToAccount,
+    selectUserAccountSliceIsSuccess,
+    selectUserData,
+    setSuccess
+} from "~/store/slices/userAccount/index.js";
 
 function Login() {
-
-    // const [user, setUser] = useState([])
-    const [message, setMessage] = useState("");
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const user = useSelector(selectUserData)
+    const success = useSelector(selectUserAccountSliceIsSuccess)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     useEffect(() => {
-        console.log('Message changed:', message);
-    }, [message]);
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-
-            const response = await axios.post("http://localhost:8080/api/auth/login", {email, password});
-
-            if (response.status === 200) {
-                setMessage("Login successfully")
-            } else {
-                console.log(response.data)
-                setMessage("Invalid Credential")
-                console.log(message);
+        if (success) {
+            if (user && user.email) {
+                console.log("Login success!")
+                // localStorage.setItem("user", JSON.stringify(user))
+                navigate("/")
+            }else {
+                setErrorMessage("Wrong email or password!")
             }
-        } catch (error) {
-            setMessage("error");
-            console.log(message);
         }
+        return () => {
+            dispatch(setSuccess(false))
+        }
+    }, [success]);
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        dispatch(loginToAccount({email, password}))
     }
 
     return (
@@ -65,11 +71,6 @@ function Login() {
                         </Link>
                     </div>
                 </div>
-                <div>
-                    {message && <p>
-                        {message}
-                    </p>}
-                </div>
                 <div className="row">
                     <div className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
                          style={{backgroundImage: 'url("via.placeholder.com/800x950.png")'}}></div>
@@ -97,6 +98,9 @@ function Login() {
                                                    setPassword(e.target.value)
                                                }}/>
                                         <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                                    </div>
+                                    <div>
+                                        <small className='text-danger'>{errorMessage}</small>
                                     </div>
                                     <div className="form-check text-left mb-3">
                                         <input type="checkbox" className="form-check-input mt-2"

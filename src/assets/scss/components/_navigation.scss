@@ -1,17 +1,23 @@
 .right-chat {
-  position: fixed;
-  top: 0;
-  right: -290px;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: $chat-width;
-  height: calc(100vh - 15px);
-  overflow: hidden;
-  background: transparent;
-  transition: all .25s ease;
-  padding-top: calc(#{$nav-logo-height} + 6px);
-  padding-right: 15px;
-  padding-left: 15px;
+    position: fixed;
+    top: 0;
+    right:-290px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: $chat-width;
+    height: calc(100vh - 15px);
+    overflow: hidden;
+    background: transparent;
+    transition: all .55s ease;
+    padding-top: calc(#{$nav-logo-height} + 6px); 
+    padding-right: 15px; 
+    padding-left: 15px; 
+    
+    @include media-breakpoint-down(lg) {
+        padding-top: 66px !important;
+        padding-bottom: 66px;
+        z-index: 10;    
+    }
 
   @include media-breakpoint-down(lg) {
     padding-top: 66px !important;
@@ -225,7 +231,6 @@
 
   &.menu-active {
     width: 90px;
-
     .nav-content {
       width: 90px;
       padding-left: 10px;
@@ -293,7 +298,6 @@
     height: 100vh;
     padding-top: calc(#{$nav-logo-height} + 6px);
     transition: all 0.5s ease;
-    box-shadow: 0 1rem 3rem rgb(0 0 0 / 18%) !important;
     &.nav-active {
       left: 0;
       right: 0;
@@ -347,7 +351,7 @@
   }
 
   .nav-wrap {
-    background-color: white;
+    background: white;
   }
 
   .nav-caption {
@@ -362,7 +366,8 @@
 
   .nav-content {
     width: $nav-width;
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
+    height: 300px;
     padding-left: 15px;
     padding-right: 15px;
     .friend-list-wrap{
@@ -374,7 +379,7 @@
     @include media-breakpoint-down(md) {
       width: auto;
       .nav-wrap {
-        //box-shadow: none !important;
+    
       }
     }
     @include media-breakpoint-up(lg) {
