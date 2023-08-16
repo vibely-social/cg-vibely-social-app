@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
 import useViewport from "../../../../hooks/Viewport.jsx";
 import {useEffect, useState} from "react";
-import {selectSidebarPosition, toggle} from '~/store/slices/toggleSidebar/index.js'
+import {selectSidebarPosition, toggle} from '../../../../features/slices/toggleSidebar'
 import {useDispatch, useSelector} from "react-redux";
 import MainNavigate from "../MainNavigate/index.jsx";
 
