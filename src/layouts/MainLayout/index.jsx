@@ -3,8 +3,8 @@ import RightChat from "../../components/RightChat/index.jsx";
 import {useSelector} from "react-redux";
 import {useState} from "react";
 import PreLoader from '../../components/Preloader'
-import {selectSidebarPosition} from '../../store/slices/toggleSidebar'
-import MainSidebar from "~/layouts/commons/Sidebar/MainSidebar/index.jsx";
+import {selectSidebarPosition} from '../../features/slices/toggleSidebar'
+import MainSidebar from "../commons/Sidebar/MainSidebar/index.jsx";
 
 // eslint-disable-next-line react/prop-types
 function MainLayout({children, path}) {
