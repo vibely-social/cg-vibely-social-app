@@ -11,3 +11,8 @@
     cursor: pointer;
     border-radius: 5%;
 }
+
+.friend-requests-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
