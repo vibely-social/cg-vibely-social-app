@@ -5,8 +5,7 @@ import NotFound from "../pages/NotFound";
 
 
 function AppRoutes() {
-    return (
-        <Routes>
+    return (  <Routes>
             {publicRoutes.map((route, index) => {
                 const Page = route.component;
                 const Layout = route.layout;
