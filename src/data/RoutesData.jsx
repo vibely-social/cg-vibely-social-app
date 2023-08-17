@@ -7,6 +7,7 @@ import ChatLayout from "../layouts/ChatLayout/index.jsx";
 import MainLayout from "../layouts/MainLayout";
 import Friends from "~/pages/Friends";
 import NotFound from "~/pages/NotFound/index.jsx";
+import Friends from "../pages/Friends";
 
 
 const publicRoutes = [

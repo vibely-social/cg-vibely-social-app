@@ -227,6 +227,7 @@
   -webkit-transition: width .25s;
   -o-transition: width .25s;
   transition: width .25s;
+  overflow-y: scroll;
   padding-top: calc(#{$nav-logo-height} + 6px);
 
   &.menu-active {

@@ -18,4 +18,6 @@
   `npm install -S react-useanimations`
   `npm install prime-react`
   `npm install react-redux`
+  `npm install @headlessui/react`
+
 # Designed by Facogi team

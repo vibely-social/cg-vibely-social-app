@@ -3,12 +3,12 @@ import PostTab from "./Tab/PostTab/index.jsx";
 import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
 import MediaTab from "./Tab/MediaTab/index.jsx";
 import FriendTab from "./Tab/FriendTab/index.jsx";
-import "./Tab/IntroductionTab/index.css"
+import "./Tab/IntroductionTab/index.css";
 
 function PersonalPage() {
-    const tabs = ["Posts", "About", "Friends", "Media"]
+    const tabs = ["Posts", "About", "Friends", "Media"];
 
-    const [type, setType] = useState("Posts")
+    const [type, setType] = useState("Posts");
 
     return (<>
         <div className="row">
@@ -75,10 +75,10 @@ function PersonalPage() {
                         </div>
                     </div>
 
-                    <div className="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
+                    <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
                         <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
                             id="pills-tab" role="tablist">
-                            {tabs.map((tab, index) => (
+                            {tabs.map((tab) => (
                                 <li key={tab} className="list-inline-item me-5 ">
                                     <span data-toggle="tab"
                                           onClick={() => setType(tab)}
