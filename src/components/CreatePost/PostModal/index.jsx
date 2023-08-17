@@ -119,9 +119,13 @@ function NewPostModal({ isOpen,closeModal }) {
 						>
 						<div className="dialog-post-wrapper">
 							<section className="post-content">
-							<div className="header-dialog">Create Post<Button className='bg-grey feather-x rounded-circle text-grey-700 p-1 border w35 font-xs' 
-																			style={{float:'right',marginRight: "20px"}} 
-																			onClick={closeModal}/></div>
+							<div className="header-dialog">
+								Create Post
+									<Button 
+										className='bg-grey feather-x rounded-circle text-grey-700 p-1 border w35 font-xs' 
+										style={{float:'right',marginRight: "20px"}} 
+										onClick={closeModal}/>
+							</div>
 							<Form onSubmit={handleSubmit}>
 									<Form.Group className="content-dialog">
 										<img src={Logo} alt="logo" />
@@ -142,27 +146,45 @@ function NewPostModal({ isOpen,closeModal }) {
 											style={{ display: "none" }}
 											onChange={(e) =>  setNewImages(Array.from(e.target.files))}
 										/>					
-										<textarea placeholder="What's on your mind ?" 
-												style={(isAddImage || postImage.length > 0 )? {maxHeight: "80px"} : {}}
-													spellCheck="false" 
-													defaultValue={""} 
-													onChange={(e) => setPostContent(e.target.value)}/>
+											<textarea 
+												placeholder="What's on your mind ?" 
+												style={(isAddImage || postImage.length > 0 ) ? {maxHeight: "80px"} : {}}
+												spellCheck="false" 
+												defaultValue={""} 
+												onChange={(e) => setPostContent(e.target.value)}/>
 
 													{postImage.length > 0 && 
 															<motion.div
-															initial={{ scale: 0 }}
-															animate={{ rotate: 0, scale: 1 }}
-															className='border border-1 p-2 rounded-xxxl position-relative'
+																initial={{ scale: 0 }}
+																animate={{ rotate: 0, scale: 1 }}
+																className='border border-1 p-2 rounded-xxxl position-relative'
 															> 
-																<Button as='label' htmlFor="select-image"
-																style={{left: "20px",top:"15px",maxWidth:"190px",maxHeight:"38px", position:"absolute",alignItems:"start"}} className='bg-grey rounded-md text-grey-700 p-0 border font-xsss mt-1' 
+																<Button 
+																		as='label' 
+																		htmlFor="select-image"
+																	style={{
+																		left: "20px",
+																		top:"15px",
+																		maxWidth:"190px",
+																		maxHeight:"38px", 
+																		position:"absolute",
+																		alignItems:"start"}} 
+																	className='bg-grey rounded-md text-grey-700 p-0 border font-xsss mt-1' 
 																>
-																	<div style={{marginTop: "-5px",marginLeft: "-5px",paddingRight:"5px"}}>
-																		<img src={addImage} style={{scale:"0.6"}}
+																	<div 
+																		style={{marginTop: "-5px",
+																				marginLeft: "-5px",
+																				paddingRight:"5px"}}>
+																		<img 
+																			src={addImage} 
+																			style={{scale:"0.6"}}
 																	/>Add Photos/Videos</div>
 																</Button>									
-																<Button onClick={() => setPostImage([])} 
-																	style={{right: "20px",top:"15px", position:"absolute"}}  
+																<Button 
+																	onClick={() => setPostImage([])} 
+																	style={{right: "20px",
+																			top:"15px", 
+																			position:"absolute"}}  
 																	className='bg-grey feather-x  rounded-circle text-grey-700 p-1 border w35 font-xs' 
 																	/>
 														<Photogrid
@@ -170,12 +192,16 @@ function NewPostModal({ isOpen,closeModal }) {
 														maxWidth={500}
 													/>	</motion.div>}
 
-											{isAddImage && <motion.div className='border border-1 p-2 rounded-xxxl'
+													{isAddImage && <motion.div className='border border-1 p-2 rounded-xxxl'
 														initial={{ scale: 0 }}
 														animate={{ rotate: 0, scale: 1 }}> 
-														<Button as='label' htmlFor="select-image" id="upload-btn" style={addImageButtonStyle}>
+														<Button 
+																as='label' 
+																htmlFor="select-image" 
+																id="upload-btn" 
+																style={addImageButtonStyle}>
 															<img src={addImage} style={{scale:"1"}}/>
-																<p className='font-xsss mt-1'>Add Photos/Videos</p>
+															<p className='font-xsss mt-1'>Add Photos/Videos</p>
 														</Button>
 												</motion.div>}
 
@@ -187,7 +213,8 @@ function NewPostModal({ isOpen,closeModal }) {
 									<Form.Group className="options">
 										<p>Add to Your Post</p>
 										<ListGroup as="ul" className="list-items-post">
-											<ListGroup.Item as="li" 
+											<ListGroup.Item 
+												as="li" 
 												onClick={() => {if(postImage.length == 0) setIsAddImage(!isAddImage)}}>
 													<img src={Gallery}/>
 											</ListGroup.Item>
