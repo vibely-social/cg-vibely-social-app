@@ -13,11 +13,12 @@ import {
     selectFriendList,
     selectGetFriendIsLoading,
     selectGetFriendIsSuccess,
-    setSuccess,
-    setLoading
+    setGetFriendsSuccess
 } from "~/store/slices/getFriends/index.js";
-import {selectConversation, switchTo} from "~/store/slices/switchConversation/index.js";
+import {switchConversationTo} from "~/store/slices/switchConversation/index.js";
 import {ProgressSpinner} from "primereact/progressspinner";
+import {useAuthorizeUser} from "~/hooks/authorize_user/index.js";
+import {selectUserData} from "~/store/slices/userAccount/index.js";
 
 // eslint-disable-next-line react/prop-types
 function Chat({collapse = false}) {
@@ -26,30 +27,36 @@ function Chat({collapse = false}) {
     const dispatch = useDispatch();
     const position = useSelector(selectSidebarPosition)
     const friendList = useSelector(selectFriendList)
+    const user = useSelector(selectUserData)
     const success = useSelector(selectGetFriendIsSuccess)
     const loading = useSelector(selectGetFriendIsLoading)
-    let currentUser = useSelector(selectConversation)
     const [friends, setFriends] = useState([])
-    const [contactUser, setContactUser] = useState('')
-    console.log(loading)
-    const loggedIn = true;
+    const [currentUser, setCurrentUser] = useState({})
+
+
+    useAuthorizeUser();
+
     useEffect(() => {
-        console.log('success ' + success)
-        if (loggedIn && !success) {
+        if (!success) {
+            console.log('loading friends')
             dispatch(getFriends())
         } else {
             setFriends(friendList)
         }
-        console.log("loading " + loading)
+        return () => {
+            if (success) {
+                dispatch(setGetFriendsSuccess(false))
+            }
+        }
     }, [success])
 
     useEffect(() => {
-        if (currentUser) {
-            console.log(currentUser)
-            setContactUser(currentUser)
+        if (currentUser && currentUser.email) {
+            dispatch(switchConversationTo(currentUser))
+        } else if (friends[0]) {
+            setCurrentUser(friends[0])
         }
-    }, [currentUser])
-
+    }, [friends, currentUser])
 
     useEffect(() => {
         if (viewPort.width < 576) {
@@ -65,7 +72,7 @@ function Chat({collapse = false}) {
     }, [viewPort.width])
     return (
         <>
-            <>
+            <div>
                 <motion.nav style={!smallScreen ? {overflow: "hidden", left: '-200px'} : {}}
                             animate={!smallScreen ? {x: 200} : {}}
                             transition={!smallScreen ? {duration: 0.8} : {}}
@@ -127,7 +134,7 @@ function Chat({collapse = false}) {
                                 </div>
 
                                 <ListGroup as="ul" className="mb-1 top-content ps-1 scroll-bar">
-                                    <div className='d-flex position-relative justify-content-center'>
+                                    <div className='d-flex position-relative justify-content-center '>
                                         {loading && <ProgressSpinner/>}
                                     </div>
                                     {friends.map(friend => {
@@ -135,16 +142,19 @@ function Chat({collapse = false}) {
                                         return (
                                             <ListGroup.Item as="li"
                                                             className={'hover-button rounded '
-                                                            + friend.email === currentUser ? 'bg-current' : ''}
+                                                            + (friend.email === currentUser.email ? 'bg-dark-subtle' : '')}
                                                             style={{
+                                                                display: (user && user.email === friend.email) ? "none" : "block",
                                                                 border: 'none',
                                                                 padding: '0',
                                                                 filter: "hue-rotate(338deg)"
                                                             }} key={friend.id}>
                                                 <Link to={friend.path}
                                                       className="nav-content-bttn open-font p-0"
-                                                      onClick={() => dispatch(switchTo(friend.firstName))}
-                                                >
+                                                      onClick={() => {
+                                                          // dispatch(switchConversationTo(friend))
+                                                          setCurrentUser(friend)
+                                                      }}>
 
                                                     <motion.img
                                                         whileHover={{scale: 1.1}}
@@ -157,27 +167,29 @@ function Chat({collapse = false}) {
                                                         className={" btn-sidebar me-3 "}
                                                         src={friend.avatar}/>
                                                     <span className="">{name}</span>
-                                                </Link></ListGroup.Item>)
+                                                </Link>
+                                            </ListGroup.Item>
+                                        )
                                     })}
                                 </ListGroup>
                             </div>
                         </div>
                     </Container>
                 </motion.nav>
-            </>
+            </div>
+
             <div className={'main-content ' + (position ? 'chat-menu-active' : 'chat-menu')}>
                 <div className="middle-sidebar-bottom d-flex pt-0 mt-3">
                     <div className="middle-sidebar-left ms-0 ps-0 pe-0 me-0 d-flex justify-content-center"
                          style={{maxWidth: '100%'}}>
                         <div className="container ms-2 mb-0 pb-0 me-1" style={{maxWidth: '96%'}}>
                             {
-                                <ChatBox contactEmail={contactUser}/>
+                                <ChatBox/>
                             }
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

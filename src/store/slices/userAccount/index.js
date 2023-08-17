@@ -17,7 +17,7 @@ export const checkEmail = createAsyncThunk("check-email", async (data) => {
 export const userAccountSlice = createSlice({
     name: 'userAccount',
     initialState:{
-        user: {},
+        user: null,
         loading: false,
         error: null,
         success: false,
@@ -32,11 +32,13 @@ export const userAccountSlice = createSlice({
         setSuccess: (state, action) => {
             state.success = action.payload;
         },
+        setUserData:(state, action) =>{
+            state.user = action.payload
+        }
     },
     extraReducers: builder => {
         builder
             .addCase(loginToAccount.pending, (state) => {
-                console.log('pending')
                 state.success = false;
                 state.loading = true;
                 state.error = false;
@@ -54,7 +56,6 @@ export const userAccountSlice = createSlice({
             })
             //Register
             .addCase(registerAccount.pending, (state) => {
-                console.log('pending')
                 state.success = false;
                 state.loading = true;
                 state.error = false;
@@ -62,7 +63,7 @@ export const userAccountSlice = createSlice({
             .addCase(registerAccount.rejected, (state, action) => {
                 state.success = false;
                 state.loading = false;
-                state.error = true;
+                state.error = action.error;
             })
             .addCase(registerAccount.fulfilled, (state) => {
                 state.success = true;
@@ -71,7 +72,6 @@ export const userAccountSlice = createSlice({
             })
             //Check email
             .addCase(checkEmail.pending, (state) => {
-                console.log('pending')
                 state.success = false;
                 state.loading = true;
                 state.error = false;
@@ -93,6 +93,7 @@ export const {
     setLoading,
     setError,
     setSuccess,
+    setUserData
 } = userAccountSlice.actions;
 
 export const selectUserAccountSliceIsLoading = (state) => state.userAccount.loading;

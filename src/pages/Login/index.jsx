@@ -23,7 +23,7 @@ function Login() {
         if (success) {
             if (user && user.email) {
                 console.log("Login success!")
-                // localStorage.setItem("user", JSON.stringify(user))
+                localStorage.setItem("user", JSON.stringify(user))
                 navigate("/")
             }else {
                 setErrorMessage("Wrong email or password!")

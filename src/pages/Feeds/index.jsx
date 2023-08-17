@@ -2,10 +2,15 @@ import RightFeed from "./RightFeeds";
 import {Card, Col, Row} from "react-bootstrap";
 import NewPost from "~/components/NewPost";
 import ReadMore from "~/components/ReadMore/index.jsx";
+import {useSelector} from "react-redux";
+import {selectUserData} from "~/store/slices/userAccount/index.js";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import {useAuthorizeUser} from "~/hooks/authorize_user/index.js";
 
 const initContent = "Sự thay đổi bất ngờ với vị trí Giám đốc tài chính (CFO) của Tesla mới đây là một lời nhắc nhở nữa về thách thức mà Elon Musk phải đối mặt trong việc chuẩn bị cho thế hệ tiếp theo của công ty: Sự kế vị. Theo nhiều người kể lại, Zach Kirkhorn vốn là người tạo ra ảnh hưởng, giúp xoa dịu tình hình tại nhà sản xuất xe điện sau nhiều năm sóng gió xung quanh nhà lãnh đạo hay thay đổi như Elon Musk. Khi Kirkhorn phục vụ hơn bốn năm với tư cách là giám đốc tài chính. Musk thường là người đóng vai trò đưa ra bức tranh toàn cảnh còn Kirkhorn sẽ là người xử lý các chi tiết. Musk có thể hay bị phân tâm - cho dù đó là với X – công ty mới trở thành Twitter hay đối thủ của OpenAI là xAI hay cuộc nói chuyện về Mark Zuckerberg về trận đấu lồng. Tuy nhiên, Musk dường như đã \"nhờ\" Kirkhorn trông nom mọi thứ ở trụ sở Tesla."
 function Feeds() {
-
+    useAuthorizeUser();
 
     return (<Row className="feed-body pt-3">
         <Col xl={8} xxl={9} lg={8}>

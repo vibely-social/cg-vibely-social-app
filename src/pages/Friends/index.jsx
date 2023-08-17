@@ -10,7 +10,7 @@ function Friends() {
     const friendsData = [
         {
           "email": "chphungphat@gmail.com",
-          "avatar": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg",
+          "avatar": "https://wallpapers.com/images/hd/cool-profile-picture-87h46gcobjl5e4xu.jpg",
           "mutualFriends": 10,
           "username": "test"
         },
@@ -22,7 +22,7 @@ function Friends() {
         },
         {
           "email": "blackgemcp2@gmail.com",
-          "avatar": "https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/366348238_2171933089864277_2962341750518570036_n.jpg?_nc_cat=106&cb=99be929b-59f725be&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=svmS3UxE1twAX9tiiXs&_nc_ht=scontent.fhan3-4.fna&oh=00_AfBJOfNNdo0j4u8mJG7cARKhHWtfYfuo6VuATBlrqxeWXQ&oe=64DED8A7",
+          "avatar": "https://wallpapers.com/images/hd/cool-profile-picture-87h46gcobjl5e4xu.jpg",
           "mutualFriends": 10,
           "username": "Thanh Nguyen"
         },

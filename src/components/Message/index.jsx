@@ -1,7 +1,7 @@
 // eslint-disable-next-line react/prop-types
 function Message({message}){
     // eslint-disable-next-line react/prop-types
-    const {username, time, content, check, income} = message;
+    const {name, time, content, check, income} = message;
     // console.log(time)
     return (
         <>
@@ -11,7 +11,7 @@ function Message({message}){
                         <img src="https://via.placeholder.com/50x50.png" alt="image"/>
                     </figure>
                     <div>
-                        <h5>{username}</h5>
+                        <h5>{name}</h5>
                         <div className="time">
                             {/* eslint-disable-next-line react/prop-types */}
                             {time.substring(11,16)}

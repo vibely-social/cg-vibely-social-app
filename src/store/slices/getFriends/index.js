@@ -11,6 +11,7 @@ const initialState = {
 
 export const getFriends = createAsyncThunk("friends", async () => {
     const response = await findFriends();
+    console.log(response.data)
     return response.data;
 });
 
@@ -18,20 +19,19 @@ export const getFriendsSlice = createSlice({
     name: "friends",
     initialState,
     reducers: {
-        setLoading: (state, action) => {
+        setGetFriendsLoading: (state, action) => {
             state.loading = action.payload;
         },
-        setError: (state, action) => {
+        setGetFriendsError: (state, action) => {
             state.error = action.payload;
         },
-        setSuccess: (state, action) => {
+        setGetFriendsSuccess: (state, action) => {
             state.success = action.payload;
         },
     },
     extraReducers: builder => {
         builder
             .addCase(getFriends.pending, (state) => {
-                console.log('pending')
                 state.success = false;
                 state.loading = true;
                 state.error = false;
@@ -51,9 +51,9 @@ export const getFriendsSlice = createSlice({
 });
 
 export const {
-    setLoading,
-    setError,
-    setSuccess,
+    setGetFriendsLoading,
+    setGetFriendsError,
+    setGetFriendsSuccess,
 } = getFriendsSlice.actions;
 
 export const selectGetFriendIsLoading = (state) => state.friends.loading;

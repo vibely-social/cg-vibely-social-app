@@ -5,38 +5,39 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {useSelector} from "react-redux";
 import {selectUserData} from "~/store/slices/userAccount/index.js";
+import {selectConversation} from "~/store/slices/switchConversation/index.js";
 
-const oldMessages = [
-    {
-        name: 'Another Chung',
-        time: '11:48 am',
-        content: 'Hê lô, hao are dú 😃',
-        check: false,
-        income: true
-    },
-    {
-        name: 'Chung Nguyen',
-        time: '11:48 am',
-        content: 'Hê lô, hao are dú 😃',
-        check: false,
-        income: false
-    },
-    {
-        name: 'Another Chung',
-        time: '11:48 am',
-        content: 'Hê lô, hao are dú 😃',
-        check: false,
-        income: true
-    },
-    {
-        name: 'Chung Nguyen',
-        time: '11:48 am',
-        content: 'Am phai then kìu èn dú 😃',
-        check: false
-    },
-]
+// const oldMessages = [
+//     {
+//         name: 'Another Chung',
+//         time: '11:48 am',
+//         content: 'Hê lô, hao are dú 😃',
+//         check: false,
+//         income: true
+//     },
+//     {
+//         name: 'Chung Nguyen',
+//         time: '11:48 am',
+//         content: 'Hê lô, hao are dú 😃',
+//         check: false,
+//         income: false
+//     },
+//     {
+//         name: 'Another Chung',
+//         time: '11:48 am',
+//         content: 'Hê lô, hao are dú 😃',
+//         check: false,
+//         income: true
+//     },
+//     {
+//         name: 'Chung Nguyen',
+//         time: '11:48 am',
+//         content: 'Am phai then kìu èn dú 😃',
+//         check: false
+//     },
+// ]
 
-function ChatBox({contactEmail}) {
+function ChatBox() {
     const [connected, setConnected] = useState(false)
     const [emojiVisible, setEmojiVisible] = useState(false)
     const chatInput = useRef();
@@ -45,14 +46,38 @@ function ChatBox({contactEmail}) {
     const [messages, setMessages] = useState([])
     const channel = 1235;
     const user = useSelector(selectUserData)
-    const userEmail = user ? user.email : '';
+    const contactUser = useSelector(selectConversation)
+    const [userEmail, setUserEmail] = useState(null)
+    const [contactUserEmail, setContactUserEmail] = useState('')
+    let token
 
-    const token = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaHVuZ0BnbWFpbC5jb20iLCJpYXQiOjE2OTIwMjg5MzQsImV4cCI6MTY5MjYzMzczNH0.uUBA0VT9KJimqZqRJYFxF93tHYAJJSnJ6tTqIMumSDI'
     useEffect(() => {
+        if (contactUser) {
+            setContactUserEmail(contactUser.email)
+        }
+        if (user) {
+            setUserEmail(user.email)
+        }
+    }, [contactUser])
+
+    useEffect(() => {
+        if (contactUserEmail) {
+            STOMP_CLIENT.deactivate()
+
+            STOMP_CLIENT.activate();
+        }
+        return () => {
+            STOMP_CLIENT.deactivate()
+            console.log('Disconnected!')
+        }
+    }, [contactUserEmail]);
+
+    useEffect(() => {
+        if (user) token = user.accessToken;
+        console.log('token' + token)
         STOMP_CLIENT.configure({
             connectHeaders: {
-                Authorization: token,
-                email: userEmail
+                Authorization: 'Bearer ' + token
             }
         })
     }, [user])
@@ -83,24 +108,13 @@ function ChatBox({contactEmail}) {
         chatBox.current.scrollTop = chatBox.current.scrollHeight;
     }, [messages]);
 
-
-    useEffect(() => {
-        // if (!connected) {
-        STOMP_CLIENT.activate();
-        // }
-        return () => {
-            STOMP_CLIENT.deactivate()
-            console.log('Disconnected!')
-        }
-    }, []);
-
-
     function sendMessage() {
         if (connected) {
             STOMP_CLIENT.publish({
                 destination: "/app/ws",
                 body: JSON.stringify({
-                    'sendTo': contactEmail,
+                    username: user ? user.firstName : 'anonymous',
+                    'sendTo': contactUserEmail,
                     'content': newMessage
                 })
             });
@@ -123,7 +137,7 @@ function ChatBox({contactEmail}) {
 
                         {
                             messages.map((message, index) => {
-                                if (message.from !== contactEmail) message.income = true;
+                                if (message.from !== userEmail) message.income = true;
                                 return <Message key={index} message={message}/>
                             })
                         }
@@ -136,7 +150,6 @@ function ChatBox({contactEmail}) {
                 {emojiVisible && <div className='emoji-picker d-flex position-absolute' style={{top: '-428px'}}>
                     <Picker data={data}
                             onEmojiSelect={(emoji) => {
-                                console.log(emoji)
                                 setNewMessage(prevState => prevState + emoji.native)
                                 setEmojiVisible(false)
                             }}

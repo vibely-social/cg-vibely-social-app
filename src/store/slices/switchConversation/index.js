@@ -1,17 +1,19 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = '';
+const initialState = {};
 
 export const switchConversationSlice = createSlice(
     {
         name: 'switchConversation',
         initialState,
         reducers:{
-            switchTo: (state, action)=> action.payload
+            switchConversationTo: (state, action)=> {
+                return action.payload
+            }
         }
     }
 )
 
-export const {switchTo} = switchConversationSlice.actions
+export const {switchConversationTo} = switchConversationSlice.actions
 export const selectConversation = state => state.switchConversation
 export default switchConversationSlice.reducer

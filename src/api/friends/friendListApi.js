@@ -1,12 +1,13 @@
 import axios from "axios";
-import {FRIEND_MOCK_API} from "~/app/constants/appConstants.js";
+import {VIBELY_API} from "~/app/constants/appConstants.js";
 
 export const findFriends = async () => {
     let result = null;
+    const USER = JSON.parse(localStorage.getItem('user'))
     try {
-        result = await axios.get(`${FRIEND_MOCK_API}/friends`,{
+        result = await axios.get(`${VIBELY_API}/friends/` + USER.id,{
             headers:{
-                Authorization: 'token'
+                Authorization: 'Bearer ' + USER.accessToken
             }
         });
     } catch (e) {
