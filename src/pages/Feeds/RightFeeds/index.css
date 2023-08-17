@@ -6,8 +6,3 @@
  transform: scale(0.95);
 }
 
-.friend-box:hover{
-    background-color: rgb(242, 245, 248);
-    cursor: pointer;
-    border-radius: 5%;
-}
