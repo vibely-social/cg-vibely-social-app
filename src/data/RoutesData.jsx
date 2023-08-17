@@ -6,6 +6,7 @@ import Chat from "../pages/Chat/index.jsx";
 import ChatLayout from "../layouts/ChatLayout/index.jsx";
 import MainLayout from "../layouts/MainLayout";
 import Friends from "~/pages/Friends";
+import NotFound from "~/pages/NotFound/index.jsx";
 
 
 const publicRoutes = [
@@ -14,7 +15,8 @@ const publicRoutes = [
     {path: '/login', component: Login, layout: null},
     {path: '/register', component: Register, layout: null},
     {path: '/friends', component: Friends, layout: MainLayout},
-    {path: '/messenger', component: Chat, layout: ChatLayout}
+    {path: '/messenger', component: Chat, layout: ChatLayout},
+    {path: '/404notfound', component: NotFound, layout: null}
 ]
 
 export default publicRoutes;

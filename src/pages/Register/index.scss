@@ -9,3 +9,6 @@ div .bs-tooltip-start {
 .tooltip .tooltip-arrow {
     --bs-tooltip-bg: #be4b49;
 }
+.tooltip-bottom .tooltip-arrow {
+    bottom: -5px;
+}
