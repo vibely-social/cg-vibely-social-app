@@ -103,24 +103,17 @@ function Register() {
     const [emailExists, setEmailExists] = useState(false);
 
     const checkEmailExists = async (email) => {
-        try {
-            const response = await axios.get(`http://localhost:8080/api/users?email=${email}`);
-            const statusCode = response.status;
-
-            if (statusCode === 200) {
+        await axios.get(`http://localhost:8080/api/users?email=${email}`)
+            .then(() => {
                 setEmailExists(false);
                 console.log("Email Valid");
-            } else if (statusCode === 400) {
-                console.log("Email exist")
-                setEmailExists(true);
-            }
-            console.log(emailExists);
-
-        } catch (error) {
-            console.error("Error checking email:", error);
-            // console.log("Email exist");
-            // setEmailExists(true);
-        }
+            })
+            .catch(
+                (e) => {
+                    console.log(emailExists, e)
+                    setEmailExists(true);
+                }
+            );
     };
 
     // const isLeapYear = (year) => {
@@ -128,6 +121,12 @@ function Register() {
     // }
     const generateOptions = (start, end) => {
         return Array.from({length: end - start + 1}, (_, index) => start + index);
+    };
+
+    const checkEmail = (e) => {
+        if (emailExists) {
+
+        }
     };
 
 
@@ -263,10 +262,11 @@ function Register() {
                                                    }
                                                    placeholder="Your Email Address"/>
 
-
+                                            {emailExists && <div>Email is already registered.</div>}
                                         </div>
+
                                     </OverlayTrigger>
-                                    {emailExists && <div>Email is already registered.</div>}
+
 
                                     <OverlayTrigger
                                         placement='left'

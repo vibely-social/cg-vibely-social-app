@@ -34,11 +34,10 @@
 .next-button {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     background-color: transparent;
-    border: none;
+    color: #0a573b;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 75px;
     z-index: 2;
 }
 
@@ -46,8 +45,16 @@
     left: 10px;
 }
 
+.prev-button:hover{
+    color: #6bf5be;
+}
+
 .next-button {
     right: 10px;
+}
+
+.next-button:hover {
+    color: #6bf5be;
 }
 
 .close-button {
@@ -59,4 +66,8 @@
     cursor: pointer;
     font-size: 24px;
     z-index: 2;
+}
+
+.close-button:hover {
+    color: #9c27b0;
 }
