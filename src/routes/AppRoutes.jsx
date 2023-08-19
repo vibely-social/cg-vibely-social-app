@@ -1,4 +1,3 @@
-import React from "react";
 import {Route, Routes} from "react-router-dom";
 import publicRoutes from "../data/RoutesData";
 import NotFound from "../pages/NotFound";

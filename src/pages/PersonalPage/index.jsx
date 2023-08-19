@@ -1,14 +1,14 @@
-import {useState} from "react";
+import { useState } from "react";
 import PostTab from "./Tab/PostTab/index.jsx";
 import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
 import MediaTab from "./Tab/MediaTab/index.jsx";
 import FriendTab from "./Tab/FriendTab/index.jsx";
-import "./Tab/IntroductionTab/index.css"
+import "./Tab/IntroductionTab/index.css";
 
 function PersonalPage() {
-    const tabs = ["Posts", "About", "Friends", "Media"]
+  const tabs = ["Posts", "About", "Friends", "Media"];
 
-    const [type, setType] = useState("Posts")
+  const [type, setType] = useState("Posts");
 
     return (<>
         <div className="row">
@@ -75,7 +75,7 @@ function PersonalPage() {
                         </div>
                     </div>
 
-                    <div className="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
+                    <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
                         <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
                             id="pills-tab" role="tablist">
                             {tabs.map((tab, index) => (
@@ -92,17 +92,23 @@ function PersonalPage() {
                         </ul>
                     </div>
                 </div>
+              </div>
             </div>
-            <div className="col-lg-12">
-                {
-                    type === 'Posts' ? <PostTab/>
-                        : type === 'About' ? <IntroductionTab/>
-                            : type === 'Friends' ? <FriendTab/>
-                                : <MediaTab/>
-                }
-            </div>
+        
+        <div className="col-lg-12">
+          {type === "Posts" ? (
+            <PostTab />
+          ) : type === "About" ? (
+            <IntroductionTab />
+          ) : type === "Friends" ? (
+            <FriendTab />
+          ) : (
+            <MediaTab />
+          )}
         </div>
-    </>);
+    
+    </>
+  );
 }
 
 export default PersonalPage;

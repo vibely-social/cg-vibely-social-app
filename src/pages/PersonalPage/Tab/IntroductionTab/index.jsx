@@ -1,20 +1,26 @@
 import WorkAndEducation from "./Information/WorkAndEducation/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "./index.css"
 import Contact from "./Information/Contact/index.jsx";
 import UserDetail from "./Information/UserDetail/index.jsx";
 import OverView from "./Information/OverView/index.jsx";
+import {useDispatch} from "react-redux";
 
 
 function IntroductionTab() {
+    const dispatch = useDispatch();
+
     const tabs = ["Over View", "Work and Education", "Contact and basic info", "Details about you"]
-
-
     const [type, setType] = useState("Over View")
+    const [userDetail, setUserDetail]= useState({})
+
+    useEffect(()=>{
+
+    },[])
 
     return (
         <>
-            <div className="card w-100 shadow-xss rounded-xxl border-0 d-block font-xssss text-grey-500 mt-3"
+            <div className="card w-100 shadow-xss rounded-xxl border-0 d-block mt-3"
                  style={{height: 800}}>
                 <div className="card-body d-block p-4">
                     <h3 className="fw-700 font-md">About</h3>
@@ -37,7 +43,7 @@ function IntroductionTab() {
                                 type === 'Over View' ? <OverView/>
                                     : type === 'Work and Education' ? <WorkAndEducation/>
                                         : type === 'Contact and basic info' ? <Contact/>
-                                            : <UserDetail/>
+                                            : <UserDetail userDetails={userDetail}/>
                             }
                         </div>
                     </div>

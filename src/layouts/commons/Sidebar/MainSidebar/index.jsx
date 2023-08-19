@@ -1,9 +1,9 @@
 import {motion} from "framer-motion";
-import useViewport from "../../../../hooks/Viewport.jsx";
+import useViewport from "../../../../hooks/viewport.jsx";
 import {useEffect, useState} from "react";
-import {selectSidebarPosition, toggle} from '~/store/slices/toggleSidebar/index.js'
+import {selectSidebarPosition, toggle} from '../../../../features/toggleSidebar'
 import {useDispatch, useSelector} from "react-redux";
-import MainNavigate from "../MainNavigate/index.jsx";
+import MainNavigate from "./MainNavigate/index.jsx";
 
 
 // eslint-disable-next-line react/prop-types
