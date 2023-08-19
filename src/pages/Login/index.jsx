@@ -58,7 +58,6 @@ function Login() {
         onSubmit: (values)=> handleLogin(values)
     });
 
-
     let isInvalidEmail = formik.touched.email && formik.errors.email;
     let isInvalidPassword = formik.touched.password && formik.errors.password;
 
@@ -108,13 +107,12 @@ function Login() {
                             <Form className="infoform" onSubmit={formik.handleSubmit}>
                                 <OverlayTrigger
                                     placement='left'
-                                    show={isInvalidEmail}
+                                    show={isInvalidEmail ? true : false}
                                     overlay={
                                         <Tooltip id='tooltip-left'>
                                             {formik.errors.email}
                                         </Tooltip>
-                                    }
-                                >
+                                    }>
                                     <div className="form-group icon-input mb-3">
                                         <i className="font-sm ti-email text-grey-500 pe-0"></i>
                                         <input type="text"
@@ -130,13 +128,14 @@ function Login() {
                                     </div>
                                 </OverlayTrigger>
 
-                                <OverlayTrigger placement='left'
-                                                show={isInvalidPassword}
-                                                overlay={
-                                                    <Tooltip id='tooltip-left'>
-                                                        {formik.errors.password}
-                                                    </Tooltip>
-                                                }>
+                                <OverlayTrigger
+                                    placement='left'
+                                    show={isInvalidPassword ? true : false}
+                                    overlay={
+                                        <Tooltip id='tooltip-left'>
+                                            {formik.errors.password}
+                                        </Tooltip>
+                                    }>
                                     <div className="form-group icon-eye-input-log mb-1">
                                         <div className="icon-eye-input-log">
                                             <i className={isPasswordVisible ? "font-sm feather-eye text-grey-500 pe-0" : "font-sm feather-eye-off text-grey-500 pe-0"}
@@ -155,7 +154,7 @@ function Login() {
                                                style={{left: "15px"}}></i>
                                         </div>
                                         <div>
-                                            <small className='text-danger'>{errorMessage} </small>
+                                            <small className='text-danger ms-2'>{errorMessage} </small>
                                         </div>
                                     </div>
                                 </OverlayTrigger>
@@ -167,7 +166,7 @@ function Login() {
                                            htmlFor="exampleCheck1">
                                         Remember me
                                     </label>
-                                    <a href="#"
+                                    <a href="forgot.html"
                                        className="fw-600 font-xsss text-grey-700 mt-1 float-right">
                                         Forgot your Password?
                                     </a>
