@@ -1,10 +1,10 @@
+import MainLayout from "../layouts/MainLayout";
+import ChatLayout from "../layouts/ChatLayout/index.jsx";
 import Feeds from "../pages/Feeds"
 import Login from "../pages/Login"
 import Register from "../pages/Register";
 import PersonalPage from "../pages/PersonalPage";
-import Chat from "../pages/Chat/index.jsx";
-import ChatLayout from "../layouts/ChatLayout/index.jsx";
-import MainLayout from "../layouts/MainLayout";
+import Chat from "~/pages/Chat/index.jsx";
 import Friends from "~/pages/Friends";
 
 

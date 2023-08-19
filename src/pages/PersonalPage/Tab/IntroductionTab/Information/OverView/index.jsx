@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, formatDate, setBirthday, setCity} from "~/store/slices/getUserInfoSlice/UserInfoSlice.js";
+import {editUserInfo, formatDate, setBirthday, setCity} from "~/features/userInfoSlice/UserInfoSlice.js";
 
 function OverView() {
     const [workStatus, setWorkStatus] = useState(false)

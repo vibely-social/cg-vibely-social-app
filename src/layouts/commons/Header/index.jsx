@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
-import React, {useState} from 'react';
-import NavData from "~/data/NavData.jsx"
+import {forwardRef, useState} from 'react';
+import NavData from "../../../data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
-import Avatar from '~/assets/img/ppl.png'
-import Logo from '~/assets/img/logo.svg'
-import ava from "~/assets/img/ava.jpg"
+import Avatar from '../../../assets/img/ppl.png'
+import Logo from '../../../assets/img/logo.svg'
+import ava from "../../../assets/img/ava.jpg"
 import { Form , FormGroup} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { toggleChatButton } from '~/store/slices/toggleChat/index.js';
+import { toggleChatButton } from '../../../features/toggleChat';
 
 function Header() { 
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Header() {
     const [notificationItem,setNotificationItem] = useState(0);
     const [isOnMess,setIsOnMess] = useState(false);
 
-    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    const CustomToggle = forwardRef(({ children, onClick }, ref) => (
         <motion.a                                 
             whileHover={{ scale: [null, 1.2, 1.1] }}
                     transition={{ duration: 0.3 }}
@@ -45,10 +45,10 @@ function Header() {
                 <a href="src/layouts/commons/Header#" className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <button className="nav-menu me-0 ms-2"></button> 
             </div>
-            <Form action="src/layouts/commons/Header#" className="float-left header-search">
-                <FormGroup className=" mb-0 icon-input">
-                    <i className="feather-search font-md text-grey-400 me-2 "></i>
-                    <input type="text" placeholder="search on vibely..." className="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg"/>
+            <Form  className="float-left header-search">
+                <FormGroup className=" mb-0 icon-input" >
+                    <i className="feather-search font-md text-grey-400 me-2 position-absolute" style={{marginTop:'12px', marginLeft: '18px'}}/>
+                    <input type="text" placeholder="search on vibely..." style={{backgroundColor: '#ebebeb'}} className="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg"/>
                 </FormGroup>
             </Form>
             <div className='ms-3'></div>

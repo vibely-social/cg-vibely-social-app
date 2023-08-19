@@ -9,7 +9,7 @@ import {
     setBirthday,
     setFullName,
     setGender
-} from "~/store/slices/getUserInfoSlice/UserInfoSlice.js";
+} from "~/features/userInfoSlice/UserInfoSlice.js";
 
 function UserDetail() {
     const [nameStatus, setNameStatus] = useState(false)

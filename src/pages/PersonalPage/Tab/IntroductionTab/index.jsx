@@ -1,9 +1,10 @@
-import WorkAndEducation from "./Information/WorkAndEducation/index.jsx";
 import {useState} from "react";
 import "./index.css"
-import Contact from "./Information/Contact/index.jsx";
-import UserDetail from "./Information/UserDetail/index.jsx";
-import OverView from "./Information/OverView/index.jsx";
+import OverView from "~/pages/PersonalPage/Tab/IntroductionTab/Information/OverView/index.jsx";
+import Contact from "~/pages/PersonalPage/Tab/IntroductionTab/Information/Contact/index.jsx";
+import UserDetail from "~/pages/PersonalPage/Tab/IntroductionTab/Information/UserDetail/index.jsx";
+import WorkAndEducation from "~/pages/PersonalPage/Tab/IntroductionTab/Information/WorkAndEducation/index.jsx";
+
 
 
 function IntroductionTab() {

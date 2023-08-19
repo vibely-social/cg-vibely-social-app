@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, setCity, setPhoneNumber} from "~/store/slices/getUserInfoSlice/UserInfoSlice.js";
+import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfoSlice/UserInfoSlice.js";
 
 function Contact() {
     const [phoneStatus, setPhoneStatus] = useState(false)

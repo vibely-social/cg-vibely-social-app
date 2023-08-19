@@ -13,6 +13,11 @@ dist-ssr
 *.local
 .vite/
 
+# config/dependencies
+vite.config.js
+package-lock.json
+jsconfig.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

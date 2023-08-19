@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import PostTab from "./Tab/PostTab/index.jsx";
-import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
-import MediaTab from "./Tab/MediaTab/index.jsx";
-import FriendTab from "./Tab/FriendTab/index.jsx";
 import "./Tab/IntroductionTab/index.css"
-import {getUserInfoApi} from "~/api/getUserInfoApi.js";
-import {setUserInfo} from "~/store/slices/getUserInfoSlice/UserInfoSlice.js";
+import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
+import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
+import PostTab from "~/pages/PersonalPage/Tab/PostTab/index.jsx";
+import IntroductionTab from "~/pages/PersonalPage/Tab/IntroductionTab/index.jsx";
+import FriendTab from "~/pages/PersonalPage/Tab/FriendTab/index.jsx";
+import MediaTab from "~/pages/PersonalPage/Tab/MediaTab/index.jsx";
 
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
@@ -16,7 +16,7 @@ function PersonalPage() {
 
     useEffect( () => {
         const getUserInfo = async () => {
-            const result = await getUserInfoApi();
+            const result = await userInfoApi();
             dispatch(setUserInfo(result.data));
         }
         getUserInfo()
