@@ -1,11 +1,9 @@
-import Container from "react-bootstrap/Container";
 import {selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
 import {ListGroup} from "react-bootstrap";
 import SidebarData from "~/data/SideBarData.jsx";
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
-import chat from "~/pages/Chat/index.jsx";
 
 function MainNavigate({sidebarHover, chatNav = false}) {
     const position = useSelector(selectSidebarPosition)
