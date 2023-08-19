@@ -1,13 +1,14 @@
 import {motion} from "framer-motion";
-import useViewport from "../../../../hooks/viewport.jsx";
+import useViewport from "~/hooks/viewport.jsx";
 import {useEffect, useState} from "react";
-import {selectSidebarPosition, toggle} from '../../../../features/toggleSidebar'
+import {selectSidebarPosition, toggle} from '~/features/toggleSidebar/index.js'
 import {useDispatch, useSelector} from "react-redux";
 import MainNavigate from "./MainNavigate/index.jsx";
+import Container from "react-bootstrap/Container";
 
 
 // eslint-disable-next-line react/prop-types
-function MainSidebar({collapse = false}) {
+function MainSidebar() {
     const viewPort = useViewport();
     const [isMobile, setIsMobile] = useState(false)
     const [sidebarHover, setSidebarHover] = useState(false)
@@ -23,18 +24,20 @@ function MainSidebar({collapse = false}) {
             dispatch(toggle(true))
         } else {
             setIsMobile(false)
-            dispatch(toggle(collapse))
+            dispatch(toggle(false))
         }
     }, [viewPort.width])
 
     return (
-        <motion.nav style={!isMobile ? {overflow: "visible", left: '-200px',background: "none",zIndex: 1} : {}}
+        <motion.nav style={!isMobile ? {overflow: "visible", left: '-200px', background: "none", zIndex: 1} : {}}
                     animate={!isMobile ? {x: 200} : {}}
                     transition={!isMobile ? {duration: 0.8} : {}}
-                    className={position ? "navigation scroll-bar menu-active" : "navigation scroll-bar"}
+                    className={position ? "navigation right-scroll-bar menu-active" : "navigation right-scroll-bar"}
                     onMouseOver={() => setSidebarHover(true)}
                     onMouseOut={() => setSidebarHover(false)}>
-            <MainNavigate sidebarHover={sidebarHover}/>
+            <Container className="ps-0 pe-0">
+                <MainNavigate sidebarHover={sidebarHover}/>
+            </Container>
         </motion.nav>
     );
 }

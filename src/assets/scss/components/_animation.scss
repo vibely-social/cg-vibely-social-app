@@ -254,7 +254,7 @@
 .right-scroll-bar {margin-left: 0px;overflow-y: scroll;    }
 .right-scroll-bar::-webkit-scrollbar-track {background-color: transparent;}
 .right-scroll-bar::-webkit-scrollbar {width: 2px;background-color: transparent;}
-.right-scroll-bar::-webkit-scrollbar-thumb {background-color: #aaa;}
+.right-scroll-bar::-webkit-scrollbar-thumb {background-color: rgba(93, 93, 93, 0);}
 
 .scroll-bar {margin-left: 0px;overflow-y: scroll;    }
 .scroll-bar::-webkit-scrollbar-track {background-color: transparent;}

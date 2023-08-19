@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import SidebarData from '../../../../data/SideBarData.jsx'
 import {motion} from "framer-motion";
 import useViewport from "../../../../hooks/Viewport.jsx";
 import {memo, useEffect, useState} from "react";
@@ -17,9 +16,10 @@ import {
     setGetFriendsSuccess
 } from "~/features/getFriends/index.js";
 import {switchConversationTo} from "~/features/switchConversation/index.js";
+import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/index.jsx";
 
 // eslint-disable-next-line react/prop-types
-function ChatSidebar({collapse = false}) {
+function ChatSidebar() {
     const viewPort = useViewport();
     const position = useSelector(selectSidebarPosition)
     const dispatch = useDispatch()
@@ -39,7 +39,7 @@ function ChatSidebar({collapse = false}) {
             dispatch(toggle(true))
         } else {
             setSmallScreen(false)
-            dispatch(toggle(collapse))
+            dispatch(toggle(false))
         }
     }, [viewPort.width])
 
@@ -70,53 +70,9 @@ function ChatSidebar({collapse = false}) {
                         transition={!smallScreen ? {duration: 0.8} : {}}
                         className={position ? "navigation chat-navigation menu-active " : "navigation chat-navigation"}>
                 <Container className="ps-0 pe-0 d-flex">
-                    <div className="chat-nav">
-                        <div
-                            className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
-                            <ListGroup as="ul" className="mb-1 top-content ">
-                                {SidebarData.map((item, index) => {
-                                    return <ListGroup.Item as="li"
-                                                           style={{
-                                                               border: 'none',
-                                                               padding: 0,
-                                                               filter: "hue-rotate(338deg)"
-                                                           }}
-                                                           key={index}>
-                                        <Link to={item.path} className="nav-content-bttn open-font">
-                                            {window.location.pathname === item.path
-                                                ? <motion.img
-                                                    className={" btn-sidebar me-3 "}
-                                                    whileHover={{scale: 1.2}}
-                                                    style={{maxWidth: 50}} src={item.icon}/>
-                                                : <motion.img
-                                                    whileHover={{scale: 1.2}}
-                                                    style={{maxWidth: 50}}
-                                                    className={" btn-sidebar me-3 "} src={item.icon}/>}
-                                            {window.location.pathname === item.path
-                                                ? <span className="text-primary">{item.heading}</span>
-                                                : <span className="">{item.heading}</span>}
-                                        </Link></ListGroup.Item>
-                                })}
-                            </ListGroup>
-                        </div>
-                        <div
-                            className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-2 pb-1 mb-2 mt-2">
-                            <ul className="mb-1">
-                                <li>
-                                    <Link to="/profile" className="nav-content-bttn open-font h-auto pt-2 pb-2 ">
-                                        <i className="font-sm feather-settings me-3 text-grey-500"></i>
-                                        <span>Settings</span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/logout" className="nav-content-bttn open-font h-auto pt-2 pb-2">
-                                        <i className="font-sm feather-log-out me-3 text-grey-500"></i>
-                                        <span>Log out</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
+                    <MainNavigate chatNav={true}/>
+
                     <div className="nav-content">
                         <div
                             className="bg-lightblue bg-transparent-card rounded-xxl border shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
@@ -168,6 +124,7 @@ function ChatSidebar({collapse = false}) {
                             </ListGroup>
                         </div>
                     </div>
+
                 </Container>
             </motion.nav>
         </div>

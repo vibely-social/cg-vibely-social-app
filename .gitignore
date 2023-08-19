@@ -16,6 +16,7 @@ dist-ssr
 # config/dependencies
 vite.config.js
 package-lock.json
+jsconfig.json
 
 # Editor directories and files
 .vscode/*

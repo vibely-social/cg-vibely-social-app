@@ -22,7 +22,7 @@ function MainLayout({children, path}) {
             {isLoading &&
                 <div className="main-wrapper color-theme-green">
                     <Header/>
-                    <MainSidebar collapse={false}/>
+                    <MainSidebar/>
                     <div className={'main-content ' + (position ? 'menu-active' : '')}>
                         <div className="middle-sidebar-bottom">
                             <div className="middle-sidebar-left" id={(path === "/friends") ? "middle" : ""}>
