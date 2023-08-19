@@ -5,9 +5,8 @@ import PersonalPage from "../pages/PersonalPage";
 import Chat from "../pages/Chat/index.jsx";
 import ChatLayout from "../layouts/ChatLayout/index.jsx";
 import MainLayout from "../layouts/MainLayout";
-import Friends from "~/pages/Friends";
+import Friends from "~/pages/Friends/index.jsx";
 import NotFound from "~/pages/NotFound/index.jsx";
-import Friends from "../pages/Friends";
 
 
 const publicRoutes = [
