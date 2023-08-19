@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { Col, Card, CardGroup, Button, Modal } from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {Button, Card, Col, Modal} from "react-bootstrap";
 import "./index.css";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 function RightFeed() {

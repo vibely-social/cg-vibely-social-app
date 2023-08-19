@@ -2,8 +2,8 @@ import ChatBox from "~/components/ChatBox/index.jsx";
 import {selectSidebarPosition} from "~/features/toggleSidebar/index.js";
 import {useSelector} from "react-redux";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
-import {getAccessToken, getRefreshToken} from "~/service/accountService.js";
-import * as Stomp from "@stomp/stompjs";
+import {getRefreshToken} from "~/service/accountService.js";
+import {Client} from "@stomp/stompjs";
 import {BROKER_URL} from "~/app/constants.js";
 import ChatSidebar from "~/layouts/commons/Sidebar/ChatSidebar/index.jsx";
 import {useMemo, useState} from "react";
@@ -13,10 +13,9 @@ function Chat() {
     const accessToken = getRefreshToken()
     const position = useSelector(selectSidebarPosition)
     const [messages, setMessages] = useState([])
-    // const [chatClient, setChatClient]=useState(null)
     useAuthorizeUser()
 
-    const CHAT_CLIENT =useMemo(()=> new Stomp.Client({
+    const CHAT_CLIENT =useMemo(()=> new Client({
         brokerURL: BROKER_URL,
         connectHeaders: {
             Authorization: 'Bearer ' + accessToken

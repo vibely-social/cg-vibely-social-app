@@ -2,11 +2,9 @@ import google from "../../assets/img/google-icon.png";
 import {Link, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-import Swal from "sweetalert2";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import logo from "~/assets/img/logo.svg";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     loginToAccount,
@@ -20,55 +18,14 @@ function Login() {
     const navigate = useNavigate()
     const user = useSelector(selectUserData)
     const success = useSelector(selectUserAccountSliceIsSuccess)
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-        },
-        validationSchema: Yup.object().shape({
-            email: Yup
-                .string()
-                .required(),
-            password: Yup
-                .string()
-                .required(),
-        }),
-        onSubmit: async (values) => {
-            let user = {
-                email: values.email,
-                password: values.password,
-            }
-            await axios.post("http://localhost:8080/api/auth/login", user)
-                .then(() => {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Login success!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    navigate("/");
-                })
-                .catch(
-                    (e) => {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Login failed',
-                            showConfirmButton: true,
-                            allowOutsideClick: false,
-                        })
-                        console.log(e);
-                    })
-        }
-    });
-
+    const handleLogin = (values) => {
+        const email = values.email
+        const password = values.password
+        dispatch(loginToAccount({email, password}))
+    }
 
     useEffect(() => {
         if (success) {
@@ -85,10 +42,23 @@ function Login() {
         }
     }, [success]);
 
-    const handleLogin = (event) => {
-        event.preventDefault();
-        dispatch(loginToAccount({email, password}))
-    }
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validationSchema: Yup.object().shape({
+            email: Yup
+                .string()
+                .required(),
+            password: Yup
+                .string()
+                .required(),
+        }),
+        onSubmit: (values)=> handleLogin(values)
+    });
+
+
     let isInvalidEmail = formik.touched.email && formik.errors.email;
     let isInvalidPassword = formik.touched.password && formik.errors.password;
 

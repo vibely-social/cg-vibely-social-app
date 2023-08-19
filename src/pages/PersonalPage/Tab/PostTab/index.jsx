@@ -1,4 +1,4 @@
-import NewPost from "../../../../components/CreatePost/index";
+import NewPost from "~/components/CreatePost/index";
 
 function PostTab() {
     return (
