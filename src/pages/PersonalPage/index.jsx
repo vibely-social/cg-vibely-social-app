@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import PostTab from "./Tab/PostTab/index.jsx";
 import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
 import MediaTab from "./Tab/MediaTab/index.jsx";
@@ -6,9 +6,9 @@ import FriendTab from "./Tab/FriendTab/index.jsx";
 import "./Tab/IntroductionTab/index.css";
 
 function PersonalPage() {
-  const tabs = ["Posts", "About", "Friends", "Media"];
+    const tabs = ["Posts", "About", "Friends", "Media"];
 
-  const [type, setType] = useState("Posts");
+    const [type, setType] = useState("Posts");
 
     return (<>
         <div className="row">
@@ -78,7 +78,7 @@ function PersonalPage() {
                     <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
                         <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
                             id="pills-tab" role="tablist">
-                            {tabs.map((tab, index) => (
+                            {tabs.map((tab) => (
                                 <li key={tab} className="list-inline-item me-5 ">
                                     <span data-toggle="tab"
                                           onClick={() => setType(tab)}
@@ -92,48 +92,17 @@ function PersonalPage() {
                         </ul>
                     </div>
                 </div>
-              </div>
             </div>
-
-            <div className="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
-              <ul
-                className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
-                id="pills-tab"
-                role="tablist"
-              >
-                {tabs.map((tab, index) => (
-                  <li key={tab} className="list-inline-item me-5 ">
-                    <span
-                      data-toggle="tab"
-                      onClick={() => setType(tab)}
-                      className={
-                        type === tab
-                          ? "fw-600 font-xsss text-dark pt-3 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark"
-                          : "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"
-                      }
-                    >
-                      {tab}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            <div className="col-lg-12">
+                {
+                    type === 'Posts' ? <PostTab/>
+                        : type === 'About' ? <IntroductionTab/>
+                            : type === 'Friends' ? <FriendTab/>
+                                : <MediaTab/>
+                }
             </div>
-         
-        
-        <div className="col-lg-12">
-          {type === "Posts" ? (
-            <PostTab />
-          ) : type === "About" ? (
-            <IntroductionTab />
-          ) : type === "Friends" ? (
-            <FriendTab />
-          ) : (
-            <MediaTab />
-          )}
         </div>
-    
-    </>
-  );
+    </>);
 }
 
 export default PersonalPage;
