@@ -5,67 +5,18 @@ import {Button} from "react-bootstrap";
 function NotFound() {
     const navigate= useNavigate()
     return (
-        <>
-
-            <div className="text"><p>404</p></div>
-            <div className="container">
-                <div className="caveman">
-                    <div className="leg">
-                        <div className="foot">
-                            <div className="fingers"></div>
-                        </div>
-                    </div>
-                    <div className="leg">
-                        <div className="foot">
-                            <div className="fingers"></div>
-                        </div>
-                    </div>
-                    <div className="shape">
-                        <div className="circle"></div>
-                        <div className="circle"></div>
-                    </div>
-                    <div className="head">
-                        <div className="eye">
-                            <div className="nose"></div>
-                        </div>
-                        <div className="mouth"></div>
-                    </div>
-                    <div className="arm-right">
-                        <div className="club"></div>
-                    </div>
-                </div>
-                <div className="caveman">
-                    <div className="leg">
-                        <div className="foot">
-                            <div className="fingers"></div>
-                        </div>
-                    </div>
-                    <div className="leg">
-                        <div className="foot">
-                            <div className="fingers"></div>
-                        </div>
-                    </div>
-                    <div className="shape">
-                        <div className="circle"></div>
-                        <div className="circle"></div>
-                    </div>
-                    <div className="head">
-                        <div className="eye">
-                            <div className="nose"></div>
-                        </div>
-                        <div className="mouth"></div>
-                    </div>
-                    <div className="arm-right">
-                        <div className="club"></div>
-                    </div>
-                </div>
+        <div className="bg-vite-gradient d-flex" style={{
+            height: '100vh'
+        }}>
+            <div className="d-flex pos-fixed " style={{display: "flex", position: "fixed" , left: "calc(50% - 242px)", top:"calc(50% - 180px)"}}>
+                <h1 style={{fontSize: 300}} className={'text-danger'}>404</h1>
             </div>
-
             <div className="input-container"
                  style={{display: "flex", position: "fixed" , left: "calc(46%)", top:"calc(80%)"}}>
+
                 <Button onClick={() => navigate("/")} className="d-flex bg-grey border-light justify-content-center">Back to home</Button>
             </div>
-        </>
+        </div>
     );
 }
 

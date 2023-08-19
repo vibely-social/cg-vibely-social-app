@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import React, {useState} from 'react';
+import {forwardRef, useState} from 'react';
 import NavData from "../../../data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
@@ -8,7 +8,7 @@ import Logo from '../../../assets/img/logo.svg'
 import ava from "../../../assets/img/ava.jpg"
 import { Form , FormGroup} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { toggleChatButton } from '../../../features/slices/toggleChat';
+import { toggleChatButton } from '../../../features/toggleChat';
 
 function Header() { 
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Header() {
     const [notificationItem,setNotificationItem] = useState(0);
     const [isOnMess,setIsOnMess] = useState(false);
 
-    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    const CustomToggle = forwardRef(({ children, onClick }, ref) => (
         <motion.a                                 
             whileHover={{ scale: [null, 1.2, 1.1] }}
                     transition={{ duration: 0.3 }}

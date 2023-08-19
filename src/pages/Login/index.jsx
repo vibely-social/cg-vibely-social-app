@@ -5,14 +5,26 @@ import * as Yup from "yup";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
-import {useState} from "react";
 import logo from "~/assets/img/logo.svg";
+import {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    loginToAccount,
+    selectUserAccountSliceIsSuccess,
+    selectUserData,
+    setSuccess
+} from "~/features/userAccount/index.js";
 
 function Login() {
-
-    const navigate = useNavigate();
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const user = useSelector(selectUserData)
+    const success = useSelector(selectUserAccountSliceIsSuccess)
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
 
     const formik = useFormik({
         initialValues: {
@@ -57,9 +69,28 @@ function Login() {
         }
     });
 
+
+    useEffect(() => {
+        if (success) {
+            if (user && user.email) {
+                console.log("Login success!")
+                localStorage.setItem("user", JSON.stringify(user))
+                navigate("/")
+            } else {
+                setErrorMessage("Wrong email or password!")
+            }
+        }
+        return () => {
+            dispatch(setSuccess(false))
+        }
+    }, [success]);
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        dispatch(loginToAccount({email, password}))
+    }
     let isInvalidEmail = formik.touched.email && formik.errors.email;
     let isInvalidPassword = formik.touched.password && formik.errors.password;
-
 
     return (
         <div className="main-wrap">
@@ -107,12 +138,13 @@ function Login() {
                             <Form className="infoform" onSubmit={formik.handleSubmit}>
                                 <OverlayTrigger
                                     placement='left'
-                                    show={isInvalidEmail ? true : false}
+                                    show={isInvalidEmail}
                                     overlay={
                                         <Tooltip id='tooltip-left'>
                                             {formik.errors.email}
                                         </Tooltip>
-                                    }>
+                                    }
+                                >
                                     <div className="form-group icon-input mb-3">
                                         <i className="font-sm ti-email text-grey-500 pe-0"></i>
                                         <input type="text"
@@ -128,14 +160,13 @@ function Login() {
                                     </div>
                                 </OverlayTrigger>
 
-                                <OverlayTrigger
-                                    placement='left'
-                                    show={isInvalidPassword ? true : false}
-                                    overlay={
-                                        <Tooltip id='tooltip-left'>
-                                            {formik.errors.password}
-                                        </Tooltip>
-                                    }>
+                                <OverlayTrigger placement='left'
+                                                show={isInvalidPassword}
+                                                overlay={
+                                                    <Tooltip id='tooltip-left'>
+                                                        {formik.errors.password}
+                                                    </Tooltip>
+                                                }>
                                     <div className="form-group icon-eye-input-log mb-1">
                                         <div className="icon-eye-input-log">
                                             <i className={isPasswordVisible ? "font-sm feather-eye text-grey-500 pe-0" : "font-sm feather-eye-off text-grey-500 pe-0"}
@@ -153,6 +184,9 @@ function Login() {
                                             <i className="font-sm ti-lock text-grey-500 pe-0"
                                                style={{left: "15px"}}></i>
                                         </div>
+                                        <div>
+                                            <small className='text-danger'>{errorMessage} </small>
+                                        </div>
                                     </div>
                                 </OverlayTrigger>
 
@@ -163,7 +197,7 @@ function Login() {
                                            htmlFor="exampleCheck1">
                                         Remember me
                                     </label>
-                                    <a href="forgot.html"
+                                    <a href="#"
                                        className="fw-600 font-xsss text-grey-700 mt-1 float-right">
                                         Forgot your Password?
                                     </a>
@@ -186,7 +220,7 @@ function Login() {
                                 <div className="col-sm-12 p-0 mt-2">
                                     <div className="form-group mb-1 ">
                                         <button
-                                           className="w-100 d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
+                                            className="w-100 d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
                                             <img
                                                 src={google} alt="icon" className="ms-3 mt-2 ms-2 w40 mb-1 me-5"/>
                                             <span className="ms-3 justify-content-center">

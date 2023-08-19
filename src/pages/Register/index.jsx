@@ -138,9 +138,6 @@ function Register() {
             );
     };
 
-    // const isLeapYear = (year) => {
-    //     return ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0));
-    // }
     const generateOptions = (start, end) => {
         return Array.from({length: end - start + 1}, (_, index) => start + index);
     };
