@@ -17,7 +17,7 @@ function PersonalPage() {
     useEffect( () => {
         const getUserInfo = async () => {
             const result = await userInfoApi();
-            dispatch(setUserInfo(result.data));
+            dispatch(setUserInfo(result));
         }
         getUserInfo()
     },[])

@@ -2,20 +2,23 @@ import axios from "axios";
 import {VIBELY_API} from "~/app/constants.js";
 
 export const userInfoApi = async () => {
+    let response = {};
     try{
-        return await axios.get(VIBELY_API + '/users/info' /1);
-    } catch (error){
-        console.log(error);
-        return error;
+        response = await axios.get(`${VIBELY_API}/users/info/1`);
+    } catch (e) {
+        console.log("Register error: " + e);
     }
+    return response.data;
 }
-export const editUserInfoApi = async (userInfo) => {
+export const editUserInfoApi = async (data) => {
+    let response = {};
+
     try{
-        return await axios.put(VIBELY_API + '/users/info', userInfo)
-    } catch (error){
-        console.log(error);
-        return error;
+        response = await axios.put(`${VIBELY_API}/users/info`, data)
+    } catch (e) {
+        console.log("Register error: " + e);
     }
+    return response.data;
 }
 
 
