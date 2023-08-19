@@ -12,8 +12,6 @@ const toogleLoader = createSlice({
     },
   });
 
-
-
 export const { turnOffLoader } = toogleLoader.actions;
 
 export default toogleLoader;

@@ -92,7 +92,7 @@ function WorkAndEducation() {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setWorkStatus(false),
+                                        setWorkStatus(false)
                                             formikWork.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">
@@ -148,7 +148,7 @@ function WorkAndEducation() {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setSchoolStatus(false),
+                                        setSchoolStatus(false)
                                             formikSchool.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">

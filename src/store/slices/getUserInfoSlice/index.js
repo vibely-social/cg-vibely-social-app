@@ -1,21 +1,25 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getUserInfoApi} from "~/api/getUserInfoApi.js";
+import {editUserInfoApi, getUserInfoApi} from "~/api/getUserInfoApi.js";
 
 
 const initialState = {
-    values: null,
     value: null,
     loading: false,
     error: null,
     success: false,
 };
 
-export const getUserInfo = createAsyncThunk("userInfo", async () => {
+export const getUserInfo = createAsyncThunk("userInfo/show", async () => {
     const response = await getUserInfoApi();
     return response.data;
 });
 
-export const getUserInfoSlice = createSlice({
+export const editUserInfo = createAsyncThunk("userInfo/edit", async (userInfo) => {
+    const response = await editUserInfoApi(userInfo);
+    return response.data;
+});
+
+export const userInfoSlice = createSlice({
     name: "userInfo",
     initialState,
     reducers: {
@@ -46,9 +50,26 @@ export const getUserInfoSlice = createSlice({
             .addCase(getUserInfo.fulfilled, (state, action) => {
                 state.success = true;
                 state.loading = false;
-                state.values = action.payload;
+                state.value = action.payload;
                 state.error = false;
-            });
+            })
+
+            .addCase(editUserInfo.pending, (state) => {
+                state.success = false;
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(editUserInfo.rejected, (state, action) => {
+                state.success = false;
+                state.loading = false;
+                state.error = action.error;
+            })
+            .addCase(editUserInfo.fulfilled, (state, action) => {
+                state.success = true;
+                state.loading = false;
+                state.value = action.payload;
+                state.error = false;
+            })
     }
 });
 
@@ -56,11 +77,11 @@ export const {
     setLoading,
     setError,
     setSuccess,
-} = getUserInfoSlice.actions;
+} = userInfoSlice.actions;
 
-export const getUserInfoIsLoading = (state) => state.userInfo.loading;
-export const getUserInfoIsError = (state) => state.userInfo.error;
-export const getUserInfoIsSuccess = (state) => state.userInfo.success;
-export const selectUserInfo = (state) => state.userInfo.values;
+export const userInfoIsLoading = (state) => state.userInfo.loading;
+export const userInfoIsError = (state) => state.userInfo.error;
+export const userInfoIsSuccess = (state) => state.userInfo.success;
+export const selectUserInfo = (state) => state.userInfo.value;
 
-export default getUserInfoSlice.reducer;
+export default userInfoSlice.reducer;

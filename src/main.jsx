@@ -17,4 +17,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </GlobalStyles>
 )
 
-reportWebVitals(console.log);
+// reportWebVitals(console.log);

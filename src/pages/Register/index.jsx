@@ -139,11 +139,11 @@ function Register() {
                         </a>
                         <button className="nav-menu me-0 ms-2"></button>
                         <Link to="/login"
-                              className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
+                              className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w114 text-center lh-20 rounded-xl">
                             Login
                         </Link>
                         <span
-                            className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
+                            className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w114 text-center lh-20 rounded-xl">
                             Register
                         </span>
                     </div>
@@ -288,14 +288,7 @@ function Register() {
                                         style={{marginTop: "0.8rem"}}>Date of birth ?
                                     </div>
                                     <div className="row">
-                                        <OverlayTrigger
-                                            placement='left'
-                                            show={isInvalidDay ? true : false}
-                                            overlay={
-                                                <Tooltip id='tooltip-left'>
-                                                    {formik.errors.day}
-                                                </Tooltip>
-                                            }>
+
                                             <div className="col-md-4">
                                                 <div className="form-group">
                                                     <select
@@ -310,8 +303,8 @@ function Register() {
                                                             paddingRight: "15px"
                                                         }}
                                                         className={isInvalidDay
-                                                            ? "style2-input ps-5 form-control-sm is-invalid text-grey-900 font-xsss fw-600"
-                                                            : "style2-input ps-5 form-control-sm text-grey-900 font-xsss fw-600"
+                                                            ? "style2-input w114 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                            : "style2-input w114 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                         }>
                                                         <option value="day">Day</option>
                                                         {generateOptions(1, 31).map((day) => (
@@ -322,17 +315,8 @@ function Register() {
                                                     </select>
                                                 </div>
                                             </div>
-                                        </OverlayTrigger>
 
-                                        <OverlayTrigger
-                                            placement='top'
-                                            show={isInvalidMonth ? true : false}
-                                            overlay={
-                                                <Tooltip id='tooltip-top'>
-                                                    {formik.errors.month}
-                                                </Tooltip>
-                                            }>
-                                            <div className="col-md-4">
+                                        <div className="col-md-4">
                                                 <div className="form-group">
                                                     <select
                                                         id="month"
@@ -342,8 +326,8 @@ function Register() {
                                                         onChange={formik.handleChange}
                                                         style={{borderRadius: "1", height: "auto", paddingRight: "0px"}}
                                                         className={isInvalidMonth
-                                                            ? "style2-input ps-5 form-control-sm is-invalid text-grey-900 font-xsss fw-600"
-                                                            : "style2-input ps-5 form-control-sm text-grey-900 font-xsss fw-600"
+                                                            ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                            : "style2-input w114 h40 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                         }
                                                         placeholder="Month">
                                                         <option value="">Month</option>
@@ -355,16 +339,9 @@ function Register() {
                                                     </select>
                                                 </div>
                                             </div>
-                                        </OverlayTrigger>
 
-                                        <OverlayTrigger
-                                            placement='right'
-                                            show={isInvalidYear ? true : false}
-                                            overlay={
-                                                <Tooltip id='tooltip-right'>
-                                                    {formik.errors.year}
-                                                </Tooltip>
-                                            }>
+
+
                                             <div className="col-md-4">
                                                 <div className="form-group">
                                                     <select
@@ -375,8 +352,8 @@ function Register() {
                                                         onChange={formik.handleChange}
                                                         style={{borderRadius: "1", height: "auto"}}
                                                         className={isInvalidYear
-                                                            ? "style2-input ps-5 form-control-sm is-invalid font-xsss fw-600"
-                                                            : "style2-input ps-5 form-control-sm font-xsss fw-600"
+                                                            ? "style2-input w114 text-center form-control-sm font-xsss fw-600 border-danger"
+                                                            : "style2-input w114 text-center form-control-sm font-xsss fw-600"
                                                         }>
                                                         <option value="Year">Year</option>
                                                         {generateOptions(1905, new Date().getFullYear()).map((year) => (
@@ -387,7 +364,6 @@ function Register() {
                                                     </select>
                                                 </div>
                                             </div>
-                                        </OverlayTrigger>
                                     </div>
                                     <div
                                         className="font-xssss"
@@ -410,6 +386,7 @@ function Register() {
                                                            style={{paddingRight: "30px"}}>Female</label>
                                                     <input type="radio"
                                                            value="FEMALE"
+
                                                            checked={formik.values.gender === "FEMALE"}
                                                            onChange={formik.handleChange}
                                                            name="gender"
