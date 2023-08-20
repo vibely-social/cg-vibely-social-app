@@ -353,6 +353,13 @@
 
   .nav-wrap {
     background: white;
+    &.top-nav-item{
+      max-height: calc(100vh - 265px);
+    }
+  }
+
+  .nav-wrap ul{
+    max-height: calc(100vh - 302px);
   }
 
   .nav-caption {
@@ -766,6 +773,13 @@
   &.menu-active{
     width: 200px;
   }
+}
+.chat-navigation .nav-caption{
+  padding-left: 0px;
+  text-align: center;
+}
+.chat-navigation a{
+  padding-left: 4px !important;
 }
 
 

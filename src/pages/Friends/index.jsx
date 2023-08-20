@@ -1,7 +1,7 @@
 import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { motion } from "framer-motion";
 import "./index.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Friends() {
@@ -222,7 +222,7 @@ function Friends() {
                       <Card.Body className="d-block p-0">
                         <img
                           src={friend?.avatar}
-                          className="bg-white avatar w-100 shadow-xss border border-dark"
+                          className="bg-white avatar w-100 shadow-xss border border-light"
                           style={{ minHeight: "220px", maxHeight: "220px" }}
                         />
                         <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-left">
@@ -321,7 +321,7 @@ function Friends() {
                       <Card.Body className="d-block p-0">
                         <img
                           src={friend?.avatar}
-                          className="bg-white avatar w-100 shadow-xss border border-dark"
+                          className="bg-white avatar w-100 shadow-xss border border-light"
                           style={{ minHeight: "220px", maxHeight: "220px" }}
                         />
                         <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-left">

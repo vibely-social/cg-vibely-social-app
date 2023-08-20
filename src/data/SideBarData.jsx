@@ -1,17 +1,29 @@
-import  friendsNav  from '../assets/img/sidebar/friends.png' 
-import  groupsNav  from '../assets/img/sidebar/groups.png' 
-import  marketNav  from '../assets/img/sidebar/marketplace.png' 
-import  pagesNav from '../assets/img/sidebar/pages.png' 
-import  storyNav  from '../assets/img/sidebar/story.png' 
-import  newfeedNav  from '../assets/img/sidebar/newfeed.png' 
-import  ppl  from '../assets/img/ppl.png'
-import  mess from "../assets/img/messenger.png"
- 
- const SidebarData = [
+import friendsNav from '../assets/img/sidebar/friends.png'
+import groupsNav from '../assets/img/sidebar/groups.png'
+import marketNav from '../assets/img/sidebar/marketplace.png'
+import pagesNav from '../assets/img/sidebar/pages.png'
+import storyNav from '../assets/img/sidebar/story.png'
+import newfeedNav from '../assets/img/sidebar/newfeed.png'
+import ppl from '../assets/img/ppl.png'
+import mess from "../assets/img/messenger.png"
+import {USER} from "~/app/constants.js";
+
+let fullName = 'Anonymous'
+
+let user = USER
+if (user && user.firstName) {
+    fullName = user.firstName + ' ' + user.lastName
+}else if (user){
+    fullName = user.email
+    user.avatar = 'https://media.discordapp.net/attachments/1006048991043145829/1006049027734913075/unknown.png?width=662&height=662'
+    console.log(fullName)
+}
+
+const SidebarData = [
     {
-        icon: ppl,
+        icon: user?user.avatar : ppl,
         path: '/profile',
-        heading: 'Thành Nguyễn'
+        heading: fullName
     },
     {
         icon: friendsNav,
@@ -48,6 +60,6 @@ import  mess from "../assets/img/messenger.png"
         path: '/marketplace',
         heading: 'Marketplace'
     }
-  ];
+];
 
-  export default SidebarData
+export default SidebarData

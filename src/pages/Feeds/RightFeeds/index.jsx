@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Col, Card, CardGroup, Button, Modal } from "react-bootstrap";
 import "./index.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function RightFeed() {
@@ -32,7 +32,6 @@ function RightFeed() {
       axios
         .delete(`${FRIENDS_REQUEST_API}friends/${selectedItem?.id}`)
         .then((res) => {
-          console.log("res.data");
           console.log(res.data)
           setIsReload(!isReload);
         })
@@ -49,7 +48,6 @@ function RightFeed() {
       .get(`${FRIENDS_REQUEST_API}/friends`)
       .then((res) => {
         setFriendRequests(res.data);
-        console.log(friendRequests);
       })
       .catch((err) => {
         throw err;
