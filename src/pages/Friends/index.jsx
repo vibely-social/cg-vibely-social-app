@@ -262,13 +262,13 @@ function Friends() {
               <Modal.Title>Confirm Deletion</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Are you sure you want to delete {selectedItemRequest?.firstName}{" "}
-              {selectedItemRequest?.lastName}?{" "}
-              <img
-                src={selectedItemRequest?.avatar}
-                alt="image"
-                className=" shadow-sm rounded-circle w50"
-              />
+                Are you sure you want to delete {selectedItemRequest?.firstName}{" "}
+                {selectedItemRequest?.lastName}?{" "}
+                  <img
+                    src={selectedItemRequest?.avatar}
+                    alt="image"
+                    className=" shadow-sm rounded-circle w50"
+                  />
             </Modal.Body>
             <Modal.Footer>
               <Button
