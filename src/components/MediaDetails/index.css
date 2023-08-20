@@ -1,0 +1,57 @@
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.modal-image {
+    max-height: calc(100vh - 64px);
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    border: transparent;
+    color: #0a573b;
+    cursor: pointer;
+    font-size: 50px;
+    z-index: 2;
+}
+
+.close-button {
+    background-color: transparent;
+    border: transparent;
+    color: #0a573b;
+    cursor: pointer;
+    font-size: 50px;
+    z-index: 2;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.prev-button:hover{
+    color: #6bf5be;
+}
+
+.next-button {
+    right: 10px;
+}
+
+.next-button:hover {
+    color: #6bf5be;
+}
+
+.close-button:hover {
+    color: #6bf5be;
+}

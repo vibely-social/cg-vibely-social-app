@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {setImages} from "~/features/getMedia/index.jsx";
 import axios from "axios";
-import MediaModal from "../../../../layouts/commons/MediaModal/index.jsx";
-import MediaCarousel from "../../../../layouts/commons/MediaCarousel/index.jsx";
+import MediaDetails from "~/components/MediaDetails/index.jsx";
 
 function MediaTab() {
     const tabs = ["Photos", "Videos"]
@@ -106,18 +107,11 @@ function MediaTab() {
                             </div>
                         ))}
                         {showModal &&
-                            <MediaModal
+                            <MediaDetails
                                 images={images}
                                 currentIndex={selectedImageIndex}
                                 onClose={handleHide}
                             />}
-
-
-                        {/*<MediaCarousel*/}
-                        {/*    images={images}*/}
-                        {/*    visible={showModal}*/}
-                        {/*    onHide={handleHide}*/}
-                        {/*/>*/}
                     </div>
                 </div>
             </div>
