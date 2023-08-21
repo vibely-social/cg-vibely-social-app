@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import "./Tab/IntroductionTab/index.css"
-import {userInfoApi} from "~/api/userInfoApi.js";
+import {getUserInfoApi} from "~/api/getUserInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
 import PostTab from "~/pages/PersonalPage/Tab/PostTab/index.jsx";
@@ -16,7 +16,7 @@ function PersonalPage() {
 
     useEffect( () => {
         const getUserInfo = async () => {
-            const result = await userInfoApi();
+            const result = await getUserInfoApi();
             dispatch(setUserInfo(result));
         }
         getUserInfo()

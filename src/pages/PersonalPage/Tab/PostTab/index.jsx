@@ -1,4 +1,5 @@
 import NewPost from "../../../../components/CreatePost/index";
+import PostDetail from "~/components/PostDetail/index.jsx";
 
 function PostTab() {
     return (
@@ -7,7 +8,19 @@ function PostTab() {
                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
                         <div className="card-body d-block p-4" style={{height: 400}}>
-                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Over view</h4>
+                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Intro</h4>
+                        </div>
+                    </div>
+
+                    <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
+                        <div className="card-body d-block p-4" style={{height: 300}}>
+                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Friends</h4>
+                        </div>
+                    </div>
+
+                    <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
+                        <div className="card-body d-block p-4" style={{height: 300}}>
+                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Media</h4>
                         </div>
                     </div>
                 </div>
@@ -16,10 +29,16 @@ function PostTab() {
                         <NewPost />
                     </div>
 
-                    <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
-                        <div className="card-body d-block p-4" style={{height: 400}}>
-                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Time line</h4>
-                        </div>
+                    <div className="shadow-xssmb-3 mt-3">
+                        <PostDetail/>
+                    </div>
+
+                    <div className="shadow-xssmb-3 mt-3">
+                        <PostDetail/>
+                    </div>
+
+                    <div className="shadow-xssmb-3 mt-3">
+                        <PostDetail/>
                     </div>
                 </div>
             </div>

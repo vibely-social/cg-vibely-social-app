@@ -181,7 +181,7 @@ function UserDetail() {
                     genderStatus === true ?
                         <form className="info-form" onSubmit={formikGender.handleSubmit}>
                             <div className="row">
-                                <div className="col-lg-12 h75">
+                                <div className="col-lg-12 h75 mt-1">
                                     <select
                                         id="gender"
                                         name="gender"
