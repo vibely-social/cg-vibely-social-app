@@ -1,13 +1,14 @@
 import React from 'react';
 import CommentSection from "../../Comment/CommentSection/index.jsx";
 import "./index.css"
+import {bottom} from "@popperjs/core";
 
 const MediaPost = ({id}) => {
     return (
         <div className="right-comment chat-left scroll-bar theme-dark-bg"
             style={{margin: '20px'}}>
             {/* Comment Header */}
-            <div className="card-body ps-2 pe-4 pb-0 d-flex">
+            <div className="card-body ps-2 pe-4 pb-0 d-flex border-bottom-dark">
                 <figure className="avatar me-3">
                     <img src="https://cdn5.vectorstock.com/i/1000x1000/43/94/default-avatar-photo-placeholder-icon-grey-vector-38594394.jpg" alt="image" className="shadow-sm rounded-circle w45" />
                 </figure>

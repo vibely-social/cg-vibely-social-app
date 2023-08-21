@@ -34,22 +34,25 @@
     cursor: pointer;
     font-size: 50px;
     z-index: 2;
-}
+    left: 0;
+    width: 30vh;
 
-.prev-button {
-    left: 10px;
 }
 
 .prev-button:hover{
     color: #6bf5be;
 }
 
-.next-button {
-    right: 10px;
-}
-
 .next-button:hover {
     color: #6bf5be;
+}
+
+.next-button {
+    right: 80px;
+}
+
+.prev-button {
+    left: 100px;
 }
 
 .close-button:hover {

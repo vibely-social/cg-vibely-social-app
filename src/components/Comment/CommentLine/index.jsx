@@ -3,7 +3,7 @@ import React from 'react';
 function CommentLine({ username, avatar, text }) {
     return (
         <div className="card w-100 border-0 shadow-none right-scroll-bar">
-            <div className="card-body border-top-xs pt-4 pb-3 pe-4 d-block ps-5">
+            <div className="card-body pt-4 pb-3 pe-4 d-block ps-5">
                 <figure className="avatar position-absolute left-0 ms-2 mt-1">
                     <img src={avatar} alt="Avatar" className="shadow-sm rounded-circle w35" />
                 </figure>

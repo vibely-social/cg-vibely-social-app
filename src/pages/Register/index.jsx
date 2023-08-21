@@ -2,7 +2,7 @@ import google from "../../assets/img/google-icon.png";
 import {Link, useNavigate} from "react-router-dom"
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {Form, Overlay, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import "./index.scss"
 import axios from "axios";
 import {useState} from "react";
@@ -140,12 +140,6 @@ function Register() {
 
     const generateOptions = (start, end) => {
         return Array.from({length: end - start + 1}, (_, index) => start + index);
-    };
-
-    const checkEmail = (e) => {
-        if (emailExists) {
-
-        }
     };
 
 

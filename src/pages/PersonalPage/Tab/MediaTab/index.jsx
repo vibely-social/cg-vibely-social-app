@@ -1,40 +1,21 @@
 import {useEffect, useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {setImages} from "~/features/getMedia/index.jsx";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
+import {getMedia} from "~/features/getMedia/index.jsx";
 
 function MediaTab() {
     const tabs = ["Photos", "Videos"]
 
+    const dispatch = useDispatch();
+    const images = useSelector(state => state.media.images)
     const [type, setType] = useState("Photos")
-    const [images, setImages] = useState([
-        {
-            id: '1',
-            imageUrl: 'https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80'
-        },
-        {
-            id: '2',
-            imageUrl: 'https://placehold.co/600x400'
-        },
-        {
-            id: '3',
-            imageUrl: 'https://placehold.co/400'
-        }
-    ])
 
     const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/mediatab/1")
-            .then(response => {
-                setImages(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, []);
+        dispatch(getMedia)
+    }, [dispatch]);
 
     const handleClick = (index) => {
         setSelectedImageIndex(index);

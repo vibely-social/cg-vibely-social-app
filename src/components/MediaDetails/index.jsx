@@ -28,20 +28,21 @@ function MediaDetails({images, currentIndex, onClose}) {
     );
 
     return (
-        <Dialog
+        <div className="modal-backdrop">
+            <Dialog
                 visible={selectedImageIndex >= 0}
                 onHide={handleClose}
                 closeIcon={closeIcon}
-                className="p-dialog"
+                className="p-dialog modal-backdrop"
                 modal
                 draggable={false}
                 resizable={false}
                 position="left"
                 footer={null}
-                style={{ width: '50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}
+                style={{width: '80vw',maxWidth: "calc(100vh-280px)"}}
             >
                 <div className="image-container">
-                    <button className="prev-button" onClick={handlePrevImage}>
+                    <button className="prev-button left-0" onClick={handlePrevImage}>
                         <span className="pi pi-chevron-left"></span>
                     </button>
                     <img
@@ -57,6 +58,8 @@ function MediaDetails({images, currentIndex, onClose}) {
                     id={images[selectedImageIndex].id}
                 />
             </Dialog>
+        </div>
+
     );
 }
 
