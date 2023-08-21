@@ -1,10 +1,11 @@
 import axios from "axios";
 import {VIBELY_API} from "~/app/constants.js";
 
-export const getUserInfoApi = async () => {
+export const userInfoApi = async (id) => {
     let response = {};
+
     try{
-        response = await axios.get(`${VIBELY_API}/users/info/1`);
+        response = await axios.get(`${VIBELY_API}/users/info/${id}`);
     } catch (e) {
         console.log("Get user info error! " + e);
     }
