@@ -34,10 +34,10 @@ function Login() {
         validationSchema: Yup.object().shape({
             email: Yup
                 .string()
-                .required(),
+                .required("Email is a required field"),
             password: Yup
                 .string()
-                .required(),
+                .required("Password is a required field"),
         }),
         onSubmit: async (values) => {
             let user = {
@@ -122,7 +122,7 @@ function Login() {
                             Login
                         </span>
                     <Link to="/register"
-                          className="header-btn d-none d-lg-block bg-vite-gradient fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
+                          className="header-btn d-none d-lg-block bg-vibe fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
                         Register
                     </Link>
                 </div>
@@ -206,14 +206,14 @@ function Login() {
                                     <div className="form-group mb-1">
                                         <button
                                             type="submit"
-                                            className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                                            className="form-control text-center style2-input text-white fw-600 bg-vibe border-0 p-0 ">
                                             Login
                                         </button>
 
                                     </div>
                                     <h6 className="text-grey-500 text-center font-xsss fw-500 mt-0 mb-0">
                                         Dont have account ?
-                                        <Link to="/register" className="fw-700 ms-1 text-blue-gradiant">Register </Link>
+                                        <Link to="/register" className="fw-700 ms-1 text-vibe">Register </Link>
                                     </h6>
                                 </div>
                                 <div className="col-sm-12 p-0 mt-4">

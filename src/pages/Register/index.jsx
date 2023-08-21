@@ -36,12 +36,12 @@ function Register() {
                 .required("What's your name?"),
             email: Yup
                 .string()
-                .required()
+                .required("Email is a required field")
                 .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
                     "Please enter a valid email address !"),
             password: Yup
                 .string()
-                .required()
+                .required("Password is a required field")
                 .test(
                     "lowercase",
                     "must contain at least one lowercase letter",
@@ -178,7 +178,7 @@ function Register() {
                     </a>
                     <button className="nav-menu me-0 ms-2"></button>
                     <Link to="/login"
-                          className="header-btn d-none d-lg-block bg-vite-gradient fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
+                          className="header-btn d-none d-lg-block bg-vibe fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
                         Login
                     </Link>
                     <span
@@ -466,14 +466,13 @@ function Register() {
                                 <div className="col-sm-12 p-0 text-left">
                                     <div className="form-group mb-1">
                                         <button type="submit"
-                                                className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0"
-                                        >
+                                                className="form-control text-center style2-input text-white fw-600 bg-vibe border-0 p-0">
                                             Register
                                         </button>
                                     </div>
                                     <h6 className="text-grey-500 text-center font-xsss fw-500 mt-0 mb-0">
                                         Already have account ?
-                                        <Link to="/login" className="fw-700 ms-1 text-blue-gradiant">Login </Link>
+                                        <Link to="/login" className="fw-700 ms-1 text-vibe">Login </Link>
                                     </h6>
                                 </div>
                                 <div className="col-sm-12 p-0 mt-4">
