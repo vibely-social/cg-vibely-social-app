@@ -14,7 +14,7 @@ export const userInfoApi = async (id) => {
 export const editUserInfoApi = async (data) => {
     let response = {};
     try{
-        response = await axios.put(`${VIBELY_API}/users/info`, data)
+        response = await axios.put(`${VIBELY_API}/users`, data)
     } catch (e) {
         console.log("Edit user info error! " + e);
     }
