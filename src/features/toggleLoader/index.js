@@ -12,8 +12,6 @@ const toggleLoader = createSlice({
     },
   });
 
-
-
 export const { turnOffLoader } = toggleLoader.actions;
 
 export default toggleLoader;

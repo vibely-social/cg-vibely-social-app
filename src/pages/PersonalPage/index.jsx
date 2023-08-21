@@ -1,14 +1,27 @@
-import {useState} from "react";
-import PostTab from "./Tab/PostTab/index.jsx";
-import IntroductionTab from "./Tab/IntroductionTab/index.jsx";
-import MediaTab from "./Tab/MediaTab/index.jsx";
-import FriendTab from "./Tab/FriendTab/index.jsx";
-import "./Tab/IntroductionTab/index.css";
+import {useEffect, useState} from "react";
+import "./Tab/IntroductionTab/index.css"
+import {userInfoApi} from "~/api/userInfoApi.js";
+import {useDispatch, useSelector} from "react-redux";
+import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
+import PostTab from "~/pages/PersonalPage/Tab/PostTab/index.jsx";
+import IntroductionTab from "~/pages/PersonalPage/Tab/IntroductionTab/index.jsx";
+import FriendTab from "~/pages/PersonalPage/Tab/FriendTab/index.jsx";
+import MediaTab from "~/pages/PersonalPage/Tab/MediaTab/index.jsx";
 
 function PersonalPage() {
-    const tabs = ["Posts", "About", "Friends", "Media"];
+    const tabs = ["Posts", "About", "Friends", "Media"]
+    const [type, setType] = useState("Posts")
+    const userInfo = useSelector(state => state.userInfo);
+    const dispatch = useDispatch();
 
-    const [type, setType] = useState("Posts");
+    useEffect( () => {
+        const getUserInfo = async () => {
+            // let user = getStoredUserData()
+            const result = await userInfoApi(1);
+            dispatch(setUserInfo(result));
+        }
+        getUserInfo()
+    },[])
 
     return (<>
         <div className="row">
@@ -23,8 +36,8 @@ function PersonalPage() {
                             <img src="https://via.placeholder.com/50x50.png" alt="image"
                                  className="float-right p-1 bg-white rounded-circle w-100"/>
                         </figure>
-                        <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">Huy vu<span
-                            className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">support@gmail.com</span>
+                        <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{userInfo.firstName}<span
+                            className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{userInfo.email}</span>
                         </h4>
                         <div
                             className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
@@ -83,8 +96,8 @@ function PersonalPage() {
                                     <span data-toggle="tab"
                                           onClick={() => setType(tab)}
                                           className={type === tab ?
-                                              "fw-600 font-xsss text-dark pt-3 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark" :
-                                              "fw-600 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
+                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark" :
+                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
                                         {tab}
                                     </span>
                                 </li>
