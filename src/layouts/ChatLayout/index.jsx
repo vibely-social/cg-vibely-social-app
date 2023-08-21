@@ -14,8 +14,6 @@ function ChatLayout({children}) {
         }, 500);
     }
 
-
-
     return (<>
         <PreLoader />
         <div className="main-wrapper color-theme-green">
