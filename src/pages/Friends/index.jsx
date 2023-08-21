@@ -95,7 +95,7 @@ function Friends() {
   // ----------------------friend request----------------------------
 
   const FRIENDS_REQUEST_API =
-    "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
+    "https://localhost:8080/api/";
 
   const [friendRequests, setFriendRequests] = useState([]);
   const [showDeleteModalRequest, setShowDeleteModalRequest] = useState(false);
@@ -140,7 +140,7 @@ function Friends() {
   // ------------------------friend suggestion----------------------
 
   const FRIENDS_SUGGESTION_API =
-    "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
+    "https://localhost:8080/api/";
 
   const [friendSuggestion, setFriendSuggestion] = useState([]);
   const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] =
