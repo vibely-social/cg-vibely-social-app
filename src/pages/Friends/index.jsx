@@ -1,7 +1,7 @@
 import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { motion } from "framer-motion";
 import "./index.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Friends() {

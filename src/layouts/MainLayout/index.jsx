@@ -3,7 +3,7 @@ import RightChat from "../../components/RightChat/index.jsx";
 import {useSelector} from "react-redux";
 import {useState} from "react";
 import PreLoader from '../../components/Preloader'
-import {selectSidebarPosition} from '../../features/slices/toggleSidebar'
+import {selectSidebarPosition} from '../../features/toggleSidebar'
 import MainSidebar from "../commons/Sidebar/MainSidebar/index.jsx";
 
 // eslint-disable-next-line react/prop-types
@@ -22,7 +22,7 @@ function MainLayout({children, path}) {
             {isLoading &&
                 <div className="main-wrapper color-theme-green">
                     <Header/>
-                    <MainSidebar collapse={false}/>
+                    <MainSidebar/>
                     <div className={'main-content ' + (position ? 'menu-active' : '')}>
                         <div className="middle-sidebar-bottom">
                             <div className="middle-sidebar-left" id={(path === "/friends") ? "middle" : ""}>

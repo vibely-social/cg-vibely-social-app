@@ -138,9 +138,6 @@ function Register() {
             );
     };
 
-    // const isLeapYear = (year) => {
-    //     return ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0));
-    // }
     const generateOptions = (start, end) => {
         return Array.from({length: end - start + 1}, (_, index) => start + index);
     };
@@ -181,11 +178,11 @@ function Register() {
                     </a>
                     <button className="nav-menu me-0 ms-2"></button>
                     <Link to="/login"
-                          className="header-btn d-none d-lg-block bg-blue-gradiant fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
+                          className="header-btn d-none d-lg-block bg-vite-gradient fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
                         Login
                     </Link>
                     <span
-                        className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
+                        className="header-btn d-none opacity-30 d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
                             Register
                         </span>
                 </div>
@@ -209,7 +206,7 @@ function Register() {
                                             </Tooltip>
                                         }>
                                         <div className="col-lg-6 mb-3">
-                                            <div className="form-group icon-input">
+                                            <div className="form-group icon-input mb-0">
                                                 <input type="text"
                                                        id="firstName"
                                                        name="firstName"
@@ -235,7 +232,7 @@ function Register() {
                                             </Tooltip>
                                         }>
                                         <div className="col-lg-6 mb-3">
-                                            <div className="form-group icon-input">
+                                            <div className="form-group icon-input mb-0">
                                                 <input type="text"
                                                        id="lastName"
                                                        name="lastName"
@@ -295,7 +292,7 @@ function Register() {
                                     }>
                                     <div className="form-group icon-eye-input-res mb-3">
                                         <div className="icon-eye-input">
-                                            <i className={isPasswordVisible ? "font-sm feather-eye text-grey-500 pe-0" : "font-sm feather-eye-off text-grey-500 pe-0"}
+                                            <i className={isPasswordVisible ? "font-sm cursor-pointer feather-eye text-grey-500 pe-0" : "font-sm cursor-pointer feather-eye-off text-grey-500 pe-0"}
                                                onClick={() => setIsPasswordVisible(!isPasswordVisible)}></i>
                                             <input type={isPasswordVisible ? 'text' : 'password'}
                                                    id="password"
@@ -320,7 +317,7 @@ function Register() {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-4">
-                                        <div className="form-group">
+                                        <div className="form-group mb-1">
                                             <select
                                                 id="day"
                                                 name="day"
@@ -333,8 +330,8 @@ function Register() {
                                                     paddingRight: "15px"
                                                 }}
                                                 className={isInvalidDay
-                                                    ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
-                                                    : "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
+                                                    ? "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                    : "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                 }>
                                                 <option value={-1}>Day</option>
                                                 {generateOptions(1, 31).map((day) => (
@@ -347,7 +344,7 @@ function Register() {
                                     </div>
 
                                     <div className="col-md-4">
-                                        <div className="form-group">
+                                        <div className="form-group mb-1">
                                             <select
                                                 id="month"
                                                 name="month"
@@ -356,8 +353,8 @@ function Register() {
                                                 onChange={formik.handleChange}
                                                 style={{borderRadius: "1", height: "auto", paddingRight: "0px"}}
                                                 className={isInvalidMonth
-                                                    ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
-                                                    : "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
+                                                    ? "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                    : "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                 }
                                                 placeholder="Month">
                                                 <option value={-1}>Month</option>
@@ -371,7 +368,7 @@ function Register() {
                                     </div>
 
                                     <div className="col-md-4">
-                                        <div className="form-group">
+                                        <div className="form-group mb-1">
                                             <select
                                                 id="year"
                                                 name="year"
@@ -380,8 +377,8 @@ function Register() {
                                                 onChange={formik.handleChange}
                                                 style={{borderRadius: "1", height: "auto"}}
                                                 className={isInvalidYear
-                                                    ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
-                                                    : "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
+                                                    ? "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                    : "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                 }>
                                                 <option value={-1}>Year</option>
                                                 {generateOptions(1905, new Date().getFullYear()).map((year) => (
@@ -402,9 +399,9 @@ function Register() {
                                 <div className="row">
                                     <div className="col-md-4" style={{marginTop: "-14px"}}>
                                         <span style={{padding: 0}}
-                                              className={`form-control ${isInvalidGender ? "border-danger" : ""}`}>
+                                              className={`form-control ${isInvalidGender ? "border-danger " : ""}`}>
                                             <label htmlFor="FEMALE"
-                                                   className="ps-md-3 fw-600"
+                                                   className="ps-md-3 fw-600 cursor-pointer"
                                                    style={{paddingRight: "30px"}}>Female</label>
                                             <input type="radio"
                                                    value="FEMALE"
@@ -421,7 +418,7 @@ function Register() {
                                         <span style={{padding: 0}}
                                               className={`form-control ${isInvalidGender ? "border-danger" : ""}`}>
                                             <label htmlFor="MALE"
-                                                   className="ps-md-3 fw-600"
+                                                   className="ps-md-3 fw-600 cursor-pointer"
                                                    style={{paddingRight: "38px"}}>Male</label>
                                             <input type="radio"
                                                    value="MALE"
@@ -436,7 +433,7 @@ function Register() {
                                         <span style={{padding: 0}}
                                               className={`form-control ${isInvalidGender ? "border-danger" : ""}`}>
                                             <label htmlFor="OTHER"
-                                                   className="ps-md-3 fw-600"
+                                                   className="ps-md-3 fw-600 cursor-pointer"
                                                    style={{paddingRight: "30px"}}>Other</label>
                                             <input type="radio"
                                                    value="OTHER"
@@ -452,7 +449,7 @@ function Register() {
 
                                 <div className="form-group d-flex align-items-center mb-3 mt-3">
                                     <input type="checkbox"
-                                           className={`form-check-input mt-0 me-2 h23 w23 ${isInAcceptTermAndConditions
+                                           className={`form-check-input m-0 h23 w23 ${isInAcceptTermAndConditions
                                                ? "border-danger" : ""}`}
                                            id="acceptTermAndConditions"
                                            value="acceptTermAndConditions"
@@ -460,8 +457,9 @@ function Register() {
                                            onChange={formik.handleChange}
                                            onBlur={formik.handleBlur}
                                            name="acceptTermAndConditions"
+                                           style={{borderRadius: "4px"}}
                                     />
-                                    <label className="form-check-label font-xssss text-grey-500 "
+                                    <label className="form-check-label ms-5 font-xssss text-grey-500 cursor-pointer"
                                            htmlFor="acceptTermAndConditions">Accept Term and Conditions
                                     </label>
                                 </div>
@@ -473,13 +471,12 @@ function Register() {
                                             Register
                                         </button>
                                     </div>
-                                    <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
+                                    <h6 className="text-grey-500 text-center font-xsss fw-500 mt-0 mb-0">
                                         Already have account ?
                                         <Link to="/login" className="fw-700 ms-1 text-blue-gradiant">Login </Link>
-                                        Or, Sign in with your social account
                                     </h6>
                                 </div>
-                                <div className="col-sm-12 p-0 mt-2">
+                                <div className="col-sm-12 p-0 mt-4">
                                     <div className="form-group mb-1">
                                         <button
                                            className="w-100 font-xss d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
@@ -489,6 +486,9 @@ function Register() {
                                                 Sign in with Google
                                             </span>
                                         </button>
+                                        <h6 className="text-grey-500 text-center font-xsss fw-500 mt-0 mb-0">
+                                            Or, Sign in with your social account
+                                        </h6>
                                     </div>
                                 </div>
                             </Form>

@@ -254,11 +254,11 @@
 .right-scroll-bar {margin-left: 0px;overflow-y: scroll;    }
 .right-scroll-bar::-webkit-scrollbar-track {background-color: transparent;}
 .right-scroll-bar::-webkit-scrollbar {width: 2px;background-color: transparent;}
-.right-scroll-bar::-webkit-scrollbar-thumb {background-color: #aaa;}
+.right-scroll-bar::-webkit-scrollbar-thumb {background-color: rgba(187, 187, 187, 0.38);}
 
 .scroll-bar {margin-left: 0px;overflow-y: scroll;    }
 .scroll-bar::-webkit-scrollbar-track {background-color: transparent;}
 .scroll-bar::-webkit-scrollbar {width: 2px;background-color: transparent;}
-.scroll-bar::-webkit-scrollbar-thumb {background-color: #e8e8e8;}
+.scroll-bar::-webkit-scrollbar-thumb {background-color: #bbbbbb;}
 
 

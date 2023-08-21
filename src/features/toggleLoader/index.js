@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const toogleLoader = createSlice({
+const toggleLoader = createSlice({
     name: 'firstLoad',
     initialState: {
         isOn: false,
@@ -14,6 +14,6 @@ const toogleLoader = createSlice({
 
 
 
-export const { turnOffLoader } = toogleLoader.actions;
+export const { turnOffLoader } = toggleLoader.actions;
 
-export default toogleLoader;
+export default toggleLoader;
