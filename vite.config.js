@@ -1,6 +1,6 @@
 import {defineConfig, transformWithEsbuild} from 'vite'
-import babel from 'vite-plugin-babel';
 import react from '@vitejs/plugin-react'
+import babel from 'vite-plugin-babel'
 
 export default defineConfig({
     plugins: [
