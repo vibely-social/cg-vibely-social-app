@@ -12,8 +12,6 @@ const toggleChat = createSlice({
     },
   });
 
-
-
 export const { toggleChatButton } = toggleChat.actions;
 
 export default toggleChat;

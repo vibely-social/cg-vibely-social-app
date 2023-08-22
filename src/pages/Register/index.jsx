@@ -142,6 +142,7 @@ function Register() {
         return Array.from({length: end - start + 1}, (_, index) => start + index);
     };
 
+
     let isInvalidFirstname = formik.touched.firstName && formik.errors.firstName;
     let isInvalidLastname = formik.touched.lastName && formik.errors.lastName;
     let isInvalidEmail = formik.touched.email && formik.errors.email;
@@ -221,7 +222,9 @@ function Register() {
                                                 <i className="font-sm ti-user text-grey-500 pe-0"></i>
                                             </div>
                                         </div>
+
                                     </OverlayTrigger>
+
 
                                     <OverlayTrigger
                                         placement='right'
@@ -479,7 +482,7 @@ function Register() {
                                 <div className="col-sm-12 p-0 mt-2">
                                     <div className="form-group mb-1">
                                         <button
-                                           className="w-100 font-xss d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
+                                            className="w-100 font-xss d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
                                             <img
                                                 src={google} alt="icon" className="ms-3 mt-2 ms-3 w40 mb-1 me-5"/>
                                             <span className="ms-4 justify-content-center">
