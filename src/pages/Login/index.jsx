@@ -2,8 +2,6 @@ import google from "../../assets/img/google-icon.png";
 import {Link, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-import Swal from "sweetalert2";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import logo from "~/assets/img/logo.svg";
 import {useState, useEffect} from "react";
@@ -20,8 +18,6 @@ function Login() {
     const navigate = useNavigate()
     const user = useSelector(selectUserData)
     const success = useSelector(selectUserAccountSliceIsSuccess)
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -44,31 +40,9 @@ function Login() {
                 email: values.email,
                 password: values.password,
             }
-            await axios.post("http://localhost:8080/api/auth/login", user)
-                .then(() => {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Login success!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    navigate("/");
-                })
-                .catch(
-                    (e) => {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Login failed',
-                            showConfirmButton: true,
-                            allowOutsideClick: false,
-                        })
-                        console.log(e);
-                    })
+            handleLogin(user)
         }
     });
-
 
     useEffect(() => {
         if (success) {
@@ -85,10 +59,11 @@ function Login() {
         }
     }, [success]);
 
-    const handleLogin = (event) => {
+    const handleLogin = (user) => {
         event.preventDefault();
-        dispatch(loginToAccount({email, password}))
+        dispatch(loginToAccount(user))
     }
+
     let isInvalidEmail = formik.touched.email && formik.errors.email;
     let isInvalidPassword = formik.touched.password && formik.errors.password;
 

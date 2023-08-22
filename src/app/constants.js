@@ -10,4 +10,4 @@ export const VIBELY_API = "http://localhost:8080/api"
 
 export const USER = JSON.parse(localStorage.getItem('user'))
 
-export const TOKEN = USER ? USER.refreshToken : null
+// export const TOKEN = USER ? USER.refreshToken : null

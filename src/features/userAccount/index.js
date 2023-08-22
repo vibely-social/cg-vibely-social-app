@@ -85,6 +85,7 @@ export const userAccountSlice = createSlice({
                 state.success = true;
                 state.loading = false;
                 state.error = false;
+                console.log(state.success);
             })
     }
 })
