@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
 
+//type: tab, photos, post
 function MediaList({images, type}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
     const [showModal, setShowModal] = useState(false);
@@ -23,7 +24,8 @@ function MediaList({images, type}) {
         secondDiv = "card h240 w240 d-block border-0 mb-3 align";
     }
     if (type === "post") {
-
+        firstDiv = "col-xs-4 col-sm-2 p-1";
+        secondDiv = "card h175 w175"
     }
     if (type === "photos") {
         firstDiv = 'col-md-2 col-xss-6';
@@ -42,7 +44,7 @@ function MediaList({images, type}) {
                         }}
                     >
                         <img
-                            className="rounded-4"
+                            className="rounded-3 w-100 h-100 border border-1 border-gray shadow-md"
                             src={image.fileName}
                             style={{
                                 objectFit: "cover",

@@ -8,6 +8,7 @@ import {userAccountSlice} from "~/features/userAccount/index.js";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
 import {authenticationSlice} from "~/features/authentication/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
+import {getPostDetailsSlice} from "~/features/getPostDetails/index.jsx";
 
 const store = configureStore({
     reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
         authentication: authenticationSlice.reducer,
-        media: getMediaSlice.reducer
+        media: getMediaSlice.reducer,
+        postDetails: getPostDetailsSlice.reducer
     },
 });
 export default store
