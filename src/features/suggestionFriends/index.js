@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { find20SuggestionFriends } from "~/api/suggestionFriendApi";
+import { findSuggestionFriendsApi } from "~/api/suggestionFriendApi";
 
-export const get20SuggestionFriends = createAsyncThunk(
-  "suggestionFriends/get20SuggestionFriends",
+export const getSuggestionFriends = createAsyncThunk(
+  "suggestionFriends/getSuggestionFriends",
   async () => {
-    const response = await find20SuggestionFriends();
+    const response = await findSuggestionFriendsApi();
     return response.data;
   }
 );
@@ -36,17 +36,17 @@ export const suggestionFriendsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(get20SuggestionFriends.pending, (state) => {
+      .addCase(getSuggestionFriends.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.success = false;
       })
-      .addCase(get20SuggestionFriends.fulfilled, (state, action) => {
+      .addCase(getSuggestionFriends.fulfilled, (state, action) => {
         state.loading = false;
         state.suggestionFriendsList = action.payload;
         state.success = true;
       })
-      .addCase(get20SuggestionFriends.rejected, (state, action) => {
+      .addCase(getSuggestionFriends.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
         state.success = false;

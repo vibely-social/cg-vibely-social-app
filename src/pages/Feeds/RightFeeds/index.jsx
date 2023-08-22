@@ -3,7 +3,7 @@ import {Button, Card, Col, Modal} from "react-bootstrap";
 import "./index.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import { deleteSuggestionFriend, get20SuggestionFriends, selectSuggestionFriendsList } from "~/features/suggestionFriends";
+import { deleteSuggestionFriend, getSuggestionFriends, selectSuggestionFriendsList } from "~/features/suggestionFriends";
 import { useDispatch, useSelector } from "react-redux";
 
 function RightFeed() {
@@ -17,7 +17,6 @@ function RightFeed() {
 
   const FRIENDS_SUGGESTION_API =
     "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
-  // const [friendSuggestions, setFriendSuggestions] = useState([]);
   const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] = useState(false);
   const [suggestSelectedItem, setSuggestSelectedItem] = useState(null);
   const [isReloadSuggestion, setIsReloadSuggestion] = useState(false);
@@ -65,7 +64,7 @@ const friendSuggestions = useSelector(selectSuggestionFriendsList);
 
 
 useEffect(() => {
-  dispatch(get20SuggestionFriends());
+  dispatch(getSuggestionFriends());
 }, [dispatch]);
 
   const handleDeleteClickSuggestion = (suggestion) => {
