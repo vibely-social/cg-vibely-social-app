@@ -18,7 +18,7 @@ function NotFound() {
 
     return (
         <>
-            <Row className="justify-content-center ">
+            <Row className="justify-content-center body-404">
                 <img src={notfound} className="notfound" style={{maxWidth: "100vh"}}/>
                 <Button className="back-to-home bg-transparent border-0" onClick={() => navigate("/")} >
                         <div className="bloom-container cube" ref={ref}>
