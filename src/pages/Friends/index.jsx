@@ -95,7 +95,7 @@ function Friends() {
   // ----------------------friend request----------------------------
 
   const FRIENDS_REQUEST_API =
-    "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
+    "https://localhost:8080/api/";
 
   const [friendRequests, setFriendRequests] = useState([]);
   const [showDeleteModalRequest, setShowDeleteModalRequest] = useState(false);
@@ -140,7 +140,7 @@ function Friends() {
   // ------------------------friend suggestion----------------------
 
   const FRIENDS_SUGGESTION_API =
-    "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
+    "https://localhost:8080/api/";
 
   const [friendSuggestion, setFriendSuggestion] = useState([]);
   const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] =
@@ -262,13 +262,13 @@ function Friends() {
               <Modal.Title>Confirm Deletion</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Are you sure you want to delete {selectedItemRequest?.firstName}{" "}
-              {selectedItemRequest?.lastName}?{" "}
-              <img
-                src={selectedItemRequest?.avatar}
-                alt="image"
-                className=" shadow-sm rounded-circle w50"
-              />
+                Are you sure you want to delete {selectedItemRequest?.firstName}{" "}
+                {selectedItemRequest?.lastName}?{" "}
+                  <img
+                    src={selectedItemRequest?.avatar}
+                    alt="image"
+                    className=" shadow-sm rounded-circle w50"
+                  />
             </Modal.Body>
             <Modal.Footer>
               <Button
