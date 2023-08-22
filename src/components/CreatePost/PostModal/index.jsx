@@ -14,7 +14,7 @@ import { useState, useRef , useEffect, useMemo  } from 'react'
 import addImage from "../../../assets/img/new_post_icons/add-image.png"
 import toBase64 from '../../../utils/toBase64.js';
 import Photogrid from "react-facebook-photo-grid";
-import { USER, CREATE_POST_API } from '~/app/constants';
+import { USER, POST_API } from '~/app/constants';
 import axios from 'axios';
 import fileListFrom from '~/utils/fileListFromFiles';
 import { PacmanLoader } from 'react-spinners';
@@ -56,7 +56,8 @@ function NewPostModal({ isOpen,closeModal }) {
 			authorId: USER.id,
 			content: "",
 			privacy: "PUBLIC",
-			tags: []
+			tags: [],
+			subscribers: [USER.id]
 		});
 
 	const [postImage,setPostImage] = useState([]);
@@ -110,7 +111,7 @@ function NewPostModal({ isOpen,closeModal }) {
 		formData.append('newPostDTO', JSON.stringify(newPostDTO))
 		try {
 			setLoading(true)
-			const response = await axios.post(CREATE_POST_API, formData, {
+			const response = await axios.post(POST_API, formData, {
 			  headers: {
 				'Content-Type': 'multipart/form-data',
 			  },
@@ -122,7 +123,8 @@ function NewPostModal({ isOpen,closeModal }) {
 				authorId: USER.id,
 				content: "",
 				privacy: "PUBLIC",
-				tags: []
+				tags: [],
+				subscribers: [USER.id]
 			})
 			closeModal()
 
@@ -189,7 +191,7 @@ function NewPostModal({ isOpen,closeModal }) {
 						<div className="dialog-post-wrapper">
 							<section className="post-content">
 							<div className="header-dialog">
-								Create Post
+								<span className='ms-4'>Create Post</span>
 									<Button 
 										className='bg-grey feather-x rounded-circle text-grey-700 p-1 border w35 font-xs' 
 										style={{float:'right',marginRight: "20px"}} 

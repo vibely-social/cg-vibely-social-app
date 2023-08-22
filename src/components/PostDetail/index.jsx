@@ -1,22 +1,29 @@
 import ReadMore from "./ReadMore";
+import { Card } from "react-bootstrap";
+import Photogrid from "react-facebook-photo-grid";
+import ppl from "../../assets/img/ppl.png"
+import { motion } from "framer-motion";
 
-function PostDetail() {
-    const initContent = "RabbitMQ là một hệ thống phần mềm mã nguồn mở (open-source) được sử dụng như một message broker (trung gian gửi tin nhắn) để hỗ trợ việc truyền tải thông điệp giữa các ứng dụng và các thành phần trong hệ thống phân tán. Nó là một phần của hệ sinh thái phân phối thông điệp (message-oriented middleware) và là một công nghệ phổ biến trong kiến trúc hướng dịch vụ (Service-Oriented Architecture - SOA) và kiến trúc dựa trên sự kiện (Event-Driven Architecture - EDA)."
+function PostDetail({data}) {
+
+    
 
     return (
         <>
-            <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
-                <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3">
+            <Card className="w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+                <Card.Body className="p-0 d-flex">
+                    <figure className="avatar me-2">
                         <img
-                            src="https://media.discordapp.net/attachments/1006048991043145829/1006049027734913075/unknown.png?width=662&height=662"
+                            src={(data.author.avatar == null)? ppl : data.author.avatar}
                             alt="image"
                             className="shadow-sm rounded-circle w45"/>
                     </figure>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                        Chung Nguyen
-                        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                            3 giờ trước
+                    <h4 className="fw-700 text-grey-900 font-xss mt-0">
+                        {((data.author.firstName != undefined) ? data.author.firstName : "") 
+                                                                  + " " 
+                                                                    + data.author.lastName}
+                        <span className="d-block font-xsss fw-500 mt-1 lh-3 text-grey-500">
+                            {data.createdDate}
                         </span>
                         <i data-feather="circle"></i>
                     </h4>
@@ -50,49 +57,34 @@ function PostDetail() {
                             </h4>
                         </div>
                     </div>
-                </div>
-                <div className="card-body p-0 me-lg-5">
-                    <ReadMore content={initContent}/>
-                </div>
-                <div className="card-body d-block p-0">
-                    <div className="row ps-2 pe-2">
-                        <div className="col-xs-4 col-sm-4 p-1">
-                            <a href="https://via.placeholder.com/1200x800.png"
-                               data-lightbox="roadtrip">
-                                <div className='rounded-3 w-100 h-100' style={{
-                                    backgroundPosition: "center",
-                                    backgroundSize: "cover",
-                                    backgroundImage: "url('https://media.discordapp.net/attachments/646934670679998474/1127544766817644594/keyboard.png?width=1006&height=662')"
-                                }}>
-                                </div>
-                            </a>
-                        </div>
-                        <div className="col-xs-4 col-sm-4 p-1">
-                            <a href="https://via.placeholder.com/1200x800.png"
-                               data-lightbox="roadtrip">
-                                <div className='rounded-3 w-100 h-100' style={{
-                                    backgroundPosition: "center",
-                                    backgroundSize: "cover",
-                                    backgroundImage: "url('https://media.discordapp.net/attachments/646934670679998474/1127544766817644594/keyboard.png?width=1006&height=662')"
-                                }}>
-                                </div>
-                            </a>
-                        </div>
-                        <div className="col-xs-4 col-sm-4 p-1"><a href="https://via.placeholder.com/1200x800.png"
-                                                                  data-lightbox="roadtrip"
-                                                                  className="position-relative d-block"><img
-                            src="https://via.placeholder.com/1200x800.png" className="rounded-3 w-100"
-                            alt="image"/><span
-                            className="img-count font-sm text-white ls-3 fw-600"><b>+2</b></span></a></div>
+                </Card.Body>
+                <Card.Body className=" p-0 me-lg-5">
+                    <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0 ? true : false}/>
+                </Card.Body>
+                <Card.Body className="d-block p-0" >
+                      <Photogrid 
+						    images={data.gallery} 
+						/>
+                </Card.Body>
+                <Card.Body className="d-flex p-0 mt-3">
+                    <div 
+                       className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">
+                            <motion.i
+                                className="feather-thumbs-up cursor-pointer text-white bg-primary-gradiant me-1 btn-round-xs me-2 font-xss"
+                                whileHover={{ scale: 1.4 }}
+                                whileTap={{ scale: 1 }}
+                                style={{scale: 1.1}}
+                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            />
+                            <motion.i
+                                className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xss"
+                                whileHover={{ scale: 1.6 }}
+                                whileTap={{ scale: 1 }}
+                                style={{scale: 1.1}}
+                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            />
+                        {!data.likeCount ? 0 : data.likeCount} Like
                     </div>
-                </div>
-                <div className="card-body d-flex p-0 mt-3">
-                    <a href="#"
-                       className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2">
-                        <i className="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i>
-                        <i className="feather-heart text-white bg-pinterest me-2 btn-round-xs font-xss"></i>
-                        2.8K Like
-                    </a>
                     <div className="emoji-wrap">
                         <ul className="emojis list-inline mb-0">
                             <li className="emoji list-inline-item"><i className="em em---1"></i></li>
@@ -107,7 +99,7 @@ function PostDetail() {
                     </div>
                     <a href="#" className="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
                         className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span
-                        className="d-none-xss">22 Comment</span></a>
+                        className="d-none-xss"> {!data.commentCount ? 0 : data.commentCount} Comment</span></a>
                     <a href="#" id="dropdownMenu21" data-bs-toggle="dropdown" aria-expanded="false"
                        className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
                         className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span
@@ -151,8 +143,8 @@ function PostDetail() {
                         <input type="text" value="https://socia.be/1rGxjoJKVF0" readOnly
                                className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg"/>
                     </div>
-                </div>
-            </div>
+                </Card.Body>
+            </Card>
         </>
     )
 }
