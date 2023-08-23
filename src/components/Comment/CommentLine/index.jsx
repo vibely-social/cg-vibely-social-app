@@ -1,9 +1,10 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
 
 function CommentLine({ username, avatar, text }) {
     return (
-        <div className="card w-100 border-0 shadow-none right-scroll-bar">
-            <div className="card-body pt-4 pb-3 pe-4 d-block ps-5">
+        <Card className="w-100 border-0 shadow-none right-scroll-bar">
+            <Card.Body className=" pt-4 pb-3 pe-4 d-block ps-5">
                 <figure className="avatar position-absolute left-0 ms-2 mt-1">
                     <img src={avatar} alt="Avatar" className="shadow-sm rounded-circle w35" />
                 </figure>
@@ -13,8 +14,8 @@ function CommentLine({ username, avatar, text }) {
                     </h4>
                     <p className="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{text}</p>
                 </div>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 };
 
