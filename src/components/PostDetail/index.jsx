@@ -3,30 +3,40 @@ import { Card } from "react-bootstrap";
 import Photogrid from "react-facebook-photo-grid";
 import ppl from "../../assets/img/ppl.png"
 import { motion } from "framer-motion";
+import TimeAgo from 'javascript-time-ago'
+import ReactTimeAgo from 'react-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import { useState } from "react";
 
 function PostDetail({data}) {
 
-    
 
+    TimeAgo.addDefaultLocale(en)
+    const [like,setLike] = useState(1)
+
+    const handleClickLike = () => {
+        setLike((preState) => preState+1)
+    }
     return (
         <>
             <Card className="w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
                 <Card.Body className="p-0 d-flex">
                     <figure className="avatar me-2">
                         <img
-                            src={(data.author.avatar == null)? ppl : data.author.avatar}
+                            src={!data.author.avatar ? ppl : data.author.avatar}
                             alt="image"
                             className="shadow-sm rounded-circle w45"/>
                     </figure>
-                    <h4 className="fw-700 text-grey-900 font-xss mt-0">
-                        {((data.author.firstName != undefined) ? data.author.firstName : "") 
+                    <h4 className="fw-700 text-grey-900 font-xsss  mt-1">
+                        {(data.author.firstName ? data.author.firstName : "") 
                                                                   + " " 
                                                                     + data.author.lastName}
-                        <span className="d-block font-xsss fw-500 mt-1 lh-3 text-grey-500">
-                            {data.createdDate}
+                        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                            <ReactTimeAgo date={data.createdDate} locale="en-US"/>
                         </span>
                         <i data-feather="circle"></i>
                     </h4>
+
                     <a href="#" className="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown"
                        aria-expanded="false"><i
                         className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
@@ -75,6 +85,7 @@ function PostDetail({data}) {
                                 whileTap={{ scale: 1 }}
                                 style={{scale: 1.1}}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                onClick={handleClickLike}
                             />
                             <motion.i
                                 className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xss"
@@ -82,8 +93,9 @@ function PostDetail({data}) {
                                 whileTap={{ scale: 1 }}
                                 style={{scale: 1.1}}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                onClick={handleClickLike}
                             />
-                        {!data.likeCount ? 0 : data.likeCount} Like
+                        {!like ? 0 : like} Like
                     </div>
                     <div className="emoji-wrap">
                         <ul className="emojis list-inline mb-0">
@@ -123,7 +135,7 @@ function PostDetail({data}) {
                                     className="font-xs ti-pinterest text-white"></i></a></li>
                             </ul>
                         </div>
-                        <div className="card-body p-0 d-flex">
+                        <Card.Body className="p-0 d-flex">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
                                 <li className="me-1"><a href="#" className="btn-round-lg bg-tumblr"><i
                                     className="font-xs ti-tumblr text-white"></i></a></li>
@@ -136,7 +148,7 @@ function PostDetail({data}) {
                                 <li><a href="#" className="btn-round-lg bg-whatsup"><i
                                     className="font-xs feather-phone text-white"></i></a></li>
                             </ul>
-                        </div>
+                        </Card.Body>
                         <h4 className="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">Copy
                             Link</h4>
                         <i className="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
@@ -144,6 +156,26 @@ function PostDetail({data}) {
                                className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg"/>
                     </div>
                 </Card.Body>
+                <Card.Body className="d-flex p-0 mt-3">
+                     <div class=" pt-0 w-100 position-relative scroll-bar bg-white">
+                                <div class="chat-body p-3 ">
+                <div className="messages-content pb-5">
+                        <div className="message-item">
+                <div className="message-user">
+                    <figure className="avatar">
+                    <img src="https://via.placeholder.com/50x50.png" alt="image" />
+                    </figure>
+                    <div>
+                    <h5>Byrom Guittet</h5>
+                    <div className="time">01:35 PM</div>
+                    </div>
+                </div>
+                <div className="message-wrap">I've found some cool photos for our travel app.</div>
+                </div>
+                </div>
+                </div>
+                    </div>
+</Card.Body>
             </Card>
         </>
     )

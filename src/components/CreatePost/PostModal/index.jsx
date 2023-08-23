@@ -53,11 +53,11 @@ function NewPostModal({ isOpen,closeModal }) {
 
 	const [newPostDTO,setNewPostDTO] = useState(
 		{
-			authorId: USER.id,
+			authorId: USER?.id,
 			content: "",
 			privacy: "PUBLIC",
 			tags: [],
-			subscribers: [USER.id]
+			subscribers: [USER?.id]
 		});
 
 	const [postImage,setPostImage] = useState([]);
@@ -120,11 +120,11 @@ function NewPostModal({ isOpen,closeModal }) {
 			setPostFileList(null)
 			setPostImage([])
 			setNewPostDTO({
-				authorId: USER.id,
+				authorId: USER?.id,
 				content: "",
 				privacy: "PUBLIC",
 				tags: [],
-				subscribers: [USER.id]
+				subscribers: [USER?.id]
 			})
 			closeModal()
 

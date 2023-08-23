@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { POST_API } from "~/app/constants";
 import axios from "axios";
 import "./index.scss"
+import { scroll } from "framer-motion"
 
 function Feeds() {
 
@@ -31,7 +32,7 @@ function Feeds() {
         setTimeout(() => fetchPosts(),500)
         
       }, []);
-    
+      
 
    
     return (
@@ -43,7 +44,7 @@ function Feeds() {
                     {(newPost != null)
                             &&  <PostDetail data={newPost} />
                     }
-
+            
              {isLoading ? 
                 (<div className="preloader-feed">
                         <div className="box shimmer">

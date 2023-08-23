@@ -14,7 +14,7 @@ export const useAuthorizeUser = () => {
         let refreshToken;
         if (!storedUser) {
             console.log(storedUser)
-            // navigate("/login")
+            navigate("/login")
         } else {
             refreshToken = storedUser.refreshToken
         }
@@ -35,7 +35,7 @@ export const useAuthorizeUser = () => {
                 })
                 .catch(reason => {
                     console.log(reason)
-                    // navigate("/login")
+                    navigate("/login")
                 })
         }
 
