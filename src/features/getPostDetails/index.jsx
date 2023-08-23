@@ -9,7 +9,7 @@ export const getPostDetails = createAsyncThunk("postDetails", async (id) => {
 
 const initialState = {
     post: {
-        userInfo:{}
+        author:{}
     },
     status: 'idle',
     error: null
