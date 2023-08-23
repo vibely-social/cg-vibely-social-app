@@ -7,8 +7,8 @@ import logo from "~/assets/img/logo.svg";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    loginToAccount,
-    selectUserAccountSliceIsSuccess,
+    loginToAccount, resetAccountState, selectAccountError,
+    selectLoginIsSuccess,
     selectUserData,
     setSuccess
 } from "~/features/userAccount/index.js";
@@ -17,7 +17,8 @@ function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(selectUserData)
-    const success = useSelector(selectUserAccountSliceIsSuccess)
+    const success = useSelector(selectLoginIsSuccess)
+    const error = useSelector(selectAccountError);
     const [errorMessage, setErrorMessage] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -29,18 +30,22 @@ function Login() {
 
     useEffect(() => {
         if (success) {
-            if (user && user.email) {
-                console.log("Login success!")
+            if (user) {
                 localStorage.setItem("user", JSON.stringify(user))
+                console.log("Login success!")
                 navigate("/")
-            } else {
-                setErrorMessage("Wrong email or password!")
             }
         }
         return () => {
-            dispatch(setSuccess(false))
+            dispatch(resetAccountState())
         }
-    }, [success]);
+    }, [success, user]);
+
+    useEffect(() => {
+        if (error) {
+            setErrorMessage("Wrong email or password!")
+        }
+    }, [error])
 
     const formik = useFormik({
         initialValues: {
@@ -55,7 +60,7 @@ function Login() {
                 .string()
                 .required(),
         }),
-        onSubmit: (values)=> handleLogin(values)
+        onSubmit: (values) => handleLogin(values)
     });
 
     let isInvalidEmail = formik.touched.email && formik.errors.email;

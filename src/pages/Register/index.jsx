@@ -4,15 +4,27 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import "./index.scss"
-import axios from "axios";
-import {useState} from "react";
-import Swal from "sweetalert2";
+import {useEffect, useState} from "react";
 import logo from "../../assets/img/logo.svg";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    checkEmail,
+    registerAccount,
+    resetAccountState,
+    selectAccountError,
+    selectCheckEmailIsSuccess, selectRegisterIsError,
+    selectRegisterIsSuccess
+} from "~/features/userAccount/index.js";
+import Swal from "sweetalert2";
 
 function Register() {
-
+    const dispatch = useDispatch()
     const navigate = useNavigate();
-
+    const checkEmailSuccess = useSelector(selectCheckEmailIsSuccess);
+    const registerSuccess = useSelector(selectRegisterIsSuccess);
+    const error = useSelector(selectAccountError);
+    const registerError = useSelector(selectRegisterIsError);
+    const [emailExists, setEmailExists] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const formik = useFormik({
@@ -36,27 +48,27 @@ function Register() {
                 .required("What's your name?"),
             email: Yup
                 .string()
-                .required()
+                .required("Please enter your email!")
                 .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
                     "Please enter a valid email address !"),
             password: Yup
                 .string()
-                .required()
+                .required("Please enter password!")
                 .test(
                     "lowercase",
-                    "must contain at least one lowercase letter",
+                    "Must contain at least one lowercase letter",
                     (value) => value && /(?=.*[a-z])/.test(value)
                 )
                 .test(
                     "uppercase",
-                    "must contain at least one uppercase letter",
+                    "Must contain at least one uppercase letter",
                     (value) => value && /(?=.*[A-Z])/.test(value)
                 )
-                .test("digit", "must contain at least one digit",
+                .test("digit", "Must contain at least one digit",
                     (value) => value && /(?=.*\d)/.test(value)
                 )
                 .test("special character",
-                    "must contain at least 1 special character",
+                    "Must contain at least 1 special character",
                     (value) => value && /(?=.*[@#$%^&+=!])/.test(value)
                 )
                 .test("length", "Password must be 8-16 characters",
@@ -97,49 +109,57 @@ function Register() {
                 dayOfBirth: values.day + '/' + values.month + '/' + values.year,
                 gender: values.gender,
             }
-            await axios.post("http://localhost:8080/api/users", user)
-                .then(() => {
-                    resetForm();
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Register success!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    navigate("/login");
-                })
-                .catch(
-                    (e) => {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Register failed!',
-                            showConfirmButton: true,
-                            allowOutsideClick: false,
-                        })
-                        console.log(e);
-                    })
+            dispatch(registerAccount(user))
         }
     });
 
-    const [emailExists, setEmailExists] = useState(false);
-
-    const checkEmailExists = async (email) => {
-        await axios.get(`http://localhost:8080/api/users?email=${email}`)
-            .then(() => {
-                setEmailExists(false);
+    useEffect(() => {
+        if (registerSuccess) {
+            dispatch(resetAccountState())
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Create account success!',
+                // footer: '<a href="">Why do I have this issue?</a>'
             })
-            .catch(
-                (e) => {
-                    console.log(emailExists, e)
-                    setEmailExists(true);
-                }
-            );
+            navigate('/login')
+        }
+    }, [registerSuccess])
+
+    useEffect(() => {
+        if (registerError) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>'
+            })
+        }
+        return () => {
+            dispatch(resetAccountState())
+        }
+    }, [registerError])
+
+    useEffect(() => {
+        if (checkEmailSuccess) {
+            setEmailExists(false)
+        }
+        if (error === 409) {
+            setEmailExists(true)
+        } else {
+            setEmailExists(false)
+        }
+    }, [checkEmailSuccess])
+
+    const checkEmailExists = (email) => {
+        dispatch(checkEmail(email))
     };
 
     const generateOptions = (start, end) => {
-        return Array.from({length: end - start + 1}, (_, index) => start + index);
+        return Array.from({length: end - start + 1}, (_, index) => {
+            const number = start + index
+            return number < 10 ? `0${number}` : `${number}`;
+        });
     };
 
     let isInvalidFirstname = formik.touched.firstName && formik.errors.firstName;
@@ -316,7 +336,7 @@ function Register() {
                                     style={{marginTop: "0.8rem"}}>Date of birth ?
                                 </div>
                                 <div className="row">
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 col-sm-3">
                                         <div className="form-group">
                                             <select
                                                 id="day"
@@ -343,7 +363,7 @@ function Register() {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 col-sm-3">
                                         <div className="form-group">
                                             <select
                                                 id="month"
@@ -367,7 +387,7 @@ function Register() {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 col-4 cursor-pointer">
                                         <div className="form-group">
                                             <select
                                                 id="year"
@@ -399,9 +419,9 @@ function Register() {
                                 <div className="row">
                                     <div className="col-md-4" style={{marginTop: "-14px"}}>
                                         <span style={{padding: 0}}
-                                              className={`form-control ${isInvalidGender ? "border-danger" : ""}`}>
+                                              className={`form-control cursor-pointer ${isInvalidGender ? "border-danger" : ""}`}>
                                             <label htmlFor="FEMALE"
-                                                   className="ps-md-3 fw-600"
+                                                   className="ps-md-3 fw-600 cursor-pointer"
                                                    style={{paddingRight: "30px"}}>Female</label>
                                             <input type="radio"
                                                    value="FEMALE"
@@ -414,11 +434,11 @@ function Register() {
                                     </div>
 
 
-                                    <div className="col-md-4" style={{marginTop: "-14px"}}>
+                                    <div className="col-md-4 col-sm-3" style={{marginTop: "-14px"}}>
                                         <span style={{padding: 0}}
-                                              className={`form-control ${isInvalidGender ? "border-danger" : ""}`}>
+                                              className={`form-control cursor-pointer ${isInvalidGender ? "border-danger" : ""}`}>
                                             <label htmlFor="MALE"
-                                                   className="ps-md-3 fw-600"
+                                                   className="ps-md-3 fw-600 cursor-pointer"
                                                    style={{paddingRight: "38px"}}>Male</label>
                                             <input type="radio"
                                                    value="MALE"
@@ -431,17 +451,17 @@ function Register() {
 
                                     <div className="col-md-4" style={{marginTop: "-14px"}}>
                                         <span style={{padding: 0}}
-                                              className={`form-control ${isInvalidGender ? "border-danger" : ""}`}>
-                                            <label htmlFor="OTHER"
-                                                   className="ps-md-3 fw-600"
-                                                   style={{paddingRight: "30px"}}>Other</label>
+                                              className={`form-control cursor-pointer ${isInvalidGender ? "border-danger" : ""}`}>
+                                            <label htmlFor="OPTIONAL"
+                                                   className="ps-md-3 fw-600 cursor-pointer"
+                                                   style={{paddingRight: "15px"}}>Optional</label>
                                             <input type="radio"
-                                                   value="OTHER"
-                                                   checked={formik.values.gender === "OTHER"}
+                                                   value="OPTIONAL"
+                                                   checked={formik.values.gender === "OPTIONAL"}
                                                    onChange={formik.handleChange}
                                                    name="gender"
                                                    className=""
-                                                   id="OTHER"/>
+                                                   id="OPTIONAL"/>
                                         </span>
                                     </div>
 
@@ -479,7 +499,7 @@ function Register() {
                                 <div className="col-sm-12 p-0 mt-2">
                                     <div className="form-group mb-1">
                                         <button
-                                           className="w-100 font-xss d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
+                                            className="w-100 font-xss d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
                                             <img
                                                 src={google} alt="icon" className="ms-3 mt-2 ms-3 w40 mb-1 me-5"/>
                                             <span className="ms-4 justify-content-center">

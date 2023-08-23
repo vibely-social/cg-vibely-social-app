@@ -6,7 +6,8 @@ import {getFriendsSlice} from "~/features/getFriends/index.js";
 import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
 import {getUserInfoSlice} from "~/features/userInfoSlice/index.js";
-import {authenticationSlice} from "~/features/authentication/index.js";
+import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.js";
+import {messengerSlice} from "~/features/messeger/index.js";
 
 const store = configureStore({
     reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
         friends: getFriendsSlice.reducer,
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
-        authentication: authenticationSlice.reducer
+        oldMessages: loadOldMessagesSlice.reducer,
+        messenger: messengerSlice.reducer,
     },
 });
 export default store

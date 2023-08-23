@@ -14,11 +14,11 @@ export const NavData = [
         path: '/stories',
         url: ''
     },
-    {
-        icon: 'feather-log-out',
-        path: '/logout',
-        url: ''
-    }
+    // {
+    //     icon: 'feather-log-out',
+    //     path: '/logout',
+    //     url: ''
+    // }
 ]
 
 export default NavData

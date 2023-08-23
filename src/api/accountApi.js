@@ -3,33 +3,34 @@ import {VIBELY_API} from "~/app/constants.js";
 
 
 export const loginApi = async (data) => {
-    let response = {};
+    let response = null;
     try {
-        response = await axios.post(VIBELY_API+'/auth/login', data)
-        return response.data
+        response = await axios.post(VIBELY_API + '/auth/login', data)
+        return response
     } catch (e) {
         console.log("Login error: " + e);
-        return response.data
+        return response
     }
 }
 export const registerApi = async (data) => {
-    let response = {};
+    let response = null;
     try {
-        response = await axios.post(VIBELY_API+'/users', data)
+        response = await axios.post(VIBELY_API + '/users', data)
     } catch (e) {
         console.log("Register error: " + e);
     }
-    return response.data;
+    return response;
 }
 
 export const checkEmailApi = async (data) => {
     let response = {};
     try {
-        response = await axios.get(VIBELY_API+'/users?email='+ data)
+        response = await axios.get(VIBELY_API + '/users?email=' + data)
+        return response.status
     } catch (e) {
-        console.log("Check email error: " + e);
+        console.log("Check email error: ");
+        return e.response.status
     }
-    return response.data;
 }
 
 export const refreshTokenApi = async (refreshToken) => {

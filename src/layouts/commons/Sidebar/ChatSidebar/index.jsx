@@ -15,7 +15,7 @@ import {
     selectGetFriendIsSuccess,
     setGetFriendsSuccess
 } from "~/features/getFriends/index.js";
-import {switchConversationTo} from "~/features/switchConversation/index.js";
+import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
 import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/index.jsx";
 
 // eslint-disable-next-line react/prop-types
@@ -26,6 +26,7 @@ function ChatSidebar() {
     const [smallScreen, setSmallScreen] = useState(false)
     const user = useSelector(selectUserData)
     const loading = useSelector(selectGetFriendIsLoading)
+    const currentConversation = useSelector(selectConversation)
     const [currentContact, setCurrentContact] = useState({})
     const friendList = useSelector(selectFriendList)
     const success = useSelector(selectGetFriendIsSuccess)
@@ -46,23 +47,27 @@ function ChatSidebar() {
     useEffect(() => {
         if (!success) {
             dispatch(getFriends())
-            console.log('Loading friend list')
         } else {
             setFriends(friendList)
         }
+
         return () => {
             if (success) {
                 dispatch(setGetFriendsSuccess(false))
             }
         }
     }, [success])
+
+
     useEffect(() => {
-        if (currentContact && currentContact.email) {
+        if (Object.keys(currentConversation).length){
+            setCurrentContact(currentConversation)
+        }else if (currentContact && currentContact.email) {
             dispatch(switchConversationTo(currentContact))
-        } else if (friends[0]) {
+        }else if (friends[0]){
             setCurrentContact(friends[0])
         }
-    }, [friends, currentContact])
+    }, [friends, currentContact, currentConversation])
     return (
         <div>
             <motion.nav style={!smallScreen ? {overflow: "hidden", left: '-200px'} : {}}
@@ -72,7 +77,6 @@ function ChatSidebar() {
                 <Container className="ps-0 pe-0 d-flex">
 
                     <MainNavigate chatNav={true}/>
-
                     <div className="nav-content">
                         <div
                             className="bg-lightblue bg-transparent-card rounded-xxl border shadow-xss pt-2 pb-1 mb-2 mt-2 friend-list-wrap">
@@ -91,7 +95,7 @@ function ChatSidebar() {
                                         return (
                                             <ListGroup.Item as="li"
                                                             className={'hover-button rounded '
-                                                                + (friend.email === currentContact.email ? 'bg-dark-subtle' : '')}
+                                                                + (friend.email === currentConversation.email ? 'bg-dark-subtle' : '')}
                                                             style={{
                                                                 display: (user && user.email === friend.email) ? "none" : "block",
                                                                 border: 'none',
@@ -101,8 +105,7 @@ function ChatSidebar() {
                                                 <Link to={friend.path}
                                                       className="nav-content-bttn open-font p-0"
                                                       onClick={() => {
-                                                          // dispatch(switchConversationTo(friend))
-                                                          setCurrentContact(friend)
+                                                          dispatch(switchConversationTo(friend))
                                                       }}>
 
                                                     <motion.img

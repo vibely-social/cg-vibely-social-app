@@ -18,6 +18,7 @@ function AppRoutes() {
                                 ? <Page/>
                                 : <Layout path={route.path}><Page/></Layout>
                         }/>
+
                 })
             }
             <Route path="*" element={<NotFound/>}/>

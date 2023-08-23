@@ -5,15 +5,18 @@ import Message from "./Message";
 
 function Messages ({messages=[]}){
     const contactUser = useSelector(selectConversation)
+    console.log('messages')
+    console.log(messages)
     return(
         <>
             {
                 messages.map((message, index) => {
-                    if (message.sender === contactUser.email || message.receiver === contactUser.email){
-                        if (message.sender === contactUser.email) {
-                            message.income = true
+                    let displayMessage = {...message}
+                    if (displayMessage.sender === contactUser.email || displayMessage.receiver === contactUser.email){
+                        if (displayMessage.sender === contactUser.email) {
+                            displayMessage.income = true
                         }
-                        return <Message key={index} message={message}/>
+                        return <Message key={index} message={displayMessage}/>
                     }
                 })
             }
