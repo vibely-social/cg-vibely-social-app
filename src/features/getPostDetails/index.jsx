@@ -8,7 +8,9 @@ export const getPostDetails = createAsyncThunk("postDetails", async (id) => {
 });
 
 const initialState = {
-    post: {},
+    post: {
+        userInfo:{}
+    },
     status: 'idle',
     error: null
 }

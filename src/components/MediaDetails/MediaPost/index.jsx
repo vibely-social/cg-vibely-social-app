@@ -11,7 +11,6 @@ const MediaPost = ({id}) => {
 
     useEffect(() => {
         dispatch(getPostDetails(id))
-        console.log(id);
     }, [dispatch, id]);
 
     return (
@@ -27,7 +26,12 @@ const MediaPost = ({id}) => {
                 <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">{postDetail.userInfo.firstName + " " + postDetail.userInfo.lastName} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hours ago</span></h4>
                 <a href="#" className="ms-auto"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
             </div>
-            <p>{postDetail.textContent}</p>
+            <p style={{
+                color: "black",
+                margin: "5px"
+            }}>
+                {postDetail.textContent}sdfhsduifgsdjfgajrtgweafd yhasdgastgdrweafgdwufguyafrasyhfdasduyhfdauyhsfguyasfruyasfraweuyfrawsuf
+            </p>
             {/* Like and Comment Counts */}
             <div className="card-body d-flex ps-2 pe-4 pt-0 mt-0">
                 <a href="#" className="d-flex align-items-center fw-600 text-grey-900 lh-26 font-xssss me-3 text-dark">
