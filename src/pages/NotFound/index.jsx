@@ -1,22 +1,34 @@
-import "./index.scss"
 import {useNavigate} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import {Button, Row} from "react-bootstrap";
+import notfound from "../../assets/img/404.svg"
+import "./index.css"
+import ppl from "../../assets/img/logo.svg"
+import { useRef } from "react";
+import { useAnimationFrame } from "framer-motion";
 
 function NotFound() {
+    const ref = useRef(null);
     const navigate= useNavigate()
-    return (
-        <div className="bg-vite-gradient d-flex" style={{
-            height: '100vh'
-        }}>
-            <div className="d-flex pos-fixed " style={{display: "flex", position: "fixed" , left: "calc(50% - 242px)", top:"calc(50% - 180px)"}}>
-                <h1 style={{fontSize: 300}} className={'text-danger'}>404</h1>
-            </div>
-            <div className="input-container"
-                 style={{display: "flex", position: "fixed" , left: "calc(46%)", top:"calc(80%)"}}>
 
-                <Button onClick={() => navigate("/")} className="d-flex bg-grey border-light justify-content-center">Back to home</Button>
-            </div>
-        </div>
+    useAnimationFrame((t) => {
+        const y = (1 + Math.sin(t / 1000)) * 45;
+        ref.current.style.transform = `translateY(${y}px)`;
+      });
+
+
+    return (
+        <>
+            <Row className="justify-content-center body-404">
+                <img src={notfound} className="notfound" style={{maxWidth: "100vh"}}/>
+                <Button className="back-to-home bg-transparent border-0" onClick={() => navigate("/")} >
+                        <div className="bloom-container cube" ref={ref}>
+                            <div className="back-to-home-container-main shadow" >
+                                    <img style={{maxWidth: "4.5rem"}}    src={ppl} />
+                            </div>
+                        </div>
+                    </Button>
+            </Row>
+        </>
     );
 }
 
