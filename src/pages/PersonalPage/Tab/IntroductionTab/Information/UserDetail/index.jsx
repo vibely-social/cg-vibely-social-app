@@ -1,115 +1,136 @@
 import "../../index.css"
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    editUserInfo,
+    formatDate,
+    setBirthday,
+    setFullName,
+    setGender
+} from "~/features/userInfoSlice/UserInfoSlice.js";
 
-function UserDetail({userDetails}) {
-    const API = "https://64c33809eb7fd5d6ebd09f15.mockapi.io/api/v1/informations/1"
+function UserDetail() {
     const [nameStatus, setNameStatus] = useState(false)
     const [genderStatus, setGenderStatus] = useState(false)
     const [birthdayStatus, setBirthdayStatus] = useState(false)
-    const [userInfo, setUserInfo] = useState({})
-    const {name, gender, brithday} = userDetails;
-    useEffect(() => {
-        axios.get(API)
-            .then(res => {
-                setUserInfo(res.data)
-            })
-    }, []);
+    const userInfo = useSelector(state => state.userInfo);
+    const dispatch = useDispatch();
+
 
     const formikName = useFormik({
         initialValues: {
-            name: ""
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
         },
+        enableReinitialize: true,
+
         validationSchema: Yup.object({
-            name: Yup
+            firstName: Yup
                 .string()
-                .required("You must fill in the Name section!"),
+                .required("You must fill in the first Name section!"),
+            lastName: Yup
+                .string()
+                .required("You must fill in the last Name section!"),
         }),
-        onSubmit: async (values, {resetForm}) => {
-            let currentUser = {
-                name: values.name,
-                gender: userInfo.gender,
-                birthday: userInfo.birthday
+        onSubmit: (values) => {
+            const user = {
+                ...userInfo,
+                firstName: values.firstName,
+                lastName: values.lastName
             }
-            await axios.put(API, currentUser).then(() => {
-                    setUserInfo(currentUser)
-                    setNameStatus(!nameStatus)
-                }
-            )
-            resetForm();
+            editUserInfo(user).then(() => {
+                dispatch(setFullName(user))
+                setNameStatus(!nameStatus);
+            })
         }
     })
     const formikGender = useFormik({
         initialValues: {
-            gender: ""
+            gender: userInfo.gender,
         },
+
+        enableReinitialize: true,
+
         validationSchema: Yup.object({
             gender: Yup
                 .string()
                 .required("You must to select your gender!")
         }),
-        onSubmit: async (values, {resetForm}) => {
-            let currentUser = {
-                name: userInfo.name,
-                gender: values.gender,
-                birthday: userInfo.birthday
+        onSubmit: async (values) => {
+            const user = {
+                ...userInfo,
+                gender: values.gender
             }
-            await axios.put(API, currentUser).then(() => {
-                    setUserInfo(currentUser)
-                    setGenderStatus(!genderStatus)
-                }
-            )
-            resetForm();
+            editUserInfo(user).then(() => {
+                dispatch(setGender(user))
+                setGenderStatus(!genderStatus);
+            })
         }
     })
     const formikBirthday = useFormik({
         initialValues: {
-            birthday: ""
+            birthday: userInfo.birthday,
         },
+
+        enableReinitialize: true,
+
         validationSchema: Yup.object({
             birthday: Yup
                 .string()
                 .required("You must fill in the Birthday section!")
         }),
-        onSubmit: async (values, {resetForm}) => {
-            let currentUser = {
-                name: userInfo.name,
-                gender: userInfo.gender,
+        onSubmit: async (values) => {
+            const user = {
+                ...userInfo,
                 birthday: values.birthday
             }
-            await axios.put(API, currentUser).then(() => {
-                    setUserInfo(currentUser)
-                    setBirthdayStatus(!birthdayStatus)
-                }
-            )
-            resetForm();
+            editUserInfo(user).then(() => {
+                dispatch(setBirthday(user))
+                setBirthdayStatus(!birthdayStatus);
+            })
         }
     })
 
     return (
         <>
             <div className="ps-5 mb-4 pe-5">
-                <div>
-                    <h4 className="fw-500">Full Name</h4>
-                </div>
                 {
                     nameStatus === true ?
                         <form className="info-form" onSubmit={formikName.handleSubmit}>
                             <div className="row">
-                                <div className="col-lg-12 h75">
+                                <div className="col-lg-6 h100">
+                                    <div>
+                                        <h4 className="fw-500">Last Name</h4>
+                                    </div>
                                     <div className="form-group">
                                         <input type="text"
                                                className="form-control"
-                                               id="name"
-                                               name="name"
-                                               value={formikName.values.name}
+                                               id="lastName"
+                                               name="lastName"
+                                               value={formikName.values.lastName}
                                                onChange={formikName.handleChange}
-                                               onBlur={formikName.handleBlur}
-                                               placeholder="Name"/>
+                                               onBlur={formikName.handleBlur}/>
                                         <span className="text-red">
-                                        {formikName.errors.name}
+                                        {formikName.errors.lastName}
+                                        </span>
+                                </div>
+                                    </div>
+                                <div className="col-lg-6 h100">
+                                    <div>
+                                        <h4 className="fw-500">First Name</h4>
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="text"
+                                               className="form-control"
+                                               id="firstName"
+                                               name="firstName"
+                                               value={formikName.values.firstName}
+                                               onChange={formikName.handleChange}
+                                               onBlur={formikName.handleBlur}/>
+                                        <span className="text-red">
+                                        {formikName.errors.firstName}
                                         </span>
                                     </div>
                                 </div>
@@ -123,21 +144,29 @@ function UserDetail({userDetails}) {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setNameStatus(false),
-                                            formikName.resetForm()
+                                        setNameStatus(!nameStatus)
+                                        formikName.resetForm()
                                     }}
-                                            className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">
-                                        Canel
+                                            className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
                         </form>
-                        : <div
-                            className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                            <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                <h4 className="d-flex float-left">- {userInfo.name}</h4>
-                                <i onClick={() => setNameStatus(!nameStatus)}
-                                   className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                        :
+                        <div>
+                            <div>
+                                <h4 className="fw-500">Full Name</h4>
+                            </div>
+                            <div
+                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
+                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                    <h4 className="d-flex align-items-center float-left">
+                                        <i className="feather-airplay me-2"></i>
+                                        {userInfo.lastName + ' ' + userInfo.firstName}</h4>
+                                    <i onClick={() => setNameStatus(true)}
+                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                </div>
                             </div>
                         </div>
                 }
@@ -151,20 +180,20 @@ function UserDetail({userDetails}) {
                     genderStatus === true ?
                         <form className="info-form" onSubmit={formikGender.handleSubmit}>
                             <div className="row">
-                                <div className="col-lg-12 h75">
+                                <div className="col-lg-12 h75 mt-1">
                                     <select
                                         id="gender"
                                         name="gender"
                                         value={formikGender.values.gender}
                                         onChange={formikGender.handleChange}
-                                        onBlur={formikBirthday.handleBlur}
+                                        onBlur={formikGender.handleBlur}
                                         className="form-select-md form-gender cursor-pointer">
                                         <option className="font-xsss"
-                                                defaultValue="">Select Gender
+                                                value="">Select Gender
                                         </option>
                                         <option className="font-xsss" value="MALE">MALE</option>
                                         <option className="font-xsss" value="FEMALE">FEMALE</option>
-                                        <option className="font-xsss" value="OTHER">OTHER</option>
+                                        <option className="font-xsss" value="OPTIONAL">OPTIONAL</option>
                                     </select>
                                     <span className="text-red">
                                         {formikGender.errors.gender}
@@ -180,11 +209,11 @@ function UserDetail({userDetails}) {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setGenderStatus(false),
+                                        setGenderStatus(false)
                                             formikGender.resetForm()
                                     }}
-                                            className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">
-                                        Canel
+                                            className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
@@ -192,7 +221,10 @@ function UserDetail({userDetails}) {
                         : <div
                             className="fw-600 text-dark lh-26 font-xssss mb-1 row">
                             <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                <h4 className="d-flex float-left">- {userInfo.gender}</h4>
+                                <h4 className="d-flex align-items-center float-left">
+                                    <i className="feather-users me-2"></i>
+                                    {userInfo.gender}
+                                </h4>
                                 <i onClick={() => setGenderStatus(!genderStatus)}
                                    className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
                             </div>
@@ -235,11 +267,11 @@ function UserDetail({userDetails}) {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setBirthdayStatus(false),
+                                        setBirthdayStatus(false)
                                             formikBirthday.resetForm()
                                     }}
-                                            className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">
-                                        Canel
+                                            className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
@@ -247,7 +279,10 @@ function UserDetail({userDetails}) {
                         : <div
                             className="fw-600 text-dark lh-26 font-xssss mb-1 row">
                             <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                <h4 className="d-flex float-left">- {userInfo.birthday}</h4>
+                                <h4 className="d-flex align-items-center float-left">
+                                    <i className="ti-thought me-2"></i>
+                                    Birthday: {formatDate(userInfo.birthday)}
+                                </h4>
                                 <i onClick={() => setBirthdayStatus(!birthdayStatus)}
                                    className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
                             </div>

@@ -162,6 +162,7 @@ function Register() {
         });
     };
 
+
     let isInvalidFirstname = formik.touched.firstName && formik.errors.firstName;
     let isInvalidLastname = formik.touched.lastName && formik.errors.lastName;
     let isInvalidEmail = formik.touched.email && formik.errors.email;
@@ -241,7 +242,9 @@ function Register() {
                                                 <i className="font-sm ti-user text-grey-500 pe-0"></i>
                                             </div>
                                         </div>
+
                                     </OverlayTrigger>
+
 
                                     <OverlayTrigger
                                         placement='right'

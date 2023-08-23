@@ -5,7 +5,7 @@ import "./index.css"
 
 function CreatePost() {
     const [isOpen, setIsOpen] = useState(false)
-    const classBtn = "d-flex align-items-center hover-vibe cursor-pointer p-2 rounded-xxl post-button font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4 "
+    const classBtn = "d-flex align-items-center hover-vibe cursor-pointer p-2 rounded-xxl post-button font-xssss fw-600 ls-1 text-grey-700 text-dark pe-3 ps-3 "
 
     const closeModal = () => {
         setIsOpen(false)

@@ -68,6 +68,7 @@ function App() {
 
         if (!SocketClient.connected) {
             SocketClient.activate()
+            console.log('activated')
         }
     }, [])
 
