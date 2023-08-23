@@ -8,6 +8,7 @@ import {userAccountSlice} from "~/features/userAccount/index.js";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
 import {authenticationSlice} from "~/features/authentication/index.js";
 import {getCitiesSlice} from "~/features/getCities/index.js";
+import {getMediaSlice} from "~/features/getMedia/index.jsx";
 
 const store = configureStore({
     reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
         userAccount: userAccountSlice.reducer,
         authentication: authenticationSlice.reducer,
         cities: getCitiesSlice.reducer,
+        media: getMediaSlice.reducer
     },
 });
 export default store

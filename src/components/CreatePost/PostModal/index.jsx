@@ -10,11 +10,14 @@ import Theme from "../../../assets/img/new_post_icons/theme.svg"
 import Smile from "../../../assets/img/new_post_icons/smile.svg"
 import More from "../../../assets/img/new_post_icons/more.svg"
 import Mic from "../../../assets/img/new_post_icons/mic.svg"
-import { useState, useRef , useEffect } from 'react'
+import { useState, useRef , useEffect, useMemo  } from 'react'
 import addImage from "../../../assets/img/new_post_icons/add-image.png"
-// import Photogrid from "react-facebook-photo-grid";
-import toBase64 from '../../../hooks/toBase64.js';
+import toBase64 from '../../../utils/toBase64.js';
 import Photogrid from "react-facebook-photo-grid";
+import { USER, POST_API } from '~/app/constants';
+import axios from 'axios';
+import fileListFrom from '~/utils/fileListFromFiles';
+import { PacmanLoader } from 'react-spinners';
 
 
   const dialogStyle = {
@@ -37,39 +40,99 @@ const addImageButtonStyle = {
 	display: 'table-cell'
 }
 
+const loaderStyle = {
+	justifyContent: "center",
+	alignItems: "center",
+	height: '10vh',
+	width: "10vh",
+	display: "inline",
+	position:"absolute"
+}
+
 function NewPostModal({ isOpen,closeModal }) {
 
-	const [postContent,setPostContent] = useState("");
+	const [newPostDTO,setNewPostDTO] = useState(
+		{
+			authorId: USER.id,
+			content: "",
+			privacy: "PUBLIC",
+			tags: [],
+			subscribers: [USER.id]
+		});
+
 	const [postImage,setPostImage] = useState([]);
-	const [postTag,setPostTag] = useState([]);
-	const [postPrivacy,setPostPrivacy] = useState("public");
-	const [newImages,setNewImages] = useState([])
+	const [newImages,setNewImages] = useState([]);
+	const [isAddImage,setIsAddImage] = useState(false);
+	const [postFileList,setPostFileList] = useState(null);
 
-	const [allowPost, setAllowPost] = useState(true)
-	const [isAddImage,setIsAddImage] = useState(false)
+	const [allowPost, setAllowPost] = useState(null);
+	const [isLoading, setLoading] = useState(false);
+	const [isError, setIsError] = useState(false);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		try {
-			const response = await fetch('https://64c0caa50d8e251fd1129902.mockapi.io/api/v1/post', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(createPost),
-			});
 
-			if (response.ok) {
-				console.log('Post created successfully!');
-			} else {
-				console.error('Failed to create post');
-			}
-		} catch (error) {
-			console.error('Error:', error);
+
+	const handleChangeContent = (target) =>{
+		setNewPostDTO({
+			...newPostDTO,
+			content: target
+		})
+	}
+	
+	
+	
+	const handleChangePrivacy = (target) =>{
+		setNewPostDTO({
+			...newPostDTO,
+			privacy: target
+		})
+	}
+	
+	
+	const handleChangeImages = (target) =>{
+		if (postFileList != null) {
+			const joined = postFileList.concat(Array.from(target));
+			setPostFileList(joined)
 		}
-	};
+		else {
+			setPostFileList(Array.from(target))
+		}
+		setNewImages(target)
+	}
 
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const formData = new FormData();
+		if(postFileList != null){
+			const files = fileListFrom(postFileList);
+			for (const file of files){
+				formData.append('files',file)
+			}
+		}
+		formData.append('newPostDTO', JSON.stringify(newPostDTO))
+		try {
+			setLoading(true)
+			const response = await axios.post(POST_API, formData, {
+			  headers: {
+				'Content-Type': 'multipart/form-data',
+			  },
+			});
+			setLoading(false)
+			setPostFileList(null)
+			setPostImage([])
+			setNewPostDTO({
+				authorId: USER.id,
+				content: "",
+				privacy: "PUBLIC",
+				tags: [],
+				subscribers: [USER.id]
+			})
+			closeModal()
 
+		  } catch (error) {
+			setLoading(false)
+			setIsError(true)
+		  }
+	}
 
 	useEffect(() => {
         if(newImages.length != 0){
@@ -83,7 +146,13 @@ function NewPostModal({ isOpen,closeModal }) {
 			}
 			setNewImages([])
 		}
-    },[newImages]);
+		if(postImage.length != 0 || newPostDTO.content != "") setAllowPost(true)
+		else{setAllowPost(false)}
+    },[newImages,newPostDTO,postImage]);
+
+	useEffect(() => {
+		setTimeout(() => setIsError(false), 1000);
+    },[isError]);
 
 
     return (
@@ -95,7 +164,9 @@ function NewPostModal({ isOpen,closeModal }) {
 					className="d-flex justify-content-center "
 					style={dialogStyle}>
 						<motion.div
-							className="d-flex items-end justify-center dialog-post  pt-3 px-1 text-center "
+							className={"d-flex items-end justify-center dialog-post  pt-3 px-1 text-center "
+													+ (isLoading && "blurred-content ") 
+													+ (isError && "shake") }
 							initial={{
 								opacity: 0,
 								scale: 0.75,
@@ -120,7 +191,7 @@ function NewPostModal({ isOpen,closeModal }) {
 						<div className="dialog-post-wrapper">
 							<section className="post-content">
 							<div className="header-dialog">
-								Create Post
+								<span className='ms-4'>Create Post</span>
 									<Button 
 										className='bg-grey feather-x rounded-circle text-grey-700 p-1 border w35 font-xs' 
 										style={{float:'right',marginRight: "20px"}} 
@@ -131,10 +202,11 @@ function NewPostModal({ isOpen,closeModal }) {
 										<img src={Logo} alt="logo" />
 										<div className="details">
 											<p>Thanh Nguyen</p>
-											<Form.Select className="privacy">
-												<option value="public">🌐 Public</option>
-												<option value="friend">👫 Friends</option>
-												<option value="private">🔒 Only me</option>
+											<Form.Select className="privacy" 
+														onChange={(e) => handleChangePrivacy(e.target.value)}>
+												<option value="PUBLIC">🌐 Public</option>
+												<option value="FRIENDS">👫 Friends</option>
+												<option value="PRIVATE">🔒 Only me</option>
 											</Form.Select>
 										</div>
 									</Form.Group>
@@ -144,14 +216,14 @@ function NewPostModal({ isOpen,closeModal }) {
 											multiple
 											id="select-image"
 											style={{ display: "none" }}
-											onChange={(e) =>  setNewImages(Array.from(e.target.files))}
+											onChange={(e) =>  handleChangeImages(e.target.files)}
 										/>					
 											<textarea 
 												placeholder="What's on your mind ?" 
 												style={(isAddImage || postImage.length > 0 ) ? {maxHeight: "80px"} : {}}
 												spellCheck="false" 
 												defaultValue={""} 
-												onChange={(e) => setPostContent(e.target.value)}/>
+												onChange={(e) => handleChangeContent(e.target.value)}/>
 
 													{postImage.length > 0 && 
 															<motion.div
@@ -179,9 +251,9 @@ function NewPostModal({ isOpen,closeModal }) {
 																			src={addImage} 
 																			style={{scale:"0.6"}}
 																	/>Add Photos/Videos</div>
-																</Button>									
+																</Button>								
 																<Button 
-																	onClick={() => setPostImage([])} 
+																	onClick={() => {setPostImage([]);setPostFileList(null)}} 
 																	style={{right: "20px",
 																			top:"15px", 
 																			position:"absolute"}}  
@@ -191,7 +263,7 @@ function NewPostModal({ isOpen,closeModal }) {
 														images={postImage} 
 														maxWidth={500}
 													/>	</motion.div>}
-
+	
 													{isAddImage && <motion.div className='border border-1 p-2 rounded-xxxl'
 														initial={{ scale: 0 }}
 														animate={{ rotate: 0, scale: 1 }}> 
@@ -224,14 +296,18 @@ function NewPostModal({ isOpen,closeModal }) {
 											<ListGroup.Item as="li"><img src={More} /></ListGroup.Item>
 										</ListGroup>
 									</Form.Group>
-								<Button type='submit' style={{background: !allowPost && "#e4e6ebff"}} disabled={!allowPost && true} className='border-0 button-post shadow-xss mt-2'>Post</Button>
+								<Button type="submit" style={{background: !allowPost && "#e4e6ebff"}} disabled={!allowPost && true} className='border-0 button-post shadow-xss mt-2'>Post</Button>
 							</Form>
 							</section>
 						</div>
 						</motion.div>
+
+				 {isLoading && <PacmanLoader  cssOverride={loaderStyle}  size={25} color="#36d7b7" />}
+
 				</Dialog>)}
 		</AnimatePresence>
 	)
 }
+
 
 export default NewPostModal;
