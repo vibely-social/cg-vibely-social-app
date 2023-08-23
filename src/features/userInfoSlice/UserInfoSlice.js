@@ -42,6 +42,14 @@ const UserInfoSlice = createSlice({
         },
         setCity(state, payload) {
             state.city = payload.payload.city;
+            state.district = payload.payload.district;
+        },
+        setSchool(state, payload) {
+            state.school = payload.payload.school;
+        },
+        setWork(state, payload) {
+            state.company = payload.payload.company;
+            state.position = payload.payload.position;
         },
         setUserInfo(state, payload) {
             state.id = payload.payload.id;
@@ -52,6 +60,10 @@ const UserInfoSlice = createSlice({
             state.gender = payload.payload.gender;
             state.phoneNumber = payload.payload.phoneNumber;
             state.city = payload.payload.city;
+            state.district = payload.payload.district;
+            state.school = payload.payload.school;
+            state.company = payload.payload.company;
+            state.position = payload.payload.position;
 
         },
     },
@@ -63,7 +75,9 @@ export const {
     setGender,
     setPhoneNumber,
     setCity,
-    setUserInfo
+    setSchool,
+    setWork,
+    setUserInfo,
 } = UserInfoSlice.actions;
 
 export default UserInfoSlice.reducer

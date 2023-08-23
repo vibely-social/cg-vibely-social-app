@@ -8,6 +8,7 @@ export const USER = JSON.parse(localStorage.getItem('user'))
 
 export const TOKEN = USER ? USER.refreshToken : null
 
+export const PROVINCES_API = "https://provinces.open-api.vn/api/?depth=2"
 export const POST_API = "http://localhost:8080/api/posts"
 export const GET_IMAGES = ""
 
