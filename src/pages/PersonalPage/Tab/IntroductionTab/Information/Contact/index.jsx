@@ -1,39 +1,63 @@
 import "../../index.css"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
 import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
 
 function Contact() {
     const [phoneStatus, setPhoneStatus] = useState(false)
     const [cityStatus, setCityStatus] = useState(false)
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
+    // const loading = useSelector(selectGetCitiesIsLoading)
+    const cityList = useSelector(selectCities);
+    const success = useSelector(selectGetCitiesIsSuccess);
+    const [cities, setCities] = useState([]);
+
+    useEffect(() => {
+        if (!success) {
+            dispatch(getCities());
+            console.log('Loading city list');
+        } else {
+            setCities(cityList);
+        }
+        return () => {
+            if (success) {
+                dispatch(setGetCitiesSuccess(false));
+            }
+        }
+    }, [success]);
+
 
     const formikCity = useFormik({
         initialValues: {
-            city: userInfo.city
+            city: userInfo.city,
+            district: userInfo.district
         },
-
         enableReinitialize: true,
 
         validationSchema: Yup.object({
             city: Yup
                 .string()
-                .required("You must fill in the City section!")
+                .required("You must fill in the City section!"),
+            district: Yup
+                .string()
+                .required("You must fill in the District section!"),
         }),
         onSubmit: (values) => {
             const user = {
                 ...userInfo,
-                city: values.city
+                city: values.city,
+                district: values.district
             }
             editUserInfo(user).then(() => {
                 dispatch(setCity(user))
                 setCityStatus(!cityStatus);
             })
         }
-    })
+    });
 
     const formikPhone = useFormik({
         initialValues: {
@@ -61,7 +85,6 @@ function Contact() {
             })
         }
     })
-
 
     return (
         <>
@@ -135,30 +158,68 @@ function Contact() {
             </div>
 
             <div className="ps-5 pe-5 mb-4">
-                <div>
-                    <h4 className="fw-500">City</h4>
-                </div>
                 {
                     cityStatus === true ?
                         <form className="info-form" onSubmit={formikCity.handleSubmit}>
                             <div className="row">
-                                <div className="col-lg-12 h75">
-                                    <div className="form-group">
-
-                                        <input type="text"
-                                               className="form-control"
-                                               id="city"
-                                               name="city"
-                                               value={formikCity.values.city}
-                                               onChange={formikCity.handleChange}
-                                               onBlur={formikCity.handleBlur}
-                                               placeholder="City"/>
-                                        <span className="text-red">
-                                        {formikCity.errors.city}
-                                        </span>
+                                <div className="col-lg-6 h100">
+                                    <div>
+                                        <h4 className="fw-500">City</h4>
                                     </div>
+                                    <select
+                                        id="city"
+                                        name="city"
+                                        value={formikCity.values.city}
+                                        onChange={formikCity.handleChange}
+                                        onBlur={() => {
+                                            formikCity.handleBlur;
+                                            formikCity.values.district = ""
+                                        }}
+                                        className="form-select-md form-gender cursor-pointer">
+                                        <option className="font-xsss"
+                                                value="">Select City
+                                        </option>
+                                        {cities.map(city => {
+                                            if (city) {
+                                                return <option key={city.code} className="font-xsss"
+                                                               value={city.name}>{city.name}</option>
+                                            }
+                                        })}
+                                    </select>
+                                    <span className="text-red">
+                                        {formikCity.errors.city}
+                                    </span>
                                 </div>
-                                <div className="col-lg-12 border-bottom">
+                                <div className="col-lg-6 h100">
+                                    <div>
+                                        <h4 className="fw-500">District</h4>
+                                    </div>
+                                    <select
+                                        id="district"
+                                        name="district"
+                                        value={formikCity.values.district}
+                                        onChange={formikCity.handleChange}
+                                        onBlur={formikCity.handleBlur}
+                                        className="form-select-md form-gender cursor-pointer">
+                                        <option className="font-xsss"
+                                                value="">Select District
+                                        </option>
+                                        {cities.map(city => {
+                                            if (city.name === formikCity.values.city) {
+                                                return city.districts.map(district => {
+                                                        return <option key={district.code} className="font-xsss"
+                                                                       value={district.name}>{district.name}</option>
+                                                    }
+                                                )
+                                            }
+                                        })}
+                                    </select>
+                                    <span className="text-red">
+                                        {formikCity.errors.district}
+                                    </span>
+                                </div>
+
+                                <div className="col-lg-12 border-bottom mt-2">
                                     <button type="submit"
                                             className={
                                                 formikCity.isValid ?
@@ -168,8 +229,8 @@ function Contact() {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setCityStatus(false),
-                                            formikCity.resetForm()
+                                        setCityStatus(false)
+                                        formikCity.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -178,25 +239,35 @@ function Contact() {
                             </div>
                         </form>
                         : userInfo.city != null ?
-                            <div
-                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                    <h4 className="d-flex align-items-center float-left">
-                                        <i className="feather-home me-2"></i>
-                                        {userInfo.city}</h4>
-                                    <i onClick={() => setCityStatus(!cityStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                            <div>
+                                <div>
+                                    <h4 className="fw-500">City</h4>
+                                </div>
+                                <div
+                                    className="fw-600 text-dark lh-26 font-xssss mb-1 row">
+                                    <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                        <h4 className="d-flex align-items-center float-left">
+                                            <i className="feather-home me-2"></i>
+                                            {userInfo.city + ", " + userInfo.district}</h4>
+                                        <i onClick={() => setCityStatus(!cityStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                    </div>
                                 </div>
                             </div>
                             :
-                            <div className="d-flex align-items-center mb-1 ">
-                                <i onClick={() => setCityStatus(true)}
-                                   className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
-                                </i>
-                                <h4 onClick={() => setCityStatus(true)}
-                                    className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                    Add current City
-                                </h4>
+                            <div>
+                                <div>
+                                    <h4 className="fw-500">City</h4>
+                                </div>
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setCityStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setCityStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        Add current City
+                                    </h4>
+                                </div>
                             </div>
                 }
             </div>

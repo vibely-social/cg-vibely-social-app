@@ -7,6 +7,8 @@ import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
 import {authenticationSlice} from "~/features/authentication/index.js";
+import {getCitiesSlice} from "~/features/getCities/index.js";
+import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
 
 const store = configureStore({
@@ -19,6 +21,8 @@ const store = configureStore({
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
         authentication: authenticationSlice.reducer,
+        cities: getCitiesSlice.reducer,
+        suggestionFriends: suggestionFriendsSlice.reducer,
         media: getMediaSlice.reducer
     },
 });
