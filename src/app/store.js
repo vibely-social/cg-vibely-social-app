@@ -7,6 +7,7 @@ import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
 import {authenticationSlice} from "~/features/authentication/index.js";
+import {getCitiesSlice} from "~/features/getCities/index.js";
 
 const store = configureStore({
     reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
         friends: getFriendsSlice.reducer,
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
-        authentication: authenticationSlice.reducer
+        authentication: authenticationSlice.reducer,
+        cities: getCitiesSlice.reducer,
     },
 });
 export default store
