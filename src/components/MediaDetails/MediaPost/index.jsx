@@ -28,9 +28,10 @@ const MediaPost = ({id}) => {
             </div>
             <p style={{
                 color: "black",
-                margin: "5px"
+                margin: "5px",
+                whiteSpace: "pre-line"
             }}>
-                {postDetail.textContent}sdfhsduifgsdjfgajrtgweafd yhasdgastgdrweafgdwufguyafrasyhfdasduyhfdauyhsfguyasfruyasfraweuyfrawsuf
+                {postDetail.textContent}
             </p>
             {/* Like and Comment Counts */}
             <div className="card-body d-flex ps-2 pe-4 pt-0 mt-0">
