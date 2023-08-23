@@ -778,8 +778,16 @@
   padding-left: 0px;
   text-align: center;
 }
-.chat-navigation a{
-  padding-left: 4px !important;
+.chat-navigation {
+  a {
+    padding-left: 4px !important;
+  }
+ i{
+   padding-left: 14px;
+ }
+  .nav-wrap ul{
+    max-height: calc(100vh - 282px) !important;
+  }
 }
 
 

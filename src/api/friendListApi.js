@@ -1,9 +1,10 @@
 import axios from "axios";
 import {VIBELY_API} from "~/app/constants.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 export const findFriends = async () => {
     let result = null;
-    let user = JSON.parse(localStorage.getItem('user'))
+    let user = getStoredUserData()
     try {
         result = await axios.get(`${VIBELY_API}/friends/` + user.id,{
             headers:{

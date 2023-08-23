@@ -14,10 +14,11 @@ import { useState, useRef , useEffect, useMemo  } from 'react'
 import addImage from "../../../assets/img/new_post_icons/add-image.png"
 import toBase64 from '../../../utils/toBase64.js';
 import Photogrid from "react-facebook-photo-grid";
-import { USER, POST_API } from '~/app/constants';
+import { POST_API } from '~/app/constants';
 import axios from 'axios';
 import fileListFrom from '~/utils/fileListFromFiles';
 import { PacmanLoader } from 'react-spinners';
+import {getStoredUserData} from "~/service/accountService.js";
 
 
   const dialogStyle = {
@@ -50,14 +51,14 @@ const loaderStyle = {
 }
 
 function NewPostModal({ isOpen,closeModal }) {
-
+ const USER = getStoredUserData()
 	const [newPostDTO,setNewPostDTO] = useState(
 		{
-			authorId: USER.id,
+			authorId: USER?.id,
 			content: "",
 			privacy: "PUBLIC",
 			tags: [],
-			subscribers: [USER.id]
+			subscribers: [USER?.id]
 		});
 
 	const [postImage,setPostImage] = useState([]);
@@ -120,11 +121,11 @@ function NewPostModal({ isOpen,closeModal }) {
 			setPostFileList(null)
 			setPostImage([])
 			setNewPostDTO({
-				authorId: USER.id,
+				authorId: USER?.id,
 				content: "",
 				privacy: "PUBLIC",
 				tags: [],
-				subscribers: [USER.id]
+				subscribers: [USER?.id]
 			})
 			closeModal()
 
