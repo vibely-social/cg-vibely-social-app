@@ -6,11 +6,11 @@ import storyNav from '../assets/img/sidebar/story.png'
 import newfeedNav from '../assets/img/sidebar/newfeed.png'
 import ppl from '../assets/img/ppl.png'
 import mess from "../assets/img/messenger.png"
-import {USER} from "~/app/constants.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 let fullName = 'Anonymous'
 
-let user = USER
+let user = getStoredUserData()
 if (user && user.firstName) {
     fullName = user.firstName + ' ' + user.lastName
 }else if (user){

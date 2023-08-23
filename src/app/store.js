@@ -5,8 +5,9 @@ import toggleLoader from '~/features/toggleLoader';
 import {getFriendsSlice} from "~/features/getFriends/index.js";
 import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
+import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.js";
+import {messengerSlice} from "~/features/messeger/index.js";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
-import {authenticationSlice} from "~/features/authentication/index.js";
 import {getCitiesSlice} from "~/features/getCities/index.js";
 import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
@@ -20,7 +21,8 @@ const store = configureStore({
         friends: getFriendsSlice.reducer,
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
-        authentication: authenticationSlice.reducer,
+        oldMessages: loadOldMessagesSlice.reducer,
+        messenger: messengerSlice.reducer,
         cities: getCitiesSlice.reducer,
         suggestionFriends: suggestionFriendsSlice.reducer,
         media: getMediaSlice.reducer
