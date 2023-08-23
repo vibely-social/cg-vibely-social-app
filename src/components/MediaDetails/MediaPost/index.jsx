@@ -20,9 +20,11 @@ const MediaPost = ({id}) => {
             {/* Comment Header */}
             <div className="card-body ps-2 pe-4 pb-0 d-flex">
                 <figure className="avatar me-3">
-                    <img src="https://cdn5.vectorstock.com/i/1000x1000/43/94/default-avatar-photo-placeholder-icon-grey-vector-38594394.jpg" alt="image" className="shadow-sm rounded-circle w45" />
+                    <img src={postDetail.userInfo.avatar} alt="image" className="shadow-sm rounded-circle w45" />
                 </figure>
-                <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">Hurin Seary <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hours ago</span></h4>
+                {/*<h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">asdsadsadsa<span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hours ago</span></h4>*/}
+
+                <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">{postDetail.userInfo.firstName + " " + postDetail.userInfo.lastName} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hours ago</span></h4>
                 <a href="#" className="ms-auto"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
             </div>
             <p>{postDetail.textContent}</p>
