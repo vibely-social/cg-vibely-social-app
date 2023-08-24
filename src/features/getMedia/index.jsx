@@ -8,7 +8,39 @@ export const getMedia = createAsyncThunk("media", async () => {
 });
 
 const initialState = {
-    images: [],
+    images: [
+        {
+            id: "1",
+            gallery: [
+                "https://placehold.co/600x400?text=Hello+0",
+                "https://placehold.co/600x400?text=Hello+1"
+            ]
+        },
+        {
+            id: "2",
+            gallery: [
+                "https://placehold.co/600x400?text=Hello+2",
+                "https://placehold.co/600x400?text=Hello+3"
+            ]
+        },
+        {
+            id: "3",
+            gallery: [
+                "https://placehold.co/600x400?text=Hello+4",
+                "https://placehold.co/600x400?text=Hello+5",
+                "https://placehold.co/600x400?text=Hello+6"
+            ]
+        },
+        {
+            id: "4",
+            gallery: [
+                "https://placehold.co/600x400?text=Hello+7",
+                "https://placehold.co/600x400?text=Hello+8",
+                "https://placehold.co/600x400?text=Hello+9",
+                "https://placehold.co/600x400?text=Hello+10"
+            ]
+        }
+    ],
     status: 'idle',
     error: null
 }

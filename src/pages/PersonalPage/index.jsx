@@ -19,6 +19,11 @@ function PersonalPage() {
         setType("About")
     }
 
+    const toggleToMedia = () => {
+        setType("Media");
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }
+
     useEffect( () => {
         const getUserInfo = async () => {
             const user = getStoredUserData();
@@ -113,7 +118,7 @@ function PersonalPage() {
             </div>
             <div className="col-lg-12">
                 {
-                    type === 'Posts' ? <PostTab toggle={toggleToAbout}/>
+                    type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
                         : type === 'About' ? <IntroductionTab/>
                             : type === 'Friends' ? <FriendTab />
                                 : <MediaTab/>
