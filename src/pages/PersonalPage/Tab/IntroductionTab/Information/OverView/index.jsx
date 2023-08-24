@@ -263,7 +263,7 @@ function OverView() {
                                         Save
                                     </button>
                                     <button onClick={() => {
-                                        setSchoolStatus(false),
+                                        setSchoolStatus(false)
                                             formikSchool.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
@@ -443,7 +443,7 @@ function OverView() {
                             <div className="mt-2 align-items-center text-dark lh-26 col-lg-12">
                                 <h4 className="d-flex align-items-center float-left">
                                     <i className="ti-thought me-2"></i>
-                                    Borns on {formatDate(userInfo.birthday)}
+                                    Born on {formatDate(userInfo.birthday)}
                                 </h4>
                                 <i onClick={() => setBirthdayStatus(!birthdayStatus)}
                                    className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>

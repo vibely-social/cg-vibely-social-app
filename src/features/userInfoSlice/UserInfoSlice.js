@@ -10,6 +10,10 @@ const initialState = {
     gender: '',
     phoneNumber: '',
     city: '',
+    district: '',
+    school: '',
+    company: '',
+    position: '',
 }
 
 export const editUserInfo = async (userInfo) => {
