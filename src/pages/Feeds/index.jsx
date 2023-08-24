@@ -7,34 +7,34 @@ import { useEffect, useState } from "react";
 import { VIBELY_API } from "~/app/constants";
 import axios from "axios";
 import "./index.scss"
-import { scroll } from "framer-motion"
+import {getStoredUserData} from "~/service/accountService.js";
 
 function Feeds() {
 
     useAuthorizeUser()
-
+    const USER = getStoredUserData()
     const [posts, setPosts] = useState([]);
     const [isLoading,setIsLoading] = useState(true)
     const [newPost,setNewPost] = useState(null)
-
+    const headers = {
+      'Authorization': 'Bearer ' + USER.accessToken,
+      'Content-Type': 'application/json'
+    };
     const fetchPosts = async () => {
-       try {
-          const response = await axios.get(`${VIBELY_API}/posts`);
+    try {
+          const response = await axios.get(`${VIBELY_API}/posts`,{headers});
           setPosts(response.data)
           setIsLoading(false)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       };
-
-
       useEffect(() => {
         setTimeout(() => fetchPosts(),500)
         
       }, []);
       
 
-   
     return (
         <Row className="feed-body pt-3">
             <Col xl={8} xxl={9} lg={8}>

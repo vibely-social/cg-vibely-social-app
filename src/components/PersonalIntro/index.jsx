@@ -1,7 +1,72 @@
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {editUserInfo, formatDate, setBio, setHobbies} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {useFormik} from "formik";
+import "~/components/PersonalIntro/index.css"
 
-function PersonalIntro() {
-    const [introStatus, setIntroStatus] = useState(false);
+function PersonalIntro({toggle}) {
+    const [bioStatus, setBioStatus] = useState(false);
+    const [hobbyStatus, setHobbyStatus] = useState(false);
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.userInfo);
+
+    const getHobbies = () => {
+        if (userInfo.hobbies != null) {
+            return userInfo.hobbies.split(',');
+        } else {
+            return ['','','','','',''];
+        }
+    }
+
+    const formikBio = useFormik({
+        initialValues: {
+            bio: userInfo.bio
+        },
+
+        enableReinitialize: true,
+
+        onSubmit: (values) => {
+            const user = {
+                ...userInfo,
+                bio: values.bio
+            }
+            editUserInfo(user).then(() => {
+                dispatch(setBio(user))
+                setBioStatus(!bioStatus);
+            })
+        }
+    })
+
+    const formikHobby = useFormik({
+        initialValues: {
+            hobby1: getHobbies()[0],
+            hobby2: getHobbies()[1],
+            hobby3: getHobbies()[2],
+            hobby4: getHobbies()[3],
+            hobby5: getHobbies()[4],
+            hobby6: getHobbies()[5]
+        },
+
+        enableReinitialize: true,
+
+        onSubmit: (values) => {
+            const user = {
+                ...userInfo,
+                hobbies:
+                    values.hobby1 + ',' +
+                    values.hobby2 + ',' +
+                    values.hobby3 + ',' +
+                    values.hobby4 + ',' +
+                    values.hobby5 + ',' +
+                    values.hobby6
+            }
+            editUserInfo(user).then(() => {
+                dispatch(setHobbies(user))
+                setHobbyStatus(!hobbyStatus)
+            })
+        }
+    })
+
 
     return (<>
         <div className="card w-100 shadow-xss rounded-xxl border-0">
@@ -9,103 +74,210 @@ function PersonalIntro() {
                 <h2 className="fw-700 mb-0 mt-0 font-md text-grey-900">Intro</h2>
             </div>
 
-            <div className="card-body d-block p-4">
-                {introStatus === true ?
+            <div className="card-body ps-4 pe-4">
+                {bioStatus === true ?
                     <div>
-                        <textarea
-                            name="" id="" cols="40" rows="3"
-                            className="rounded-3 border-primary">
-                        </textarea>
-                        <div className="">
+                            <textarea
+                                name="bio" id="bio"
+                                cols="40" rows="3"
+                                form="bio-form"
+                                value={formikBio.values.bio}
+                                onChange={formikBio.handleChange}
+                                onBlur={formikBio.handleBlur}
+                                placeholder="Write something for us !!!"
+                                className="rounded-3 border-primary text-center">
+                            </textarea>
+                        <form id="bio-form" className="" onSubmit={formikBio.handleSubmit}>
                             <button type="submit"
                                     className="text-center p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button">
-                                Save
+                                OK
                             </button>
-                            <button
-                                onClick={() => setIntroStatus(!introStatus)}
-                                className="text-center p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
-                                Cancel
-                            </button>
-                        </div>
+                        </form>
                     </div>
 
                     : <div>
-                        <h6 className="font-xss mb-3 text-center">Write something for us !!!</h6>
+                        <h6 className="font-xss mb-3 text-center ">
+                            {formikBio.values.bio}
+                        </h6>
                         <span
-                            onClick={() => setIntroStatus(!introStatus)}
-                            className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant shadow-md rounded-3 ps-2">
-                                Edit intro
+                            onClick={() => setBioStatus(!bioStatus)}
+                            className="
+                            cursor-pointer hover-opacity p-1 fw-600 text-center d-block
+                            font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2">
+                                Edit bio
                         </span>
-                    </div>
-                }
-            </div>
-            <div className="card-body ms-1">
-                <h4 className="d-flex align-items-center">
-                    <i className="feather-home me-2"></i>
-                    Lives in China town
-                </h4>
-            </div>
-            <div className="card-body ms-1">
-                <h4 className="d-flex align-items-center">
-                    <i className="feather-briefcase me-2"></i>
-                    Work in Taiwan
-                </h4>
-            </div>
-            <div className="card-body ms-1 border-bottom me-1">
-                <h4 className="d-flex align-items-center">
-                    <i className="feather-briefcase me-2"></i>
-                    Work in Taiwan
-                </h4>
+                    </div>}
             </div>
 
-            <div className="card-body ms-1 mt-2">
-                <button
-                    style={{borderColor: "aqua"}}
-                    className="cursor-pointer p-1 text-center font-xss text-grey-800 rounded-4 ps-2 me-2 mb-2">
-                    Cooking
-                </button>
-                <button
-                    className="cursor-pointer p-1 text-center font-xss text-grey-800 rounded-4 border-warning ps-2 me-2 mb-2">
-                    Animal keeping
-                </button>
-                <button
-                    style={{borderColor: "purple"}}
-                    className="cursor-pointer p-1 text-center font-xss text-grey-800 rounded-4 ps-2 me-2 mb-2">
-                    Extreme Sport
-                </button>
-                <button
-                    style={{borderColor: "red"}}
-                    className="cursor-pointer p-1 text-center font-xs text-grey-800 rounded-4 ps-2 me-2 mb-2">
-                    Traveling
-                </button>
-                <span
-                    className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant shadow-md rounded-3 ps-2 mt-2">
-                    Add hobbies
-                </span>
-            </div>
+            <div className="card-body ps-4 pe-4">
+                {userInfo.company != null ? <div className="ms-1 pb-2">
+                    <h4 className="d-flex align-items-center">
+                        <i className="feather-briefcase me-2"></i>
+                        Work at {userInfo.company} as {userInfo.position}
+                    </h4>
+                </div> : null}
 
-            <div className="card-body mt-2 d-block">
-                <div className="row ps-2 pe-2">
-                    <div className="col-lg-6 ps-2">
-                        <div
-                            className="card h240 d-block border-0 rounded-4 mb-3 bg-image-cover"
-                            style={{backgroundImage: 'url(https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80)'}}>
-                        </div>
-                    </div>
-                    <div className="col-lg-6 ps-2">
-                        <div
-                            className="card h240 d-block border-0 rounded-4 mb-3 bg-image-cover"
-                            style={{backgroundImage: 'url(https://i.pinimg.com/564x/5f/5b/3a/5f5b3a54f62bca626d97048f1a750239.jpg)'}}>
-                        </div>
-                    </div>
+                {userInfo.city != null ? <div className="ms-1 pb-2">
+                    <h4 className="d-flex align-items-center">
+                        <i className="feather-home me-2"></i>
+                        Lives in {userInfo.city + ", " + userInfo.district}
+                    </h4>
+                </div> : null}
+
+                <div className="ms-1 pb-2">
+                    <h4 className="d-flex align-items-center">
+                        <i className="ti-thought me-2"></i>
+                        Born on {formatDate(userInfo.birthday)}
+                    </h4>
                 </div>
                 <span
-                    className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant shadow-md rounded-3 ps-2 mt-2">
-                    Edit featured
+                    onClick={toggle}
+                    className="cursor-pointer hover-opacity p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2">
+                    Edit details
                 </span>
             </div>
 
+            <div className="card-body ps-4 pe-4">
+                <div>
+                    {
+                        hobbyStatus === true ?
+                            <form className="" onSubmit={formikHobby.handleSubmit}>
+                                <input type="checkbox"
+                                       className="btn-check"
+                                       id="hobby1"
+                                       name="hobby1"
+                                       onChange={formikHobby.handleChange}
+                                       checked={formikHobby.values.hobby1 != ''}
+                                       value="Cooking"
+                                       autoComplete="off"/>
+                                <label className="btn font-xss btn-outline-success me-2 mb-2" htmlFor="hobby1">
+                                    Cooking
+                                </label>
 
+                                <input type="checkbox"
+                                       className="btn-check"
+                                       id="hobby2"
+                                       name="hobby2"
+                                       onChange={formikHobby.handleChange}
+                                       checked={formikHobby.values.hobby2 != ''}
+                                       value="Play Game"
+                                       autoComplete="off"/>
+                                <label className="btn font-xss btn-outline-danger me-2 mb-2" htmlFor="hobby2">
+                                    Play Game
+                                </label>
+
+                                <input type="checkbox"
+                                       className="btn-check"
+                                       id="hobby3"
+                                       name="hobby3"
+                                       onChange={formikHobby.handleChange}
+                                       checked={formikHobby.values.hobby3 != ''}
+                                       value="Listen Music"
+                                       autoComplete="off"/>
+                                <label className="btn font-xss btn-outline-warning me-2 mb-2" htmlFor="hobby3">
+                                    Listen Music
+                                </label>
+
+                                <input type="checkbox"
+                                       className="btn-check"
+                                       id="hobby4"
+                                       name="hobby4"
+                                       onChange={formikHobby.handleChange}
+                                       checked={formikHobby.values.hobby4 != ''}
+                                       value="Traveling"
+                                       autoComplete="off"/>
+                                <label className="btn font-xss btn-outline-secondary me-2 mb-2" htmlFor="hobby4">
+                                    Traveling
+                                </label>
+
+                                <input type="checkbox"
+                                       className="btn-check"
+                                       id="hobby5"
+                                       name="hobby5"
+                                       onChange={formikHobby.handleChange}
+                                       checked={formikHobby.values.hobby5 != ''}
+                                       value="Reading Book"
+                                       autoComplete="off"/>
+                                <label className="btn font-xss btn-outline-info me-2 mb-2" htmlFor="hobby5">
+                                    Reading Book
+                                </label>
+
+                                <input type="checkbox"
+                                       className="btn-check"
+                                       id="hobby6"
+                                       name="hobby6"
+                                       onChange={formikHobby.handleChange}
+                                       checked={formikHobby.values.hobby6 != ''}
+                                       value="Take-care Pet"
+                                       autoComplete="off"/>
+                                <label className="btn font-xss btn-outline-dark me-2 mb-2" htmlFor="hobby6">
+                                    Take-care Pet
+                                </label>
+
+                                <div>
+                                    <button
+                                        type="submit"
+                                        className="text-center p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button">
+                                        OK
+                                        {console.log(formikHobby.values)}
+                                    </button>
+                                </div>
+
+                            </form>
+                            :
+                            <div>
+                                {formikHobby.values.hobby1 != '' ?
+                                    <label className="bg-lightblue rounded-3 p-1 me-2 mb-2 shadow-sm text-grey-600">
+                                        <i className="ti-paint-bucket me-2"></i>
+                                        Cooking
+                                    </label>
+                                    : null
+                                }
+                                {formikHobby.values.hobby2 != '' ?
+                                    <label className="bg-lightblue rounded-3 p-1 me-2 mb-2 shadow-sm text-grey-600">
+                                        <i className="ti-desktop me-2"></i>
+                                        Play Game
+                                    </label>
+                                    : null
+                                }
+                                {formikHobby.values.hobby3 != '' ?
+                                    <label className="bg-lightblue rounded-3 p-1 me-2 mb-2 shadow-sm text-grey-600">
+                                        <i className="ti-headphone me-2"></i>
+                                        Listen Music
+                                    </label>
+                                    : null
+                                }
+                                {formikHobby.values.hobby4 != '' ?
+                                    <label className="bg-lightblue rounded-3 p-1 me-2 mb-2 shadow-sm text-grey-600">
+                                        <i className="ti-car me-2"></i>
+                                        Traveling
+                                    </label>
+                                    : null
+                                }
+                                {formikHobby.values.hobby5 != '' ?
+                                    <label className="bg-lightblue rounded-3 p-1 me-2 mb-2 shadow-sm text-grey-600">
+                                        <i className="feather-book-open me-2"></i>
+                                        Reading Book
+                                    </label>
+                                    : null
+                                }
+                                {formikHobby.values.hobby6 != '' ?
+                                    <label className="bg-lightblue rounded-3 p-1 me-2 mb-2 shadow-sm text-grey-600">
+                                        <i className="feather-github me-2"></i>
+                                        Take-care Pet
+                                    </label>
+                                    : null
+                                }
+
+                                <span
+                                    onClick={() => setHobbyStatus(!hobbyStatus)}
+                                    className="cursor-pointer hover-opacity p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2 mt-2">
+                                    Add hobbies
+                                </span>
+                            </div>
+                    }
+                </div>
+            </div>
         </div>
     </>)
 }

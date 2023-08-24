@@ -9,6 +9,7 @@ import en from 'javascript-time-ago/locale/en.json'
 import { useState } from "react";
 import Comment from "../Comment";
 
+
 function PostDetail({data}) {
 
     TimeAgo.addDefaultLocale(en)

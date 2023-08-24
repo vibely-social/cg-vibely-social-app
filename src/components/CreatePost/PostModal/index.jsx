@@ -19,7 +19,6 @@ import axios from 'axios';
 import fileListFrom from '~/utils/fileListFromFiles';
 import { PacmanLoader } from 'react-spinners';
 import {getStoredUserData} from "~/service/accountService.js";
-import {USER} from "../../../app/constants.js"
 
 
   const dialogStyle = {
