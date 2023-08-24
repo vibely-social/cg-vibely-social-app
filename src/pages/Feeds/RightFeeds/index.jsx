@@ -3,6 +3,8 @@ import {Button, Card, Col, Modal} from "react-bootstrap";
 import "./index.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import { deleteSuggestionFriend, getSuggestionFriends, selectSuggestionFriendsList } from "~/features/suggestionFriends";
+import { useDispatch, useSelector } from "react-redux";
 
 function RightFeed() {
   const FRIENDS_REQUEST_API =
@@ -15,12 +17,14 @@ function RightFeed() {
 
   const FRIENDS_SUGGESTION_API =
     "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
-  const [friendSuggestions, setFriendSuggestions] = useState([]);
   const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] = useState(false);
   const [suggestSelectedItem, setSuggestSelectedItem] = useState(null);
   const [isReloadSuggestion, setIsReloadSuggestion] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedConfirmItem, setSelectedConfirmItem] = useState(null);
+
   
-  // -------------------------friend request----------------------------
+  // -------------------------friend request delete----------------------------
 
   const handleDeleteClick = (item) => {
     setSeletedItem(item);
@@ -54,40 +58,27 @@ function RightFeed() {
       });
   }, [isReload]);
 
-// ----------------------------friend suggestion----------------------
 
-const handleDeleteClickSuggestion = (suggestion) => {
+const dispatch = useDispatch();
+const friendSuggestions = useSelector(selectSuggestionFriendsList);
+
+
+useEffect(() => {
+  dispatch(getSuggestionFriends());
+}, [dispatch]);
+
+  const handleDeleteClickSuggestion = (suggestion) => {
   setSuggestSelectedItem(suggestion);
   setShowDeleteModalSuggestion(true);
 };
 
-  useEffect(() => {
-    axios
-      .get(`${FRIENDS_SUGGESTION_API}/friends`)
-      .then((res) => {
-        setFriendSuggestions(res.data);
-        console.log(friendSuggestions);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  }, [isReloadSuggestion]);
+const handleConfirmDeleteSuggestion = () => {
+  if (suggestSelectedItem) {
+    dispatch(deleteSuggestionFriend(suggestSelectedItem));
+    setShowDeleteModalSuggestion(false);
+  }
+}
 
-  const handleSuggestionDelete = () => {
-    if (suggestSelectedItem) {
-      axios
-        .delete(`${FRIENDS_SUGGESTION_API}friends/${suggestSelectedItem?.id}`)
-        .then((res) => {
-          console.log("res.data");
-          setIsReloadSuggestion(!isReloadSuggestion);
-        })
-        .catch((err) => {
-          throw err;
-        });
-    }
-    console.log("Deleted:", suggestSelectedItem);
-    setShowDeleteModalSuggestion (false);
-  };
 
   return (
     <Col xl={4} xxl={3} lg={4} className="ps-3">
@@ -174,7 +165,8 @@ const handleDeleteClickSuggestion = (suggestion) => {
       </Modal>
 
       {/* -------------------------friend suggestion---------------------- */}
-     
+           
+
       <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3 ">
 
         <Card.Body className="d-flex align-items-center">
@@ -207,16 +199,18 @@ const handleDeleteClickSuggestion = (suggestion) => {
           {"  "}
           {suggestion?.lastName}
             <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
-              12 mutual friends
+            {suggestion?.numberMutualFriend} mutual friends
             </span>
             <Button
               href="#"
-              className="p-2 w90  mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
+              className="p-2 w90  mt-1 bg-primary-gradiant border-0 me-2 
+              text-white text-center font-xssss fw-600 ls-1 rounded-xl"
+              onClick={() => handleConfirmClick(item)}
             >
               Add Friend
             </Button>
             <Button
-              href="#"
+              // href="#"
               className="p-2 w90 bg-grey text-grey-800  border-0 text-center font-xssss fw-600 ls-1 rounded-xl "
               onClick={() => handleDeleteClickSuggestion(suggestion)}
             >
@@ -249,14 +243,38 @@ const handleDeleteClickSuggestion = (suggestion) => {
           onClick={() => setShowDeleteModalSuggestion(false)}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleSuggestionDelete}>
+          <Button variant="danger" onClick={handleConfirmDeleteSuggestion}>
             Delete
           </Button>
         </Modal.Footer>
       </Modal>
 
-
-    </Col>
+{/* ----------------------------show pop up confirm friend suggestion------------------- */}
+<Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Confirm Friend Suggestion</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    Do you want to send request to?
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+      No
+    </Button>
+    <Button
+      variant="primary"
+      onClick={() => {
+        setShowConfirmModal(false);
+        
+        // Call API to confirm friend request and update state
+        // You can use a fetch or axios call to update the API here
+      }}
+    >
+      Yes
+    </Button>
+  </Modal.Footer>
+</Modal>
+</Col>
   );
 }
 

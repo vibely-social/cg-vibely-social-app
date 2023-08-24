@@ -4,6 +4,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import './index.css';
 import MediaPost from '~/components/MediaDetails/MediaPost/index.jsx';
+import PostDetail from "~/components/PostDetail/index.jsx";
 
 function MediaDetails({images, currentIndex, onClose}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(currentIndex);
@@ -47,7 +48,7 @@ function MediaDetails({images, currentIndex, onClose}) {
                     </button>
                     <img
                         className="modal-image"
-                        src={images[selectedImageIndex]?.imageUrl}
+                        src={images[selectedImageIndex]?.fileName}
                         alt={`Image ${selectedImageIndex}`}
                     />
                     <button className="next-button" onClick={handleNextImage}>
@@ -55,8 +56,9 @@ function MediaDetails({images, currentIndex, onClose}) {
                     </button>
                 </div>
                 <MediaPost
-                    id={images[selectedImageIndex].id}
+                    id={images[selectedImageIndex].postId}
                 />
+                {/*<PostDetail/>*/}
             </Dialog>
         </div>
 

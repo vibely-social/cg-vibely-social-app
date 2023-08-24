@@ -1,14 +1,34 @@
-import PersonalIntro from "~/components/PersonalIntro/index.jsx";
 import NewPost from "~/components/CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {POST_API} from "~/app/constants.js";
+import FanPageIntro from "~/components/FanPageIntro/index.jsx";
 
 function PostTabFanPage() {
+    const [posts, setPosts] = useState([]);
+
+
+    const fetchPosts = async () => {
+        try {
+            const response = await axios.get(POST_API);
+            setPosts(response.data)
+            setIsLoading(false)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchPosts()
+    }, []);
     return (
         <>
             <div className="row">
                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="shadow-xss mb-3 mt-3">
-                        <PersonalIntro />
+                        <FanPageIntro />
                     </div>
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
                         <div className="card-body d-block p-4" style={{height: 300}}>
@@ -21,17 +41,9 @@ function PostTabFanPage() {
                         <NewPost />
                     </div>
 
-                    <div className="shadow-xssmb-3 mt-3">
-                        <PostDetail/>
-                    </div>
-
-                    <div className="shadow-xssmb-3 mt-3">
-                        <PostDetail/>
-                    </div>
-
-                    <div className="shadow-xssmb-3 mt-3">
-                        <PostDetail/>
-                    </div>
+                    {posts.map((post,index) => {
+                        return <PostDetail data={post} key={index}/>
+                    })}
                 </div>
             </div>
 

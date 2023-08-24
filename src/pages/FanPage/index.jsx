@@ -19,7 +19,7 @@ function FanPage() {
     useEffect( () => {
         const getUserInfo = async () => {
             // let user = getStoredUserData()
-            const result = await userInfoApi(21);
+            const result = await userInfoApi(22);
             dispatch(setUserInfo(result));
         }
         getUserInfo()

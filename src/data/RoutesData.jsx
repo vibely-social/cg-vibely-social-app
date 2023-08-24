@@ -8,8 +8,7 @@ import Chat from "~/pages/Chat/index.jsx";
 import Friends from "~/pages/Friends";
 import FanPage from "~/pages/FanPage/index.jsx";
 
-
-const publicRoutes = [
+export const publicRoutes = [
     {path: '/', component: Feeds, layout: MainLayout},
     {path: '/profile', component: PersonalPage, layout: MainLayout},
     {path: '/login', component: Login, layout: null},

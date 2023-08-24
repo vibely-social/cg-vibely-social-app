@@ -31,7 +31,7 @@ function PersonalPage() {
                         <img src="https://via.placeholder.com/960x250.png" alt="image" style={{width: '100%'}}/>
                     </div>
                     <div className="card-body p-0 position-relative">
-                        <figure className="avatar position-absolute w100 z-index-1"
+                        <figure className="avatar position-absolute w100"
                                 style={{top: -40, left: 30}}>
                             <img src="https://via.placeholder.com/50x50.png" alt="image"
                                  className="float-right p-1 bg-white rounded-circle w-100"/>
@@ -96,7 +96,7 @@ function PersonalPage() {
                                     <span data-toggle="tab"
                                           onClick={() => setType(tab)}
                                           className={type === tab ?
-                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark" :
+                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
                                               "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
                                         {tab}
                                     </span>

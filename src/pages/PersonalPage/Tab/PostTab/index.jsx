@@ -1,8 +1,31 @@
 import NewPost from "../../../../components/CreatePost/index";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import PersonalIntro from "~/components/PersonalIntro/index.jsx";
+import { useEffect, useState } from "react";
+import { POST_API } from "~/app/constants";
+import axios from "axios";
+
 
 function PostTab() {
+    const [posts, setPosts] = useState([]);
+
+
+    const fetchPosts = async () => {
+       try {
+          const response = await axios.get(POST_API);
+          setPosts(response.data)
+          setIsLoading(false)
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      
+
+      useEffect(() => {
+        fetchPosts()
+      }, []);
+
+
     return (
         <>
             <div className="row">
@@ -21,17 +44,9 @@ function PostTab() {
                         <NewPost />
                     </div>
 
-                    <div className="shadow-xssmb-3 mt-3">
-                        <PostDetail/>
-                    </div>
-
-                    <div className="shadow-xssmb-3 mt-3">
-                        <PostDetail/>
-                    </div>
-
-                    <div className="shadow-xssmb-3 mt-3">
-                        <PostDetail/>
-                    </div>
+                    {posts.map((post,index) => {
+                    return <PostDetail data={post} key={index}/>
+                    })}
                 </div>
             </div>
 

@@ -17,7 +17,8 @@ function MainLayout({children, path}) {
         }, 800);
     }
 
-    return (<>
+    return (
+        <>
             <PreLoader/>
             {isLoading &&
                 <div className="main-wrapper color-theme-green">

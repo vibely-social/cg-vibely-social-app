@@ -18,7 +18,6 @@ function UserDetail() {
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
 
-    console.log(userInfo)
 
     const formikName = useFormik({
         initialValues: {
@@ -103,23 +102,6 @@ function UserDetail() {
                             <div className="row">
                                 <div className="col-lg-6 h100">
                                     <div>
-                                        <h4 className="fw-500">First Name</h4>
-                                    </div>
-                                    <div className="form-group">
-                                        <input type="text"
-                                               className="form-control"
-                                               id="firstName"
-                                               name="firstName"
-                                               value={formikName.values.firstName}
-                                               onChange={formikName.handleChange}
-                                               onBlur={formikName.handleBlur}/>
-                                        <span className="text-red">
-                                        {formikName.errors.firstName}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 h100">
-                                    <div>
                                         <h4 className="fw-500">Last Name</h4>
                                     </div>
                                     <div className="form-group">
@@ -132,6 +114,23 @@ function UserDetail() {
                                                onBlur={formikName.handleBlur}/>
                                         <span className="text-red">
                                         {formikName.errors.lastName}
+                                        </span>
+                                </div>
+                                    </div>
+                                <div className="col-lg-6 h100">
+                                    <div>
+                                        <h4 className="fw-500">First Name</h4>
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="text"
+                                               className="form-control"
+                                               id="firstName"
+                                               name="firstName"
+                                               value={formikName.values.firstName}
+                                               onChange={formikName.handleChange}
+                                               onBlur={formikName.handleBlur}/>
+                                        <span className="text-red">
+                                        {formikName.errors.firstName}
                                         </span>
                                     </div>
                                 </div>
@@ -164,7 +163,7 @@ function UserDetail() {
                                 <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="feather-airplay me-2"></i>
-                                        {userInfo.firstName + ' ' + userInfo.lastName}</h4>
+                                        {userInfo.lastName + ' ' + userInfo.firstName}</h4>
                                     <i onClick={() => setNameStatus(true)}
                                        className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
                                 </div>
@@ -187,10 +186,10 @@ function UserDetail() {
                                         name="gender"
                                         value={formikGender.values.gender}
                                         onChange={formikGender.handleChange}
-                                        onBlur={formikBirthday.handleBlur}
+                                        onBlur={formikGender.handleBlur}
                                         className="form-select-md form-gender cursor-pointer">
                                         <option className="font-xsss"
-                                                defaultValue="">Select Gender
+                                                value="">Select Gender
                                         </option>
                                         <option className="font-xsss" value="MALE">MALE</option>
                                         <option className="font-xsss" value="FEMALE">FEMALE</option>
