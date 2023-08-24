@@ -10,7 +10,7 @@ import axios from "axios";
 import "~/pages/PersonalPage/Tab/IntroductionTab/index.css"
 
 
-function PostTab({toggle}) {
+function PostTab({toggleAbout, toggleMedia}) {
     const [posts, setPosts] = useState([]);
     const images = useSelector(state => state.media.images)
     const status = useSelector(state => state.media.status)
@@ -30,9 +30,9 @@ function PostTab({toggle}) {
 
 
     useEffect(() => {
-        if (status === "idle") {
-            dispatch(getMedia())
-        }
+        // if (status === "idle") {
+        //     dispatch(getMedia())
+        // }
         fetchPosts()
     }, [dispatch]);
 
@@ -42,7 +42,7 @@ function PostTab({toggle}) {
             <div className="row">
                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="shadow-xss mb-3 mt-3">
-                        <PersonalIntro/>
+                        <PersonalIntro toggle={toggleAbout}/>
                     </div>
 
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
@@ -58,7 +58,7 @@ function PostTab({toggle}) {
                                     Photos
                                 </span>
                                 <span className="text-end cursor-pointer hover-underline text-cyan"
-                                      onClick={toggle}
+                                      onClick={toggleMedia}
                                 >
                                     See more
                                 </span>
@@ -80,8 +80,6 @@ function PostTab({toggle}) {
                     })}
                 </div>
             </div>
-
-
         </>
     )
 }

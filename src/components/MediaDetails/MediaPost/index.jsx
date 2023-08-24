@@ -15,7 +15,7 @@ const MediaPost = ({id}) => {
     TimeAgo.addDefaultLocale(en);
 
     useEffect(() => {
-        dispatch(getMediaPostDetails(id))
+        // dispatch(getMediaPostDetails(id))
     }, [dispatch, id]);
 
     return (
