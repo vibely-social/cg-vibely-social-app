@@ -4,9 +4,14 @@ import {getStoredUserData} from "~/service/accountService.js";
 
 export const userInfoApi = async (id) => {
     let response = {};
-
+    let user = getStoredUserData()
     try {
-        response = await axios.get(`${VIBELY_API}/users/info/${id}`);
+        response = await axios.get(`${VIBELY_API}/users/info/${id}`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + user.accessToken
+                }
+            });
     } catch (e) {
         console.log("Get user info error! " + e);
     }

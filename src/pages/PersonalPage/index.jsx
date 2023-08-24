@@ -15,6 +15,10 @@ function PersonalPage() {
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
 
+    const toggleToAbout = () => {
+        setType("About")
+    }
+
     useEffect( () => {
         const getUserInfo = async () => {
             const user = getStoredUserData();
@@ -109,9 +113,9 @@ function PersonalPage() {
             </div>
             <div className="col-lg-12">
                 {
-                    type === 'Posts' ? <PostTab/>
+                    type === 'Posts' ? <PostTab toggle={toggleToAbout}/>
                         : type === 'About' ? <IntroductionTab/>
-                            : type === 'Friends' ? <FriendTab/>
+                            : type === 'Friends' ? <FriendTab />
                                 : <MediaTab/>
                 }
             </div>

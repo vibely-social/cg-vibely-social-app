@@ -210,7 +210,7 @@ function OverView() {
                                     <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-briefcase me-2"></i>
-                                            Work at {userInfo.company} with position {userInfo.position}</h4>
+                                            Work at {userInfo.company} as {userInfo.position}</h4>
                                         <i onClick={() => setWorkStatus(!workStatus)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
                                     </div>

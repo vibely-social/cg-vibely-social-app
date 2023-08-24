@@ -14,6 +14,8 @@ const initialState = {
     school: '',
     company: '',
     position: '',
+    bio: '',
+    hobbies: '',
 }
 
 export const editUserInfo = async (userInfo) => {
@@ -55,6 +57,12 @@ const UserInfoSlice = createSlice({
             state.company = payload.payload.company;
             state.position = payload.payload.position;
         },
+        setBio(state, payload) {
+            state.bio = payload.payload.bio;
+        },
+        setHobbies(state, payload) {
+            state.hobbies = payload.payload.hobbies;
+        },
         setUserInfo(state, payload) {
             state.id = payload.payload.id;
             state.email = payload.payload.email;
@@ -68,6 +76,8 @@ const UserInfoSlice = createSlice({
             state.school = payload.payload.school;
             state.company = payload.payload.company;
             state.position = payload.payload.position;
+            state.bio = payload.payload.bio;
+            state.hobbies = payload.payload.hobbies;
 
         },
     },
@@ -81,6 +91,8 @@ export const {
     setCity,
     setSchool,
     setWork,
+    setBio,
+    setHobbies,
     setUserInfo,
 } = UserInfoSlice.actions;
 

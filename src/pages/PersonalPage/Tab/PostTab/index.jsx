@@ -6,7 +6,7 @@ import { POST_API } from "~/app/constants";
 import axios from "axios";
 
 
-function PostTab() {
+function PostTab({toggle}) {
     const [posts, setPosts] = useState([]);
 
 
@@ -31,18 +31,12 @@ function PostTab() {
             <div className="row">
                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="shadow-xss mb-3 mt-3">
-                        <PersonalIntro />
+                        <PersonalIntro toggle={toggle}/>
                     </div>
 
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
                         <div className="card-body d-block p-4" style={{height: 300}}>
                             <h4 className="fw-700 mb-3 font-xsss text-grey-900">Friends</h4>
-                        </div>
-                    </div>
-
-                    <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
-                        <div className="card-body d-block p-4" style={{height: 300}}>
-                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Media</h4>
                         </div>
                     </div>
                 </div>
