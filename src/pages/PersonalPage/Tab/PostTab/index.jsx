@@ -2,7 +2,7 @@ import NewPost from "../../../../components/CreatePost/index";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import PersonalIntro from "~/components/PersonalIntro/index.jsx";
 import { useEffect, useState } from "react";
-import { POST_API } from "~/app/constants";
+import { VIBELY_API } from "~/app/constants";
 import axios from "axios";
 
 
@@ -12,7 +12,7 @@ function PostTab() {
 
     const fetchPosts = async () => {
        try {
-          const response = await axios.get(POST_API);
+          const response = await axios.get(`${VIBELY_API}/posts`);
           setPosts(response.data)
           setIsLoading(false)
         } catch (error) {

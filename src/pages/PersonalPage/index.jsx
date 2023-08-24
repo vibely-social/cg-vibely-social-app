@@ -7,6 +7,7 @@ import PostTab from "~/pages/PersonalPage/Tab/PostTab/index.jsx";
 import IntroductionTab from "~/pages/PersonalPage/Tab/IntroductionTab/index.jsx";
 import FriendTab from "~/pages/PersonalPage/Tab/FriendTab/index.jsx";
 import MediaTab from "~/pages/PersonalPage/Tab/MediaTab/index.jsx";
+import { Row } from "react-bootstrap";
 
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
@@ -24,7 +25,7 @@ function PersonalPage() {
     },[])
 
     return (<>
-        <div className="row">
+        <Row style={{marginTop:"12px"}}>
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
@@ -114,7 +115,7 @@ function PersonalPage() {
                                 : <MediaTab/>
                 }
             </div>
-        </div>
+        </Row>
     </>);
 }
 

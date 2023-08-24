@@ -14,10 +14,12 @@ import { useState, useRef , useEffect, useMemo  } from 'react'
 import addImage from "../../../assets/img/new_post_icons/add-image.png"
 import toBase64 from '../../../utils/toBase64.js';
 import Photogrid from "react-facebook-photo-grid";
-import { USER, POST_API } from '~/app/constants';
+import { VIBELY_API } from '~/app/constants';
 import axios from 'axios';
 import fileListFrom from '~/utils/fileListFromFiles';
 import { PacmanLoader } from 'react-spinners';
+import {getStoredUserData} from "~/service/accountService.js";
+import {USER} from "../../../app/constants.js"
 
 
   const dialogStyle = {
@@ -50,14 +52,12 @@ const loaderStyle = {
 }
 
 function NewPostModal({ isOpen,closeModal }) {
-
+ const USER = getStoredUserData()
 	const [newPostDTO,setNewPostDTO] = useState(
 		{
-			authorId: USER?.id,
 			content: "",
 			privacy: "PUBLIC",
-			tags: [],
-			subscribers: [USER?.id]
+			tags: []
 		});
 
 	const [postImage,setPostImage] = useState([]);
@@ -111,20 +111,19 @@ function NewPostModal({ isOpen,closeModal }) {
 		formData.append('newPostDTO', JSON.stringify(newPostDTO))
 		try {
 			setLoading(true)
-			const response = await axios.post(POST_API, formData, {
+			const response = await axios.post(`${VIBELY_API}/posts`, formData, {
 			  headers: {
 				'Content-Type': 'multipart/form-data',
+				'Authorization': 'Bearer '+ USER.accessToken,
 			  },
 			});
 			setLoading(false)
 			setPostFileList(null)
 			setPostImage([])
 			setNewPostDTO({
-				authorId: USER?.id,
 				content: "",
 				privacy: "PUBLIC",
-				tags: [],
-				subscribers: [USER?.id]
+				tags: []
 			})
 			closeModal()
 

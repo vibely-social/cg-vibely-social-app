@@ -33,7 +33,7 @@ function PersonalIntro() {
                         <h6 className="font-xss mb-3 text-center">Write something for us !!!</h6>
                         <span
                             onClick={() => setIntroStatus(!introStatus)}
-                            className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-current rounded-3 ps-2">
+                            className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant shadow-md rounded-3 ps-2">
                                 Edit intro
                         </span>
                     </div>
@@ -79,7 +79,7 @@ function PersonalIntro() {
                     Traveling
                 </button>
                 <span
-                    className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-current rounded-3 ps-2 mt-2">
+                    className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant shadow-md rounded-3 ps-2 mt-2">
                     Add hobbies
                 </span>
             </div>
@@ -100,7 +100,7 @@ function PersonalIntro() {
                     </div>
                 </div>
                 <span
-                    className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-current rounded-3 ps-2 mt-2">
+                    className="cursor-pointer p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant shadow-md rounded-3 ps-2 mt-2">
                     Edit featured
                 </span>
             </div>

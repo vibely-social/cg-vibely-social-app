@@ -4,7 +4,7 @@ import CreatePost from "../../components/CreatePost";
 import PostDetail from "../../components/PostDetail";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import { useEffect, useState } from "react";
-import { POST_API } from "~/app/constants";
+import { VIBELY_API } from "~/app/constants";
 import axios from "axios";
 import "./index.scss"
 import { scroll } from "framer-motion"
@@ -19,7 +19,7 @@ function Feeds() {
 
     const fetchPosts = async () => {
        try {
-          const response = await axios.get(POST_API);
+          const response = await axios.get(`${VIBELY_API}/posts`);
           setPosts(response.data)
           setIsLoading(false)
         } catch (error) {

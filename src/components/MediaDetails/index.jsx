@@ -56,7 +56,7 @@ function MediaDetails({images, currentIndex, onClose}) {
                     </button>
                 </div>
                 <MediaPost
-                    id={images[selectedImageIndex].id}
+                    id={images[selectedImageIndex].postId}
                 />
                 {/*<PostDetail/>*/}
             </Dialog>

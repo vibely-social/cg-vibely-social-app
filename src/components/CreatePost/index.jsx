@@ -6,6 +6,7 @@ import ppl from "../../assets/img/ppl.png"
 import { USER } from "~/app/constants";
 
 function CreatePost() {
+    
     const [isOpen, setIsOpen] = useState(false)
     const classBtn = "d-flex align-items-center hover-vibe cursor-pointer p-2 rounded-xxl post-button font-xssss fw-600 ls-1 text-grey-700 text-dark pe-3 ps-3 "
 
@@ -18,7 +19,7 @@ function CreatePost() {
             <Card.Body className="p-0">
                 </Card.Body>
                 <Card.Body className="p-0 mt-3 d-flex justify-content-center pb-2 ">
-                    <figure className="avatar ms-0 mt-1 top-2 " ><img style={{width: '35px',height: "40px",overflow: 'hidden'}} src={ppl}  className="shadow-sm rounded-circle" /></figure>
+                    <figure className="avatar ms-0 mt-1 top-2 " ><img onClick={() => setIsOpen(true)} style={{width: '40px',height: "40px",overflow: 'hidden'}} src={USER.avatar ? USER.avatar : ppl}  className="hover-vibe shadow-sm rounded-circle" /></figure>
                     <textarea onClick={() => setIsOpen(true)} style={{height: "50px",width: "90%",resize: "none"}} className="hover-vibe cursor-pointer float-right ms-2 bor-0 rounded-xxl p-2 ps-3 font-xssss text-grey-500 fw-500 border-light-md " placeholder="What's on your mind?" />
                 </Card.Body>
                   <NewPostModal isOpen={isOpen} closeModal={closeModal} />
