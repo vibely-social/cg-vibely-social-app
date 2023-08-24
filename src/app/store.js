@@ -5,19 +5,21 @@ import toggleLoader from '~/features/toggleLoader';
 import {getFriendsSlice} from "~/features/getFriends/index.js";
 import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
-import {getUserInfoSlice} from "~/features/userInfoSlice/index.js";
+import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
 import {authenticationSlice} from "~/features/authentication/index.js";
+import {getMediaSlice} from "~/features/getMedia/index.jsx";
 
 const store = configureStore({
     reducer: {
         sidebar: sidebarSlice,
         openChat: toggleChat.reducer,
         firstLoad: toggleLoader.reducer,
-        userInfo: getUserInfoSlice.reducer,
+        userInfo: getUserInfoSlice,
         friends: getFriendsSlice.reducer,
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
-        authentication: authenticationSlice.reducer
+        authentication: authenticationSlice.reducer,
+        media: getMediaSlice.reducer
     },
 });
 export default store

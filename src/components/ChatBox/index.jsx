@@ -3,7 +3,6 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {useSelector} from "react-redux";
 import {selectConversation} from "~/features/switchConversation/index.js";
-import {getStoredUserData} from "~/service/accountService.js";
 import Messages from "~/components/Messages/index.jsx";
 
 
@@ -11,7 +10,6 @@ function ChatBox({CHAT_CLIENT, messages}) {
     const [emojiVisible, setEmojiVisible] = useState(false)
     const chatInput = useRef();
     const chatBox = useRef();
-    const user = getStoredUserData()
     const contactUser = useSelector(selectConversation)
     const [newMessage, setNewMessage] = useState('');
 
@@ -24,7 +22,6 @@ function ChatBox({CHAT_CLIENT, messages}) {
             CHAT_CLIENT.publish({
                 destination: "/app/ws",
                 body: JSON.stringify({
-                    senderName: user ? user.firstName : 'anonymous',
                     receiver: contactUser.email,
                     content: newMessage
                 })

@@ -16,6 +16,8 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+
 @media (max-width: 500px){
   .dialog-post{
     overflow: visible;
@@ -221,3 +223,4 @@ form textarea:valid ~ .button-post:hover{
   pointer-events: none;
   cursor: not-allowed;
 }
+
