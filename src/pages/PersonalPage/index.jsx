@@ -23,6 +23,11 @@ function PersonalPage() {
         getUserInfo()
     },[])
 
+    const toggleToMedia = () => {
+        setType("Media");
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }
+
     return (<>
         <div className="row">
             <div className="col-lg-12">
@@ -108,7 +113,7 @@ function PersonalPage() {
             </div>
             <div className="col-lg-12">
                 {
-                    type === 'Posts' ? <PostTab/>
+                    type === 'Posts' ? <PostTab toggle={toggleToMedia}/>
                         : type === 'About' ? <IntroductionTab/>
                             : type === 'Friends' ? <FriendTab/>
                                 : <MediaTab/>

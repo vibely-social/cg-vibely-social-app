@@ -12,7 +12,9 @@ function MediaTab() {
     const [type, setType] = useState("Photos")
 
     useEffect(() => {
+        if (status === "idle")
         dispatch(getMedia())
+        console.log(images);
     }, [dispatch]);
 
     return (
