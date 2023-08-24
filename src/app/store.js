@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { getCitiesSlice } from "~/features/getCities/index.js";
 import { getFriendsSlice } from "~/features/getFriends/index.js";
 import { getMediaSlice } from "~/features/getMedia/index.jsx";
-import { getPostDetailsSlice } from "~/features/getPostDetails/index.jsx";
+import { getMediaPostDetailsSlice } from "~/features/getMediaPostDetails/index.jsx";
 import { loadOldMessagesSlice } from "~/features/loadOldMessages/index.js";
 import { messengerSlice } from "~/features/messeger/index.js";
 import { suggestionFriendsSlice } from "~/features/suggestionFriends/index.js";
@@ -27,7 +27,7 @@ const store = configureStore({
         cities: getCitiesSlice.reducer,
         suggestionFriends: suggestionFriendsSlice.reducer,
         media: getMediaSlice.reducer,
-        postDetails: getPostDetailsSlice.reducer,
+        mediaPostDetails: getMediaPostDetailsSlice.reducer,
     },
 });
 export default store

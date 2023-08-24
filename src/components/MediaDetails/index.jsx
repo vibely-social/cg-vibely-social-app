@@ -4,22 +4,55 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import './index.css';
 import MediaPost from '~/components/MediaDetails/MediaPost/index.jsx';
-import PostDetail from "~/components/PostDetail/index.jsx";
 
-function MediaDetails({images, currentIndex, onClose}) {
-    const [selectedImageIndex, setSelectedImageIndex] = useState(currentIndex);
+function MediaDetails({images, currentImageIndex, currentGalleryIndex, onClose}) {
+    const [selectedImageIndex, setSelectedImageIndex] = useState(currentImageIndex);
+    const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(currentGalleryIndex)
 
     const handleClose = () => {
         setSelectedImageIndex(-1);
+        setSelectedGalleryIndex(-1);
         onClose();
     };
 
     const handlePrevImage = () => {
-        setSelectedImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : images.length - 1));
+        if (selectedImageIndex > 0) {
+            if (selectedGalleryIndex > 0) {
+                setSelectedGalleryIndex((prev) => prev - 1);
+            } else if (selectedGalleryIndex === 0) {
+                setSelectedImageIndex((prev) => prev - 1);
+                setSelectedGalleryIndex(images[selectedImageIndex].gallery.length - 1);
+            }
+        } else if (selectedImageIndex === 0) {
+            if (selectedGalleryIndex > 0) {
+                setSelectedGalleryIndex((prev) => prev - 1);
+            } else if (selectedGalleryIndex === 0) {
+                setSelectedImageIndex(images.length - 1);
+                setSelectedGalleryIndex(images[selectedImageIndex].gallery.length - 1);
+            }
+        }
+
+        // setSelectedImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : images.length - 1));
     };
 
     const handleNextImage = () => {
-        setSelectedImageIndex((prevIndex) => (prevIndex < images.length - 1 ? prevIndex + 1 : 0));
+        if (selectedImageIndex < images.length - 1) {
+            if (selectedGalleryIndex < images[selectedImageIndex].gallery.length - 1) {
+                setSelectedGalleryIndex((prev) => prev + 1);
+            } else if (selectedGalleryIndex === images[selectedImageIndex].gallery.length - 1) {
+                setSelectedImageIndex((prev) => prev + 1);
+                setSelectedGalleryIndex(0);
+            }
+        } else if (selectedImageIndex === images.length - 1) {
+            if (selectedGalleryIndex < images[selectedImageIndex].gallery.length - 1) {
+                setSelectedGalleryIndex((prev) => prev + 1);
+            } else if (selectedGalleryIndex === images[selectedImageIndex].gallery.length - 1) {
+                setSelectedImageIndex(0);
+                setSelectedGalleryIndex(0);
+            }
+        }
+
+        // setSelectedImageIndex((prevIndex) => (prevIndex < images.length - 1 ? prevIndex + 1 : 0));
     };
 
     const closeIcon = (
@@ -31,7 +64,7 @@ function MediaDetails({images, currentIndex, onClose}) {
     return (
         <div className="modal-backdrop">
             <Dialog
-                visible={selectedImageIndex >= 0}
+                visible={selectedImageIndex >= 0 && selectedGalleryIndex >= 0}
                 onHide={handleClose}
                 closeIcon={closeIcon}
                 className="p-dialog modal-backdrop"
@@ -40,7 +73,7 @@ function MediaDetails({images, currentIndex, onClose}) {
                 resizable={false}
                 position="left"
                 footer={null}
-                style={{width: '80vw',maxWidth: "calc(100vh-280px)"}}
+                style={{width: '80vw', maxWidth: "calc(100vh-280px)"}}
             >
                 <div className="image-container">
                     <button className="prev-button left-0" onClick={handlePrevImage}>
@@ -48,15 +81,15 @@ function MediaDetails({images, currentIndex, onClose}) {
                     </button>
                     <img
                         className="modal-image"
-                        src={images[selectedImageIndex]?.fileName}
-                        alt={`Image ${selectedImageIndex}`}
+                        src={images[selectedImageIndex].gallery[selectedGalleryIndex]}
+                        alt="Picture"
                     />
                     <button className="next-button" onClick={handleNextImage}>
                         <span className="pi pi-chevron-right"></span>
                     </button>
                 </div>
                 <MediaPost
-                    id={images[selectedImageIndex].postId}
+                    id={images[selectedImageIndex].id}
                 />
                 {/*<PostDetail/>*/}
             </Dialog>

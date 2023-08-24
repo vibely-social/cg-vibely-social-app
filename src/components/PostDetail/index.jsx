@@ -4,6 +4,7 @@ import Photogrid from "react-facebook-photo-grid";
 import ppl from "../../assets/img/ppl.png"
 import { motion } from "framer-motion";
 
+
 function PostDetail({data}) {
 
     
