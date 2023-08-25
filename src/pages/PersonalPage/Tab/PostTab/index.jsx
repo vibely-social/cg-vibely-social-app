@@ -1,11 +1,11 @@
 import NewPost from "../../../../components/CreatePost/index";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import PersonalIntro from "~/components/PersonalIntro/index.jsx";
+import { VIBELY_API } from "~/app/constants";
 import MediaList from "~/components/MediaList/index.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import {getMedia} from "~/features/getMedia/index.jsx";
 import {useEffect, useState} from "react";
-import {POST_API} from "~/app/constants";
 import axios from "axios";
 import "~/pages/PersonalPage/Tab/IntroductionTab/index.css"
 
@@ -19,10 +19,10 @@ function PostTab({toggleAbout, toggleMedia}) {
 
 
     const fetchPosts = async () => {
-        try {
-            const response = await axios.get(POST_API);
-            setPosts(response.data)
-            setIsLoading(false)
+       try {
+          const response = await axios.get(`${VIBELY_API}/posts`);
+          setPosts(response.data)
+          setIsLoading(false)
         } catch (error) {
             console.error('Error fetching data:', error);
         }
