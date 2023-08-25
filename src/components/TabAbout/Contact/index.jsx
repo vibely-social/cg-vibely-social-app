@@ -13,6 +13,7 @@ function Contact() {
     const userInfo = useSelector(state => state.userInfo);
     const currentUser = getStoredUserData();
     const dispatch = useDispatch();
+    //TODO: will implement loading feature
     // const loading = useSelector(selectGetCitiesIsLoading)
     const cityList = useSelector(selectCities);
     const success = useSelector(selectGetCitiesIsSuccess);
@@ -146,7 +147,7 @@ function Contact() {
                                         <i onClick={() => setPhoneStatus(!phoneStatus)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                         </i>
-                                        : null
+                                        : <></>
                                     }
 
                                 </div>
@@ -271,7 +272,7 @@ function Contact() {
                                             <i onClick={() => setCityStatus(!cityStatus)}
                                                className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                             </i>
-                                            : null
+                                            : <></>
                                         }
 
                                     </div>
