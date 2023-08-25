@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getUserMedia} from "~/api/mediaTabApi.js";
 
-export const getMedia = createAsyncThunk("media", async () => {
-    const response = await getUserMedia();
+export const getMedia = createAsyncThunk("media", async (id) => {
+    const response = await getUserMedia(id);
     console.log(response.data)
     return response.data;
 });

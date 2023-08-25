@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getMedia} from "~/features/getMedia/index.jsx";
 import MediaList from "~/components/MediaList/index.jsx";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function MediaTab() {
     const tabs = ["Photos", "Videos"]
@@ -12,9 +13,10 @@ function MediaTab() {
     const [type, setType] = useState("Photos")
 
     useEffect(() => {
-        // if (status === "idle")
-        // dispatch(getMedia())
-        // console.log(images);
+        const user = getStoredUserData();
+        if (status === "idle") {
+            dispatch(getMedia(user.id))
+        }
     }, [dispatch]);
 
     return (
