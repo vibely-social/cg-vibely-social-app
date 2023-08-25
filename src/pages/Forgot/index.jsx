@@ -7,18 +7,15 @@ import logo from "~/assets/img/logo.svg";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-
   selectCheckEmailForgotError,
   selectCheckEmailForgotSuccess,
-
   selectUserData,
-
   checkEmailForgot,
-  setCheckEmailForgotSuccess
+  setCheckEmailForgotSuccess,
 } from "~/features/userAccount/index.js";
-import { Slide, ToastContainer, toast } from 'react-toastify';
+import { Slide, ToastContainer, toast } from "react-toastify";
 import "./index.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function Forgot() {
   const dispatch = useDispatch();
@@ -35,18 +32,18 @@ function Forgot() {
 
   useEffect(() => {
     if (success) {
-      toast.success('Đã gửi email thành công!',{ closeOnClick: true });
+      toast.success("Đã gửi email thành công!", { closeOnClick: true });
       dispatch(setCheckEmailForgotSuccess(false));
       setTimeout(() => {
-        navigate('/login');
-    },1000);
+        navigate("/login");
+      }, 1000);
     }
   }, [success]);
 
   useEffect(() => {
     if (error) {
       setErrorMessage("Wrong email!");
-      toast.error('Wrong email!', { closeOnClick: true });
+      toast.error("Wrong email!", { closeOnClick: true });
     }
   }, [error]);
 
@@ -65,19 +62,19 @@ function Forgot() {
   return (
     <div>
       <ToastContainer
-          position="top-right"
-          autoClose={1000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          transition={Slide}
-          className="custom-toast-container" // Áp dụng lớp CSS tùy chỉnh
-          toastClassName="custom-toast"
-        />
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Slide}
+        className="custom-toast-container"
+        toastClassName="custom-toast"
+      />
       <div className="main-wrap">
         <div className="nav-header bg-transparent shadow-none border-0">
           <div className="nav-top w-100">
@@ -143,7 +140,6 @@ function Forgot() {
                     </div>
                   </OverlayTrigger>
 
-              
                   <div className="form-check text-left mb-3"></div>
                   <div className="col-sm-12 p-0 text-left">
                     <div className="form-group mb-1">
