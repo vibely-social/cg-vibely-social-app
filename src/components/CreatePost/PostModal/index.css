@@ -213,14 +213,15 @@ form textarea:valid ~ .button-post:hover{
   background: #dedddd;
 }
 
-.MuiDialog-root{
-  display: none;
-}
-.MuiDialog-container {
+/* .MuiDialog-root{
+  cursor: pointer;
+} */
+
+/* .MuiDialog-container {
   display: none;
 }
 .MuiGrid-align-items-xs-center {
   pointer-events: none;
   cursor: not-allowed;
-}
+} */
 

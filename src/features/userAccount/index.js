@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {checkEmailApi, loginApi, registerApi} from "~/api/accountApi.js";
+import {checkEmailApi, loginApi, registerApi, checkEmailForgotApi} from "~/api/accountApi.js";
 
 
 export const loginToAccount = createAsyncThunk("login", async (data) => {
@@ -15,14 +15,21 @@ export const registerAccount = createAsyncThunk("register", async (data) => {
 export const checkEmail = createAsyncThunk("check-email", async (data) => {
     return await checkEmailApi(data)
 })
+
+export const checkEmailForgot = createAsyncThunk("check-email-forgot", async (data) => {
+    return await checkEmailForgotApi(data)
+})
+
 const initialState = {
-    user: null,
+    user: {},
     loading: false,
     error: null,
     loginSuccess: false,
     checkEmailSuccess: false,
     registerSuccess: false,
-    registerError: false
+    registerError: false,
+    checkEmailForgotSuccess: false,
+    checkEmailForgotError: false,
 }
 export const userAccountSlice = createSlice({
     name: 'userAccount',
@@ -48,6 +55,9 @@ export const userAccountSlice = createSlice({
         },
         setUser: (state, action) => {
             state.user = action.payload
+        },
+        setCheckEmailForgotSuccess: (state,action) => {
+            state.checkEmailForgotSuccess = action.payload;
         }
     },
     extraReducers: builder => {
@@ -104,6 +114,22 @@ export const userAccountSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
+            //check forgot email
+            .addCase(checkEmailForgot.pending, (state) => {
+                state.checkEmailForgotSuccess = false;
+                state.loading = true;
+                state.checkEmailForgotError = false;
+            })
+            .addCase(checkEmailForgot.rejected, (state, action) => {
+                state.checkEmailForgotSuccess = false;
+                state.loading = false;
+                state.checkEmailForgotError = action.error;
+            })
+            .addCase(checkEmailForgot.fulfilled, (state, action) => {
+                state.checkEmailForgotSuccess = true;
+                state.loading = false;
+                state.checkEmailForgotError = false;
+            })
     }
 })
 
@@ -112,6 +138,7 @@ export const {
     setError,
     setSuccess,
     resetAccountState,
+    setCheckEmailForgotSuccess,
     setUser
 } = userAccountSlice.actions;
 
@@ -122,5 +149,7 @@ export const selectRegisterIsSuccess = (state) => state.userAccount.registerSucc
 export const selectRegisterIsError = (state) => state.userAccount.registerError;
 export const selectLoginIsSuccess = (state) => state.userAccount.loginSuccess;
 export const selectUserData = (state) => state.userAccount.user;
+export const selectCheckEmailForgotSuccess = (state) => state.userAccount.checkEmailForgotSuccess;
+export const selectCheckEmailForgotError = (state) => state.userAccount.checkEmailForgotError;
 
 export default userAccountSlice.reducer;

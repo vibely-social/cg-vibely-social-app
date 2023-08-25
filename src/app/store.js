@@ -12,6 +12,7 @@ import {getCitiesSlice} from "~/features/getCities/index.js";
 import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
 import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
+import { getMediaPostDetailsSlice } from "~/features/getMediaPostDetails/index.jsx";
 
 const store = configureStore({
     reducer: {
@@ -27,7 +28,8 @@ const store = configureStore({
         cities: getCitiesSlice.reducer,
         suggestionFriends: suggestionFriendsSlice.reducer,
         media: getMediaSlice.reducer,
-        typingStatus: typingStatusSlice.reducer
+        typingStatus: typingStatusSlice.reducer,
+        mediaPostDetails: getMediaPostDetailsSlice.reducer,
     },
 });
 export default store
