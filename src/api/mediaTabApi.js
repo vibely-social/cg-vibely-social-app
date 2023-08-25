@@ -5,7 +5,7 @@ export const getUserMedia = async () => {
     let result = null;
     let user = JSON.parse(localStorage.getItem('user'))
     try {
-        result = await axios.get(`${VIBELY_API}/posts/${user.id}`,{
+        result = await axios.get(`${VIBELY_API}/posts/user/${user.id}`,{
             headers:{
                 Authorization: 'Bearer ' + user.accessToken
             }
