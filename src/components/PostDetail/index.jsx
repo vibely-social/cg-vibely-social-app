@@ -25,6 +25,10 @@ function PostDetail({data}) {
         }
     }
 
+    if (data == null) {
+
+    }
+
     return (
         <>
             <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3">

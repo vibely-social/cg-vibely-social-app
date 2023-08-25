@@ -21,8 +21,8 @@ export const useAuthorizeUser = () => {
                 .then(data => {
                     localStorage.setItem('user', JSON.stringify(
                         {
-                            accessToken: data,
-                            ...storedUser
+                            ...storedUser,
+                            accessToken: data
                         }
                     ))
                     localStorage.setItem('lastAuth','' + now)

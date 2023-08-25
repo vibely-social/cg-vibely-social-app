@@ -6,6 +6,7 @@ import MediaList from "~/components/MediaList/index.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import {getMedia} from "~/features/getMedia/index.jsx";
 import {useEffect, useState} from "react";
+import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
 import "~/pages/PersonalPage/Tab/IntroductionTab/index.css"
 
@@ -20,6 +21,7 @@ function PostTab({toggleAbout, toggleMedia}) {
 
     const fetchPosts = async () => {
        try {
+
           const response = await axios.get(`${VIBELY_API}/posts`);
           setPosts(response.data)
           setIsLoading(false)
@@ -30,9 +32,10 @@ function PostTab({toggleAbout, toggleMedia}) {
 
 
     useEffect(() => {
-        // if (status === "idle") {
-        //     dispatch(getMedia())
-        // }
+        const user = getStoredUserData();
+        if (status === "idle") {
+            dispatch(getMedia(user.id))
+        }
         fetchPosts()
     }, [dispatch]);
 
