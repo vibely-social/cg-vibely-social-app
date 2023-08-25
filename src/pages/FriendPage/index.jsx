@@ -34,7 +34,7 @@ function FriendPage() {
         const getUserInfo = async () => {
             if (currentUser.id !== params.id) {
                 const result = await userInfoApi(params.id);
-                if (result !==  null) {
+                if (result !==  undefined) {
                     dispatch(setUserInfo(result));
                 } else {
                     nagative('/404');

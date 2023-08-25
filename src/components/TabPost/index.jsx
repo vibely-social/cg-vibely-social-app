@@ -1,12 +1,14 @@
 import NewPost from "../CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import Intro from "~/components/TabPost/Intro/index.jsx";
+import {VIBELY_API} from "~/app/constants";
 import MediaList from "~/components/MediaList/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {POST_API} from "~/app/constants.js";
+import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
 import "~/pages/PersonalPage/index.css"
+import {getMedia} from "~/features/getMedia/index.jsx";
 
 
 function TabPost({toggleAbout, toggleMedia}) {
@@ -18,10 +20,11 @@ function TabPost({toggleAbout, toggleMedia}) {
 
 
     const fetchPosts = async () => {
-        try {
-            const response = await axios.get(POST_API);
-            setPosts(response.data)
-            setIsLoading(false)
+       try {
+
+          const response = await axios.get(`${VIBELY_API}/posts`);
+          setPosts(response.data)
+          setIsLoading(false)
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -29,9 +32,10 @@ function TabPost({toggleAbout, toggleMedia}) {
 
 
     useEffect(() => {
-        // if (status === "idle") {
-        //     dispatch(getMedia())
-        // }
+        const user = getStoredUserData();
+        if (status === "idle") {
+            dispatch(getMedia(user.id))
+        }
         fetchPosts()
     }, [dispatch]);
 

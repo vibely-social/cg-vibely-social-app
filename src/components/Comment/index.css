@@ -1,0 +1,6 @@
+#comment-section {
+  --bs-border-opacity: 0.4;
+    /* --bs-border-opacity: 0.4;
+    border-color: rgba(var(--bs-success-rgb), var(--bs-border-opacity)) !important; */
+  }
+

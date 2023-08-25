@@ -2,8 +2,9 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getMedia} from "~/features/getMedia/index.jsx";
 import MediaList from "~/components/MediaList/index.jsx";
+import {getStoredUserData} from "~/service/accountService.js";
 
-function TabMedia() {
+function MediaTab() {
     const tabs = ["Photos", "Videos"]
 
     const dispatch = useDispatch();
@@ -12,9 +13,10 @@ function TabMedia() {
     const [type, setType] = useState("Photos")
 
     useEffect(() => {
-        // if (status === "idle")
-        // dispatch(getMedia())
-        // console.log(images);
+        const user = getStoredUserData();
+        if (status === "idle") {
+            dispatch(getMedia(user.id))
+        }
     }, [dispatch]);
 
     return (
@@ -54,4 +56,4 @@ function TabMedia() {
 }
 
 
-export default TabMedia;
+export default MediaTab;

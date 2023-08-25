@@ -2,11 +2,12 @@ import {useEffect, useState} from "react";
 import "~/pages/PersonalPage/index.css"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/userInfoSlice/userInfoSlice.js";
 import TabPost from "~/components/TabPost/index.jsx";
 import TabAbout from "~/components/TabAbout/index.jsx";
 import TabFriend from "~/components/TabFriend/index.jsx";
 import TabMedia from "~/components/TabMedia/index.jsx";
+import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {Row} from "react-bootstrap";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function PersonalPage() {
@@ -35,7 +36,7 @@ function PersonalPage() {
     },[])
 
     return (<>
-        <div className="row">
+        <Row style={{marginTop:"12px"}}>
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
@@ -125,7 +126,7 @@ function PersonalPage() {
                                 : <TabMedia/>
                 }
             </div>
-        </div>
+        </Row>
     </>);
 }
 
