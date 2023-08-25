@@ -3,32 +3,42 @@ import { Card } from "react-bootstrap";
 import Photogrid from "react-facebook-photo-grid";
 import ppl from "../../assets/img/ppl.png"
 import { motion } from "framer-motion";
+import TimeAgo from 'javascript-time-ago'
+import ReactTimeAgo from 'react-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import { useState } from "react";
+import Comment from "../Comment";
+
 
 function PostDetail({data}) {
 
-    
+    TimeAgo.addDefaultLocale(en)
+    const [like,setLike] = useState(1)
+    const handleClickLike = () => {
+        setLike((preState) => preState+1)
+    }
 
     return (
         <>
-            <Card className="w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+            <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3">
                 <Card.Body className="p-0 d-flex">
                     <figure className="avatar me-2">
                         <img
-                            src={(data.author.avatar == null)? ppl : data.author.avatar}
+                            src={!data.author.avatar ? ppl : data.author.avatar}
                             alt="image"
-                            className="shadow-sm rounded-circle w45"/>
+                            className="shadow-sm rounded-circle w45" style={{height: "42px"}}/>
                     </figure>
-                    <h4 className="fw-700 text-grey-900 font-xss mt-0">
-                        {((data.author.firstName != undefined) ? data.author.firstName : "") 
+                    <h4 className="fw-700 text-grey-900 font-xsss  mt-1">
+                        {(data.author.firstName ? data.author.firstName : "") 
                                                                   + " " 
                                                                     + data.author.lastName}
-                        <span className="d-block font-xsss fw-500 mt-1 lh-3 text-grey-500">
-                            {data.createdDate}
+                        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                            <ReactTimeAgo date={data.createdDate} locale="en-US"/>
                         </span>
                         <i data-feather="circle"></i>
                     </h4>
-                    <a href="#" className="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown"
-                       aria-expanded="false"><i
+
+                    <a href="#" className="ms-auto" id="dropdownMenu2"><i
                         className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
                     <div className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
                          aria-labelledby="dropdownMenu2">
@@ -61,12 +71,12 @@ function PostDetail({data}) {
                 <Card.Body className=" p-0 me-lg-5">
                     <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0 ? true : false}/>
                 </Card.Body>
-                <Card.Body className="d-block p-0" >
+                <Card.Body className="d-block p-2" >
                       <Photogrid 
 						    images={data.gallery} 
 						/>
                 </Card.Body>
-                <Card.Body className="d-flex p-0 mt-3">
+                <Card.Body className="d-flex p-0 mt-3 ms-2 ">
                     <div 
                        className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">
                             <motion.i
@@ -75,6 +85,7 @@ function PostDetail({data}) {
                                 whileTap={{ scale: 1 }}
                                 style={{scale: 1.1}}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                onClick={handleClickLike}
                             />
                             <motion.i
                                 className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xss"
@@ -82,8 +93,9 @@ function PostDetail({data}) {
                                 whileTap={{ scale: 1 }}
                                 style={{scale: 1.1}}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                onClick={handleClickLike}
                             />
-                        {!data.likeCount ? 0 : data.likeCount} Like
+                        {!like ? 0 : like} Like
                     </div>
                     <div className="emoji-wrap">
                         <ul className="emojis list-inline mb-0">
@@ -123,7 +135,7 @@ function PostDetail({data}) {
                                     className="font-xs ti-pinterest text-white"></i></a></li>
                             </ul>
                         </div>
-                        <div className="card-body p-0 d-flex">
+                        <Card.Body className="p-0 d-flex">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
                                 <li className="me-1"><a href="#" className="btn-round-lg bg-tumblr"><i
                                     className="font-xs ti-tumblr text-white"></i></a></li>
@@ -136,7 +148,7 @@ function PostDetail({data}) {
                                 <li><a href="#" className="btn-round-lg bg-whatsup"><i
                                     className="font-xs feather-phone text-white"></i></a></li>
                             </ul>
-                        </div>
+                        </Card.Body>
                         <h4 className="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">Copy
                             Link</h4>
                         <i className="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
@@ -144,6 +156,7 @@ function PostDetail({data}) {
                                className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg"/>
                     </div>
                 </Card.Body>
+                <Comment data={data}/>
             </Card>
         </>
     )
