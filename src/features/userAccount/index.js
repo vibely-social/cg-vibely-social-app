@@ -45,6 +45,9 @@ export const userAccountSlice = createSlice({
             state.checkEmailSuccess = false;
             state.registerSuccess = false;
             state.registerError = false;
+        },
+        setUser: (state, action) => {
+            state.user = action.payload
         }
     },
     extraReducers: builder => {
@@ -108,7 +111,8 @@ export const {
     setLoading,
     setError,
     setSuccess,
-    resetAccountState
+    resetAccountState,
+    setUser
 } = userAccountSlice.actions;
 
 export const selectUserAccountSliceIsLoading = (state) => state.userAccount.loading;

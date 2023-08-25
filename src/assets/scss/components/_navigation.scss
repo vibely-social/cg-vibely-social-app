@@ -52,7 +52,7 @@
 
   @include media-breakpoint-down(lg) {
     padding: 9px 15px 9px 15px;
-    height: auto;
+    //height: auto;
     position: fixed;
     top: env(safe-area-inset-top);
     left: 0;
@@ -772,6 +772,12 @@
   width: 340px;
   &.menu-active{
     width: 200px;
+  }
+  @include media-breakpoint-down(md){
+    z-index: 998 !important;
+  }
+  @include media-breakpoint-down(sm){
+    z-index: 998 !important;
   }
 }
 .chat-navigation .nav-caption{

@@ -60,11 +60,11 @@ function ChatSidebar() {
 
 
     useEffect(() => {
-        if (Object.keys(currentConversation).length){
+        if (Object.keys(currentConversation).length) {
             setCurrentContact(currentConversation)
-        }else if (currentContact && currentContact.email) {
+        } else if (currentContact && currentContact.email) {
             dispatch(switchConversationTo(currentContact))
-        }else if (friends[0]){
+        } else if (friends[0]) {
             setCurrentContact(friends[0])
         }
     }, [friends, currentContact, currentConversation])
@@ -111,12 +111,13 @@ function ChatSidebar() {
                                                     <motion.img
                                                         whileHover={{scale: 1.1}}
                                                         style={{
-                                                            maxWidth: 50,
-                                                            maxHeight: 50,
-                                                            minWidth: 50,
-                                                            minHeight: 50
+                                                            maxWidth: 45,
+                                                            maxHeight: 45,
+                                                            minWidth: 45,
+                                                            minHeight: 45,
+                                                            marginLeft: 0,
                                                         }}
-                                                        className={" btn-sidebar me-3 "}
+                                                        className={" btn-sidebar me-3 border"}
                                                         src={friend.avatarUrl}/>
                                                     <span className="">{name}</span>
                                                 </Link>

@@ -15,20 +15,24 @@ export const useAuthorizeUser = () => {
             refreshToken = storedUser.refreshToken
         }
         const now = (new Date())/1000
-        if ((now - lastAuthentication > 1800)){
-            const response = refreshTokenApi(refreshToken)
-            response.then(response => response.data)
+        const authIdle = now - lastAuthentication
+        if (authIdle > 1800 || !storedUser.accessToken){
+            console.log('try to refresh token')
+            const response =  refreshTokenApi(refreshToken)
+            response
+                .then(response => response.data)
                 .then(data => {
                     localStorage.setItem('user', JSON.stringify(
                         {
-                            accessToken: data,
-                            ...storedUser
+                            ...storedUser,
+                            accessToken: data
                         }
                     ))
                     localStorage.setItem('lastAuth','' + now)
                     console.log('Authenticated!')
                 })
                 .catch(reason => {
+                    console.log('reason')
                     console.log(reason)
                     navigate("/login")
                 })

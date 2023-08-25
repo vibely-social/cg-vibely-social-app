@@ -1,21 +1,21 @@
-import {memo, useEffect, useMemo, useRef, useState} from "react";
+import {memo, useEffect, useRef, useState} from "react";
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {useDispatch, useSelector} from "react-redux";
 import {selectConversation} from "~/features/switchConversation/index.js";
-import Messages from "~/components/Messages/index.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 import {
     loadOldMessages,
-    selecAllOldMessages,
+    selectAllOldMessages,
     selectLoadOldMessagesIsSuccess,
     selectTotalPage,
     setLoadOldMessagesSuccess
-} from "~/features/loadOldMessages/index.js";
+} from "~/features/loadOldMessages/index.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {selectNewsMessages} from "~/features/messeger/index.js";
+import {selectNewsMessages} from "~/features/messeger/index.jsx";
 import Message from "~/components/Messages/Message/index.jsx";
-import { Toast } from 'primereact/toast';
+import {Link} from "react-router-dom";
+import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
 
 
 function ChatBox() {
@@ -23,54 +23,60 @@ function ChatBox() {
     const chatBox = useRef();
     const chatInput = useRef();
     const dispatch = useDispatch();
-    const user = getStoredUserData()
     const currentConversation = useSelector(selectConversation)
     const messages = useSelector(selectNewsMessages)
-    const messagesPage = useSelector(selecAllOldMessages)
+    const typingStatus = useSelector(selectTypingStatus)
+    const oldMessagesPage = useSelector(selectAllOldMessages)
 
-    const loadMessagesSuccess = useSelector(selectLoadOldMessagesIsSuccess)
+    const loadOldMessagesSuccess = useSelector(selectLoadOldMessagesIsSuccess)
     const totalPage = useSelector(selectTotalPage)
     const [newMessage, setNewMessage] = useState('');
     const [oldMessages, setOldMessages] = useState([]);
     const [page, setPage] = useState(0);
-
-
-
     const SocketClient = useStompWsClient();
+    const socketClient = useStompWsClient()
 
+    useEffect(()=>{
+        if (!socketClient.connected){
+            socketClient.activate();
+            console.log('activated')
+        }
+    },[currentConversation])
+
+
+//scroll to end
     useEffect(() => {
         // setScrollHeight(chatBox.current.scrollHeight)
-        console.log('scroll')
+        // console.log('scroll: ' + chatBox.current.scrollHeight)
         chatBox.current.scrollTop = chatBox.current.scrollHeight;
-    },[messages, currentConversation])
-
+        console.log('typingStatus')
+        console.log(typingStatus)
+    }, [messages, currentConversation, loadOldMessagesSuccess])
+//dispatch load old messages depend on page and conversation
     useEffect(() => {
-        if (Object.keys(currentConversation).length && user) {
-            if (!loadMessagesSuccess) {
+        if (Object.keys(currentConversation).length) {
                 dispatch(loadOldMessages({
                     contact: currentConversation.email,
                     page
                 }))
-            }
         }
     }, [currentConversation, page])
-
+// reset page
     useEffect(() => {
         setPage(0)
+        chatInput.current.focus()
     }, [currentConversation])
 
     useEffect(() => {
-        if (loadMessagesSuccess) {
-            setOldMessages(prevState => [...messagesPage[currentConversation.email], ...prevState])
-            console.log('totalPage')
-            console.log(totalPage)
+        if (oldMessagesPage && oldMessagesPage[currentConversation.email]) {
+            setOldMessages(oldMessagesPage[currentConversation.email])
+            dispatch(setLoadOldMessagesSuccess(false))
         }
-        dispatch(setLoadOldMessagesSuccess(false))
-    }, [loadMessagesSuccess, currentConversation])
+    }, [loadOldMessagesSuccess, currentConversation, oldMessagesPage])
 
     function sendMessage() {
         if (currentConversation) {
-            if (newMessage){
+            if (newMessage) {
                 SocketClient.publish({
                     destination: "/app/ws",
                     body: JSON.stringify({
@@ -78,12 +84,50 @@ function ChatBox() {
                         content: newMessage
                     })
                 });
-                console.log('sent')
+                console.log('Message sent!')
+
+                SocketClient.publish({
+                    destination: "/app/ws",
+                    body: JSON.stringify({
+                        isStatusType: true,
+                        typingStatus: false,
+                        receiver: currentConversation.email,
+                        content: ''
+                    })
+                });
             }
         }
         setNewMessage('')
     }
 
+
+    useEffect(()=>{
+        if (newMessage.length > 0){
+            SocketClient.publish({
+                destination: "/app/ws",
+                body: JSON.stringify({
+                    isStatusType: true,
+                    typingStatus: true,
+                    receiver: currentConversation.email,
+                    content: ''
+                })
+            });
+        }
+        if (newMessage.length === 0){
+            SocketClient.publish({
+                destination: "/app/ws",
+                body: JSON.stringify({
+                    isStatusType: true,
+                    typingStatus: false,
+                    receiver: currentConversation.email,
+                    content: ''
+                })
+            });
+        }
+    },[newMessage])
+
+
+//messages paging
     const pagingHandle = () => {
         const scrollableHeight = chatBox.current.scrollHeight;
         const scrollTop = chatBox.current.scrollTop;
@@ -100,7 +144,7 @@ function ChatBox() {
             }
         }
     }
-
+//chat-box scroll listener
     useEffect(() => {
         if (chatBox.current) {
             chatBox.current.addEventListener("scroll", pagingHandle)
@@ -112,47 +156,61 @@ function ChatBox() {
 
     return (
         <div className="col-lg-12 position-relative">
-            <div className="chat-wrapper pt-0 w-100 position-relative scroll-bar bg-white theme-dark-bg rounded-3"
-                 ref={chatBox}>
-                <div className="chat-body p-3 ">
-                    <div className="messages-content pb-0"
+            <div className="chat-wrapper w-100 position-relative bg-white theme-dark-bg rounded-3">
+                <div className='chat-top-label position-absolute top-0 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex'
+                    style={{transform:"none"}}
+                >
+                    <Link to={`/friends/${currentConversation.id}`}
+                          className='px-2 py-1 hover-button rounded text-dark'>
+                        <img src={currentConversation.avatarUrl ||
+                            "https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/d4adc754-c4ed-40ac-92a6-70dce7c929f2.png?alt=media"}
+                             alt="avatar"/>
+                        <span className='ms-2 fw-bold'>
+                            {currentConversation.firstName + ' ' + currentConversation.lastName}
+                        </span>
+                    </Link>
+                    <div>
+
+                    </div>
+                </div>
+                <div className="chat-body">
+                    <div className="messages-content px-3 scroll-bar position-relative"
+                         ref={chatBox}
                          onClick={() => setEmojiVisible(false)}>
 
-                        <>
-                            {
-                                oldMessages.map((message, index) => {
-                                    let displayMessage = {...message}
-                                    if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email){
-                                        if (displayMessage.sender === currentConversation.email) {
-                                            displayMessage.income = true
-                                        }
-                                        return <Message key={index} message={displayMessage}/>
+                        {
+                            oldMessages.map((message, index) => {
+                                let displayMessage = {...message}
+                                if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email) {
+                                    if (displayMessage.sender === currentConversation.email) {
+                                        displayMessage.income = true
                                     }
-                                })
-                            }
-                        </>
+                                    return <Message key={index} message={displayMessage}/>
+                                }
+                            })
+                        }
 
-                        <>
-                            {
-                                    messages.map((message, index) => {
-                                        let displayMessage = {...message}
-                                        if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email){
-                                            if (displayMessage.sender === currentConversation.email) {
-                                                displayMessage.income = true
-                                            }
-                                            return <Message key={index} message={displayMessage}/>
-                                        }
-                                    })
-                            }
-                        </>
-
-                        {/*<Messages messages={memoOldMessages}/>*/}
-                        {/*<Messages messages={memoMessages}/>*/}
-                        {/*<div className="clearfix"></div>*/}
+                        {
+                            messages.map((message, index) => {
+                                let displayMessage = {...message}
+                                if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email) {
+                                    if (displayMessage.sender === currentConversation.email) {
+                                        displayMessage.income = true
+                                    }
+                                    return <Message key={index} message={displayMessage}/>
+                                }
+                            })
+                        }
+                        <div className="clearfix">
+                            <img src="src/assets/img/KindlyActualKawala-size_restricted.gif"
+                                 alt="dot"
+                                 hidden={!typingStatus[currentConversation.email]}
+                                 style={{height:45}}/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="chat-bottom dark-bg p-3 shadow-none theme-dark-bg rounded-3" style={{width: "98%"}}>
+            <div className="chat-bottom dark-bg p-3 shadow theme-dark-bg rounded-3">
                 {emojiVisible && <div className='emoji-picker d-flex position-absolute' style={{top: '-428px'}}>
                     <Picker data={data}
                             onEmojiSelect={(emoji) => {
@@ -164,15 +222,17 @@ function ChatBox() {
                 <div className="chat-form">
                     <button className="bg-grey float-left"
                             onClick={() => setEmojiVisible(prevState => !prevState)}>
-                        <i className="ti-microphone text-grey-600"></i>
+                        <i className="ti-face-sad text-grey-600"></i>
                     </button>
                     <div className="">
                         <input type="text"
                                ref={chatInput}
                                value={newMessage}
-                               className='form-group bg-light'
+                               className='form-group bg-lightblue'
                                placeholder="Start typing..."
-                               onChange={(event) => setNewMessage(event.target.value)}
+                               onChange={(event) => {
+                                   setNewMessage(event.target.value);
+                               }}
                                onKeyDown={(event) => {
                                    if (event.key === "Enter") sendMessage()
                                }}
@@ -185,7 +245,6 @@ function ChatBox() {
                     </button>
                 </div>
             </div>
-
         </div>
     )
 }

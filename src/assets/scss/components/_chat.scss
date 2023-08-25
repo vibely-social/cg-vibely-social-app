@@ -287,6 +287,33 @@
   }
 }
 
+.chat-wrapper{
+  padding-top: 70px;
+  .chat-top-label{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    z-index: 3;
+    img{
+      max-height: 45px;
+      //max-width: 45px;
+      min-height: 48px;
+      min-width: 48px;
+      width: 48px;
+      border-radius: 50%;
+      background: aliceblue
+    }
+  }
+  .clearfix{
+    position: fixed;
+    bottom:0;
+    margin-bottom: 90px;
+    z-index: 2;
+  }
+}
+
+
 .chat-body {
   @include box-flex();
   margin: 0px 0 0;
@@ -307,7 +334,9 @@
     -moz-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
-    padding-bottom: 70px !important;
+    //padding-bottom: 70px !important;
+    //margin-top: 80px !important;
+    max-height: calc(100vh - 260px);
     // height: 800px;
 
     .message-item.outgoing-message {

@@ -5,12 +5,13 @@ import toggleLoader from '~/features/toggleLoader';
 import {getFriendsSlice} from "~/features/getFriends/index.js";
 import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
-import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.js";
-import {messengerSlice} from "~/features/messeger/index.js";
+import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.jsx";
+import {messengerSlice} from "~/features/messeger/index.jsx";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
 import {getCitiesSlice} from "~/features/getCities/index.js";
 import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
+import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
 
 const store = configureStore({
     reducer: {
@@ -25,7 +26,8 @@ const store = configureStore({
         messenger: messengerSlice.reducer,
         cities: getCitiesSlice.reducer,
         suggestionFriends: suggestionFriendsSlice.reducer,
-        media: getMediaSlice.reducer
+        media: getMediaSlice.reducer,
+        typingStatus: typingStatusSlice.reducer
     },
 });
 export default store
