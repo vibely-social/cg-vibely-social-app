@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import CommentSection from "../../Comment/CommentSection/index.jsx";
+import CommentSection from "../../Comment";
 import "./index.css"
 import {getMediaPostDetails} from "~/features/getMediaPostDetails/index.jsx";
 import {useDispatch, useSelector} from "react-redux";

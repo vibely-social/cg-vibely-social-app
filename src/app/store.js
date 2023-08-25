@@ -30,4 +30,5 @@ const store = configureStore({
         mediaPostDetails: getMediaPostDetailsSlice.reducer,
     },
 });
+
 export default store
