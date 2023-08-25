@@ -3,19 +3,26 @@ import { Card } from "react-bootstrap";
 import Photogrid from "react-facebook-photo-grid";
 import ppl from "../../assets/img/ppl.png"
 import { motion } from "framer-motion";
-import TimeAgo from 'javascript-time-ago'
 import ReactTimeAgo from 'react-time-ago'
-import en from 'javascript-time-ago/locale/en.json'
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import Comment from "../Comment";
+import likebtn from "../../assets/img/likebtn.png"
 
 
 function PostDetail({data}) {
 
-    TimeAgo.addDefaultLocale(en)
-    const [like,setLike] = useState(1)
+    const [like,setLike] = useState(0)
+    const [isLiked,setIsLiked] = useState(data.liked)
+
     const handleClickLike = () => {
-        setLike((preState) => preState+1)
+        if(isLiked) {
+            setLike((like) => like-1 )
+            setIsLiked(false)
+        }
+        else{
+            setLike((like) => like+1 )
+            setIsLiked(true)
+        }
     }
 
     return (
@@ -68,7 +75,7 @@ function PostDetail({data}) {
                         </div>
                     </div>
                 </Card.Body>
-                <Card.Body className=" p-0 me-lg-5">
+                <Card.Body className="p-0 me-lg-5">
                     <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0 ? true : false}/>
                 </Card.Body>
                 <Card.Body className="d-block p-2" >
@@ -80,15 +87,16 @@ function PostDetail({data}) {
                     <div 
                        className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">
                             <motion.i
-                                className="feather-thumbs-up cursor-pointer text-white bg-primary-gradiant me-1 btn-round-xs me-2 font-xss"
+                                className={(isLiked ? "bg-primary-gradiant" : "bg-tumblr") + " feather-thumbs-up cursor-pointer text-white me-1 btn-round-xs me-2 font-xsss"}
                                 whileHover={{ scale: 1.4 }}
                                 whileTap={{ scale: 1 }}
                                 style={{scale: 1.1}}
+                                src={likebtn}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                                 onClick={handleClickLike}
                             />
                             <motion.i
-                                className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xss"
+                                className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xsss"
                                 whileHover={{ scale: 1.6 }}
                                 whileTap={{ scale: 1 }}
                                 style={{scale: 1.1}}
@@ -111,7 +119,7 @@ function PostDetail({data}) {
                     </div>
                     <a href="#" className="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
                         className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span
-                        className="d-none-xss"> {!data.commentCount ? 0 : data.commentCount} Comment</span></a>
+                        className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment</span></a>
                     <a href="#" id="dropdownMenu21" data-bs-toggle="dropdown" aria-expanded="false"
                        className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
                         className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span

@@ -10,6 +10,7 @@ import WebSocketClient from 'websocket';
 import { set } from 'date-fns';
 import { VIBELY_API } from '~/app/constants.js';
 import axios from 'axios';
+import { getAccessToken } from '~/service/accountService.js';
 
 function Comment({data}) {   
 
@@ -17,7 +18,7 @@ function Comment({data}) {
     const [comments,setComments] = useState([])
     const [file,setFile] = useState(null)
     const [inputComment,setInputComment] = useState("")
-
+    const token = getAccessToken()
 
     const  handleEnterDown = async (event)  => {
         if(event.key == "Enter" && inputComment != "") {
@@ -25,15 +26,15 @@ function Comment({data}) {
           const formData = new FormData();
           formData.append('newComment', newComment)
           setComments((comments) => [...comments,newComment])
-          try {
+        try {
               const response =  await axios.post(`${VIBELY_API}/posts/${data.id}/comment`, formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
-                  'Authorization': 'Bearer '+ USER.accessToken,
+                  'Authorization': 'Bearer '+ token,
                 },
             });
               ref.current.value = ""
-             } catch (error) {
+            } catch (error) {
               ref.current.value = ""
             }
       }
@@ -69,7 +70,6 @@ function Comment({data}) {
                     {data.comments?.map((comment,index) => {
                         return <CommentLine key={index} data={comment}/>
                     })}
-
                     </div>
                 </div>
               </Card.Body>

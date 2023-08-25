@@ -9,13 +9,14 @@ import { suggestionFriendsSlice } from "~/features/suggestionFriends/index.js";
 import { switchConversationSlice } from "~/features/switchConversation/index.js";
 import toggleChat from '~/features/toggleChat';
 import toggleLoader from '~/features/toggleLoader';
-import sidebarSlice from '~/features/toggleSidebar';
+import {sidebarSlice} from '~/features/toggleSidebar';
 import { userAccountSlice } from "~/features/userAccount/index.js";
 import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
+import postsSlice from '~/features/getPosts';
 
 const store = configureStore({
     reducer: {
-        sidebar: sidebarSlice,
+        sidebar: sidebarSlice.reducer,
         openChat: toggleChat.reducer,
         firstLoad: toggleLoader.reducer,
         userInfo: getUserInfoSlice,
@@ -28,6 +29,7 @@ const store = configureStore({
         suggestionFriends: suggestionFriendsSlice.reducer,
         media: getMediaSlice.reducer,
         mediaPostDetails: getMediaPostDetailsSlice.reducer,
+        posts: postsSlice.reducer
     },
 });
 

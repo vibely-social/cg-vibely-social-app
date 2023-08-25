@@ -13,3 +13,8 @@ export const PROVINCES_API = "https://provinces.open-api.vn/api/?depth=2"
 export const GET_IMAGES = ""
 
 export const GET_POST = `${VIBELY_API}/`
+
+export const HEADERS = {
+    'Authorization': 'Bearer ' + USER?.accessToken,
+    'Content-Type': 'application/json'
+  };

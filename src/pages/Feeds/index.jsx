@@ -1,51 +1,46 @@
 import RightFeed from "./RightFeeds";
-import {Col, Row} from "react-bootstrap";
+import {Col, Row, Button} from "react-bootstrap";
 import CreatePost from "../../components/CreatePost";
 import PostDetail from "../../components/PostDetail";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import { useEffect, useState } from "react";
-import { VIBELY_API } from "~/app/constants";
-import axios from "axios";
 import "./index.scss"
-import {getStoredUserData} from "~/service/accountService.js";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import { useDispatch,useSelector } from 'react-redux';
+import { fetchPosts } from "~/features/getPosts";
+import {createPost} from "../../features/getPosts"
 
 function Feeds() {
 
+    TimeAgo.addDefaultLocale(en)
     useAuthorizeUser()
-    const USER = getStoredUserData()
-    const [posts, setPosts] = useState([]);
-    const [isLoading,setIsLoading] = useState(true)
-    const [newPost,setNewPost] = useState(null)
-    const headers = {
-      'Authorization': 'Bearer ' + USER.accessToken,
-      'Content-Type': 'application/json'
-    };
-    const fetchPosts = async () => {
-    try {
-          const response = await axios.get(`${VIBELY_API}/posts`,{headers});
-          setPosts(response.data)
-          setIsLoading(false)
-        } catch (error) {
-          console.error('Error fetching data:', error);
+    const dispatch = useDispatch();
+    const { isLoading, isSuccess, newPosts, isFailed } = useSelector((state) => state.posts);
+    const [loaded,setLoaded] = useState(false)
+    
+    
+
+    useEffect(() => {
+        dispatch(fetchPosts())
+        // fake loader
+        if(isLoading == false){
+            setTimeout(() => setLoaded(true),500) 
         }
-      };
-      useEffect(() => {
-        setTimeout(() => fetchPosts(),500)
-        
-      }, []);
-      
+        else{
+            setLoaded(true)
+        }
+      },[dispatch]);
+
+
 
     return (
         <Row className="feed-body pt-3">
             <Col xl={8} xxl={9} lg={8}>
 
-                <CreatePost setNewPost={setNewPost} />
-
-                    {(newPost != null)
-                            &&  <PostDetail data={newPost} />
-                    }
+                <CreatePost />
             
-             {isLoading ? 
+             {!loaded ? 
                 (<div className="preloader-feed">
                         <div className="box shimmer">
                             <div className="lines">
@@ -66,7 +61,7 @@ function Feeds() {
                     </div>) 
                  : 
                  
-                 posts.map((post,index) => {
+                 newPosts?.map((post,index) => {
                    return <PostDetail data={post} key={index}/>
                  })
                 }
