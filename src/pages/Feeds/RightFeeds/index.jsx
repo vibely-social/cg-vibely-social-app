@@ -15,14 +15,9 @@ function RightFeed() {
   const [selectedItem, setSeletedItem] = useState(null);
   const [isReload, setIsReload] = useState(false);
 
-  const FRIENDS_SUGGESTION_API =
-    "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
   const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] = useState(false);
   const [suggestSelectedItem, setSuggestSelectedItem] = useState(null);
-  const [isReloadSuggestion, setIsReloadSuggestion] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [selectedConfirmItem, setSelectedConfirmItem] = useState(null);
-
   
   // -------------------------friend request delete----------------------------
 
