@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getMedia} from "~/features/getMedia/index.jsx";
 import MediaList from "~/components/MediaList/index.jsx";
 
-function MediaTab() {
+function TabMedia() {
     const tabs = ["Photos", "Videos"]
 
     const dispatch = useDispatch();
@@ -54,4 +54,4 @@ function MediaTab() {
 }
 
 
-export default MediaTab;
+export default TabMedia;

@@ -1,15 +1,17 @@
-import "../../index.css"
+import "~/pages/PersonalPage/index.css"
 import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfoSlice/userInfoSlice.js";
 import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function Contact() {
     const [phoneStatus, setPhoneStatus] = useState(false)
     const [cityStatus, setCityStatus] = useState(false)
     const userInfo = useSelector(state => state.userInfo);
+    const currentUser = getStoredUserData();
     const dispatch = useDispatch();
     // const loading = useSelector(selectGetCitiesIsLoading)
     const cityList = useSelector(selectCities);
@@ -140,20 +142,36 @@ function Contact() {
                                         <i className="feather-phone me-2"></i>
                                         {userInfo.phoneNumber}
                                     </h4>
-                                    <i onClick={() => setPhoneStatus(!phoneStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setPhoneStatus(!phoneStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : null
+                                    }
+
                                 </div>
                             </div>
-                            :
-                            <div className="d-flex align-items-center mb-1 ">
-                                <i onClick={() => setPhoneStatus(true)}
-                                   className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
-                                </i>
-                                <h4 onClick={() => setPhoneStatus(true)}
-                                    className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                    Add Mobile Phone number
-                                </h4>
-                            </div>
+                            : userInfo.id === currentUser.id ?
+
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setPhoneStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setPhoneStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        Add Mobile Phone number
+                                    </h4>
+                                </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="feather-phone me-2"></i>
+                                            No Phone number to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
 
@@ -249,26 +267,48 @@ function Contact() {
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-home me-2"></i>
                                             {userInfo.city + ", " + userInfo.district}</h4>
-                                        <i onClick={() => setCityStatus(!cityStatus)}
-                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                        {userInfo.id === currentUser.id ?
+                                            <i onClick={() => setCityStatus(!cityStatus)}
+                                               className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                            </i>
+                                            : null
+                                        }
+
                                     </div>
                                 </div>
                             </div>
-                            :
-                            <div>
+                            : userInfo.id === currentUser.id ?
+
                                 <div>
-                                    <h4 className="fw-500">City</h4>
+                                    <div>
+                                        <h4 className="fw-500">City</h4>
+                                    </div>
+                                    <div className="d-flex align-items-center mb-1 ">
+                                        <i onClick={() => setCityStatus(true)}
+                                           className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                        </i>
+                                        <h4 onClick={() => setCityStatus(true)}
+                                            className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                            Add current City
+                                        </h4>
+                                    </div>
                                 </div>
-                                <div className="d-flex align-items-center mb-1 ">
-                                    <i onClick={() => setCityStatus(true)}
-                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
-                                    </i>
-                                    <h4 onClick={() => setCityStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                        Add current City
-                                    </h4>
+                                :
+                                <div>
+                                    <div>
+                                        <h4 className="fw-500">City</h4>
+                                    </div>
+                                    <div
+                                        className="fw-600 mb-1 row">
+                                        <div className="mt-1 text-dark mb-1">
+                                            <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                                <i className="feather-home me-2"></i>
+                                                No City to show
+                                            </h4>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
                 }
             </div>
 
