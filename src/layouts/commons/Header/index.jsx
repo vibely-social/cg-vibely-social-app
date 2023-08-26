@@ -18,7 +18,7 @@ function Header() {
     let isFocusNotification = false;
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
-
+    const isChatPage = window.location.pathname === '/messenger'
     useAuthorizeUser()
 
     const CustomToggle = forwardRef(({children, onClick}, ref) => (
@@ -124,7 +124,7 @@ function Header() {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <motion.a
+            {!isChatPage && <motion.a
                 onClick={() => dispatch(toggleChatButton())}
                 whileHover={{scale: [null, 1.4, 1.3]}}
                 transition={{duration: 0.3}} onClickCapture={() => {
@@ -133,7 +133,7 @@ function Header() {
             }} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
                 <i style={{fontSize: '1.5rem'}}
                    className={isOnMess ? "feather-message-square cursor-pointer btn-round-md bg-vibe-light text-vibe" : "feather-message-square cursor-pointer btn-round-md  bg-greylight text-grey-500"}></i>
-            </motion.a>
+            </motion.a>}
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}

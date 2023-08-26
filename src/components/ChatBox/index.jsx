@@ -3,7 +3,6 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {useDispatch, useSelector} from "react-redux";
 import {selectConversation} from "~/features/switchConversation/index.js";
-import {getStoredUserData} from "~/service/accountService.js";
 import {
     loadOldMessages,
     selectAllOldMessages,
@@ -12,7 +11,7 @@ import {
     setLoadOldMessagesSuccess
 } from "~/features/loadOldMessages/index.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {selectNewsMessages} from "~/features/messeger/index.jsx";
+import {resetNewMessages, selectNewsMessages} from "~/features/messeger/index.jsx";
 import Message from "~/components/Messages/Message/index.jsx";
 import {Link} from "react-router-dom";
 import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
@@ -50,6 +49,9 @@ function ChatBox() {
         // setScrollHeight(chatBox.current.scrollHeight)
         // console.log('scroll: ' + chatBox.current.scrollHeight)
         chatBox.current.scrollTop = chatBox.current.scrollHeight;
+        setTimeout(()=>{
+            chatBox.current.scrollTop = chatBox.current.scrollHeight;
+        },100)
     }, [messages, currentConversation, loadOldMessagesSuccess])
 
 //dispatch load old messages depend on page and conversation
@@ -65,6 +67,7 @@ function ChatBox() {
 // reset page
     useEffect(() => {
         setPage(0)
+        dispatch(resetNewMessages())
         chatInput.current.focus()
     }, [currentConversation])
 
@@ -152,6 +155,7 @@ function ChatBox() {
         if (chatBox.current) {
             chatBox.current.addEventListener("scroll", pagingHandle)
         }
+
         return () => {
             removeEventListener("scroll", pagingHandle)
         }
