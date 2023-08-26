@@ -9,7 +9,6 @@ function Chat() {
     const position = useSelector(selectSidebarPosition)
     const currentConversation = useSelector(selectConversation)
     useAuthorizeUser()
-
     return (
         <>
             <ChatSidebar/>

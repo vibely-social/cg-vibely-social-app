@@ -2,18 +2,20 @@ import {useEffect, useState} from "react";
 import "./Tab/IntroductionTab/index.css"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {setUserInfo} from "~/features/userInfo/UserInfoSlice.js";
 import PostTab from "~/pages/PersonalPage/Tab/PostTab/index.jsx";
 import IntroductionTab from "~/pages/PersonalPage/Tab/IntroductionTab/index.jsx";
 import FriendTab from "~/pages/PersonalPage/Tab/FriendTab/index.jsx";
 import MediaTab from "~/pages/PersonalPage/Tab/MediaTab/index.jsx";
-import { Row } from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import {getStoredUserData} from "~/service/accountService.js";
+import {selectUserData} from "~/features/userAccount/index.js";
 
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
     const userInfo = useSelector(state => state.userInfo);
+    const user = useSelector(selectUserData);
     const dispatch = useDispatch();
 
     const toggleToAbout = () => {
@@ -25,30 +27,39 @@ function PersonalPage() {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }
 
-    useEffect( () => {
+    useEffect(() => {
         const getUserInfo = async () => {
             const user = getStoredUserData();
             const result = await userInfoApi(user.id);
             dispatch(setUserInfo(result));
         }
         getUserInfo()
-    },[])
-
+    }, [])
+    console.log(userInfo)
     return (<>
-        <Row style={{marginTop:"12px"}}>
+        <Row style={{marginTop: "12px"}}>
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
-                        <img src="https://via.placeholder.com/960x250.png" alt="image" style={{width: '100%'}}/>
+                        <img src={userInfo.background}
+                             alt="image"
+                             style={
+                                 {
+                                     width: '100%',
+                                     maxHeight: 250,
+                                     objectFit: "cover"
+                                 }
+                             }
+                        />
                     </div>
                     <div className="card-body p-0 position-relative">
                         <figure className="avatar position-absolute w100"
                                 style={{top: -40, left: 30}}>
-                            <img src="https://via.placeholder.com/50x50.png" alt="image"
+                            <img src={user.avatarUrl} alt="image"
                                  className="float-right p-1 bg-white rounded-circle w-100"/>
                         </figure>
-                        <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{userInfo.firstName}<span
-                            className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{userInfo.email}</span>
+                        <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{`${user.firstName} ${user.lastName}`}<span
+                            className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{user.email}</span>
                         </h4>
                         <div
                             className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
@@ -65,7 +76,7 @@ function PersonalPage() {
                                 <i className="ti-more font-md tetx-dark"></i>
                             </a>
                             <div
-                                className="dropdown-menu dropdown-menu-start p-4 rounded-xxl border-0 shadow-lg"
+                                className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
                                 aria-labelledby="dropdownMenu4">
                                 <div className="card-body p-0 d-flex">
                                     <i className="feather-bookmark text-grey-500 me-3 font-lg"></i>
@@ -117,11 +128,11 @@ function PersonalPage() {
                     </div>
                 </div>
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12 min-vh-100">
                 {
                     type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
                         : type === 'About' ? <IntroductionTab/>
-                            : type === 'Friends' ? <FriendTab />
+                            : type === 'Friends' ? <FriendTab/>
                                 : <MediaTab/>
                 }
             </div>

@@ -1,4 +1,4 @@
-import NewPost from "../../../../components/CreatePost/index";
+import NewPost from "~/components/CreatePost/index";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import PersonalIntro from "~/components/PersonalIntro/index.jsx";
 import { VIBELY_API } from "~/app/constants";
@@ -43,7 +43,7 @@ function PostTab({toggleAbout, toggleMedia}) {
     return (
         <>
             <div className="row">
-                <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
+                <div className="profile-left-sidebar col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="shadow-xss mb-3 mt-3">
                         <PersonalIntro toggle={toggleAbout}/>
                     </div>

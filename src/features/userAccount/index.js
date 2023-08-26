@@ -75,8 +75,6 @@ export const userAccountSlice = createSlice({
             .addCase(loginToAccount.fulfilled, (state, action) => {
                 state.loginSuccess = true;
                 state.loading = false;
-                console.log('action.payload')
-                console.log(action.payload)
                 state.user = action.payload;
                 state.error = false;
             })
@@ -87,13 +85,11 @@ export const userAccountSlice = createSlice({
                 state.registerError = false;
             })
             .addCase(registerAccount.rejected, (state, action) => {
-                console.log('rejected')
                 state.registerSuccess = false;
                 state.loading = false;
                 state.registerError = action.error;
             })
             .addCase(registerAccount.fulfilled, (state) => {
-                console.log('fulfilled')
                 state.registerSuccess = true;
                 state.loading = false;
                 state.registerError = false;

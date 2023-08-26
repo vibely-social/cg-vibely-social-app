@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
-import useViewport from "../../../../hooks/Viewport.jsx";
+import useViewport from "~/hooks/Viewport.jsx";
 import {memo, useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {selectSidebarPosition, toggle} from "../../../../features/toggleSidebar/index.js";
+import {selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
 import {ProgressSpinner} from "primereact/progressspinner";
 import {selectUserData} from "~/features/userAccount/index.js";
 import {
@@ -21,6 +21,7 @@ import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/ind
 // eslint-disable-next-line react/prop-types
 function ChatSidebar() {
     const viewPort = useViewport();
+    const friendList = useSelector(selectFriendList)
     const position = useSelector(selectSidebarPosition)
     const dispatch = useDispatch()
     const [smallScreen, setSmallScreen] = useState(false)
@@ -28,7 +29,6 @@ function ChatSidebar() {
     const loading = useSelector(selectGetFriendIsLoading)
     const currentConversation = useSelector(selectConversation)
     const [currentContact, setCurrentContact] = useState({})
-    const friendList = useSelector(selectFriendList)
     const success = useSelector(selectGetFriendIsSuccess)
     const [friends, setFriends] = useState([])
     useEffect(() => {
@@ -111,11 +111,11 @@ function ChatSidebar() {
                                                     <motion.img
                                                         whileHover={{scale: 1.1}}
                                                         style={{
-                                                            maxWidth: 45,
                                                             maxHeight: 45,
-                                                            minWidth: 45,
                                                             minHeight: 45,
+                                                            width: 45,
                                                             marginLeft: 0,
+                                                            objectFit: 'cover',
                                                         }}
                                                         className={" btn-sidebar me-3 border"}
                                                         src={friend.avatarUrl}/>

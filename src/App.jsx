@@ -1,10 +1,11 @@
+import "bootstrap/dist/js/bootstrap.min"
 import {BrowserRouter} from 'react-router-dom'
 import AppRoutes from './Routes/AppRoutes'
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {useEffect, useRef} from "react";
 import {addNewMessage, addUnreadMessage} from "~/features/messeger/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getAccessToken, getStoredUserData} from "~/service/accountService.js";
+import {getAccessToken} from "~/service/accountService.js";
 import {Toast} from "primereact/toast";
 import {setTypingStatus} from "~/features/typingStatus/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
@@ -24,7 +25,6 @@ function App() {
         }
         if (Notification.permission !== 'granted') {
             Notification.requestPermission().then(permission => {
-                console.log(permission)
                 const notify = new Notification('Vibely', {
                     icon: "src/assets/img/logo.svg",
                     body: "Hey there! Welcome to Vibely Social!",
@@ -58,7 +58,6 @@ function App() {
                 if (!messageContent.isStatusType) {
                     dispatch(addUnreadMessage(messageContent))
                     dispatch(addNewMessage(messageContent))
-                    console.log('add')
                 }else {
                     dispatch(setTypingStatus({
                         user: messageContent.sender,

@@ -47,11 +47,7 @@ function ChatBox() {
 //scroll to end
     useEffect(() => {
         // setScrollHeight(chatBox.current.scrollHeight)
-        // console.log('scroll: ' + chatBox.current.scrollHeight)
         chatBox.current.scrollTop = chatBox.current.scrollHeight;
-        setTimeout(()=>{
-            chatBox.current.scrollTop = chatBox.current.scrollHeight;
-        },100)
     }, [messages, currentConversation, loadOldMessagesSuccess])
 
 //dispatch load old messages depend on page and conversation
@@ -69,6 +65,9 @@ function ChatBox() {
         setPage(0)
         dispatch(resetNewMessages())
         chatInput.current.focus()
+        setTimeout(()=>{
+            chatBox.current.scrollTop = chatBox.current.scrollHeight;
+        },100)
     }, [currentConversation])
 
     useEffect(() => {
@@ -88,7 +87,6 @@ function ChatBox() {
                         content: newMessage
                     })
                 });
-                console.log('Message sent!')
 
                 SocketClient.publish({
                     destination: "/app/ws",
@@ -164,20 +162,22 @@ function ChatBox() {
     return (
         <div className="col-lg-12 position-relative">
             <div className="chat-wrapper w-100 position-relative bg-white theme-dark-bg rounded-3">
-                <div
-                    className='chat-top-label position-absolute top-0 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex'
-                    style={{transform: "none"}}>
-                    <Link to={`/friends/${currentConversation.id}`}
-                          className='px-2 py-1 hover-button rounded text-dark'>
-                        <img src={currentConversation.avatarUrl ||
-                            "https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/d4adc754-c4ed-40ac-92a6-70dce7c929f2.png?alt=media"}
-                             alt="avatar"/>
-                        <span className='ms-2 fw-bold'>
+                <div className='chat-top-label position-absolute px-4 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex justify-content-between'
+                    style={{transform: "none", top:0}}>
+                    <div className='px-2 py-1 rounded text-dark d-flex align-items-center'>
+                        <img src={currentConversation.avatarUrl}
+                             alt="avatar"
+                             className='border border-light shadow-md'
+                        />
+                        <div className='ms-2 fw-bold'>
                             {currentConversation.firstName + ' ' + currentConversation.lastName}
-                        </span>
-                    </Link>
+                        </div>
+                    </div>
                     <div>
-
+                        <Link to={`/friends/${currentConversation.id}`}
+                              className='px-2 py-1 rounded cursor-pointer text-dark'>
+                        <i className='feather-info font-lg text-light'></i>
+                    </Link>
                     </div>
                 </div>
                 <div className="chat-body">

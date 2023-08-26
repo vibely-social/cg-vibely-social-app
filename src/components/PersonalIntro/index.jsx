@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, formatDate, setBio, setHobbies} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {editUserInfo, formatDate, setBio, setHobbies} from "~/features/userInfo/UserInfoSlice.js";
 import {useFormik} from "formik";
 import "~/components/PersonalIntro/index.css"
 

@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
 import {forwardRef, useState} from 'react';
-import NavData from "../../../data/NavData.jsx"
+import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
-import Avatar from '../../../assets/img/ppl.png'
-import Logo from '../../../assets/img/logo.svg'
-import ava from "../../../assets/img/ava.jpg"
+import Avatar from '~/assets/img/ppl.png'
+import Logo from '~/assets/img/logo.svg'
+import ava from "~/assets/img/ava.jpg"
 import {Card, Form, FormGroup} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
-import {toggleChatButton} from '../../../features/toggleChat';
+import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 

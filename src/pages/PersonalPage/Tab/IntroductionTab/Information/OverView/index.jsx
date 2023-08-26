@@ -10,7 +10,7 @@ import {
     setCity,
     setSchool,
     setWork
-} from "~/features/userInfoSlice/UserInfoSlice.js";
+} from "~/features/userInfo/UserInfoSlice.js";
 import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
 
 function OverView() {

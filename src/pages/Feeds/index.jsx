@@ -1,7 +1,7 @@
 import RightFeed from "./RightFeeds";
 import {Col, Row} from "react-bootstrap";
-import CreatePost from "../../components/CreatePost";
-import PostDetail from "../../components/PostDetail";
+import CreatePost from "~/components/CreatePost";
+import PostDetail from "~/components/PostDetail";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import { useEffect, useState } from "react";
 import { VIBELY_API } from "~/app/constants";

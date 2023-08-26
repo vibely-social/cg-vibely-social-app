@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
-import ppl from "../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 import CommentLine from './CommentLine';
 import ReplyComment from './ReplyComment';
 import "./index.css"

@@ -4,10 +4,12 @@ import SidebarData from "~/data/SideBarData.jsx";
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
+import useSidebarData from "~/data/SideBarData.jsx";
 
 function MainNavigate({sidebarHover, chatNav = false}) {
     const position = useSelector(selectSidebarPosition)
     const dispatch = useDispatch()
+    const SidebarData = useSidebarData()
     const moreBtnStyle = {
         position: 'relative',
         cursor: 'pointer',

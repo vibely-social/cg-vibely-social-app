@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import ppl from "../../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 import "./index.css"
 import ReplyComment from '../ReplyComment';
 import ReactTimeAgo from 'react-time-ago';
