@@ -6,8 +6,6 @@ export const typingStatusSlice = createSlice({
     reducers:{
         setTypingStatus: (state, action) => {
             const user = action.payload.user;
-            console.log('action.payload')
-            console.log(action.payload)
             state[user] = action.payload.typingStatus;
         }
     }

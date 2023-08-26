@@ -295,7 +295,7 @@
     top: 0;
     left: -320px;
     background-color: transparent !important;
-    z-index: 1000;
+    z-index: 998;
     height: 100vh;
     padding-top: calc(#{$nav-logo-height} + 6px);
     transition: all 0.5s ease;

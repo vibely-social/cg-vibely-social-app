@@ -33,34 +33,35 @@ function ChatBox() {
     const [newMessage, setNewMessage] = useState('');
     const [oldMessages, setOldMessages] = useState([]);
     const [page, setPage] = useState(0);
+    const [chatFocus, setChatFocus] = useState(false);
+    const [haveContent, setHaveContent] = useState(false);
     const SocketClient = useStompWsClient();
     const socketClient = useStompWsClient()
 
-    useEffect(()=>{
-        if (!socketClient.connected){
+    useEffect(() => {
+        if (!socketClient.connected) {
             socketClient.activate();
             console.log('activated')
         }
-    },[currentConversation])
-
+    }, [currentConversation])
 
 //scroll to end
     useEffect(() => {
         // setScrollHeight(chatBox.current.scrollHeight)
         // console.log('scroll: ' + chatBox.current.scrollHeight)
         chatBox.current.scrollTop = chatBox.current.scrollHeight;
-        console.log('typingStatus')
-        console.log(typingStatus)
     }, [messages, currentConversation, loadOldMessagesSuccess])
+
 //dispatch load old messages depend on page and conversation
     useEffect(() => {
         if (Object.keys(currentConversation).length) {
-                dispatch(loadOldMessages({
-                    contact: currentConversation.email,
-                    page
-                }))
+            dispatch(loadOldMessages({
+                contact: currentConversation.email,
+                page
+            }))
         }
     }, [currentConversation, page])
+
 // reset page
     useEffect(() => {
         setPage(0)
@@ -100,9 +101,9 @@ function ChatBox() {
         setNewMessage('')
     }
 
-
-    useEffect(()=>{
-        if (newMessage.length > 0){
+//send typing status
+    useEffect(() => {
+        if (haveContent && chatFocus) {
             SocketClient.publish({
                 destination: "/app/ws",
                 body: JSON.stringify({
@@ -112,8 +113,7 @@ function ChatBox() {
                     content: ''
                 })
             });
-        }
-        if (newMessage.length === 0){
+        } else {
             SocketClient.publish({
                 destination: "/app/ws",
                 body: JSON.stringify({
@@ -124,18 +124,21 @@ function ChatBox() {
                 })
             });
         }
-    },[newMessage])
+    }, [haveContent, chatFocus])
 
+    useEffect(() => {
+        if (newMessage.length > 0) {
+            setHaveContent(true)
+        } else {
+            setHaveContent(false)
+        }
+    }, [newMessage])
 
 //messages paging
     const pagingHandle = () => {
         const scrollableHeight = chatBox.current.scrollHeight;
         const scrollTop = chatBox.current.scrollTop;
         const clientHeight = chatBox.current.clientHeight;
-
-        // console.log('scrollableHeight ' + scrollableHeight)
-        // console.log('scrollTop ' + scrollTop)
-
         if (scrollTop === 0) {
             if (scrollableHeight > clientHeight) {
                 if (page < totalPage - 1) {
@@ -144,7 +147,7 @@ function ChatBox() {
             }
         }
     }
-//chat-box scroll listener
+
     useEffect(() => {
         if (chatBox.current) {
             chatBox.current.addEventListener("scroll", pagingHandle)
@@ -157,9 +160,9 @@ function ChatBox() {
     return (
         <div className="col-lg-12 position-relative">
             <div className="chat-wrapper w-100 position-relative bg-white theme-dark-bg rounded-3">
-                <div className='chat-top-label position-absolute top-0 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex'
-                    style={{transform:"none"}}
-                >
+                <div
+                    className='chat-top-label position-absolute top-0 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex'
+                    style={{transform: "none"}}>
                     <Link to={`/friends/${currentConversation.id}`}
                           className='px-2 py-1 hover-button rounded text-dark'>
                         <img src={currentConversation.avatarUrl ||
@@ -174,7 +177,7 @@ function ChatBox() {
                     </div>
                 </div>
                 <div className="chat-body">
-                    <div className="messages-content px-3 scroll-bar position-relative"
+                    <div className="messages-content px-3 scroll-bar position-relative pb-5"
                          ref={chatBox}
                          onClick={() => setEmojiVisible(false)}>
 
@@ -205,7 +208,7 @@ function ChatBox() {
                             <img src="src/assets/img/KindlyActualKawala-size_restricted.gif"
                                  alt="dot"
                                  hidden={!typingStatus[currentConversation.email]}
-                                 style={{height:45}}/>
+                                 style={{height: 45}}/>
                         </div>
                     </div>
                 </div>
@@ -237,6 +240,8 @@ function ChatBox() {
                                    if (event.key === "Enter") sendMessage()
                                }}
                                onClick={() => setEmojiVisible(false)}
+                               onFocus={() => setChatFocus(true)}
+                               onBlur={() => setChatFocus(false)}
                         />
                     </div>
                     <button className="bg-current"
