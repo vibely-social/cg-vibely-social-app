@@ -6,7 +6,7 @@ import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import logo from "~/assets/img/logo.svg";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {GoogleLogin} from "@react-oauth/google";
+import {useGoogleLogin} from "@react-oauth/google";
 import {
   loginToAccount,
   resetAccountState,
@@ -61,6 +61,10 @@ function Login() {
     }),
     onSubmit: (values) => handleLogin(values),
   });
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: (response) => console.log(response)
+  })
 
   let isInvalidEmail = formik.touched.email && formik.errors.email;
   let isInvalidPassword = formik.touched.password && formik.errors.password;
@@ -225,7 +229,8 @@ function Login() {
                 </div>
                 <div className="col-sm-12 p-0 mt-2">
                   <div className="form-group mb-1 ">
-                    <button className="w-100 d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
+                    <button className="w-100 d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"
+                          onClick={handleGoogleLogin}>
                       <img
                         src={google}
                         alt="icon"
