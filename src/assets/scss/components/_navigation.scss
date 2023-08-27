@@ -52,7 +52,6 @@
 
   @include media-breakpoint-down(lg) {
     padding: 9px 15px 9px 15px;
-    //height: auto;
     position: fixed;
     top: env(safe-area-inset-top);
     left: 0;
@@ -633,11 +632,8 @@
     padding-left: 10px;
     padding-right: 10px;
 
-    // background: var(--theme-color);
     @include media-breakpoint-down(md) {
-      //width: auto;
       .nav-wrap {
-        //box-shadow: none !important;
       }
     }
     @include media-breakpoint-up(lg) {

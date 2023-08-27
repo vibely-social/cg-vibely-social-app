@@ -71,9 +71,9 @@ function ChatBox() {
         setPage(0)
         dispatch(resetNewMessages())
         chatInput.current.focus()
-        // setTimeout(()=>{
-        //     chatBox.current.scrollTop = chatBox.current.scrollHeight;
-        // },100)
+        setTimeout(()=>{
+            chatBox.current.scrollTop = chatBox.current.scrollHeight;
+        },100)
     }, [currentConversation])
 
     useEffect(() => {

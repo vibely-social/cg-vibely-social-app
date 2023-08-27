@@ -42,6 +42,7 @@ function App() {
             console.log(frame)
             SocketClient.subscribe('/users/queue/messages', (message) => {
                 const messageContent = JSON.parse(message.body);
+                // Feature is in development
                 // if (messageContent && messageContent.sender !== user.email) {
                 //     // const notify = new Notification(messageContent.senderName, {
                 //     //     icon: "src/assets/img/logo.svg",
@@ -66,6 +67,7 @@ function App() {
                 }
             })
             SocketClient.subscribe('/users/queue/notify', (message) => {
+                //Feature is in development
                 const notify = message.body;
                 console.log(notify)
                 // showMessage(messageContent,toastBottomRight, 'success')

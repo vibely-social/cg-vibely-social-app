@@ -1,6 +1,5 @@
 import axios from "axios";
 import {VIBELY_API} from "~/app/constants.js";
-import { getAccessToken } from "~/service/accountService";
 
 
 export const loginApi = async (data) => {
@@ -17,6 +16,7 @@ export const registerApi = async (data) => {
     try {
         response = await axios.post(VIBELY_API + '/users', data)
     } catch (e) {
+        console.log('Register error!')
         console.log(e)
     }
     return response;
@@ -48,7 +48,6 @@ export const refreshTokenApi = async (refreshToken) => {
 }
 
 export const checkEmailForgotApi = async (email) => {
-    const accessToken = getAccessToken()
     try{
         const response = await axios.post(VIBELY_API + '/forgot_password',{email});
         return response.data;
