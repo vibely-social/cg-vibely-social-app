@@ -83,20 +83,22 @@ function RightChat() {
                         className="modal-popup-header w-100 border-bottom rounded-top-3 bg-grey shadow-md transform-none">
                         <div className="p-3 border-0 d-flex justify-content-between">
                             <div className="d-flex cursor-pointer">
-                                <div className="mb-0 position-relative hover-scale-1-1 smooth-transition">
+                                <div className="mb-0 position-relative hover-scale-1-1 smooth-transition d-flex justify-content-center align-items-center"
+                                     style={{
+                                         width: 37,
+                                         height: 37
+                                     }}>
                                     <img src={currentConversation.avatarUrl} alt="image"
                                          className="avatar-35 position-relative bg-light shadow"
                                          style={{
-                                             zIndex: 101,
-                                             margin: 1.5,
+                                             zIndex: 101
                                          }}/>
-                                    <span
-                                        className="position-absolute bg-primary-gradiant spinner-border rounded-circle left-0"
+                                    <span className="position-absolute bg-primary-gradiant spinner-border rounded-circle left-0"
                                         style={{
-                                            width: 38,
-                                            height: 38
-                                        }}
-                                    ></span>
+                                            width: 37,
+                                            height: 37
+                                        }}>
+                                    </span>
                                 </div>
                                 <div className="ms-2 cursor-pointer">
                                     <h5 className="fw-700 text-primary font-xssss mt-1 mb-1">{currentConversation.firstName}</h5>

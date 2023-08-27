@@ -7,7 +7,7 @@ import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {userAccountSlice} from "~/features/userAccount/index.js";
 import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.jsx";
 import {messengerSlice} from "~/features/messeger/index.jsx";
-import getUserInfoSlice from "~/features/userInfo/UserInfoSlice.js";
+import {userInfoSlice} from "~/features/userInfo/UserInfoSlice.js";
 import {getCitiesSlice} from "~/features/getCities/index.js";
 import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
@@ -20,7 +20,7 @@ const store = configureStore({
         sidebar: sidebarSlice,
         openChat: toggleChat.reducer,
         firstLoad: toggleLoader.reducer,
-        userInfo: getUserInfoSlice,
+        userInfo: userInfoSlice.reducer,
         friends: getFriendsSlice.reducer,
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,
@@ -34,4 +34,5 @@ const store = configureStore({
         bottomChatStatus: bottomChatSlice.reducer,
     },
 });
+
 export default store

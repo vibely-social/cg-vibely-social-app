@@ -1,20 +1,21 @@
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, formatDate, setBio, setHobbies} from "~/features/userInfo/UserInfoSlice.js";
+import {editUserInfo, formatDate, setBio, setHobbies} from "~/features/userInfo/userInfoSlice.js";
 import {useFormik} from "formik";
-import "~/components/PersonalIntro/index.css"
+import {getStoredUserData} from "~/service/accountService.js";
 
-function PersonalIntro({toggle}) {
+function Intro({toggle}) {
     const [bioStatus, setBioStatus] = useState(false);
     const [hobbyStatus, setHobbyStatus] = useState(false);
     const dispatch = useDispatch();
     const userInfo = useSelector(state => state.userInfo);
+    const user = getStoredUserData();
 
     const getHobbies = () => {
         if (userInfo.hobbies != null) {
             return userInfo.hobbies.split(',');
         } else {
-            return ['','','','','',''];
+            return ['', '', '', '', '', ''];
         }
     }
 
@@ -77,16 +78,17 @@ function PersonalIntro({toggle}) {
             <div className="card-body ps-4 pe-4">
                 {bioStatus === true ?
                     <div>
-                            <textarea
-                                name="bio" id="bio"
-                                cols="40" rows="3"
-                                form="bio-form"
-                                value={formikBio.values.bio}
-                                onChange={formikBio.handleChange}
-                                onBlur={formikBio.handleBlur}
-                                placeholder="Write something for us !!!"
-                                className="rounded-3 border-primary text-center">
-                            </textarea>
+                        <textarea
+                            name="bio" id="bio"
+                            cols="40" rows="3"
+                            form="bio-form"
+                            value={formikBio.values.bio}
+                            onChange={formikBio.handleChange}
+                            onBlur={formikBio.handleBlur}
+                            placeholder="Write something for us !!!"
+                            className="rounded-3 border-primary text-center">
+                        </textarea>
+
                         <form id="bio-form" className="" onSubmit={formikBio.handleSubmit}>
                             <button type="submit"
                                     className="text-center p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button">
@@ -95,18 +97,25 @@ function PersonalIntro({toggle}) {
                         </form>
                     </div>
 
-                    : <div>
-                        <h6 className="font-xss mb-3 text-center ">
+                    :
+                    <div>
+                        <h6 className="font-xss mb-3 text-center pb-3">
                             {formikBio.values.bio}
                         </h6>
-                        <span
-                            onClick={() => setBioStatus(!bioStatus)}
-                            className="
-                            cursor-pointer hover-opacity p-1 fw-600 text-center d-block
-                            font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2">
-                                Edit bio
-                        </span>
-                    </div>}
+                        {
+                            userInfo.id === user.id ?
+                                <span
+                                    onClick={() => setBioStatus(!bioStatus)}
+                                    className="
+                                    cursor-pointer hover-opacity p-1 fw-600 text-center d-block
+                                    font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2">
+                                    Edit bio
+                                </span>
+                                : <div className="border-bottom"></div>
+                        }
+
+                    </div>
+                }
             </div>
 
             <div className="card-body ps-4 pe-4">
@@ -123,18 +132,23 @@ function PersonalIntro({toggle}) {
                         Lives in {userInfo.city + ", " + userInfo.district}
                     </h4>
                 </div> : null}
-
                 <div className="ms-1 pb-2">
                     <h4 className="d-flex align-items-center">
                         <i className="ti-thought me-2"></i>
                         Born on {formatDate(userInfo.birthday)}
                     </h4>
                 </div>
-                <span
-                    onClick={toggle}
-                    className="cursor-pointer hover-opacity p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2">
-                    Edit details
-                </span>
+                {
+                    userInfo.id === user.id ?
+                        <span
+                            onClick={toggle}
+                            className="cursor-pointer hover-opacity p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2">
+                        Edit details
+                        </span>
+                        : <div className="border-bottom mt-3"></div>
+                }
+
+
             </div>
 
             <div className="card-body ps-4 pe-4">
@@ -268,12 +282,15 @@ function PersonalIntro({toggle}) {
                                     </label>
                                     : null
                                 }
-
-                                <span
-                                    onClick={() => setHobbyStatus(!hobbyStatus)}
-                                    className="cursor-pointer hover-opacity p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2 mt-2">
-                                    Add hobbies
-                                </span>
+                                {
+                                    userInfo.id === user.id ?
+                                        <span
+                                            onClick={() => setHobbyStatus(!hobbyStatus)}
+                                            className="cursor-pointer hover-opacity p-1 fw-600 text-center d-block font-xss text-grey-800 bg-primary-gradiant rounded-3 ps-2 mt-2">
+                                            Add hobbies
+                                        </span>
+                                        : null
+                                }
                             </div>
                     }
                 </div>
@@ -282,4 +299,4 @@ function PersonalIntro({toggle}) {
     </>)
 }
 
-export default PersonalIntro;
+export default Intro;

@@ -1,4 +1,4 @@
-import "../../index.css"
+import "~/pages/PersonalPage/index.css"
 import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -9,13 +9,15 @@ import {
     setBirthday,
     setFullName,
     setGender
-} from "~/features/userInfo/UserInfoSlice.js";
+} from "~/features/userInfo/userInfoSlice.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function UserDetail() {
     const [nameStatus, setNameStatus] = useState(false)
     const [genderStatus, setGenderStatus] = useState(false)
     const [birthdayStatus, setBirthdayStatus] = useState(false)
     const userInfo = useSelector(state => state.userInfo);
+    const currentUser = getStoredUserData();
     const dispatch = useDispatch();
 
 
@@ -164,8 +166,13 @@ function UserDetail() {
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="feather-airplay me-2"></i>
                                         {userInfo.lastName + ' ' + userInfo.firstName}</h4>
-                                    <i onClick={() => setNameStatus(true)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setNameStatus(true)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : null
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -225,8 +232,12 @@ function UserDetail() {
                                     <i className="feather-users me-2"></i>
                                     {userInfo.gender}
                                 </h4>
-                                <i onClick={() => setGenderStatus(!genderStatus)}
-                                   className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                {userInfo.id === currentUser.id ?
+                                    <i onClick={() => setGenderStatus(!genderStatus)}
+                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                    </i>
+                                    : null
+                                }
                             </div>
                         </div>
                 }
@@ -283,8 +294,13 @@ function UserDetail() {
                                     <i className="ti-thought me-2"></i>
                                     Birthday: {formatDate(userInfo.birthday)}
                                 </h4>
-                                <i onClick={() => setBirthdayStatus(!birthdayStatus)}
-                                   className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                {userInfo.id === currentUser.id ?
+                                    <i onClick={() => setBirthdayStatus(!birthdayStatus)}
+                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                    </i>
+                                    : null
+                                }
+
                             </div>
                         </div>
                 }

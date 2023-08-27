@@ -1,15 +1,17 @@
-import "../../index.css"
+import "~/pages/PersonalPage/index.css"
 import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, setSchool, setWork} from "~/features/userInfo/UserInfoSlice.js";
+import {editUserInfo, setSchool, setWork} from "~/features/userInfo/userInfoSlice.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function WorkAndEducation() {
     const [workStatus, setWorkStatus] = useState(false)
     const [schoolStatus, setSchoolStatus] = useState(false)
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
+    const currentUser = getStoredUserData();
 
     const formikWork = useFormik({
         initialValues: {
@@ -137,27 +139,49 @@ function WorkAndEducation() {
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-briefcase me-2"></i>
                                             {userInfo.position + " in " + userInfo.company}</h4>
-                                        <i onClick={() => setWorkStatus(!workStatus)}
-                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                        {userInfo.id === currentUser.id ?
+                                            <i onClick={() => setWorkStatus(!workStatus)}
+                                               className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                            </i>
+                                            : null
+                                        }
+
                                     </div>
                                 </div>
                             </div>
 
-                            :
-                            <div>
+                            : userInfo.id === currentUser.id ?
+
                                 <div>
-                                    <h4 className="fw-500">Work</h4>
+                                    <div>
+                                        <h4 className="fw-500">Work</h4>
+                                    </div>
+                                    <div className="d-flex align-items-center mb-1 ">
+                                        <i onClick={() => setWorkStatus(true)}
+                                           className="feather-plus-circle text-dark btn-round-sm font-lg cursor-pointer hover-edit">
+                                        </i>
+                                        <h4 onClick={() => setWorkStatus(true)}
+                                            className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                            Add current Workplace
+                                        </h4>
+                                    </div>
                                 </div>
-                                <div className="d-flex align-items-center mb-1 ">
-                                    <i onClick={() => setWorkStatus(true)}
-                                       className="feather-plus-circle text-dark btn-round-sm font-lg cursor-pointer hover-edit">
-                                    </i>
-                                    <h4 onClick={() => setWorkStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                        Add current Workplace
-                                    </h4>
+                                :
+                                <div>
+                                    <div>
+                                        <h4 className="fw-500">Work</h4>
+                                    </div>
+                                    <div
+                                        className="fw-600 mb-1 row">
+                                        <div className="mt-1 text-dark mb-1">
+                                            <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                                <i className="feather-briefcase me-2"></i>
+                                                No Workplace to show
+                                            </h4>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
                 }
             </div>
 
@@ -211,20 +235,36 @@ function WorkAndEducation() {
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="ti-ruler-pencil me-2"></i>
                                         {userInfo.school}</h4>
-                                    <i onClick={() => setSchoolStatus(!schoolStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setSchoolStatus(!schoolStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : null
+                                    }
+
                                 </div>
                             </div>
-                            :
-                            <div className="d-flex align-items-center mb-1 ">
-                                <i onClick={() => setSchoolStatus(true)}
-                                   className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
-                                </i>
-                                <h4 onClick={() => setSchoolStatus(true)}
-                                    className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                    Add School
-                                </h4>
-                            </div>
+                            : userInfo.id === currentUser.id ?
+
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setSchoolStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setSchoolStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        Add School
+                                    </h4>
+                                </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="ti-ruler-pencil me-2"></i>
+                                            No School to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
         </>
