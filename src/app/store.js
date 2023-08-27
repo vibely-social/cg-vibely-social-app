@@ -11,14 +11,14 @@ import toggleChat from '~/features/toggleChat';
 import toggleLoader from '~/features/toggleLoader';
 import sidebarSlice from '~/features/toggleSidebar';
 import { userAccountSlice } from "~/features/userAccount/index.js";
-import getUserInfoSlice from "~/features/userInfoSlice/UserInfoSlice.js";
+import {userInfoSlice} from "~/features/userInfoSlice/userInfoSlice.js";
 
 const store = configureStore({
     reducer: {
         sidebar: sidebarSlice,
         openChat: toggleChat.reducer,
         firstLoad: toggleLoader.reducer,
-        userInfo: getUserInfoSlice,
+        userInfo: userInfoSlice.reducer,
         friends: getFriendsSlice.reducer,
         switchConversation: switchConversationSlice.reducer,
         userAccount: userAccountSlice.reducer,

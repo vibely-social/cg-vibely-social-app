@@ -2,23 +2,27 @@ import {useEffect, useState} from "react";
 import "~/pages/PersonalPage/index.css"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
+import {setUserInfo} from "~/features/userInfoSlice/userInfoSlice.js";
 import TabPost from "~/components/TabPost/index.jsx";
 import TabAbout from "~/components/TabAbout/index.jsx";
 import TabFriend from "~/components/TabFriend/index.jsx";
 import TabMedia from "~/components/TabMedia/index.jsx";
-import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
-import {Row} from "react-bootstrap";
+import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
 
-function PersonalPage() {
+function FriendPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
+    const nagative = useNavigate();
+    const currentUser = getStoredUserData();
+    const params = useParams();
+
 
     const toggleToAbout = () => {
-        setType("About")
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        setType("About");
+        // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }
 
     const toggleToMedia = () => {
@@ -28,15 +32,23 @@ function PersonalPage() {
 
     useEffect( () => {
         const getUserInfo = async () => {
-            const user = getStoredUserData();
-            const result = await userInfoApi(user.id);
-            dispatch(setUserInfo(result));
+            if (currentUser.id !== params.id) {
+                const result = await userInfoApi(params.id);
+                if (result !==  undefined) {
+                    dispatch(setUserInfo(result));
+                } else {
+                    nagative('/404');
+                }
+            } else {
+                nagative('/profile');
+            }
+
         }
         getUserInfo()
     },[])
 
     return (<>
-        <Row style={{marginTop:"12px"}}>
+        <div className="row">
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
@@ -53,13 +65,16 @@ function PersonalPage() {
                         </h4>
                         <div
                             className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
-                            <a href="#"
-                               className="d-none invisible d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Add
-                                Friend</a>
-                            <a href="#"
-                               className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700">
-                                <i className="feather-mail font-md"></i>
-                            </a>
+                            <span
+                               className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
+                                <i className="feather-plus font-xss tetx-dark me-1"></i>
+                                Add Friend
+                            </span>
+                            <span
+                               className="d-flex align-items-center cursor-pointer ms-2 bg-gold-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
+                                <i className="feather-message-square font-xss tetx-dark me-1"></i>
+                                Messenger
+                            </span>
                             <a href="#" id="dropdownMenu4"
                                className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -126,8 +141,8 @@ function PersonalPage() {
                                 : <TabMedia/>
                 }
             </div>
-        </Row>
+        </div>
     </>);
 }
 
-export default PersonalPage;
+export default FriendPage;
