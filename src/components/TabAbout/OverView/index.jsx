@@ -1,4 +1,4 @@
-import "../../index.css"
+import "~/pages/PersonalPage/index.css"
 import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -10,8 +10,9 @@ import {
     setCity,
     setSchool,
     setWork
-} from "~/features/userInfoSlice/UserInfoSlice.js";
+} from "~/features/userInfoSlice/userInfoSlice.js";
 import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function OverView() {
     const [workStatus, setWorkStatus] = useState(false)
@@ -19,6 +20,7 @@ function OverView() {
     const [cityStatus, setCityStatus] = useState(false)
     const [birthdayStatus, setBirthdayStatus] = useState(false)
     const userInfo = useSelector(state => state.userInfo);
+    const currentUser = getStoredUserData();
     const dispatch = useDispatch();
     const cityList = useSelector(selectCities);
     const success = useSelector(selectGetCitiesIsSuccess);
@@ -145,7 +147,6 @@ function OverView() {
     })
 
 
-
     return (
         <>
             <div className="ps-5 pe-5 mb-3">
@@ -195,7 +196,7 @@ function OverView() {
                                     </button>
                                     <button onClick={() => {
                                         setWorkStatus(false)
-                                            formikWork.resetForm()
+                                        formikWork.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -206,29 +207,45 @@ function OverView() {
                         : userInfo.company != null ?
                             <div>
                                 <div
-                                    className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                    <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1">
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-briefcase me-2"></i>
-                                            Work at {userInfo.company} as {userInfo.position}</h4>
-                                        <i onClick={() => setWorkStatus(!workStatus)}
-                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                            Work at {userInfo.company} as {userInfo.position}
+                                        </h4>
+                                        {userInfo.id === currentUser.id ?
+                                            <i onClick={() => setWorkStatus(!workStatus)}
+                                               className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                            </i>
+                                            : null
+                                        }
+
                                     </div>
                                 </div>
                             </div>
 
-                            :
-                            <div>
-                                <div className="d-flex align-items-center mb-1 ">
-                                    <i onClick={() => setWorkStatus(true)}
-                                       className="feather-plus-circle text-dark btn-round-sm font-lg cursor-pointer hover-edit">
-                                    </i>
-                                    <h4 onClick={() => setWorkStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                        Add current Workplace
-                                    </h4>
+                            : userInfo.id === currentUser.id ?
+                                <div>
+                                    <div className="d-flex align-items-center mb-1 ">
+                                        <i onClick={() => setWorkStatus(true)}
+                                           className="feather-plus-circle text-dark btn-round-sm font-lg cursor-pointer hover-edit">
+                                        </i>
+                                        <h4 onClick={() => setWorkStatus(true)}
+                                            className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                            Add current Workplace
+                                        </h4>
+                                    </div>
                                 </div>
-                            </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="feather-briefcase me-2"></i>
+                                            No Workplace to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
 
@@ -264,7 +281,7 @@ function OverView() {
                                     </button>
                                     <button onClick={() => {
                                         setSchoolStatus(false)
-                                            formikSchool.resetForm()
+                                        formikSchool.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -275,25 +292,41 @@ function OverView() {
 
                         : userInfo.school != null ?
                             <div
-                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                className="fw-600 mb-1 row">
+                                <div className="mt-1 text-dark mb-1">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="ti-ruler-pencil me-2"></i>
                                         Study at {userInfo.school}</h4>
-                                    <i onClick={() => setSchoolStatus(!schoolStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setSchoolStatus(!schoolStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : null
+                                    }
+
                                 </div>
                             </div>
-                            :
-                            <div className="d-flex align-items-center mb-1 ">
-                                <i onClick={() => setSchoolStatus(true)}
-                                   className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
-                                </i>
-                                <h4 onClick={() => setSchoolStatus(true)}
-                                    className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                    Add School
-                                </h4>
-                            </div>
+                            : userInfo.id === currentUser.id ?
+
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setSchoolStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setSchoolStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        Add School
+                                    </h4>
+                                </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="ti-ruler-pencil me-2"></i>
+                                            No School to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
 
@@ -363,7 +396,7 @@ function OverView() {
                                     </button>
                                     <button onClick={() => {
                                         setCityStatus(false)
-                                            formikCity.resetForm()
+                                        formikCity.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -373,17 +406,22 @@ function OverView() {
                         </form>
                         : userInfo.city != null ?
                             <div
-                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                className="fw-600 mb-1 row">
+                                <div className="mt-1 text-dark mb-1">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="feather-home me-2"></i>
                                         Lives in {userInfo.city + ", " + userInfo.district}
                                     </h4>
-                                    <i onClick={() => setCityStatus(!cityStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setCityStatus(!cityStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : null
+                                    }
                                 </div>
                             </div>
-                            :
+                            : userInfo.id === currentUser.id ?
+
                             <div className="d-flex align-items-center mb-1 ">
                                 <i onClick={() => setCityStatus(true)}
                                    className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
@@ -393,6 +431,16 @@ function OverView() {
                                     Add current City
                                 </h4>
                             </div>
+                            :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="ti-ruler-pencil me-2"></i>
+                                            No City to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
 
@@ -430,7 +478,7 @@ function OverView() {
                                     </button>
                                     <button onClick={() => {
                                         setBirthdayStatus(false)
-                                            formikBirthday.resetForm()
+                                        formikBirthday.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -439,14 +487,19 @@ function OverView() {
                             </div>
                         </form>
                         : <div
-                            className="fw-600 text-dark lh-26 font-xssss row">
+                            className="fw-600 row">
                             <div className="mt-2 align-items-center text-dark lh-26 col-lg-12">
                                 <h4 className="d-flex align-items-center float-left">
                                     <i className="ti-thought me-2"></i>
                                     Born on {formatDate(userInfo.birthday)}
                                 </h4>
-                                <i onClick={() => setBirthdayStatus(!birthdayStatus)}
-                                   className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit"></i>
+                                {userInfo.id === currentUser.id ?
+                                    <i onClick={() => setBirthdayStatus(!birthdayStatus)}
+                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                    </i>
+                                    : null
+                                }
+
                             </div>
                         </div>
                 }

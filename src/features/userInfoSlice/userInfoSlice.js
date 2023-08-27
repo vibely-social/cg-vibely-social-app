@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {editUserInfoApi} from "~/api/userInfoApi.js";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {editUserInfoApi, userInfoApi} from "~/api/userInfoApi.js";
 
 const initialState = {
     id: '',
@@ -15,12 +15,17 @@ const initialState = {
     company: '',
     position: '',
     bio: '',
-    hobbies: '',
+    hobbies: ',,,,,',
 }
 
 export const editUserInfo = async (userInfo) => {
     await editUserInfoApi(userInfo);
 }
+
+export const getUserInfo = createAsyncThunk("userInfo", async () => {
+    const response = await userInfoApi();
+    return response.data;
+});
 
 export const formatDate = (date) => {
     const year = date.slice(0, 4);
@@ -29,7 +34,7 @@ export const formatDate = (date) => {
     return `${day}/${month}/${year}`;
 }
 
-const UserInfoSlice = createSlice({
+export const userInfoSlice = createSlice({
     name: 'userInfo',
     initialState,
     reducers: {
@@ -81,6 +86,25 @@ const UserInfoSlice = createSlice({
 
         },
     },
+    extraReducers: builder => {
+        builder
+            .addCase(getUserInfo.pending, (state) => {
+                state.success = false;
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getUserInfo.rejected, (state, action) => {
+                state.success = false;
+                state.loading = false;
+                state.error = action.error;
+            })
+            .addCase(getUserInfo.fulfilled, (state, action) => {
+                state.success = true;
+                state.loading = false;
+                state.values = action.payload;
+                state.error = false;
+            });
+    }
 })
 
 export const {
@@ -94,6 +118,5 @@ export const {
     setBio,
     setHobbies,
     setUserInfo,
-} = UserInfoSlice.actions;
+} = userInfoSlice.actions;
 
-export default UserInfoSlice.reducer

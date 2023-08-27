@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function FriendTab() {
+function TabFriend() {
     const tabs = ["All friends", "Following"]
 
     const [type, setType] = useState("All friends")
@@ -287,4 +287,4 @@ function FriendTab() {
     )
 }
 
-export default FriendTab;
+export default TabFriend;
