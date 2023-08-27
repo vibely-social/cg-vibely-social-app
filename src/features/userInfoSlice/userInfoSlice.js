@@ -34,7 +34,7 @@ export const formatDate = (date) => {
     return `${day}/${month}/${year}`;
 }
 
-export const UserInfoSlice = createSlice({
+export const userInfoSlice = createSlice({
     name: 'userInfo',
     initialState,
     reducers: {
@@ -118,5 +118,5 @@ export const {
     setBio,
     setHobbies,
     setUserInfo,
-} = UserInfoSlice.actions;
+} = userInfoSlice.actions;
 
