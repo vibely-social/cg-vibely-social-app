@@ -36,6 +36,7 @@ function ChatBox() {
     const [haveContent, setHaveContent] = useState(false);
     const SocketClient = useStompWsClient();
     const socketClient = useStompWsClient()
+    const [displayMessages, setDisplayMessages] = useState([]);
 
     useEffect(() => {
         if (!socketClient.connected) {
@@ -43,6 +44,11 @@ function ChatBox() {
             console.log('activated')
         }
     }, [currentConversation])
+
+    useEffect(()=>{
+        const rvMessages = [...messages].reverse()
+        setDisplayMessages(rvMessages)
+    },[messages])
 
 //scroll to end
     useEffect(() => {
@@ -65,9 +71,9 @@ function ChatBox() {
         setPage(0)
         dispatch(resetNewMessages())
         chatInput.current.focus()
-        setTimeout(()=>{
-            chatBox.current.scrollTop = chatBox.current.scrollHeight;
-        },100)
+        // setTimeout(()=>{
+        //     chatBox.current.scrollTop = chatBox.current.scrollHeight;
+        // },100)
     }, [currentConversation])
 
     useEffect(() => {
@@ -104,26 +110,28 @@ function ChatBox() {
 
 //send typing status
     useEffect(() => {
-        if (haveContent && chatFocus) {
-            SocketClient.publish({
-                destination: "/app/ws",
-                body: JSON.stringify({
-                    isStatusType: true,
-                    typingStatus: true,
-                    receiver: currentConversation.email,
-                    content: ''
-                })
-            });
-        } else {
-            SocketClient.publish({
-                destination: "/app/ws",
-                body: JSON.stringify({
-                    isStatusType: true,
-                    typingStatus: false,
-                    receiver: currentConversation.email,
-                    content: ''
-                })
-            });
+        if (socketClient.connected) {
+            if (haveContent && chatFocus) {
+                SocketClient.publish({
+                    destination: "/app/ws",
+                    body: JSON.stringify({
+                        isStatusType: true,
+                        typingStatus: true,
+                        receiver: currentConversation.email,
+                        content: ''
+                    })
+                });
+            } else {
+                SocketClient.publish({
+                    destination: "/app/ws",
+                    body: JSON.stringify({
+                        isStatusType: true,
+                        typingStatus: false,
+                        receiver: currentConversation.email,
+                        content: ''
+                    })
+                });
+            }
         }
     }, [haveContent, chatFocus])
 
@@ -162,8 +170,9 @@ function ChatBox() {
     return (
         <div className="col-lg-12 position-relative">
             <div className="chat-wrapper w-100 position-relative bg-white theme-dark-bg rounded-3">
-                <div className='chat-top-label position-absolute px-4 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex justify-content-between'
-                    style={{transform: "none", top:0}}>
+                <div
+                    className='chat-top-label position-absolute px-4 ps-4 bg-primary-gradiant rounded-top-3 shadow-md d-flex justify-content-between'
+                    style={{transform: "none", top: 0}}>
                     <div className='px-2 py-1 rounded text-dark d-flex align-items-center'>
                         <img src={currentConversation.avatarUrl}
                              alt="avatar"
@@ -176,38 +185,34 @@ function ChatBox() {
                     <div>
                         <Link to={`/friends/${currentConversation.id}`}
                               className='px-2 py-1 rounded cursor-pointer text-dark'>
-                        <i className='feather-info font-lg text-light'></i>
-                    </Link>
+                            <i className='feather-info font-lg text-light'></i>
+                        </Link>
                     </div>
                 </div>
                 <div className="chat-body">
-                    <div className="messages-content px-3 scroll-bar position-relative pb-5"
+                    <div className="messages-content px-3 scroll-bar position-relative pb-5 d-flex flex-column-reverse"
                          ref={chatBox}
                          onClick={() => setEmojiVisible(false)}>
 
-                        {
-                            oldMessages.map((message, index) => {
-                                let displayMessage = {...message}
-                                if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email) {
-                                    if (displayMessage.sender === currentConversation.email) {
-                                        displayMessage.income = true
-                                    }
-                                    return <Message key={index} message={displayMessage}/>
+                        {displayMessages.map((message, index) => {
+                            let displayMessage = {...message}
+                            if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email) {
+                                if (displayMessage.sender === currentConversation.email) {
+                                    displayMessage.income = true
                                 }
-                            })
-                        }
+                                return <Message key={index} message={displayMessage}/>
+                            }
+                        })}
 
-                        {
-                            messages.map((message, index) => {
-                                let displayMessage = {...message}
-                                if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email) {
-                                    if (displayMessage.sender === currentConversation.email) {
-                                        displayMessage.income = true
-                                    }
-                                    return <Message key={index} message={displayMessage}/>
+                        {oldMessages.map((message, index) => {
+                            let displayMessage = {...message}
+                            if (displayMessage.sender === currentConversation.email || displayMessage.receiver === currentConversation.email) {
+                                if (displayMessage.sender === currentConversation.email) {
+                                    displayMessage.income = true
                                 }
-                            })
-                        }
+                                return <Message key={index} message={displayMessage}/>
+                            }
+                        })}
                         <div className="clearfix">
                             <img src="src/assets/img/KindlyActualKawala-size_restricted.gif"
                                  alt="dot"

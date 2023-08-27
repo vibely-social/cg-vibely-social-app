@@ -40,7 +40,7 @@ function PersonalPage() {
         <Row style={{marginTop: "12px"}}>
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
-                    <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
+                    <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
                         <img src={userInfo.background}
                              alt="image"
                              style={
@@ -53,10 +53,17 @@ function PersonalPage() {
                         />
                     </div>
                     <div className="card-body p-0 position-relative">
-                        <figure className="avatar position-absolute w100"
-                                style={{top: -40, left: 30}}>
+                        <figure className="position-absolute d-flex align-items-center justify-content-center"
+                                style={{
+                                    top: -40,
+                                    left: 30,
+                                    minWidth: 104,
+                                    minHeight: 104
+                                }}>
                             <img src={user.avatarUrl} alt="image"
-                                 className="float-right p-1 bg-white rounded-circle w-100"/>
+                                 className="main-avatar float-right p-1 bg-white w-100 z-index-1"/>
+                            <span
+                                className="position-absolute w-100 h-100 bg-primary-gradiant rounded-circle spinner-border"></span>
                         </figure>
                         <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{`${user.firstName} ${user.lastName}`}<span
                             className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{user.email}</span>

@@ -114,6 +114,7 @@ function ChatSidebar() {
                                                             maxHeight: 45,
                                                             minHeight: 45,
                                                             width: 45,
+                                                            minWidth: 45,
                                                             marginLeft: 0,
                                                             objectFit: 'cover',
                                                         }}

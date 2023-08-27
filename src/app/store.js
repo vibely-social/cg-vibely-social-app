@@ -13,6 +13,7 @@ import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
 import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
 import { getMediaPostDetailsSlice } from "~/features/getMediaPostDetails/index.jsx";
+import {bottomChatSlice} from "~/features/bottomChat/index.jsx";
 
 const store = configureStore({
     reducer: {
@@ -30,6 +31,7 @@ const store = configureStore({
         media: getMediaSlice.reducer,
         typingStatus: typingStatusSlice.reducer,
         mediaPostDetails: getMediaPostDetailsSlice.reducer,
+        bottomChatStatus: bottomChatSlice.reducer,
     },
 });
 export default store

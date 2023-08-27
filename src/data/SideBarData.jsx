@@ -28,6 +28,11 @@ const useSidebarData = () => {
             heading: name
         },
         {
+            icon: newfeedNav,
+            path: '/',
+            heading: 'Feeds'
+        },
+        {
             icon: friendsNav,
             path: '/friends',
             heading: 'Friends'
@@ -36,11 +41,6 @@ const useSidebarData = () => {
             icon: groupsNav,
             path: '/groups',
             heading: 'Groups'
-        },
-        {
-            icon: newfeedNav,
-            path: '/',
-            heading: 'Feeds'
         },
         {
             icon: mess,
