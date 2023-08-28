@@ -1,4 +1,4 @@
-import ppl from "../../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 
 function ReplyComment() {
     return ( 

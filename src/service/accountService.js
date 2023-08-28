@@ -9,5 +9,9 @@ export const getRefreshToken = () => {
 }
 
 export const getStoredUserData = () => {
-    return JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user){
+        return user
+    }
+    return {}
 }

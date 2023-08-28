@@ -10,6 +10,7 @@ function ChatLayout({children}) {
     const dispatch = useDispatch();
 
     useAuthorizeUser()
+
     if (firstLoad === false) {
         setTimeout(() => {
             dispatch(turnOffLoader())

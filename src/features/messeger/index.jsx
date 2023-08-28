@@ -18,10 +18,12 @@ export const messengerSlice = createSlice(
                 }
             },
             addNewMessage: (state,action) => {
-                state.newMessages = [...state.newMessages, action.payload]
+                if (action.payload) {
+                    state.newMessages = [...state.newMessages, action.payload]
+                }
             },
-            resetNewMessages: (state) => state.newMessages = [],
-            resetUnreadMessage: (state, action) => state.unreadMessageCount[action.payload] = 0
+            resetNewMessages: (state) => void (state.newMessages = []),
+            resetUnreadMessage: (state, action) => void (state.unreadMessageCount[action.payload] = 0)
         }
     }
 );

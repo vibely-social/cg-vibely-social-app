@@ -2,11 +2,11 @@
   padding: 20px;
   position: fixed;
   bottom: 0;
-  right: 270px;
+  right: 280px;
   z-index: 100;
   display: none;
   @include media-breakpoint-down(md) {
-    right: 0;
+    right: 10px;
 
   }
 
@@ -20,8 +20,8 @@
     }
 
     .modal-popup-body {
-      padding-top: 80px;
-      padding-bottom: 80px;
+      padding: 1rem 1rem;
+      max-height: 250px;
     }
 
     .modal-popup-footer {
@@ -287,6 +287,33 @@
   }
 }
 
+.chat-wrapper{
+  padding-top: 70px;
+  .chat-top-label{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    z-index: 3;
+    img{
+      max-height: 45px;
+      min-height: 48px;
+      width: 48px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: aliceblue
+
+    }
+  }
+  .clearfix{
+    position: fixed;
+    bottom:0;
+    margin-bottom: 90px;
+    z-index: 2;
+  }
+}
+
+
 .chat-body {
   @include box-flex();
   margin: 0px 0 0;
@@ -307,8 +334,7 @@
     -moz-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
-    padding-bottom: 70px !important;
-    // height: 800px;
+    max-height: calc(100vh - 260px);
 
     .message-item.outgoing-message {
       margin-left: auto;
@@ -606,4 +632,31 @@
   position: relative;
   top: 0px;
   z-index: 2;
+}
+
+.avatar-35{
+  border-radius: 50%;
+  max-height: 35px;
+  min-height: 35px;
+  max-width: 35px;
+  min-width: 35px;
+  object-fit: cover;
+}
+
+.avatar-45{
+  border-radius: 50%;
+  max-height: 45px;
+  min-height: 45px;
+  max-width: 45px;
+  min-width: 45px;
+  object-fit: cover;
+}
+
+.main-avatar {
+  border-radius: 50%;
+  max-height: 100px;
+  min-height: 100px;
+  max-width: 100px;
+  min-width: 100px;
+  object-fit: cover;
 }

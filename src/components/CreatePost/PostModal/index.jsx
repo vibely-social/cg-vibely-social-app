@@ -2,17 +2,17 @@ import { Dialog } from '@headlessui/react'
 import { motion, AnimatePresence } from "framer-motion"
 import { Button, Form, ListGroup } from 'react-bootstrap';
 import "./index.css"
-import Logo from "../../../assets/img/new_post_icons/Logo.png"
-import Gallery from "../../../assets/img/new_post_icons/gallery.svg"
-import Tag from "../../../assets/img/new_post_icons/tag.svg"
-import Emoji from "../../../assets/img/new_post_icons/emoji.svg"
-import Theme from "../../../assets/img/new_post_icons/theme.svg"
-import Smile from "../../../assets/img/new_post_icons/smile.svg"
-import More from "../../../assets/img/new_post_icons/more.svg"
-import Mic from "../../../assets/img/new_post_icons/mic.svg"
+import Logo from "~/assets/img/new_post_icons/Logo.png"
+import Gallery from "~/assets/img/new_post_icons/gallery.svg"
+import Tag from "~/assets/img/new_post_icons/tag.svg"
+import Emoji from "~/assets/img/new_post_icons/emoji.svg"
+import Theme from "~/assets/img/new_post_icons/theme.svg"
+import Smile from "~/assets/img/new_post_icons/smile.svg"
+import More from "~/assets/img/new_post_icons/more.svg"
+import Mic from "~/assets/img/new_post_icons/mic.svg"
 import { useState, useRef , useEffect, useMemo  } from 'react'
-import addImage from "../../../assets/img/new_post_icons/add-image.png"
-import toBase64 from '../../../utils/toBase64.js';
+import addImage from "~/assets/img/new_post_icons/add-image.png"
+import toBase64 from '~/utils/toBase64.js';
 import Photogrid from "react-facebook-photo-grid";
 import { VIBELY_API } from '~/app/constants';
 import axios from 'axios';

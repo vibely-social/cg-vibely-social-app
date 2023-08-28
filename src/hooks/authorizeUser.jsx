@@ -1,39 +1,43 @@
 import {refreshTokenApi} from "~/api/accountApi.js";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setUser} from "~/features/userAccount/index.js";
 
 export const useAuthorizeUser = () => {
-    const storedUser = JSON.parse(localStorage.getItem('user'))
+    let storedUser = useRef()
+    storedUser.current = JSON.parse(localStorage.getItem('user'))
     const navigate = useNavigate();
     const lastAuthentication = localStorage.getItem('lastAuth')
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let refreshToken;
-        if (!storedUser) {
+        if (!storedUser.current) {
             navigate("/login")
         } else {
-            refreshToken = storedUser.refreshToken
+            refreshToken = storedUser.current.refreshToken
         }
         const now = (new Date())/1000
-        if ((now - lastAuthentication > 1800)){
-            const response = refreshTokenApi(refreshToken)
-            response.then(response => response.data)
+        const authIdle = now - lastAuthentication
+        if (authIdle > 1800 || !storedUser.current?.accessToken){
+            console.log('try to refresh token')
+            const response =  refreshTokenApi(refreshToken)
+            response
+                .then(response => response.data)
                 .then(data => {
-                    localStorage.setItem('user', JSON.stringify(
-                        {
-                            ...storedUser,
-                            accessToken: data
-                        }
-                    ))
+                    storedUser.current.accessToken = data;
+                    localStorage.setItem('user', JSON.stringify(storedUser.current))
                     localStorage.setItem('lastAuth','' + now)
                     console.log('Authenticated!')
                 })
                 .catch(reason => {
+                    console.log('reason')
                     console.log(reason)
                     navigate("/login")
                 })
         }
+        dispatch(setUser(storedUser.current))
 
-
-    }, [])
+    }, [navigate])
 }

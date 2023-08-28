@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import {Button, Row} from "react-bootstrap";
-import notfound from "../../assets/img/404.svg"
+import notfound from "~/assets/img/404.svg"
 import "./index.css"
-import ppl from "../../assets/img/logo.svg"
+import ppl from "~/assets/img/logo.svg"
 import { useRef } from "react";
 import { useAnimationFrame } from "framer-motion";
 

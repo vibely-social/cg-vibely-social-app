@@ -6,60 +6,65 @@ import storyNav from '../assets/img/sidebar/story.png'
 import newfeedNav from '../assets/img/sidebar/newfeed.png'
 import ppl from '../assets/img/ppl.png'
 import mess from "../assets/img/messenger.png"
-import {getStoredUserData} from "~/service/accountService.js";
+import {useSelector} from "react-redux";
+import {selectUserData} from "~/features/userAccount/index.js";
+import {useEffect, useState} from "react";
 
-let fullName = 'Anonymous'
+const useSidebarData = () => {
+    let user = useSelector(selectUserData)
+    let [name, setName] = useState('Anonymous');
+    let [avatar, setAvatar] = useState(ppl)
 
-let user = getStoredUserData()
-if (user && user.firstName) {
-    fullName = user.firstName + ' ' + user.lastName
-}else if (user){
-    fullName = user.email
-    user.avatar = 'https://media.discordapp.net/attachments/1006048991043145829/1006049027734913075/unknown.png?width=662&height=662'
-    console.log(fullName)
+    useEffect(()=>{
+            if (user){
+                setName(user.firstName)
+                setAvatar(user.avatarUrl)
+            }
+    },[user])
+    return [
+        {
+            icon: avatar,
+            path: '/profile',
+            heading: name
+        },
+        {
+            icon: newfeedNav,
+            path: '/',
+            heading: 'Feeds'
+        },
+        {
+            icon: friendsNav,
+            path: '/friends',
+            heading: 'Friends'
+        },
+        {
+            icon: groupsNav,
+            path: '/groups',
+            heading: 'Groups'
+        },
+        {
+            icon: mess,
+            path: '/messenger',
+            heading: 'Messenger'
+        },
+        {
+            icon: storyNav,
+            path: '/stories',
+            heading: 'Stories'
+        },
+        {
+            icon: pagesNav,
+            path: '/pages',
+            heading: 'Pages'
+        },
+        {
+            icon: marketNav,
+            path: '/marketplace',
+            heading: 'Marketplace'
+        }
+    ]
 }
+export default useSidebarData
 
-const SidebarData = [
-    {
-        icon: user?user.avatar : ppl,
-        path: '/profile',
-        heading: fullName
-    },
-    {
-        icon: friendsNav,
-        path: '/friends',
-        heading: 'Friends'
-    },
-    {
-        icon: groupsNav,
-        path: '/groups',
-        heading: 'Groups'
-    },
-    {
-        icon: newfeedNav,
-        path: '/',
-        heading: 'Feeds'
-    },
-    {
-        icon: mess,
-        path: '/messenger',
-        heading: 'Messenger'
-    },
-    {
-        icon: storyNav,
-        path: '/stories',
-        heading: 'Stories'
-    },
-    {
-        icon: pagesNav,
-        path: '/pages',
-        heading: 'Pages'
-    },
-    {
-        icon: marketNav,
-        path: '/marketplace',
-        heading: 'Marketplace'
-    }
-];
 
-export default SidebarData
+

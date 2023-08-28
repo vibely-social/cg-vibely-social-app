@@ -1,4 +1,4 @@
-import google from "../../assets/img/google-icon.png";
+import google from "~/assets/img/google-icon.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";

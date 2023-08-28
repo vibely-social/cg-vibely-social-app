@@ -12,7 +12,7 @@ function Message({message}){
             <div className={"message-item " + (!income && "outgoing-message")}>
                 <div className="message-user">
                     <figure className="avatar">
-                        <img src={income? contactUser.avatarUrl : user.avatar} alt="image"/>
+                        <img src={income? contactUser.avatarUrl : user.avatarUrl} alt="image"/>
                     </figure>
                     <div>
                         <h5>{senderName}</h5>

@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import "~/pages/PersonalPage/index.css"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/userInfoSlice/userInfoSlice.js";
-import TabPost from "~/components/TabPost/index.jsx";
-import TabAbout from "~/components/TabAbout/index.jsx";
-import TabFriend from "~/components/TabFriend/index.jsx";
-import TabMedia from "~/components/TabMedia/index.jsx";
+import {setUserInfo} from "~/features/userInfo/userInfoSlice.js";
+import PostTab from "~/components/PostTab/index.jsx";
+import AboutTab from "~/components/AboutTab/index.jsx";
+import FriendTab from "~/components/FriendTab/index.jsx";
+import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
 
@@ -139,10 +139,10 @@ function FriendPage() {
             </div>
             <div className="col-lg-12">
                 {
-                    type === 'Posts' ? <TabPost toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
-                        : type === 'About' ? <TabAbout/>
-                            : type === 'Friends' ? <TabFriend />
-                                : <TabMedia/>
+                    type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
+                        : type === 'About' ? <AboutTab/>
+                            : type === 'Friends' ? <FriendTab />
+                                : <MediaTab/>
                 }
             </div>
         </div>

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
-import ppl from "../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 import CommentLine from './CommentLine';
 import ReplyComment from './ReplyComment';
 import "./index.css"
-import {USER} from "~/app/constants.js"
 import { useRef } from 'react';
 import WebSocketClient from 'websocket';
 import { set } from 'date-fns';
 import { VIBELY_API } from '~/app/constants.js';
 import axios from 'axios';
+import {getStoredUserData} from "~/service/accountService.js";
 
 function Comment({data}) {   
-
+    const USER = getStoredUserData()
     const ref = useRef()
     const [comments,setComments] = useState([])
     const [file,setFile] = useState(null)

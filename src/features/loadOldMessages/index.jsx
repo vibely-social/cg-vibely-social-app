@@ -6,7 +6,7 @@ export const loadOldMessages = createAsyncThunk(
     "Messages",
     async (params) => {
         const response = await loadOldMessagesApi(params.contact, params.page)
-        return [params.contact, response.data]
+        return [params.contact, params.page, response.data]
     })
 export const loadOldMessagesSlice = createSlice(
     {
@@ -27,7 +27,7 @@ export const loadOldMessagesSlice = createSlice(
             },
             setLoadOldMessagesSuccess: (state, action) => {
                 state.success = action.payload;
-            },
+            }
         },
         extraReducers: builder => {
             builder
@@ -43,9 +43,26 @@ export const loadOldMessagesSlice = createSlice(
                 })
                 .addCase(loadOldMessages.fulfilled, (state, action) => {
                     const contact = action.payload[0]
-                    const data = action.payload[1].messageList
-                    const totalPage = action.payload[1].totalPage
-                    state.values[contact] = data;
+                    const page = action.payload[1]
+                    const data = action.payload[2].messageList
+                    const totalPage = action.payload[2].totalPage
+                    let preMessages = state.values[contact]
+
+                    if (data) {
+                        if (page === 0){
+                            state.values[contact] = data
+                        }else {
+                            if (preMessages) {
+                                state.values[contact] = [...data, ...preMessages];
+                            } else {
+                                state.values = {
+                                    ...state.values,
+                                    [contact]: data
+                                }
+                            }
+                        }
+
+                    }
                     state.totalPage = totalPage;
                     state.success = true;
                     state.loading = false;
@@ -54,6 +71,8 @@ export const loadOldMessagesSlice = createSlice(
         },
     }
 )
+
+
 export const {
     setLoadOldMessagesLoading,
     setLoadOldMessagesError,
@@ -63,6 +82,6 @@ export const {
 export const selectLoadOldMessagesIsLoading = (state) => state.oldMessages.loading;
 export const selectLoadOldMessagesIsError = (state) => state.oldMessages.error;
 export const selectLoadOldMessagesIsSuccess = (state) => state.oldMessages.success;
-export const selecAllOldMessages = (state) => state.oldMessages.values;
+export const selectAllOldMessages = (state) => state.oldMessages.values;
 export const selectTotalPage = (state) => state.oldMessages.totalPage;
 export default loadOldMessagesSlice.reducer;
