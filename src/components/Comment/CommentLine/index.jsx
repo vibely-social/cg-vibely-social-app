@@ -22,12 +22,14 @@ function CommentLine({data}) {
                         </div>
                      </div>
                     <div className='d-flex pt-1 me-5 justify-content-start font-xssss ms-5 fw-600' style={{marginTop: "-10px"}}>
-                        <div className="comment-btn ps-2 text-dark">{data.likes ? data.likes.length : 0 } Like</div>
+                            <div className={"comment-btn ps-2 " + (data.isLiked ? "text-vibe" : "text-dark")}>
+                                {data.likes ? data.likes.length : 0 } Like
+                            </div>
                         <div className="comment-btn text-dark">Reply</div>
                         <div className="comment-btn text-dark"><ReactTimeAgo date={data.date} locale="en-US"/></div>
                     </div>
             </div>  
-            {data.replyCommentDTOs?.map((comment,index) => {
+             {data.replyCommentDTOs?.map((comment,index) => {
                         return <ReplyComment key={index} data={comment}/>
                     })}
         </div>

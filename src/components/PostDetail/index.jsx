@@ -9,7 +9,7 @@ import Comment from "../Comment";
 import likebtn from "../../assets/img/likebtn.png"
 import { likePost } from "~/api/postApi";
 import { set } from "date-fns";
-import "./index.css"
+
 
 
 function PostDetail({data}) {
