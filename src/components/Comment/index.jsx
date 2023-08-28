@@ -7,8 +7,14 @@ import { VIBELY_API } from '~/app/constants.js';
 import axios from 'axios';
 import { getAccessToken , getStoredUserData } from '~/service/accountService.js';
 import { commentPosts } from '~/api/postApi';
+<<<<<<< HEAD
 import { BeatLoader } from 'react-spinners';
 
+=======
+import { get } from 'jquery';
+import { useCallback } from "react";
+import { getStoredUserData } from '~/service/accountService.js';
+>>>>>>> 34fba131ba028e4129b8bc219e68f28f3645b71b
 
 function Comment({data,isShowComment}) {   
     const token = getAccessToken()
@@ -17,9 +23,16 @@ function Comment({data,isShowComment}) {
     const [file,setFile] = useState(null)
     const [inputComment,setInputComment] = useState("")
     const [isLoading,setIsLoading] = useState(false)
+<<<<<<< HEAD
     const user = getStoredUserData()
   
 
+=======
+    const token = getAccessToken()
+    const user = getStoredUserData()
+    // const onShowComment = () => getComments()
+     
+>>>>>>> 34fba131ba028e4129b8bc219e68f28f3645b71b
     const getComments = async() => {
       setIsLoading(true)
       const response = await commentPosts(data.id)
@@ -76,7 +89,11 @@ function Comment({data,isShowComment}) {
             <>
               <Card.Body className="p-0 pt-3 d-flex justify-content-center pb-0 border-dark shadow-xs mt-3">
                   <figure className="avatar ms-0 mt-1 top-2 " ><img  style={{width: '40px',height: "40px",overflow: 'hidden'}} src={user.avatar ? user?.avatar : ppl}  className="shadow-sm rounded-circle" /></figure>
+<<<<<<< HEAD
                   <input id="input" type='text' onKeyDown={handleEnterDown}  onChange={(e) => setInputComment(e.target.value)} ref={ref} style={{height: "50px",width: "90%",resize: "none"}} className="float-right ms-2 bor-0 rounded-xxl p-2 ps-3 font-xsss text-grey-600 fw-500 border-light-md " placeholder="Write a comment..." />
+=======
+                  <textarea id="input" onKeyDown={handleEnterDown}  onChange={(e) => setInputComment(e.target.value)} ref={ref} style={{height: "50px",width: "90%",resize: "none"}} className="float-right ms-2 bor-0 rounded-xxl p-2 ps-3 font-xsss text-grey-600 fw-500 border-light-md " placeholder="Write a comment..." />
+>>>>>>> 34fba131ba028e4129b8bc219e68f28f3645b71b
               </Card.Body>
               <Card.Body className="d-flex p-0 mt-0" id="comment-section">
                 <div className="pt-0 w-100 position-relative scroll-bar bg-white " style={{maxHeight: "400px"}}>
