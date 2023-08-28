@@ -3,11 +3,12 @@ import {selectSidebarPosition} from "~/features/toggleSidebar/index.js";
 import {useSelector} from "react-redux";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import ChatSidebar from "~/layouts/commons/Sidebar/ChatSidebar/index.jsx";
+import {selectConversation} from "~/features/switchConversation/index.js";
 
 function Chat() {
     const position = useSelector(selectSidebarPosition)
+    const currentConversation = useSelector(selectConversation)
     useAuthorizeUser()
-
     return (
         <>
             <ChatSidebar/>
@@ -16,7 +17,7 @@ function Chat() {
                     <div className="middle-sidebar-left ms-0 ps-0 pe-0 me-0 d-flex justify-content-center"
                          style={{maxWidth: '100%'}}>
                         <div className="container ms-2 mb-0 pb-0 me-1" style={{maxWidth: '96%'}}>
-                            <ChatBox/>
+                            {currentConversation.email && <ChatBox/>}
                         </div>
                     </div>
                 </div>

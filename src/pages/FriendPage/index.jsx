@@ -2,25 +2,27 @@ import {useEffect, useState} from "react";
 import "~/pages/PersonalPage/index.css"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/userInfo/UserInfoSlice.js";
-import {Row} from "react-bootstrap";
-import {getStoredUserData} from "~/service/accountService.js";
-import {selectUserData} from "~/features/userAccount/index.js";
+import {setUserInfo} from "~/features/userInfo/userInfoSlice.js";
 import PostTab from "~/components/PostTab/index.jsx";
+import AboutTab from "~/components/AboutTab/index.jsx";
 import FriendTab from "~/components/FriendTab/index.jsx";
 import MediaTab from "~/components/MediaTab/index.jsx";
-import AboutTab from "~/components/AboutTab/index.jsx";
+import {useNavigate, useParams} from "react-router-dom";
+import {getStoredUserData} from "~/service/accountService.js";
 
-function PersonalPage() {
+function FriendPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
     const userInfo = useSelector(state => state.userInfo);
-    const user = useSelector(selectUserData);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const currentUser = getStoredUserData();
+    const params = useParams();
+
 
     const toggleToAbout = () => {
-        setType("About")
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        setType("About");
+        // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }
 
     const toggleToMedia = () => {
@@ -30,61 +32,56 @@ function PersonalPage() {
 
     useEffect( () => {
         const getUserInfo = async () => {
-            const user = getStoredUserData();
-            const result = await userInfoApi(user.id);
-            dispatch(setUserInfo(result));
+            if (currentUser.id !== params.id) {
+                const result = await userInfoApi(params.id);
+                if (result !==  undefined) {
+                    dispatch(setUserInfo(result));
+                } else {
+                    navigate('/404');
+                }
+            } else {
+                navigate('/profile');
+            }
+
         }
         getUserInfo()
     },[])
 
     return (<>
-        <Row style={{marginTop:"12px"}}>
+        <div className="row">
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
-                    <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
-                        <img src={userInfo.background}
-                             alt="image"
-                             style={
-                                 {
-                                     width: '100%',
-                                     maxHeight: 250,
-                                     objectFit: "cover"
-                                 }
-                             }
-                        />
+                    <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3">
+                        <img src="https://via.placeholder.com/960x250.png" alt="image" style={{width: '100%'}}/>
                     </div>
                     <div className="card-body p-0 position-relative">
-                        <figure className="position-absolute d-flex align-items-center justify-content-center"
-                                style={{
-                                    top: -40,
-                                    left: 30,
-                                    minWidth: 104,
-                                    minHeight: 104
-                                }}>
-                            <img src={user.avatarUrl} alt="image"
-                                 className="main-avatar float-right p-1 bg-white w-100 z-index-1"/>
-                            <span
-                                className="position-absolute w-100 h-100 bg-primary-gradiant rounded-circle spinner-border"></span>
+                        <figure className="avatar position-absolute w100"
+                                style={{top: -40, left: 30}}>
+                            <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                 className="float-right p-1 bg-white rounded-circle w-100"/>
                         </figure>
-                        <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{`${user.firstName} ${user.lastName}`}<span
-                            className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{user.email}</span>
+                        <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{userInfo.firstName + " " + userInfo.lastName}<span
+                            className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{userInfo.email}</span>
                         </h4>
                         <div
                             className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
-                            <a href="#"
-                               className="d-none invisible d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Add
-                                Friend</a>
-                            <a href="#"
-                               className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700">
-                                <i className="feather-mail font-md"></i>
-                            </a>
+                            <span
+                               className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
+                                <i className="feather-plus font-xss tetx-dark me-1"></i>
+                                Add Friend
+                            </span>
+                            <span
+                               className="d-flex align-items-center cursor-pointer ms-2 bg-gold-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
+                                <i className="feather-message-square font-xss tetx-dark me-1"></i>
+                                Messenger
+                            </span>
                             <a href="#" id="dropdownMenu4"
                                className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i className="ti-more font-md tetx-dark"></i>
                             </a>
                             <div
-                                className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
+                                className="dropdown-menu dropdown-menu-start p-4 rounded-xxl border-0 shadow-lg"
                                 aria-labelledby="dropdownMenu4">
                                 <div className="card-body p-0 d-flex">
                                     <i className="feather-bookmark text-grey-500 me-3 font-lg"></i>
@@ -136,16 +133,16 @@ function PersonalPage() {
                     </div>
                 </div>
             </div>
-            <div className="col-lg-12 min-vh-100">
+            <div className="col-lg-12">
                 {
                     type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
                         : type === 'About' ? <AboutTab/>
-                            : type === 'Friends' ? <FriendTab/>
+                            : type === 'Friends' ? <FriendTab />
                                 : <MediaTab/>
                 }
             </div>
-        </Row>
+        </div>
     </>);
 }
 
-export default PersonalPage;
+export default FriendPage;

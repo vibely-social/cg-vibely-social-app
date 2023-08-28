@@ -1,13 +1,13 @@
 import {useState} from "react";
-import "./index.css"
-import OverView from "~/pages/PersonalPage/Tab/IntroductionTab/Information/OverView/index.jsx";
-import Contact from "~/pages/PersonalPage/Tab/IntroductionTab/Information/Contact/index.jsx";
-import UserDetail from "~/pages/PersonalPage/Tab/IntroductionTab/Information/UserDetail/index.jsx";
-import WorkAndEducation from "~/pages/PersonalPage/Tab/IntroductionTab/Information/WorkAndEducation/index.jsx";
+import "~/pages/PersonalPage/index.css"
+import OverView from "~/components/AboutTab/OverView/index.jsx";
+import Contact from "~/components/AboutTab/Contact/index.jsx";
+import UserDetail from "~/components/AboutTab/UserDetail/index.jsx";
+import WorkAndEducation from "~/components/AboutTab/WorkAndEducation/index.jsx";
 
 
 
-function IntroductionTab() {
+function AboutTab() {
     const tabs = ["Over View", "Work and Education", "Contact and basic info", "Details about you"]
     const [type, setType] = useState("Over View")
 
@@ -53,4 +53,4 @@ function IntroductionTab() {
     )
 }
 
-export default IntroductionTab;
+export default AboutTab;

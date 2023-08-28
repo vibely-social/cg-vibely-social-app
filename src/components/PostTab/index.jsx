@@ -1,14 +1,14 @@
-import NewPost from "../../../../components/CreatePost/index";
+import NewPost from "../CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
-import PersonalIntro from "~/components/PersonalIntro/index.jsx";
-import { VIBELY_API } from "~/app/constants";
+import Intro from "~/components/PostTab/Intro/index.jsx";
+import {VIBELY_API} from "~/app/constants";
 import MediaList from "~/components/MediaList/index.jsx";
-import {useSelector, useDispatch} from "react-redux";
-import {getMedia} from "~/features/getMedia/index.jsx";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
-import "~/pages/PersonalPage/Tab/IntroductionTab/index.css"
+import "~/pages/PersonalPage/index.css"
+import {getMedia} from "~/features/getMedia/index.jsx";
 
 
 function PostTab({toggleAbout, toggleMedia}) {
@@ -45,13 +45,7 @@ function PostTab({toggleAbout, toggleMedia}) {
             <div className="row">
                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="shadow-xss mb-3 mt-3">
-                        <PersonalIntro toggle={toggleAbout}/>
-                    </div>
-
-                    <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
-                        <div className="card-body d-block p-4" style={{height: 300}}>
-                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Friends</h4>
-                        </div>
+                        <Intro toggle={toggleAbout}/>
                     </div>
 
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">

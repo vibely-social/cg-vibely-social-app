@@ -1,7 +1,7 @@
 import ReadMore from "./ReadMore";
 import { Card } from "react-bootstrap";
 import Photogrid from "react-facebook-photo-grid";
-import ppl from "../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 import { motion } from "framer-motion";
 import ReactTimeAgo from 'react-time-ago'
 import { useState ,useEffect } from "react";

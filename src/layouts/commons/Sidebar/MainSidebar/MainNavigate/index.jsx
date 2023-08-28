@@ -1,13 +1,19 @@
 import {selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
 import {ListGroup} from "react-bootstrap";
 import SidebarData from "~/data/SideBarData.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
+import useSidebarData from "~/data/SideBarData.jsx";
+import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
+import {setUser} from "~/features/userAccount/index.js";
 
 function MainNavigate({sidebarHover, chatNav = false}) {
     const position = useSelector(selectSidebarPosition)
     const dispatch = useDispatch()
+    const socketClient = useStompWsClient()
+    const navigate = useNavigate()
+    const SidebarData = useSidebarData()
     const moreBtnStyle = {
         position: 'relative',
         cursor: 'pointer',
@@ -16,13 +22,22 @@ function MainNavigate({sidebarHover, chatNav = false}) {
         justifyContent: "center",
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem("user")
+        localStorage.removeItem("lastAuth")
+        dispatch(setUser({}))
+        socketClient.deactivate()
+        navigate("/login")
+    }
+
     return (
         <div className={chatNav ? "chat-nav" : "nav-content"}>
-            <div className="nav-wrap top-nav-item bg-white bg-transparent-card rounded-xxl shadow-xss pb-1 pt-1 mb-2 mt-2">
+            <div
+                className="nav-wrap top-nav-item bg-white bg-transparent-card rounded-xxl shadow-xss pb-1 pt-1 mb-2 mt-2">
                 {!chatNav && <div style={moreBtnStyle} className='more-btn'
-                      onClick={() => {
-                          if (!chatNav) dispatch(toggle(!position))
-                      }}>
+                                  onClick={() => {
+                                      if (!chatNav) dispatch(toggle(!position))
+                                  }}>
                     <i className="font-xxl feather-more-horizontal text-grey-500"
                        style={sidebarHover ? {visibility: "visible"} : {visibility: "hidden"}}></i>
                 </div>}
@@ -61,13 +76,21 @@ function MainNavigate({sidebarHover, chatNav = false}) {
                 <div className="nav-caption fw-600 font-xssss text-grey-500">Account</div>
                 <ListGroup as="ul" className="mb-1">
                     <ListGroup.Item as="li" style={{border: 'none', padding: '0'}}
-                                    className="logo d-none d-xl-block d-lg-block"></ListGroup.Item>
-                    <ListGroup.Item as="li" style={{border: 'none', padding: '0'}}><Link to="/profile"
-                                                                                         className="nav-content-bttn open-font h-auto pt-2 pb-2 "><i
-                        className="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></Link></ListGroup.Item>
-                    <ListGroup.Item as="li" style={{border: 'none', padding: '0'}}><Link to="/logout"
-                                                                                         className="nav-content-bttn open-font h-auto pt-2 pb-2"><i
-                        className="font-sm feather-log-out me-3 text-grey-500"></i><span>Log out</span></Link></ListGroup.Item>
+                                    className="logo d-none d-xl-block d-lg-block">
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" style={{border: 'none', padding: '0'}}>
+                        <Link to="/profile" className="nav-content-bttn open-font h-auto pt-2 pb-2 ">
+                            <i className="font-sm feather-settings me-3 text-grey-500"></i>
+                            <span>Settings</span>
+                        </Link>
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" className="border-0 p-0 cursor-pointer"
+                                    onClick={handleLogout}>
+                        <a className="nav-content-bttn open-font h-auto pt-2 pb-2">
+                            <i className="font-sm feather-log-out me-3 text-grey-500"></i>
+                            <span>Log out</span>
+                        </a>
+                    </ListGroup.Item>
                 </ListGroup>
             </div>
         </div>
