@@ -13,6 +13,7 @@ import { getAccessToken } from '~/service/accountService.js';
 import { commentPosts } from '~/api/postApi';
 import { get } from 'jquery';
 import { useCallback } from "react";
+import { getStoredUserData } from '~/service/accountService.js';
 
 function Comment({data,isShowComment}) {   
 
@@ -22,7 +23,7 @@ function Comment({data,isShowComment}) {
     const [inputComment,setInputComment] = useState("")
     const [isLoading,setIsLoading] = useState(false)
     const token = getAccessToken()
-
+    const user = getStoredUserData()
     // const onShowComment = () => getComments()
      
     const getComments = async() => {
@@ -79,7 +80,7 @@ function Comment({data,isShowComment}) {
       return (
             <>
               <Card.Body className="p-0 pt-3 d-flex justify-content-center pb-0 border-dark shadow-xs mt-3">
-                  <figure className="avatar ms-0 mt-1 top-2 " ><img  style={{width: '40px',height: "40px",overflow: 'hidden'}} src={USER.avatar ? USER.avatar : ppl}  className="shadow-sm rounded-circle" /></figure>
+                  <figure className="avatar ms-0 mt-1 top-2 " ><img  style={{width: '40px',height: "40px",overflow: 'hidden'}} src={user.avatar ? user?.avatar : ppl}  className="shadow-sm rounded-circle" /></figure>
                   <textarea id="input" onKeyDown={handleEnterDown}  onChange={(e) => setInputComment(e.target.value)} ref={ref} style={{height: "50px",width: "90%",resize: "none"}} className="float-right ms-2 bor-0 rounded-xxl p-2 ps-3 font-xsss text-grey-600 fw-500 border-light-md " placeholder="Write a comment..." />
               </Card.Body>
               <Card.Body className="d-flex p-0 mt-0" id="comment-section">
