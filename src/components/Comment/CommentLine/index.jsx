@@ -1,21 +1,34 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import ppl from "~/assets/img/ppl.png"
+import "./index.css"
+import ReplyComment from '../ReplyComment';
+import ReactTimeAgo from 'react-time-ago';
 
-function CommentLine({ username, avatar, text }) {
-    return (
-        <Card className="w-100 border-0 shadow-none right-scroll-bar">
-            <Card.Body className=" pt-4 pb-3 pe-4 d-block ps-5">
-                <figure className="avatar position-absolute left-0 ms-2 mt-1">
-                    <img src={avatar} alt="Avatar" className="shadow-sm rounded-circle w35" />
-                </figure>
-                <div className="chat p-3 bg-greylight rounded-xxl d-block text-left theme-dark-bg">
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-0 mb-1">
-                        {username} <a href="#" className="ms-auto"><i className="ti-more-alt float-right text-grey-800 font-xsss"></i></a>
-                    </h4>
-                    <p className="fw-500 text-grey-500 lh-20 font-xssss w-100 mt-2 mb-0">{text}</p>
-                </div>
-            </Card.Body>
-        </Card>
+function CommentLine({data}) {
+    return (    
+        <div className="comment-content pb-0">
+            <div className="comment-item ">
+                <div className='d-flex'>
+                 <div className="comment-user">
+                     <figure className="avatar"><img src={ppl} /></figure>
+                    <div>
+                    {/* <div className="time">01:35 PM</div> */}
+                    </div>
+                     </div>
+                        <div className="comment-wrap shadow-xs pe-2">
+                            <h5 className='user-name'>Byrom Guittet</h5>
+                            <p className='font-xsss' style={{}}>{data.content}</p>
+                        </div>
+                     </div>
+                    <div className='d-flex pt-0 me-5 justify-content-start font-xssss ms-5 fw-600' style={{marginTop: "-10px"}}>
+                        <div className="comment-btn ps-2 text-dark">{data.likes ? data.likes.length : 0 } Like</div>
+                        <div className="comment-btn text-dark">Reply</div>
+                        <div className="comment-btn text-dark"><ReactTimeAgo date={data.date} locale="en-US"/></div>
+                    </div>
+            </div>  
+            <ReplyComment />
+        </div>
     );
 };
 

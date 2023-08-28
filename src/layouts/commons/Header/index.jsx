@@ -1,22 +1,24 @@
 import {Link} from 'react-router-dom';
 import {forwardRef, useState} from 'react';
-import NavData from "../../../data/NavData.jsx"
+import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
-import Avatar from '../../../assets/img/ppl.png'
-import Logo from '../../../assets/img/logo.svg'
-import ava from "../../../assets/img/ava.jpg"
-import {Form, FormGroup} from 'react-bootstrap';
+import Avatar from '~/assets/img/ppl.png'
+import Logo from '~/assets/img/logo.svg'
+import ava from "~/assets/img/ava.jpg"
+import {Card, Form, FormGroup} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
-import {toggleChatButton} from '../../../features/toggleChat';
+import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function Header() {
+    const USER = getStoredUserData()
     const dispatch = useDispatch();
     let isFocusNotification = false;
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
-
+    const isChatPage = window.location.pathname === '/messenger'
     useAuthorizeUser()
 
     const CustomToggle = forwardRef(({children, onClick}, ref) => (
@@ -101,16 +103,16 @@ function Header() {
                             nhắc bạn trong một bình luận</h5>
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2 "> 3 phút</h6>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#" eventKey="2"
+                    <Dropdown.Item as={Card} href="#" eventKey="2"
                                    style={(notificationItem == 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(2)}
-                                   className='card bg-transparent-card w-100 border-0 ps-5   mb-2'>
+                                   className='bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
                         <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
                             <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#" eventKey="3"
+                    <Dropdown.Item
                                    style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(3)}
                                    className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
@@ -122,7 +124,7 @@ function Header() {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <motion.a
+            {!isChatPage && <motion.a
                 onClick={() => dispatch(toggleChatButton())}
                 whileHover={{scale: [null, 1.4, 1.3]}}
                 transition={{duration: 0.3}} onClickCapture={() => {
@@ -131,11 +133,13 @@ function Header() {
             }} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
                 <i style={{fontSize: '1.5rem'}}
                    className={isOnMess ? "feather-message-square cursor-pointer btn-round-md bg-vibe-light text-vibe" : "feather-message-square cursor-pointer btn-round-md  bg-greylight text-grey-500"}></i>
-            </motion.a>
+            </motion.a>}
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
-                            transition={{duration: 0.3}} src={Avatar} alt="user" className="w35 mt--1"/>
+                            transition={{duration: 0.3}} 
+                            src={USER.avatar ? USER.avatar : Avatar}
+                            className="w45 rounded-xl mt--1"/>
             </Link>
 
         </div>

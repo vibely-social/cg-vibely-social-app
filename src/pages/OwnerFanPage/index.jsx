@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import "./FanPage.css"
 import {useDispatch, useSelector} from "react-redux";
 import {userInfoApi} from "~/api/userInfoApi.js";
-import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {setUserInfo} from "~/features/userInfo/UserInfoSlice.js";
 import PostTabFanPage from "~/pages/OwnerFanPage/Tab/PostTabFanPage/index.jsx";
 import MediaTabFanPage from "~/pages/OwnerFanPage/Tab/MediaTabFanPage/index.jsx";
 import MentionsTabFanPage from "~/pages/OwnerFanPage/Tab/MentionsTabFanPage/index.jsx";

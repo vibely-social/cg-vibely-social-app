@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
 import {userInfoApi} from "~/api/userInfoApi.js";
-import {setUserInfo} from "~/features/userInfoSlice/UserInfoSlice.js";
+import {setUserInfo} from "~/features/userInfo/UserInfoSlice.js";
 import PostTabFanPage from "~/pages/OwnerFanPage/Tab/PostTabFanPage/index.jsx";
 import IntroductionTabFanPage from "~/pages/OwnerFanPage/Tab/IntroductionTabFanPage/index.jsx";
 import MentionsTabFanPage from "~/pages/OwnerFanPage/Tab/MentionsTabFanPage/index.jsx";
@@ -18,7 +18,7 @@ function GuestFanPage() {
     const dispatch = useDispatch();
     const params = useParams();
     const currentUser = getStoredUserData();
-    const nagative = useNavigate();
+    const navigate = useNavigate();
 
     const toggleToAbout = () => {
         setType("About")
@@ -36,10 +36,10 @@ function GuestFanPage() {
                 if(result !== undefined) {
                     dispatch(setUserInfo(result));
                 } else {
-                    nagative('/404');
+                    navigate('/404');
                 }
             } else {
-                nagative("/fanpage")
+                navigate("/fanpage")
             }
         }
         getUserInfo()

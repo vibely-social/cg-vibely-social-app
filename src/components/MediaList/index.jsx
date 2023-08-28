@@ -34,7 +34,7 @@ function MediaList({images, type}) {
         secondDiv = "card h175 w175"
     }
     if (type === "photos") {
-        firstDiv = 'col-md-4 col-xss-3';
+        firstDiv = 'col-sm-4 col-xss-3';
         secondDiv = "card h100 w100 d-block border-0 mb-2 me-1 align ";
     }
 
@@ -75,28 +75,6 @@ function MediaList({images, type}) {
                 );
             })}
 
-            {/*{images.map((image, index) => (*/}
-            {/*    <div className={firstDiv}>*/}
-            {/*        <div*/}
-            {/*            className={secondDiv}*/}
-            {/*            key={image.id}*/}
-            {/*            onClick={() => {*/}
-            {/*                handleClick(index);*/}
-            {/*            }}*/}
-            {/*        >*/}
-            {/*            <img*/}
-            {/*                className="rounded-3 w-100 h-100 border border-1 border-gray shadow-md"*/}
-            {/*                src={image.url}*/}
-            {/*                style={{*/}
-            {/*                    objectFit: "cover",*/}
-            {/*                    width: "100%",*/}
-            {/*                    height: "100%"*/}
-            {/*                }}*/}
-            {/*                alt={`${image.id}`}*/}
-            {/*            />*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*))}*/}
             {showModal &&
                 <MediaDetails
                     images={images}
