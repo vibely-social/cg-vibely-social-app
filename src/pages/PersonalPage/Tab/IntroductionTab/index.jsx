@@ -25,7 +25,7 @@ function IntroductionTab() {
                                 <span onClick={() => {setType(tab)}}
                                       key={tab}
                                       className={type === tab ?
-                                          "cursor-pointer p-2 fw-600 d-block font-xs text-grey-800 mb-2 bg-current rounded-2 ps-2" :
+                                          "cursor-pointer p-2 fw-600 d-block font-xs text-grey-800 mb-2 bg-primary-gradiant rounded-2 ps-2" :
                                           "cursor-pointer p-2 d-block font-xss text-grey-800 mb-2 hover-button rounded"}>
                                     {tab}
                                 </span>

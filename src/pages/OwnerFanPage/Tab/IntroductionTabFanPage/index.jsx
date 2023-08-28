@@ -1,8 +1,9 @@
 import {useState} from "react";
-import OverView from "~/pages/PersonalPage/Tab/IntroductionTab/Information/OverView/index.jsx";
-import WorkAndEducation from "~/pages/PersonalPage/Tab/IntroductionTab/Information/WorkAndEducation/index.jsx";
-import Contact from "~/pages/PersonalPage/Tab/IntroductionTab/Information/Contact/index.jsx";
-import UserDetail from "~/pages/PersonalPage/Tab/IntroductionTab/Information/UserDetail/index.jsx";
+import ContactFanPage from "~/pages/OwnerFanPage/Tab/IntroductionTabFanPage/InformationFanPage/ContactFanPage/index.jsx";
+import WorkAndEducationFanPage
+    from "~/pages/OwnerFanPage/Tab/IntroductionTabFanPage/InformationFanPage/WorkAndEducation/index.jsx";
+import OverViewFanPage from "~/pages/OwnerFanPage/Tab/IntroductionTabFanPage/InformationFanPage/OverViewFanPage/index.jsx";
+import FanPageDetail from "~/pages/OwnerFanPage/Tab/IntroductionTabFanPage/InformationFanPage/FanPageDetail/index.jsx";
 
 function IntroductionTabFanPage() {
     const tabs = ["Over View", "Work and Education", "Contact and basic info", "Details about you"]
@@ -30,10 +31,10 @@ function IntroductionTabFanPage() {
                         </div>
                         <div className="col-lg-8">
                             {
-                                type === 'Over View' ? <OverView />
-                                    : type === 'Work and Education' ? <WorkAndEducation />
-                                        : type === 'Contact and basic info' ? <Contact />
-                                            : <UserDetail />
+                                type === 'Over View' ? <OverViewFanPage />
+                                    : type === 'Work and Education' ? <WorkAndEducationFanPage />
+                                        : type === 'Contact and basic info' ? <ContactFanPage />
+                                            : <FanPageDetail />
                             }
                         </div>
                     </div>

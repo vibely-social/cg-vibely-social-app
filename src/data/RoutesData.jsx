@@ -6,7 +6,8 @@ import Register from "../pages/Register";
 import PersonalPage from "../pages/PersonalPage";
 import Chat from "~/pages/Chat/index.jsx";
 import Friends from "~/pages/Friends";
-import FanPage from "~/pages/FanPage/index.jsx";
+import OwnerFanPage from "~/pages/OwnerFanPage/index.jsx";
+import GuestFanPage from "~/pages/GuestFanPage/index.jsx";
 
 export const publicRoutes = [
     {path: '/', component: Feeds, layout: MainLayout},
@@ -15,7 +16,8 @@ export const publicRoutes = [
     {path: '/register', component: Register, layout: null},
     {path: '/friends', component: Friends, layout: MainLayout},
     {path: '/messenger', component: Chat, layout: ChatLayout},
-    {path: '/fanpage', component: FanPage, layout: MainLayout}
+    {path: '/fanpage', component: OwnerFanPage, layout: MainLayout},
+    {path: '/fanpage/:id', component: GuestFanPage, layout: MainLayout}
 ]
 
 export default publicRoutes;

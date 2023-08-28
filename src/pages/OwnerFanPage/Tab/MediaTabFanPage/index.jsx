@@ -1,9 +1,10 @@
-import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 import {getMedia} from "~/features/getMedia/index.jsx";
+import MediaDetails from "~/components/MediaDetails/index.jsx";
 import MediaList from "~/components/MediaList/index.jsx";
 
-function MediaTab() {
+function MediaTabFanPage() {
     const tabs = ["Photos", "Videos"]
 
     const dispatch = useDispatch();
@@ -52,6 +53,4 @@ function MediaTab() {
         </>
     )
 }
-
-
-export default MediaTab;
+export default MediaTabFanPage;

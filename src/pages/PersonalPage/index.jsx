@@ -7,6 +7,7 @@ import PostTab from "~/pages/PersonalPage/Tab/PostTab/index.jsx";
 import IntroductionTab from "~/pages/PersonalPage/Tab/IntroductionTab/index.jsx";
 import FriendTab from "~/pages/PersonalPage/Tab/FriendTab/index.jsx";
 import MediaTab from "~/pages/PersonalPage/Tab/MediaTab/index.jsx";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
@@ -14,10 +15,19 @@ function PersonalPage() {
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
 
+    const toggleToAbout = () => {
+        setType("About")
+    }
+
+    const toggleToMedia = () => {
+        setType("Media");
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }
+
     useEffect( () => {
         const getUserInfo = async () => {
-            // let user = getStoredUserData()
-            const result = await userInfoApi(23);
+            const user = getStoredUserData();
+            const result = await userInfoApi(user.id);
             dispatch(setUserInfo(result));
         }
         getUserInfo()
@@ -108,9 +118,9 @@ function PersonalPage() {
             </div>
             <div className="col-lg-12">
                 {
-                    type === 'Posts' ? <PostTab/>
+                    type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
                         : type === 'About' ? <IntroductionTab/>
-                            : type === 'Friends' ? <FriendTab/>
+                            : type === 'Friends' ? <FriendTab />
                                 : <MediaTab/>
                 }
             </div>

@@ -140,7 +140,7 @@ function Login() {
                                     }>
                                     <div className="form-group icon-eye-input-log mb-1">
                                         <div className="icon-eye-input-log">
-                                            <i className={isPasswordVisible ? "font-sm cursor-pointer feather-eye text-grey-500 pe-0" : "font-sm cursor-pointer  feather-eye-off text-grey-500 pe-0"}
+                                            <i className={isPasswordVisible ? "font-sm cursor-pointer feather-eye text-grey-500 pe-0" : "font-sm cursor-pointer feather-eye-off text-grey-500 pe-0"}
                                                onClick={() => setIsPasswordVisible(!isPasswordVisible)}></i>
                                             <input type={isPasswordVisible ? 'text' : 'password'}
                                                    id="password"

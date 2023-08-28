@@ -4,9 +4,12 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {POST_API} from "~/app/constants.js";
 import FanPageIntro from "~/components/FanPageIntro/index.jsx";
+import MediaList from "~/components/MediaList/index.jsx";
+import {useSelector} from "react-redux";
 
-function PostTabFanPage() {
+function PostTabFanPage({toggleAbout, toggleMedia}) {
     const [posts, setPosts] = useState([]);
+    const images = useSelector(state => state.media.images)
 
 
     const fetchPosts = async () => {
@@ -28,17 +31,30 @@ function PostTabFanPage() {
             <div className="row">
                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                     <div className="shadow-xss mb-3 mt-3">
-                        <FanPageIntro />
+                        <FanPageIntro toogle={toggleAbout}/>
                     </div>
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
-                        <div className="card-body d-block p-4" style={{height: 300}}>
-                            <h4 className="fw-700 mb-3 font-xsss text-grey-900">Media</h4>
+                        <div className="card-body d-block p-4 ps-3" style={{height: 380}}>
+                            <h4 className="fw-700 mb-3 font-xsss text-grey-900 d-flex justify-content-between">
+                                <span>
+                                    Photos
+                                </span>
+                                <span className="text-end cursor-pointer hover-underline text-cyan"
+                                      onClick={toggleMedia}
+                                >
+                                    See more
+                                </span>
+                            </h4>
+                            <div className="row ps-2 pe-2">
+                                <MediaList images={images} type="photos"/>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div className="col-xl-8 col-xxl-9 col-lg-8">
                     <div className="shadow-xss mb-3 mt-3">
-                        <NewPost />
+                        <NewPost/>
                     </div>
 
                     {posts.map((post,index) => {

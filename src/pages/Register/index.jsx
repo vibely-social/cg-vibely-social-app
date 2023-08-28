@@ -315,7 +315,7 @@ function Register() {
                                         </Tooltip>
                                     }>
                                     <div className="form-group icon-eye-input-res mb-3">
-                                        <div className="icon-eye-input">
+                                        <div className="icon-eye-input-res">
                                             <i className={isPasswordVisible ? "font-sm cursor-pointer feather-eye text-grey-500 pe-0" : "font-sm cursor-pointer feather-eye-off text-grey-500 pe-0"}
                                                onClick={() => setIsPasswordVisible(!isPasswordVisible)}></i>
                                             <input type={isPasswordVisible ? 'text' : 'password'}
