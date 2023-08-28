@@ -11,14 +11,34 @@ import { set } from 'date-fns';
 import { VIBELY_API } from '~/app/constants.js';
 import axios from 'axios';
 import { getAccessToken } from '~/service/accountService.js';
+import { commentPosts } from '~/api/postApi';
+import { get } from 'jquery';
+import { useCallback } from "react";
 
-function Comment({data}) {   
+function Comment({data,isShowComment}) {   
 
     const ref = useRef()
     const [comments,setComments] = useState([])
     const [file,setFile] = useState(null)
     const [inputComment,setInputComment] = useState("")
+    const [isLoading,setIsLoading] = useState(false)
     const token = getAccessToken()
+
+    // const onShowComment = () => getComments()
+     
+    const getComments = async() => {
+      setIsLoading(true)
+      const response = await commentPosts(data.id)
+      .then(response => {
+        setComments(response)
+        setIsLoading(false)
+      })
+    }
+    
+    useEffect(() => {
+      if(data.commentCount > 0) getComments()
+    },[isShowComment])
+
 
 
     const  handleEnterDown = async (event)  => {
@@ -26,7 +46,6 @@ function Comment({data}) {
           let newComment =  ref.current.value
           const formData = new FormData();
           formData.append('newComment', newComment)
-          setComments((comments) => [...comments,newComment])
         try {
               const response =  await axios.post(`${VIBELY_API}/posts/${data.id}/comment`, formData, {
                 headers: {
@@ -67,8 +86,7 @@ function Comment({data}) {
               <Card.Body className="d-flex p-0 mt-0" id="comment-section">
                 <div className="pt-0 w-100 position-relative scroll-bar bg-white ">
                     <div className="comment-body p-0 pt-1">
-
-                    {data.comments?.map((comment,index) => {
+                    {comments?.map((comment,index) => {
                         return <CommentLine key={index} data={comment}/>
                     })}
                     </div>

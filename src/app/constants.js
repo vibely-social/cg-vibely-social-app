@@ -1,3 +1,4 @@
+import { getAccessToken } from "~/service/accountService"
 
 export const BROKER_URL = 'ws://localhost:8080/ws'
 
@@ -15,6 +16,6 @@ export const GET_IMAGES = ""
 export const GET_POST = `${VIBELY_API}/`
 
 export const HEADERS = {
-    'Authorization': 'Bearer ' + USER?.accessToken,
+    'Authorization': 'Bearer ' + getAccessToken(),
     'Content-Type': 'application/json'
   };

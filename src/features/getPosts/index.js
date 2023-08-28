@@ -10,13 +10,14 @@ const postsSlice = createSlice({
     name: 'posts',
     initialState: {
       newPosts: [],
+      createPost: null,
       isLoading: false,
       isSuccess: false,
       isFailed: false
     },
     reducers: {
       createPost: (state, action) => {
-          state.newPosts.unshift(action.payload);
+          state.createPost = action.payload;
       }
     },
       extraReducers: (builder) => {

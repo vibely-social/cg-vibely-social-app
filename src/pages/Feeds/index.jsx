@@ -16,9 +16,8 @@ function Feeds() {
     TimeAgo.addDefaultLocale(en)
     useAuthorizeUser()
     const dispatch = useDispatch();
-    const { isLoading, isSuccess, newPosts, isFailed } = useSelector((state) => state.posts);
+    const {isLoading, isSuccess, newPosts, isFailed , createPost } = useSelector((state) => state.posts);
     const [loaded,setLoaded] = useState(false)
-    
     
 
     useEffect(() => {
@@ -31,7 +30,7 @@ function Feeds() {
             setLoaded(true)
         }
       },[dispatch]);
-
+    
 
 
     return (
@@ -39,7 +38,7 @@ function Feeds() {
             <Col xl={8} xxl={9} lg={8}>
 
                 <CreatePost />
-            
+                { createPost && <PostDetail data={createPost}/>}
              {!loaded ? 
                 (<div className="preloader-feed">
                         <div className="box shimmer">
@@ -61,7 +60,7 @@ function Feeds() {
                     </div>) 
                  : 
                  
-                 newPosts?.map((post,index) => {
+                 isSuccess && newPosts?.map((post,index) => {
                    return <PostDetail data={post} key={index}/>
                  })
                 }

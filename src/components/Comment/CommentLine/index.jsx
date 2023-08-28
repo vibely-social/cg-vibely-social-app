@@ -11,23 +11,25 @@ function CommentLine({data}) {
             <div className="comment-item ">
                 <div className='d-flex'>
                  <div className="comment-user">
-                     <figure className="avatar"><img src={ppl} /></figure>
+                     <figure className="avatar"><img src={data.author.avatar ? data.author.avatar : ppl} /></figure>
                     <div>
                     {/* <div className="time">01:35 PM</div> */}
                     </div>
                      </div>
-                        <div className="comment-wrap shadow-xs pe-2">
-                            <h5 className='user-name'>Byrom Guittet</h5>
+                        <div className="comment-wrap shadow-xs pe-2" >
+                            <h5 className='user-name'>{data.author.firstName + " " + data.author.lastName}</h5>
                             <p className='font-xsss' style={{}}>{data.content}</p>
                         </div>
                      </div>
-                    <div className='d-flex pt-0 me-5 justify-content-start font-xssss ms-5 fw-600' style={{marginTop: "-10px"}}>
+                    <div className='d-flex pt-1 me-5 justify-content-start font-xssss ms-5 fw-600' style={{marginTop: "-10px"}}>
                         <div className="comment-btn ps-2 text-dark">{data.likes ? data.likes.length : 0 } Like</div>
                         <div className="comment-btn text-dark">Reply</div>
                         <div className="comment-btn text-dark"><ReactTimeAgo date={data.date} locale="en-US"/></div>
                     </div>
             </div>  
-            <ReplyComment />
+            {data.replyCommentDTOs?.map((comment,index) => {
+                        return <ReplyComment key={index} data={comment}/>
+                    })}
         </div>
     );
 };

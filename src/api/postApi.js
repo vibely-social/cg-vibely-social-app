@@ -20,3 +20,21 @@ export const getPostsList = async () => {
         return error.response
     }
 };
+
+export const likePost = async (postId) => {
+    try {
+        const response = await axios.get(`${VIBELY_API}/posts/like/${postId}`,{headers});
+        return response.data
+    } catch (error) {
+        return error.response
+    }
+};
+
+export const commentPosts = async (postId) => {
+    try {
+        const response = await axios.get(`${VIBELY_API}/posts/${postId}/comments`,{headers});
+        return response.data
+    } catch (error) {
+        return error.response
+    }
+};

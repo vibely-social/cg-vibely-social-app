@@ -23,9 +23,6 @@ import { getAccessToken } from '~/service/accountService.js';
 import {createPost} from "../../../features/getPosts"
 import { useDispatch } from 'react-redux';
 
-
-
-
 	const addImageButtonStyle = {
 		border: "none",
 		height: '220px',
@@ -167,7 +164,7 @@ function NewPostModal({ isOpen,closeModal }) {
 							<motion.div
 								className={"d-flex items-end justify-center dialog-post  pt-3 px-1 text-center "
 														+ (isLoading && "blurred-content ") 
-														+ (isError && "shake") }
+														+ (isError && " shake") }
 								initial={{
 									opacity: 0,
 									scale: 0.75,
@@ -189,7 +186,7 @@ function NewPostModal({ isOpen,closeModal }) {
 									},
 								}}
 								style={{
-									height : postImage.length != 0 ? "100%" : "fit-content",
+									height : postImage.length != 0 ? "90%" : "fit-content",
 									overflowY : "scroll"
 								}}
 							>
