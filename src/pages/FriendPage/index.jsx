@@ -15,14 +15,14 @@ function FriendPage() {
     const [type, setType] = useState("Posts")
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
-    const nagative = useNavigate();
+    const navigate = useNavigate();
     const currentUser = getStoredUserData();
     const params = useParams();
 
 
     const toggleToAbout = () => {
         setType("About");
-        // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }
 
     const toggleToMedia = () => {
@@ -37,12 +37,11 @@ function FriendPage() {
                 if (result !==  undefined) {
                     dispatch(setUserInfo(result));
                 } else {
-                    nagative('/404');
+                    navigate('/404');
                 }
             } else {
-                nagative('/profile');
+                navigate('/profile');
             }
-
         }
         getUserInfo()
     },[])
@@ -71,7 +70,12 @@ function FriendPage() {
                                 Add Friend
                             </span>
                             <span
-                               className="d-flex align-items-center cursor-pointer ms-2 bg-gold-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
+                                className="d-flex align-items-center cursor-pointer ms-2 bg-lightblue p-3 rounded-3 text-dark font-xsssss text-uppercase fw-700 ls-3 ">
+                                <i className="feather-user-check font-xss tetx-dark me-1"></i>
+                                Friends
+                            </span>
+                            <span
+                               className="d-flex align-items-center cursor-pointer ms-2 bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
                                 <i className="feather-message-square font-xss tetx-dark me-1"></i>
                                 Messenger
                             </span>

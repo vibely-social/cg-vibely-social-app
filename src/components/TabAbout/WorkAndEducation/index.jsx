@@ -143,7 +143,7 @@ function WorkAndEducation() {
                                             <i onClick={() => setWorkStatus(!workStatus)}
                                                className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                             </i>
-                                            : null
+                                            : <></>
                                         }
 
                                     </div>
@@ -239,7 +239,7 @@ function WorkAndEducation() {
                                         <i onClick={() => setSchoolStatus(!schoolStatus)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                         </i>
-                                        : null
+                                        : <></>
                                     }
 
                                 </div>
