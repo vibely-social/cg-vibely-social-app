@@ -2,11 +2,11 @@ import { Card } from "react-bootstrap";
 import { useState } from "react";
 import NewPostModal from "./PostModal";
 import "./index.css"
-import ppl from "../../assets/img/ppl.png"
-import { USER } from "~/app/constants";
+import ppl from "~/assets/img/ppl.png"
+import {getStoredUserData} from "~/service/accountService.js";
 
 function CreatePost() {
-    
+    const USER =getStoredUserData();
     const [isOpen, setIsOpen] = useState(false)
     const classBtn = "d-flex align-items-center hover-vibe cursor-pointer p-2 rounded-xxl post-button font-xssss fw-600 ls-1 text-grey-700 text-dark pe-3 ps-3 "
 

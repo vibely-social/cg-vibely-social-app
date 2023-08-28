@@ -126,7 +126,7 @@
 
 .slideInUp {
   -webkit-animation-name: slideInUp;
-  animation-name: slideInUp;
+  animation: slideInUp 0.2s linear;
 }
 
 
@@ -160,7 +160,7 @@
 
 .slideOutDown {
   -webkit-animation-name: slideOutDown;
-  animation-name: slideOutDown;
+  animation: slideOutDown 0.2s linear;
 }
 
 @-webkit-keyframes slideInDown {
@@ -260,5 +260,9 @@
 .scroll-bar::-webkit-scrollbar-track {background-color: transparent;}
 .scroll-bar::-webkit-scrollbar {width: 2px;background-color: transparent;}
 .scroll-bar::-webkit-scrollbar-thumb {background-color: #bbbbbb;}
+
+.smooth-transition{
+  transition: all 0.55s ease 0s;
+}
 
 

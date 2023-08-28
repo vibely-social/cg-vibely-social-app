@@ -1,9 +1,9 @@
 import Header from "../commons/Header/index.jsx";
-import RightChat from "../../components/RightChat/index.jsx";
+import RightChat from "~/components/RightChat/index.jsx";
 import {useSelector} from "react-redux";
 import {useState} from "react";
-import PreLoader from '../../components/Preloader'
-import {selectSidebarPosition} from '../../features/toggleSidebar'
+import PreLoader from '~/components/Preloader'
+import {selectSidebarPosition} from '~/features/toggleSidebar'
 import MainSidebar from "../commons/Sidebar/MainSidebar/index.jsx";
 
 // eslint-disable-next-line react/prop-types

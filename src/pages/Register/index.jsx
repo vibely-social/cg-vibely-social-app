@@ -1,11 +1,11 @@
-import google from "../../assets/img/google-icon.png";
+import google from "~/assets/img/google-icon.png";
 import {Link, useNavigate} from "react-router-dom"
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import "./index.scss"
 import {useEffect, useState} from "react";
-import logo from "../../assets/img/logo.svg";
+import logo from "~/assets/img/logo.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {
     checkEmail,

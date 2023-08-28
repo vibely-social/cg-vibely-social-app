@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfoSlice/userInfoSlice.js";
+import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfo/userInfoSlice.js";
 import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
