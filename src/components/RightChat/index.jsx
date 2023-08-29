@@ -7,10 +7,12 @@ import {selectConversation, switchConversationTo} from "~/features/switchConvers
 import {loadOldMessages, selectAllOldMessages} from "~/features/loadOldMessages/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
 import {selectBottomChatStatus, setBtChatActive, setBtChatInactive} from "~/features/bottomChat/index.jsx";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function RightChat() {
     const dispatch = useDispatch()
     const user = useSelector(selectUserData)
+    const currentUser = getStoredUserData();
     const friendList = useSelector(selectFriendList)
     const btChatStatus = useSelector(selectBottomChatStatus)
     const isOpenChat = useSelector((state) => state.openChat.isOn);
@@ -33,7 +35,7 @@ function RightChat() {
     }, [oldMessages,currentConversation])
 
     useEffect(() => {
-        dispatch(getFriends())
+        dispatch(getFriends(currentUser.id))
     }, [])
 
     useEffect(() => {
