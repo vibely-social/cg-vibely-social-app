@@ -20,10 +20,11 @@ function PostTab({toggleAbout, toggleMedia}) {
 
 
     const fetchPosts = async () => {
-       try {
-          const response = await axios.get(`${VIBELY_API}/posts`);
-          setPosts(response.data)
-          setIsLoading(false)
+        try {
+            const response = await axios.get(`${VIBELY_API}/posts`);
+            setPosts(response.data)
+            setIsLoading(false)
+            console.log(posts);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
