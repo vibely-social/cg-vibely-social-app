@@ -38,3 +38,12 @@ export const commentPosts = async (postId) => {
         return error.response
     }
 };
+
+export const likeComment = async (postId,commentId) => {
+    try {
+        const response = await axios.get(`${VIBELY_API}/posts/${postId}/like/${commentId}`,{headers});
+        return response.data
+    } catch (error) {
+        return error.response
+    }
+};

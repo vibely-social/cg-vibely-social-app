@@ -72,7 +72,7 @@ function PostTab({toggleAbout, toggleMedia}) {
                         <NewPost/>
                     </div>
 
-                    {posts.map((post, index) => {
+                    {posts?.map((post, index) => {
                         return <PostDetail data={post} key={index}/>
                     })}
                 </div>

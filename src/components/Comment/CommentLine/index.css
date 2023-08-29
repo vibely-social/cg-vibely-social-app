@@ -1,3 +1,20 @@
-.comment-btn {
-    padding-right: 20px;
+.comment-wrap {
+    max-width: 85%;
+}
+
+.reply-box {
+    width: 90%;
+    margin-top: 0px;
+    height: fit-content;
   }
+  .reply-input{
+    border: none;
+    outline: none;
+    width: 95%;
+    resize: none;
+    overflow: hidden;
+    height: 40px;
+    transition: transform 0.3s ease ;
+    margin-top: 0
+  }
+  

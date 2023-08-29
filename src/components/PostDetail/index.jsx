@@ -28,7 +28,7 @@ function PostDetail({data}) {
     return (
         <>
             <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3">
-                <Card.Body className="p-0 d-flex">
+                <Card.Body className="p-0 d-flex ">
                     <figure className="avatar me-2">
                         <img
                             src={!data.author.avatar ? ppl : data.author.avatar}
