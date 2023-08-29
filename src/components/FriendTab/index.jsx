@@ -44,7 +44,7 @@ function FriendTab({tongglePost, friendID}) {
     }
 
     return (
-        <>  {console.log(friends)}
+        <>
             <div className="card w-100 d-block d-flex shadow-xss rounded-xxl border-0 mt-3">
                 <div className="card-body d-flex p-4">
                     <h2 className="fw-700 mb-0 mt-0 font-md text-grey-900">Friends
