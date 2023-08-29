@@ -41,6 +41,7 @@ import { useDispatch } from 'react-redux';
 	}
 
 function NewPostModal({ isOpen,closeModal }) {
+		const User = getStoredUserData();
 
 		const dispatch = useDispatch();
 		const token = getAccessToken()
@@ -201,9 +202,9 @@ function NewPostModal({ isOpen,closeModal }) {
 									</div>
 								<Form onSubmit={handleSubmit}>
 										<Form.Group className="content-dialog">
-											<img src={Logo} alt="logo" />
+											<img src={User.avatarUrl? User.avatarUrl : Logo} alt="logo" />
 											<div className="details">
-												<p>Thanh Nguyen</p>
+												<p>{User?.firstName + " " + User?.lastName}</p>
 												<Form.Select className="privacy" 
 															onChange={(e) => handleChangePrivacy(e.target.value)}>
 													<option value="PUBLIC">🌐 Public</option>
