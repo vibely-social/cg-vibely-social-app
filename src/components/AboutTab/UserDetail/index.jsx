@@ -117,8 +117,8 @@ function UserDetail() {
                                         <span className="text-red">
                                         {formikName.errors.lastName}
                                         </span>
-                                </div>
                                     </div>
+                                </div>
                                 <div className="col-lg-6 h100">
                                     <div>
                                         <h4 className="fw-500">First Name</h4>
@@ -217,7 +217,7 @@ function UserDetail() {
                                     </button>
                                     <button onClick={() => {
                                         setGenderStatus(false)
-                                            formikGender.resetForm()
+                                        formikGender.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -279,7 +279,7 @@ function UserDetail() {
                                     </button>
                                     <button onClick={() => {
                                         setBirthdayStatus(false)
-                                            formikBirthday.resetForm()
+                                        formikBirthday.resetForm()
                                     }}
                                             className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
                                         Cancel
@@ -290,10 +290,12 @@ function UserDetail() {
                         : <div
                             className="fw-600 text-dark lh-26 font-xssss mb-1 row">
                             <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                <h4 className="d-flex align-items-center float-left">
-                                    <i className="ti-thought me-2"></i>
-                                    Birthday: {formatDate(userInfo.birthday)}
-                                </h4>
+                                {userInfo.birthday && (
+                                    <h4 className="d-flex align-items-center float-left">
+                                        <i className="ti-thought me-2"></i>
+                                        Birthday: {formatDate(userInfo.birthday)}
+                                    </h4>
+                                )}
                                 {userInfo.id === currentUser.id ?
                                     <i onClick={() => setBirthdayStatus(!birthdayStatus)}
                                        className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">

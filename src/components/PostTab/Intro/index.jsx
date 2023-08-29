@@ -132,12 +132,14 @@ function Intro({toggle}) {
                         Lives in {userInfo.city + ", " + userInfo.district}
                     </h4>
                 </div> : null}
-                <div className="ms-1 pb-2">
-                    <h4 className="d-flex align-items-center">
-                        <i className="ti-thought me-2"></i>
-                        Born on {formatDate(userInfo.birthday)}
-                    </h4>
-                </div>
+                {userInfo.birthday && (
+                    <div className="ms-1 pb-2">
+                        <h4 className="d-flex align-items-center">
+                            <i className="ti-thought me-2"></i>
+                            Born on {formatDate(userInfo.birthday)}
+                        </h4>
+                    </div>
+                )}
                 {
                     userInfo.id === user.id ?
                         <span
