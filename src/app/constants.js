@@ -12,4 +12,6 @@ export const PROVINCES_API = "https://provinces.open-api.vn/api/?depth=2"
 
 export const CLIENT_ID = "532640652631-tadeecfp8o33mipvo37n8fdp76vcq0i3.apps.googleusercontent.com"
 
+export const GOOGLE_USER_INFO_API = "https://www.googleapis.com/oauth2/v2/userinfo"
+
 // export const CLIENT_ID = "216393743423-7ra1hjhhr7feaj6r1737vmge3pti5704.apps.googleusercontent.com"
