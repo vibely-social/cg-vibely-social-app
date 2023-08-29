@@ -8,6 +8,7 @@
     height: fit-content;
   }
   .reply-input{
+    white-space: pre-wrap;
     border: none;
     outline: none;
     width: 95%;

@@ -82,10 +82,12 @@ function Comment({data,isShowComment}) {
                   <figure className="avatar ms-0 mt-1 top-2 " >
                           <img  
                               style={{width: '40px',height: "38px",overflow: 'hidden'}} 
-                              src={user.avatar ? user?.avatar : ppl}  className="shadow-sm rounded-circle" />
+                              src={user.avatar ? user?.avatar : ppl}  
+                              className="shadow-sm rounded-circle" />
                     </figure>
                     <Form className='comment-box rounded-xxl ms-2 bor-0 border-light-md'>
-                          <textarea id="input"
+                          <textarea 
+                                  id="input"
                                   onKeyDown={handleEnterDown}  
                                   onBlur={(e)=> e.target.style.height = "40px"}
                                   onSelectCapture={handleSelect}
@@ -96,13 +98,18 @@ function Comment({data,isShowComment}) {
                                   
                     </Form>
               </Card.Body>}
-              <Card.Body className="d-flex  p-0 mt-2" id="comment-section">
-                <div className="pt-0 w-100 position-relative scroll-bar bg-white " style={{maxHeight: "400px"}}>
-                    <div className="comment-body p-0 pt-1">
-                        {isLoading && <div className='d-flex justify-content-center p-2'><BeatLoader color="#36d7b7" /></div>}
-                        {comments && comments.map((comment,index) => {
+              <Card.Body 
+                      className="d-flex  p-0 mt-2" 
+                      id="comment-section">
+                <div 
+                      className="pt-0 w-100 position-relative scroll-bar bg-white " 
+                      style={{maxHeight: "400px"}}>
+                    <div 
+                        className="comment-body p-0 pt-1">
+                          {isLoading && <div className='d-flex justify-content-center p-2'><BeatLoader color="#36d7b7" /></div>}
+                          {comments && comments.map((comment,index) => {
                           return <CommentLine key={index} postId={data.id} data={comment}/>
-                       })}
+                         })}
                     </div>
                 </div>
               </Card.Body>

@@ -9,6 +9,8 @@ import { Card ,Form} from 'react-bootstrap';
 import { getStoredUserData , getAccessToken } from '~/service/accountService';
 import { VIBELY_API } from '~/app/constants';
 import axios from 'axios';
+import {wrapText} from "~/utils/wrapText";
+import { useRef } from 'react';
 
 
 
@@ -19,9 +21,12 @@ function CommentLine({postId,data}) {
     const [isReply,setIsReply] = useState(false)
     const [inputContent,setInputContent] = useState("")
     const [file,setFile] = useState(null)
-    const [reply,setReply] = useState(data.replyCommentDTOs)
+    const [replyTarget,SetReplyTarget] = useState("")
+    const [replys,setReply] = useState(data.replyCommentDTOs)
     const user = getStoredUserData()
     const token = getAccessToken()
+    const ref=useRef();
+    let commentID = data.commentId
 
     const handleLike = async () => {
         const response = await likeComment(data.commentId,postId)
@@ -51,7 +56,7 @@ function CommentLine({postId,data}) {
                 },})
                 .then((response) => {
                   setInputContent("")
-                  setReply((reply) => [...reply, response.data])
+                  setReply((replys) => [...replys, response.data])
                 })
                 } catch (error) {
                   setInputContent("")
@@ -64,37 +69,55 @@ function CommentLine({postId,data}) {
             <div className="comment-item mb-0 pb-2 mt-2 ">
                 <div className='d-flex'>
                  <div className="comment-user">
-                     <figure className="avatar"><img src={data.author.avatar ? data.author.avatar : ppl} /></figure>
+                     <figure className="avatar">
+                        <img src={data.author.avatar ? data.author.avatar : ppl} />
+                    </figure>
                     <div>
                     </div>
                          </div>
-                            <div className="comment-wrap shadow-xs pe-2" >
-                                <h5 className='user-name'>{data.author.firstName + " " + data.author.lastName}</h5>
-                                <p className='font-xsss' style={{overflowWrap: 'anywhere'}}>{data.content}</p>
+                            <div className="comment-wrap shadow-xs pe-2 mb-1" >
+                                <h5 className='user-name'>
+                                    {data.author.firstName + " " + data.author.lastName}
+                                </h5>
+                                <p className='font-xsss fw-600' style={{overflowWrap: 'anywhere'}}>
+                                    {wrapText(data.content)}
+                                </p>
                             </div>
                         </div>
-                        <div className='d-flex pt-1 justify-content-start font-xssss fw-600' 
-                            style={{marginTop: "-10px",marginLeft: "45px"}}>
+                        <div className='d-flex pt-1 justify-content-start font-xssss fw-500' 
+                            style={{
+                                    marginTop: "-10px",
+                                    marginLeft: "45px"
+                                    }}>
                                 <div 
-                                    className={"comment-btn ps-2 rounded-xl me-0 hover-vibe rounded-xl me-2 " 
-                                                + (isLiked ? "text-vibe" : "text-dark")}
+                                    className={"comment-btn ps-2 rounded-xl me-0 hover-vibe rounded-xl me-2 " + (isLiked ? "text-vibe" : "text-dark")}
                                     onClick={handleLike}>
                                     <span className='p-1'> {like ? like : 0 } Like</span>
                                 </div>
                                 <div 
                                     className="comment-btn text-dark hover-vibe rounded-xl me-2" 
                                     onClick={() => setIsReply(true)}>
-                                    <span className='p-1' onClick={() => setIsReply(!isReply)}>
+                                    <span className='p-1' 
+                                        onClick={() => setIsReply(!isReply)}>
                                         Reply
                                     </span>
                                 </div>
-                            <div className="comment-btn text-dark"><ReactTimeAgo date={data.date} locale="en-US"/></div>
+                            <div className="comment-btn text-dark">
+                                <ReactTimeAgo date={data.date} locale="en-US"/>
+                            </div>
                     </div>
                     
             </div>  
            
-                {reply?.map((comment,index) => {
-                            return <ReplyComment key={index} postId={postId} data={comment}/>})}
+                {replys?.map((reply,index) => {
+                            return <ReplyComment 
+                                            key={reply.commentId} 
+                                            postId={postId} 
+                                            reply={reply} c
+                                            ommentID={commentID}
+                                            setIsReply={setIsReply}
+                                            setReplyTarget={SetReplyTarget}
+                                            />})}
 
                  {isReply && 
                  <Card.Body className="d-flex p-0 ms-3 ps-5" 
@@ -116,6 +139,7 @@ function CommentLine({postId,data}) {
                                     onBlur={(e)=>e.target.style.height = "40px"}
                                     onSelectCapture={handleSelect}
                                     onChange={(e) => setInputContent(e.target.value)}
+                                    ref={ref}
                                     value={inputContent}
                                     className="reply-input ms-0 p-1 ps-3 font-xsss text-grey-600 w-100 fw-500" 
                                     placeholder="Write a comment..." />

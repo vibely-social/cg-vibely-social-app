@@ -9,6 +9,7 @@ import Comment from "../Comment";
 import likebtn from "../../assets/img/likebtn.png"
 import { likePost } from "~/api/postApi";
 import { set } from "date-fns";
+import {wrapText} from "~/utils/wrapText";
 
 
 
@@ -121,7 +122,7 @@ function PostDetail({data}) {
                     onClick={() => setIsShowComment(true)} ><i
                         className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span
                         className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment</span></a>
-                    <a  id="dropdownMenu21" data-bs-toggle="dropdown" aria-expanded="false"
+                    <a  
                        className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
                         className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span
                         className="d-none-xs">Share</span></a>
