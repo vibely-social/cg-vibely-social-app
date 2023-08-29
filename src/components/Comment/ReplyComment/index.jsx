@@ -6,8 +6,9 @@ import "./index.css"
     function ReplyComment({postId,data}) {
         const [like,setLike] = useState(data.likeCount)
         const [isLiked,setIsLiked] = useState(data.liked)
-        return ( 
+        return ( <>
             <div className='reply-comment ps-5 '>
+            <div className="border border-5 position-absolute w100 h100"></div>
                 <div className="comment-item ">
                     <div className='d-flex'>
                         <div className="comment-user ms-1">
@@ -39,6 +40,7 @@ import "./index.css"
                     </div>
                 </div>
             </div>
+            </>
         );
     }
 

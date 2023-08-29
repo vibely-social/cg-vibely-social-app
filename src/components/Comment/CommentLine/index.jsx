@@ -60,13 +60,12 @@ function CommentLine({postId,data}) {
       }
 
     return (    
-        <div className="comment-content">
-            <div className="comment-item mb-0 pb-2 mt-2">
+        <div className="comment-content ">
+            <div className="comment-item mb-0 pb-2 mt-2 ">
                 <div className='d-flex'>
                  <div className="comment-user">
                      <figure className="avatar"><img src={data.author.avatar ? data.author.avatar : ppl} /></figure>
                     <div>
-                    {/* <div classNam`e="time">01:35 PM</div> */}
                     </div>
                          </div>
                             <div className="comment-wrap shadow-xs pe-2" >
@@ -94,7 +93,7 @@ function CommentLine({postId,data}) {
                     
             </div>  
            
-                {reply.map((comment,index) => {
+                {reply?.map((comment,index) => {
                             return <ReplyComment key={index} postId={postId} data={comment}/>})}
 
                  {isReply && 
