@@ -156,8 +156,8 @@ function Header() {
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
-                            transition={{duration: 0.3}}
-                            src={USER.avatar ? USER.avatar : Avatar}
+                            transition={{duration: 0.3}} 
+                            src={USER?.avatarUrl ? USER?.avatarUrl : Avatar}
                             className="w45 rounded-xl mt--1"/>
             </Link>
 

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
+import "./index.css"
 
 //type: tab, photos, post
 function MediaList({images, type}) {
@@ -35,7 +36,7 @@ function MediaList({images, type}) {
     }
     if (type === "photos") {
         firstDiv = 'col-sm-4 col-xss-3';
-        secondDiv = "card h100 w100 d-block border-0 mb-2 me-1 align ";
+        secondDiv = "card h100 w100 d-block border-0 mb-2 me-1 align";
     }
 
     return (
@@ -58,12 +59,13 @@ function MediaList({images, type}) {
                                     }}
                                 >
                                     <img
-                                        className="rounded-3 w-100 h-100 border border-1 border-gray shadow-md"
+                                        className="rounded-3 w-100 h-100 border border-1 border-gray shadow-md image-hover-effect"
                                         src={url}
                                         style={{
                                             objectFit: "cover",
                                             width: "100%",
-                                            height: "100%"
+                                            height: "100%",
+                                            cursor: "pointer"
                                         }}
                                         alt="picture"
                                     />

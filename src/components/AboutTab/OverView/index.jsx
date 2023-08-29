@@ -10,7 +10,7 @@ import {
     setCity,
     setSchool,
     setWork
-} from "~/features/userInfo/userInfoSlice.js";
+} from "~/features/userInfo/UserInfoSlice";
 import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
@@ -422,16 +422,16 @@ function OverView() {
                             </div>
                             : userInfo.id === currentUser.id ?
 
-                            <div className="d-flex align-items-center mb-1 ">
-                                <i onClick={() => setCityStatus(true)}
-                                   className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
-                                </i>
-                                <h4 onClick={() => setCityStatus(true)}
-                                    className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
-                                    Add current City
-                                </h4>
-                            </div>
-                            :
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setCityStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setCityStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        Add current City
+                                    </h4>
+                                </div>
+                                :
                                 <div
                                     className="fw-600 mb-1 row">
                                     <div className="mt-1 text-dark mb-1">
@@ -489,10 +489,12 @@ function OverView() {
                         : <div
                             className="fw-600 row">
                             <div className="mt-2 align-items-center text-dark lh-26 col-lg-12">
-                                <h4 className="d-flex align-items-center float-left">
-                                    <i className="ti-thought me-2"></i>
-                                    Born on {formatDate(userInfo.birthday)}
-                                </h4>
+                                {userInfo.birthday && (
+                                    <h4 className="d-flex align-items-center float-left">
+                                        <i className="ti-thought me-2"></i>
+                                        Born on {formatDate(userInfo.birthday)}
+                                    </h4>
+                                )}
                                 {userInfo.id === currentUser.id ?
                                     <i onClick={() => setBirthdayStatus(!birthdayStatus)}
                                        className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
