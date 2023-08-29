@@ -12,7 +12,7 @@ const MediaPost = ({id}) => {
     const dispatch = useDispatch();
     const mediaPostDetail = useSelector(state => state.mediaPostDetails.post);
 
-    TimeAgo.addDefaultLocale(en);
+    TimeAgo.addLocale(en);
 
     useEffect(() => {
         dispatch(getMediaPostDetails(id))
