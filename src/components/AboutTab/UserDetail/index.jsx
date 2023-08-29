@@ -170,7 +170,7 @@ function UserDetail() {
                                         <i onClick={() => setNameStatus(true)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                         </i>
-                                        : null
+                                        : <></>
                                     }
 
                                 </div>
@@ -236,7 +236,7 @@ function UserDetail() {
                                     <i onClick={() => setGenderStatus(!genderStatus)}
                                        className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                     </i>
-                                    : null
+                                    : <></>
                                 }
                             </div>
                         </div>
@@ -300,7 +300,7 @@ function UserDetail() {
                                     <i onClick={() => setBirthdayStatus(!birthdayStatus)}
                                        className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                     </i>
-                                    : null
+                                    : <></>
                                 }
 
                             </div>

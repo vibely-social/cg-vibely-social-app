@@ -217,7 +217,7 @@ function OverView() {
                                             <i onClick={() => setWorkStatus(!workStatus)}
                                                className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                             </i>
-                                            : null
+                                            : <></>
                                         }
 
                                     </div>
@@ -301,7 +301,7 @@ function OverView() {
                                         <i onClick={() => setSchoolStatus(!schoolStatus)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                         </i>
-                                        : null
+                                        : <></>
                                     }
 
                                 </div>
@@ -416,7 +416,7 @@ function OverView() {
                                         <i onClick={() => setCityStatus(!cityStatus)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                         </i>
-                                        : null
+                                        : <></>
                                     }
                                 </div>
                             </div>
@@ -499,7 +499,7 @@ function OverView() {
                                     <i onClick={() => setBirthdayStatus(!birthdayStatus)}
                                        className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
                                     </i>
-                                    : null
+                                    : <></>
                                 }
 
                             </div>

@@ -17,6 +17,7 @@ import {
 } from "~/features/getFriends/index.js";
 import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
 import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/index.jsx";
+import {getStoredUserData} from "~/service/accountService.js";
 
 // eslint-disable-next-line react/prop-types
 function ChatSidebar() {
@@ -26,6 +27,7 @@ function ChatSidebar() {
     const dispatch = useDispatch()
     const [smallScreen, setSmallScreen] = useState(false)
     const user = useSelector(selectUserData)
+    const currentUser = getStoredUserData();
     const loading = useSelector(selectGetFriendIsLoading)
     const currentConversation = useSelector(selectConversation)
     const [currentContact, setCurrentContact] = useState({})
@@ -46,7 +48,7 @@ function ChatSidebar() {
 
     useEffect(() => {
         if (!success) {
-            dispatch(getFriends())
+            dispatch(getFriends(currentUser.id))
         } else {
             setFriends(friendList)
         }
