@@ -28,7 +28,7 @@ export const googleLogin = createAsyncThunk("google-login", async (data) => {
 })
 
 const initialState = {
-    user: null,
+    user: {},
     loading: false,
     error: null,
     loginSuccess: false,
@@ -64,7 +64,10 @@ export const userAccountSlice = createSlice({
             state.registerSuccess = false;
             state.registerError = false;
         },
-        setCheckEmailForgotSuccess: (state, action) => {
+        setUser: (state, action) => {
+            state.user = action.payload
+        },
+        setCheckEmailForgotSuccess: (state,action) => {
             state.checkEmailForgotSuccess = action.payload;
         }
     },
@@ -83,8 +86,6 @@ export const userAccountSlice = createSlice({
             .addCase(loginToAccount.fulfilled, (state, action) => {
                 state.loginSuccess = true;
                 state.loading = false;
-                console.log('action.payload')
-                console.log(action.payload)
                 state.user = action.payload;
                 state.error = false;
             })
@@ -95,13 +96,11 @@ export const userAccountSlice = createSlice({
                 state.registerError = false;
             })
             .addCase(registerAccount.rejected, (state, action) => {
-                console.log('rejected')
                 state.registerSuccess = false;
                 state.loading = false;
                 state.registerError = action.error;
             })
             .addCase(registerAccount.fulfilled, (state) => {
-                console.log('fulfilled')
                 state.registerSuccess = true;
                 state.loading = false;
                 state.registerError = false;
@@ -164,7 +163,8 @@ export const {
     setError,
     setSuccess,
     resetAccountState,
-    setCheckEmailForgotSuccess
+    setCheckEmailForgotSuccess,
+    setUser
 } = userAccountSlice.actions;
 
 export const selectUserAccountSliceIsLoading = (state) => state.userAccount.loading;

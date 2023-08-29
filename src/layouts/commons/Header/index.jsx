@@ -1,23 +1,24 @@
 import {Link} from 'react-router-dom';
 import {forwardRef, useState} from 'react';
-import NavData from "../../../data/NavData.jsx"
+import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
-import Avatar from '../../../assets/img/ppl.png'
-import Logo from '../../../assets/img/logo.svg'
-import ava from "../../../assets/img/ava.jpg"
+import Avatar from '~/assets/img/ppl.png'
+import Logo from '~/assets/img/logo.svg'
+import ava from "~/assets/img/ava.jpg"
 import {Card, Form, FormGroup} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
-import {toggleChatButton} from '../../../features/toggleChat';
+import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
-import { USER } from '~/app/constants.js';
+import {getStoredUserData} from "~/service/accountService.js";
 
 function Header() {
+    const USER = getStoredUserData()
     const dispatch = useDispatch();
     let isFocusNotification = false;
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
-
+    const isChatPage = window.location.pathname === '/messenger'
     useAuthorizeUser()
 
     const CustomToggle = forwardRef(({children, onClick}, ref) => (
@@ -123,7 +124,7 @@ function Header() {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <motion.a
+            {!isChatPage && <motion.a
                 onClick={() => dispatch(toggleChatButton())}
                 whileHover={{scale: [null, 1.4, 1.3]}}
                 transition={{duration: 0.3}} onClickCapture={() => {
@@ -132,12 +133,12 @@ function Header() {
             }} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
                 <i style={{fontSize: '1.5rem'}}
                    className={isOnMess ? "feather-message-square cursor-pointer btn-round-md bg-vibe-light text-vibe" : "feather-message-square cursor-pointer btn-round-md  bg-greylight text-grey-500"}></i>
-            </motion.a>
+            </motion.a>}
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
                             transition={{duration: 0.3}} 
-                            src={USER.avatar ? USER.avatar : Avatar}
+                            src={USER?.avatar ? USER?.avatar : Avatar}
                             className="w45 rounded-xl mt--1"/>
             </Link>
 

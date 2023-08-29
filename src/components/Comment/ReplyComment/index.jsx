@@ -1,6 +1,6 @@
-import ppl from "../../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 
-function ReplyComment() {
+function ReplyComment({data}) {
     return ( 
         <div className='reply-comment ps-5'>
             <div className="comment-item ">

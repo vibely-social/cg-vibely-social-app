@@ -5,8 +5,6 @@ import Message from "./Message";
 
 function Messages ({messages=[]}){
     const contactUser = useSelector(selectConversation)
-    console.log('messages')
-    console.log(messages)
     return(
         <>
             {

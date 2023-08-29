@@ -1,27 +1,30 @@
+import "bootstrap/dist/js/bootstrap.min"
 import {BrowserRouter} from 'react-router-dom'
 import AppRoutes from './Routes/AppRoutes'
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {useEffect, useRef, useState} from "react";
-import {addNewMessage, addUnreadMessage} from "~/features/messeger/index.js";
-import {useDispatch} from "react-redux";
-import {getRefreshToken, getStoredUserData} from "~/service/accountService.js";
+import {useEffect, useRef} from "react";
+import {addNewMessage, addUnreadMessage} from "~/features/messeger/index.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {getAccessToken} from "~/service/accountService.js";
 import {Toast} from "primereact/toast";
+import {setTypingStatus} from "~/features/typingStatus/index.jsx";
+import {selectUserData} from "~/features/userAccount/index.js";
 
 function App() {
     const dispatch = useDispatch()
     const SocketClient = useStompWsClient()
-    const accessToken = getRefreshToken()
-    const user = getStoredUserData()
+    const accessToken = getAccessToken()
+    const user = useSelector(selectUserData)
     const toastBottomRight = useRef(null);
-    useEffect(() => {
 
+
+    useEffect(() => {
         if (!Notification) {
             console.log('Desktop notifications not available in your browser. Try Chromium.');
             return;
         }
         if (Notification.permission !== 'granted') {
             Notification.requestPermission().then(permission => {
-                console.log(permission)
                 const notify = new Notification('Vibely', {
                     icon: "src/assets/img/logo.svg",
                     body: "Hey there! Welcome to Vibely Social!",
@@ -39,20 +42,35 @@ function App() {
             console.log(frame)
             SocketClient.subscribe('/users/queue/messages', (message) => {
                 const messageContent = JSON.parse(message.body);
-                console.log(messageContent)
-                if (messageContent && messageContent.sender !== user.email){
-                    const notify = new Notification(messageContent.senderName, {
-                        icon: "src/assets/img/logo.svg",
-                        body: messageContent.content,
-                    });
+                // Feature is in development
+                // if (messageContent && messageContent.sender !== user.email) {
+                //     // const notify = new Notification(messageContent.senderName, {
+                //     //     icon: "src/assets/img/logo.svg",
+                //     //     body: messageContent.content,
+                //     // });
+                //
+                //     if (messageContent.isStatusType) {
+                //         dispatch(setTypingStatus({
+                //             user: messageContent.email,
+                //             typingStatus: messageContent.typingStatus
+                //         }))
+                //     }
+                // }
+                if (!messageContent.isStatusType) {
+                    dispatch(addUnreadMessage(messageContent))
+                    dispatch(addNewMessage(messageContent))
+                }else {
+                    dispatch(setTypingStatus({
+                        user: messageContent.sender,
+                        typingStatus: messageContent.typingStatus
+                    }))
                 }
-                dispatch(addNewMessage(messageContent))
             })
             SocketClient.subscribe('/users/queue/notify', (message) => {
-                const messageContent = message.body;
-                console.log(messageContent)
+                //Feature is in development
+                const notify = message.body;
+                console.log(notify)
                 // showMessage(messageContent,toastBottomRight, 'success')
-                dispatch(addUnreadMessage())
             })
         }
         SocketClient.onStompError = (frame) => {
@@ -66,11 +84,13 @@ function App() {
             console.log('Disconnected!')
         }
 
-        if (!SocketClient.connected) {
-            SocketClient.activate()
-            console.log('activated')
+        if (accessToken){
+            if (!SocketClient.connected) {
+                SocketClient.activate()
+                console.log('activated')
+            }
         }
-    }, [])
+    }, [user])
 
     const showMessage = (content, ref, severity) => {
         const label = 'You have new message:'

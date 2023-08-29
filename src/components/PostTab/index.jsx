@@ -1,6 +1,6 @@
 import NewPost from "../CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
-import Intro from "~/components/TabPost/Intro/index.jsx";
+import Intro from "~/components/PostTab/Intro/index.jsx";
 import {VIBELY_API} from "~/app/constants";
 import MediaList from "~/components/MediaList/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,7 +11,7 @@ import "~/pages/PersonalPage/index.css"
 import {getMedia} from "~/features/getMedia/index.jsx";
 
 
-function TabPost({toggleAbout, toggleMedia}) {
+function PostTab({toggleAbout, toggleMedia}) {
     const [posts, setPosts] = useState([]);
     const images = useSelector(state => state.media.images)
     const status = useSelector(state => state.media.status)
@@ -81,4 +81,4 @@ function TabPost({toggleAbout, toggleMedia}) {
     )
 }
 
-export default TabPost;
+export default PostTab;

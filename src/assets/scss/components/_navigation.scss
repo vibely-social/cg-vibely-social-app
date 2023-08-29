@@ -52,7 +52,6 @@
 
   @include media-breakpoint-down(lg) {
     padding: 9px 15px 9px 15px;
-    height: auto;
     position: fixed;
     top: env(safe-area-inset-top);
     left: 0;
@@ -295,7 +294,7 @@
     top: 0;
     left: -320px;
     background-color: transparent !important;
-    z-index: 1000;
+    z-index: 998;
     height: 100vh;
     padding-top: calc(#{$nav-logo-height} + 6px);
     transition: all 0.5s ease;
@@ -633,11 +632,8 @@
     padding-left: 10px;
     padding-right: 10px;
 
-    // background: var(--theme-color);
     @include media-breakpoint-down(md) {
-      //width: auto;
       .nav-wrap {
-        //box-shadow: none !important;
       }
     }
     @include media-breakpoint-up(lg) {
@@ -773,6 +769,12 @@
   &.menu-active{
     width: 200px;
   }
+  @include media-breakpoint-down(md){
+    z-index: 998 !important;
+  }
+  @include media-breakpoint-down(sm){
+    z-index: 998 !important;
+  }
 }
 .chat-navigation .nav-caption{
   padding-left: 0px;
@@ -788,6 +790,10 @@
   .nav-wrap ul{
     max-height: calc(100vh - 282px) !important;
   }
+}
+
+.profile-left-sidebar {
+
 }
 
 
