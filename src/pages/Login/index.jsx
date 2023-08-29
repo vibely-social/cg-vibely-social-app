@@ -9,11 +9,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {GoogleLogin} from "@react-oauth/google";
 import {
   loginToAccount,
-  resetAccountState,
   selectAccountError,
-  selectLoginIsSuccess,
+  selectLoginIsSuccess, selectUserAccountSliceIsLoading,
   selectUserData,
-  setSuccess,
 } from "~/features/userAccount/index.js";
 
 function Login() {
@@ -21,6 +19,7 @@ function Login() {
   const navigate = useNavigate();
   const user = useSelector(selectUserData);
   const success = useSelector(selectLoginIsSuccess);
+  const loading = useSelector(selectUserAccountSliceIsLoading);
   const error = useSelector(selectAccountError);
   const [errorMessage, setErrorMessage] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -39,16 +38,14 @@ function Login() {
         navigate("/");
       }
     }
-    return () => {
-      dispatch(resetAccountState());
-    };
   }, [success, user]);
 
   useEffect(() => {
+    console.log(success)
     if (error) {
       setErrorMessage("Wrong email or password!");
     }
-  }, [error]);
+  }, [loading]);
 
   const formik = useFormik({
     initialValues: {

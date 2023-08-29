@@ -59,15 +59,15 @@ function ChatSidebar() {
     }, [success])
 
 
-    useEffect(() => {
-        if (Object.keys(currentConversation).length) {
-            setCurrentContact(currentConversation)
-        } else if (currentContact && currentContact.email) {
-            dispatch(switchConversationTo(currentContact))
-        } else if (friends[0]) {
-            setCurrentContact(friends[0])
-        }
-    }, [friends, currentContact, currentConversation])
+    // useEffect(() => {
+    //     if (Object.keys(currentConversation).length) {
+    //         setCurrentContact(currentConversation)
+    //     } else if (currentContact && currentContact.email) {
+    //         dispatch(switchConversationTo(currentContact))
+    //     } else if (friends[0]) {
+    //         setCurrentContact(friends[0])
+    //     }
+    // }, [friends, currentContact, currentConversation])
     return (
         <div>
             <motion.nav style={!smallScreen ? {overflow: "hidden", left: '-200px'} : {}}

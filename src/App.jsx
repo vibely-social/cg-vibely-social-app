@@ -5,15 +5,13 @@ import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {useEffect, useRef} from "react";
 import {addNewMessage, addUnreadMessage} from "~/features/messeger/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getAccessToken} from "~/service/accountService.js";
 import {Toast} from "primereact/toast";
 import {setTypingStatus} from "~/features/typingStatus/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
 
 function App() {
     const dispatch = useDispatch()
-    const SocketClient = useStompWsClient()
-    const accessToken = getAccessToken()
+    const socketClient = useStompWsClient()
     const user = useSelector(selectUserData)
     const toastBottomRight = useRef(null);
 
@@ -35,12 +33,9 @@ function App() {
 
 
     useEffect(() => {
-        SocketClient.connectHeaders = {
-            Authorization: 'Bearer ' + accessToken
-        }
-        SocketClient.onConnect = (frame) => {
+        socketClient.onConnect = (frame) => {
             console.log(frame)
-            SocketClient.subscribe('/users/queue/messages', (message) => {
+            socketClient.subscribe('/users/queue/messages', (message) => {
                 const messageContent = JSON.parse(message.body);
                 // Feature is in development
                 // if (messageContent && messageContent.sender !== user.email) {
@@ -66,29 +61,22 @@ function App() {
                     }))
                 }
             })
-            SocketClient.subscribe('/users/queue/notify', (message) => {
+            socketClient.subscribe('/users/queue/notify', (message) => {
                 //Feature is in development
                 const notify = message.body;
-                console.log(notify)
+                // console.log(notify)
                 // showMessage(messageContent,toastBottomRight, 'success')
             })
         }
-        SocketClient.onStompError = (frame) => {
+        socketClient.onStompError = (frame) => {
             console.error('Broker reported error: ' + frame.headers['message']);
             console.error('Additional details: ' + frame.body);
         }
-        SocketClient.onWebSocketError = (error) => {
+        socketClient.onWebSocketError = (error) => {
             console.error('Error with websocket', error);
         }
-        SocketClient.onDisconnect = () => {
+        socketClient.onDisconnect = () => {
             console.log('Disconnected!')
-        }
-
-        if (accessToken){
-            if (!SocketClient.connected) {
-                SocketClient.activate()
-                console.log('activated')
-            }
         }
     }, [user])
 

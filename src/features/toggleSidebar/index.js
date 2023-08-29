@@ -14,4 +14,4 @@ export const sidebarSlice = createSlice(
 
 export const {toggle} = sidebarSlice.actions
 export const selectSidebarPosition = state => state.sidebar
-export default sidebarSlice.reducer
+export default sidebarSlice

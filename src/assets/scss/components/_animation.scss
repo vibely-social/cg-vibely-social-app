@@ -250,6 +250,17 @@
   }
 }
 
+@keyframes spin3d {
+  0% {
+    transform: rotate3d(0,0,0,0deg);
+  }
+  100% {
+    transform: rotate3d(0,1,0.5,360deg);
+  }
+}
+.spin-3d{
+    animation: spin3d 5s ease infinite;
+  }
 
 .right-scroll-bar {margin-left: 0px;overflow-y: scroll;    }
 .right-scroll-bar::-webkit-scrollbar-track {background-color: transparent;}

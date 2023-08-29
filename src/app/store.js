@@ -14,10 +14,11 @@ import {getMediaSlice} from "~/features/getMedia/index.jsx";
 import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
 import { getMediaPostDetailsSlice } from "~/features/getMediaPostDetails/index.jsx";
 import {bottomChatSlice} from "~/features/bottomChat/index.jsx";
+import onlineStatusSlice from "~/features/onlineStatus/index.jsx";
 
 const store = configureStore({
     reducer: {
-        sidebar: sidebarSlice,
+        sidebar: sidebarSlice.reducer,
         openChat: toggleChat.reducer,
         firstLoad: toggleLoader.reducer,
         userInfo: userInfoSlice.reducer,
@@ -32,6 +33,7 @@ const store = configureStore({
         typingStatus: typingStatusSlice.reducer,
         mediaPostDetails: getMediaPostDetailsSlice.reducer,
         bottomChatStatus: bottomChatSlice.reducer,
+        onlineStatus: onlineStatusSlice.reducer
     },
 });
 

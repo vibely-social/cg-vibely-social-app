@@ -34,16 +34,8 @@ function ChatBox() {
     const [page, setPage] = useState(0);
     const [chatFocus, setChatFocus] = useState(false);
     const [haveContent, setHaveContent] = useState(false);
-    const SocketClient = useStompWsClient();
     const socketClient = useStompWsClient()
     const [displayMessages, setDisplayMessages] = useState([]);
-
-    useEffect(() => {
-        if (!socketClient.connected) {
-            socketClient.activate();
-            console.log('activated')
-        }
-    }, [currentConversation])
 
     useEffect(()=>{
         const rvMessages = [...messages].reverse()
@@ -86,7 +78,7 @@ function ChatBox() {
     function sendMessage() {
         if (currentConversation) {
             if (newMessage) {
-                SocketClient.publish({
+                socketClient.publish({
                     destination: "/app/ws",
                     body: JSON.stringify({
                         receiver: currentConversation.email,
@@ -94,7 +86,7 @@ function ChatBox() {
                     })
                 });
 
-                SocketClient.publish({
+                socketClient.publish({
                     destination: "/app/ws",
                     body: JSON.stringify({
                         isStatusType: true,
@@ -112,7 +104,7 @@ function ChatBox() {
     useEffect(() => {
         if (socketClient.connected) {
             if (haveContent && chatFocus) {
-                SocketClient.publish({
+                socketClient.publish({
                     destination: "/app/ws",
                     body: JSON.stringify({
                         isStatusType: true,
@@ -122,7 +114,7 @@ function ChatBox() {
                     })
                 });
             } else {
-                SocketClient.publish({
+                socketClient.publish({
                     destination: "/app/ws",
                     body: JSON.stringify({
                         isStatusType: true,
@@ -148,9 +140,11 @@ function ChatBox() {
         const scrollableHeight = chatBox.current.scrollHeight;
         const scrollTop = chatBox.current.scrollTop;
         const clientHeight = chatBox.current.clientHeight;
-        if (scrollTop === 0) {
+        if (scrollTop === scrollableHeight*0.8) {
             if (scrollableHeight > clientHeight) {
-                if (page < totalPage - 1) {
+                console.log('page: ' + page)
+                if (page < totalPage - 1) {  //1 page is on redis db
+                    console.log('set page')
                     setPage(prevState => prevState + 1)
                 }
             }

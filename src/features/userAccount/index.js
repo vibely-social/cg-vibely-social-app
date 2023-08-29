@@ -45,7 +45,7 @@ export const userAccountSlice = createSlice({
             state.loginSuccess = action.payload;
         },
         resetAccountState: state => {
-            state.user = null;
+            state.user = {};
             state.loading = false;
             state.error = null;
             state.loginSuccess = false;

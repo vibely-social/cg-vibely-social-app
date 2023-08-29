@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {forwardRef, useState} from 'react';
+import {forwardRef, useEffect, useState} from 'react';
 import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
@@ -7,10 +7,12 @@ import Avatar from '~/assets/img/ppl.png'
 import Logo from '~/assets/img/logo.svg'
 import ava from "~/assets/img/ava.jpg"
 import {Card, Form, FormGroup} from 'react-bootstrap';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
+import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
+import {selectUserData} from "~/features/userAccount/index.js";
 
 function Header() {
     const USER = getStoredUserData()
@@ -19,7 +21,22 @@ function Header() {
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
     const isChatPage = window.location.pathname === '/messenger'
+    const user = useSelector(selectUserData)
+    const socketClient = useStompWsClient()
+
     useAuthorizeUser()
+
+    useEffect(() => {
+        if (user.accessToken) {
+            socketClient.connectHeaders = {
+                Authorization: 'Bearer ' + user.accessToken
+            }
+            if (!socketClient.connected) {
+                socketClient.activate()
+                console.log('activated')
+            }
+        }
+    }, [user.accessToken])
 
     const CustomToggle = forwardRef(({children, onClick}, ref) => (
         <div className='position-relative'>
@@ -49,12 +66,14 @@ function Header() {
                         whileHover={{scale: 1.2}}
                         style={{maxWidth: 50, zIndex: "10000"}} className='d-inline-block  logo-nav' src={Logo}/>
                 </Link>
-                <a href="src/layouts/commons/Header#" className="mob-menu ms-auto me-2 chat-active-btn"><i
-                    className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="default-video.html" className="mob-menu me-2"><i
-                    className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="src/layouts/commons/Header#" className="me-2 menu-search-icon mob-menu"><i
-                    className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <span className="cursor-pointer mob-menu ms-auto me-2 chat-active-btn"
+                      onClick={() => dispatch(toggleChatButton())}>
+                    <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>
+                </span>
+                <span className="cursor-pointer mob-menu me-2"><i
+                    className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
+                <span className="cursor-pointer me-2 menu-search-icon mob-menu"><i
+                    className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
                 <button className="nav-menu me-0 ms-2"></button>
             </div>
 
@@ -113,9 +132,9 @@ function Header() {
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item
-                                   style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
-                                   onMouseDown={() => setNotificationItem(3)}
-                                   className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
+                        style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                        onMouseDown={() => setNotificationItem(3)}
+                        className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
                         <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
                             <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
@@ -137,7 +156,7 @@ function Header() {
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
-                            transition={{duration: 0.3}} 
+                            transition={{duration: 0.3}}
                             src={USER.avatar ? USER.avatar : Avatar}
                             className="w45 rounded-xl mt--1"/>
             </Link>
