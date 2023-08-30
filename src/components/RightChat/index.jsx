@@ -13,7 +13,6 @@ import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
-import {fr} from "date-fns/locale";
 
 function RightChat() {
     const dispatch = useDispatch()
@@ -62,7 +61,7 @@ function RightChat() {
 
     useEffect(() => {
         if (user.accessToken) {
-            dispatch(getFriends())
+            dispatch(getFriends(user.id))
         }
     }, [user.accessToken])
 

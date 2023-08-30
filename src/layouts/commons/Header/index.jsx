@@ -41,6 +41,10 @@ function Header() {
             if (!socketClient.connected) {
                 socketClient.activate()
                 console.log('activated')
+            }else {
+                socketClient.deactivate()
+                socketClient.activate()
+                console.log('activated')
             }
         }
     }, [user.accessToken])
@@ -135,10 +139,12 @@ function Header() {
                                    style={(notificationItem === 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(2)}
                                    className='bg-transparent-card w-100 border-0 ps-5 mb-2'>
-                        <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
-                        <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
-                            <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
-                        <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
+                             <img 
+                                src={ava} alt="user" 
+                                className="w50 position-absolute rounded-circle left-0"/>
+                            <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
+                                <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
+                            <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item
                         style={(notificationItem === 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}

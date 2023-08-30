@@ -28,6 +28,7 @@
     "filelist": "^1.0.4",
     "formik": "^2.4.3",
     "framer-motion": "^10.15.0",
+    "html-to-text": "^9.0.5",
     "javascript-time-ago": "^2.5.9",
     "jquery": "^3.7.0",
     "modernizr": "^3.12.0",

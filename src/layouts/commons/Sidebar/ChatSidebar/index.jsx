@@ -49,14 +49,14 @@ function ChatSidebar() {
 
     useEffect(() => {
         if (!success) {
-            dispatch(getFriends())
+            dispatch(getFriends(user?.id))
         }
         return () => {
             if (success) {
                 dispatch(setGetFriendsSuccess(false))
             }
         }
-    }, [success])
+    }, [success,user])
 
     useEffect(()=>{
         if (friendList){
@@ -77,7 +77,7 @@ function ChatSidebar() {
             <motion.nav style={!smallScreen ? {overflow: "hidden", left: '-200px'} : {}}
                         animate={!smallScreen ? {x: 200} : {}}
                         transition={!smallScreen ? {duration: 0.8} : {}}
-                        className={(position ?
+                        className={" " + (position ?
                             "navigation chat-navigation menu-active "
                             : "navigation chat-navigation ")
                             + (sidebarActive ? "nav-active scroll-bar" : "")}>
