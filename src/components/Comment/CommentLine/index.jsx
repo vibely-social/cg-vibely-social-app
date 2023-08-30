@@ -14,22 +14,21 @@ import { useRef } from 'react';
 
 
 
-function CommentLine({postId,data}) {
+function CommentLine({data,commentData}) {
 
-    const [like,setLike] = useState(data.likeCount)
-    const [isLiked,setIsLiked] = useState(data.liked)
+    const [like,setLike] = useState(commentData.likeCount)
+    const [isLiked,setIsLiked] = useState(commentData.liked)
     const [isReply,setIsReply] = useState(false)
     const [inputContent,setInputContent] = useState("")
     const [file,setFile] = useState(null)
-    const [replyTarget,SetReplyTarget] = useState("")
-    const [replys,setReply] = useState(data.replyCommentDTOs)
+    const [replys,setReply] = useState(commentData.replyCommentDTOs)
     const user = getStoredUserData()
     const token = getAccessToken()
     const ref=useRef();
-    let commentID = data.commentId
+    let commentID = commentData.commentId
 
     const handleLike = async () => {
-        const response = await likeComment(data.commentId,postId)
+        const response = await likeComment(commentData.commentId,data.id)
         .then(response => {
             setLike(response.likeCount)
             setIsLiked(response.isLiked)
@@ -48,7 +47,7 @@ function CommentLine({postId,data}) {
             const formData = new FormData();
             formData.append('reply', inputContent)
           try {
-                const response =  await axios.post(`${VIBELY_API}/posts/${postId}/reply/${data.commentId}`, formData, 
+                const response =  await axios.post(`${VIBELY_API}/posts/${data.id}/reply/${commentData.commentId}`, formData, 
                 {
                   headers: {
                   'Content-Type': 'multipart/form-data',
@@ -70,17 +69,17 @@ function CommentLine({postId,data}) {
                 <div className='d-flex'>
                  <div className="comment-user">
                      <figure className="avatar">
-                        <img src={data.author.avatar ? data.author.avatar : ppl} />
+                        <img src={commentData.author.avatar ? commentData.author.avatar : ppl} />
                     </figure>
                     <div>
                     </div>
                          </div>
                             <div className="comment-wrap shadow-xs pe-2 mb-1" >
                                 <h5 className='user-name'>
-                                    {data.author.firstName + " " + data.author.lastName}
+                                    {commentData.author.firstName + " " + commentData.author.lastName}
                                 </h5>
                                 <p className='font-xsss fw-600' style={{overflowWrap: 'anywhere'}}>
-                                    {wrapText(data.content)}
+                                    {wrapText(commentData.content)}
                                 </p>
                             </div>
                         </div>
@@ -103,7 +102,7 @@ function CommentLine({postId,data}) {
                                     </span>
                                 </div>
                             <div className="comment-btn text-dark">
-                                <ReactTimeAgo date={data.date} locale="en-US"/>
+                                <ReactTimeAgo date={commentData.date} locale="en-US"/>
                             </div>
                     </div>
                     
@@ -112,11 +111,11 @@ function CommentLine({postId,data}) {
                 {replys?.map((reply,index) => {
                             return <ReplyComment 
                                             key={reply.commentId} 
-                                            postId={postId} 
-                                            reply={reply} c
-                                            ommentID={commentID}
+                                            data={data} 
+                                            replyData={reply}
+                                            commentData={commentData}
                                             setIsReply={setIsReply}
-                                            setReplyTarget={SetReplyTarget}
+                                            setInputContent={setInputContent}
                                             />})}
 
                  {isReply && 

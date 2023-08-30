@@ -5,11 +5,12 @@ import "./index.css"
 import {wrapText} from "~/utils/wrapText";
 import { likeReply } from "~/api/postApi";
 
-    function ReplyComment({postId,commentID,reply,setIsReply,setReplyTarget,ref}) {
-        const [like,setLike] = useState(reply.likeCount)
-        const [isLiked,setIsLiked] = useState(reply.liked)
+    function ReplyComment({data,commentData,replyData,setIsReply,setInputContent}) {
+        const [like,setLike] = useState(replyData.likeCount)
+        const [isLiked,setIsLiked] = useState(replyData.liked)
         const handleLike = async () => {
-            const response = await likeReply(postId,commentID,reply?.commentId)
+            alert(data.id + " " + commentData.commentId + " " + replyData.commentId)
+            const response = await likeReply(data.id,commentData.commentId,replyData?.commentId)
             .then(response => {
                 setLike(response.likeCount)
                 setIsLiked(response.isLiked)
@@ -17,7 +18,7 @@ import { likeReply } from "~/api/postApi";
         }
         const handleReply = () => {
             setIsReply(true)
-            setReplyTarget(reply.author)
+            setReplyTarget(replyData.author)
         }
 
         return ( 
@@ -26,14 +27,14 @@ import { likeReply } from "~/api/postApi";
                     <div className='d-flex'>
                         <div className="comment-user ms-1" >
                             <figure className="avatar" >
-                                <img src={reply.author.avatar ? reply.author.avatar : ppl} style={{width: '30px',height: "28px"}} />
+                                <img src={replyData.author.avatar ? replyData.author.avatar : ppl} style={{width: '30px',height: "28px"}} />
                             </figure>
                         <div>
                         </div>
                             </div>
                                 <div className="comment-wrap shadow-xs pe-2 mb-1">
-                                    <h5 className='user-name'>{reply.author.firstName + " " + reply.author.lastName}</h5>
-                                        <p className='font-xsss fw-500' >{wrapText(reply?.content)}</p>
+                                    <h5 className='user-name'>{replyData.author.firstName + " " + replyData.author.lastName}</h5>
+                                        <p className='font-xsss fw-500' >{wrapText(replyData?.content)}</p>
                                 </div>
                             </div>
                             <div className='d-flex pt-1 justify-content-start font-xssss fw-600' 
@@ -51,7 +52,7 @@ import { likeReply } from "~/api/postApi";
                                         Reply
                                     </span>
                                 </div>
-                            <div className="comment-btn text-dark"><ReactTimeAgo date={reply.date} locale="en-US"/></div>
+                            <div className="comment-btn text-dark"><ReactTimeAgo date={replyData.date} locale="en-US"/></div>
                     </div>
                 </div>
             </div>

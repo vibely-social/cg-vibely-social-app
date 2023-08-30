@@ -108,7 +108,7 @@ function Comment({data,isShowComment}) {
                         className="comment-body p-0 pt-1">
                           {isLoading && <div className='d-flex justify-content-center p-2'><BeatLoader color="#36d7b7" /></div>}
                           {comments && comments.map((comment,index) => {
-                          return <CommentLine key={index} postId={data.id} data={comment}/>
+                            return <CommentLine key={index} data={data} commentData={comment}/>
                          })}
                     </div>
                 </div>
