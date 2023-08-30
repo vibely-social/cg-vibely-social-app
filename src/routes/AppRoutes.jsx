@@ -1,6 +1,9 @@
 import {Route, Routes} from "react-router-dom";
 import publicRoutes from "../data/RoutesData";
 import NotFound from "../pages/NotFound";
+import Login from "../pages/Login"
+import {GoogleOAuthProvider} from "@react-oauth/google";
+import {CLIENT_ID} from "~/app/constants.js";
 
 
 function AppRoutes() {
@@ -21,7 +24,10 @@ function AppRoutes() {
 
                 })
             }
-            <Route path="*" element={<NotFound />}/>
+                <Route path="/login" element={
+                    <Login/>
+                }/>
+            <Route path="*" element={<NotFound/>}/>
         </Routes>
     )
 }
