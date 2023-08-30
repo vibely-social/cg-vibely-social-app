@@ -13,6 +13,7 @@ import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
+import {activeSidebar, toggle} from "~/features/toggleSidebar/index.js";
 
 function Header() {
     const USER = getStoredUserData()
@@ -20,11 +21,17 @@ function Header() {
     let isFocusNotification = false;
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
+    const [active, setActive] = useState(false);
     const isChatPage = window.location.pathname === '/messenger'
     const user = useSelector(selectUserData)
     const socketClient = useStompWsClient()
 
     useAuthorizeUser()
+
+    const handleNavClick = () => {
+        setActive(prevState => !prevState)
+        dispatch(activeSidebar(!active))
+    }
 
     useEffect(() => {
         if (user.accessToken) {
@@ -68,13 +75,15 @@ function Header() {
                 </Link>
                 <span className="cursor-pointer mob-menu ms-auto me-2 chat-active-btn"
                       onClick={() => dispatch(toggleChatButton())}>
-                    <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>
+                    {!isChatPage && <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>}
                 </span>
                 <span className="cursor-pointer mob-menu me-2"><i
                     className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
                 <span className="cursor-pointer me-2 menu-search-icon mob-menu"><i
                     className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
-                <button className="nav-menu me-0 ms-2"></button>
+                <button className={"nav-menu me-0 ms-2 cursor-pointer " + (active?"active":"")}
+                        onClick={handleNavClick}>
+                </button>
             </div>
 
             <Form className="float-left header-search">
@@ -113,7 +122,7 @@ function Header() {
                                className='dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg'>
                     <h5 className="fw-700 font-xs mb-4 text-vibe">Notifications</h5>
                     <Dropdown.Item href="#" eventKey="1"
-                                   style={(notificationItem == 1) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                                   style={(notificationItem === 1) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(1)}
                                    className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0 "/>
@@ -123,7 +132,7 @@ function Header() {
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2 "> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item as={Card} href="#" eventKey="2"
-                                   style={(notificationItem == 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                                   style={(notificationItem === 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(2)}
                                    className='bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
@@ -132,7 +141,7 @@ function Header() {
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item
-                        style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                        style={(notificationItem === 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                         onMouseDown={() => setNotificationItem(3)}
                         className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>

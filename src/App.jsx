@@ -8,11 +8,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {Toast} from "primereact/toast";
 import {setTypingStatus} from "~/features/typingStatus/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
+import {getFriendsStatus} from "~/features/onlineStatus/index.jsx";
+import {selectFriendList} from "~/features/getFriends/index.js";
 
 function App() {
     const dispatch = useDispatch()
     const socketClient = useStompWsClient()
     const user = useSelector(selectUserData)
+    const friends = useSelector(selectFriendList)
     const toastBottomRight = useRef(null);
 
 
@@ -54,7 +57,7 @@ function App() {
                 if (!messageContent.isStatusType) {
                     dispatch(addUnreadMessage(messageContent))
                     dispatch(addNewMessage(messageContent))
-                }else {
+                } else {
                     dispatch(setTypingStatus({
                         user: messageContent.sender,
                         typingStatus: messageContent.typingStatus
@@ -79,6 +82,22 @@ function App() {
             console.log('Disconnected!')
         }
     }, [user])
+
+
+    useEffect(() => {
+        let friendEmails = []
+        if (friends) {
+            friends.forEach(friend => friendEmails.push(friend.email))
+        }
+        dispatch(getFriendsStatus(friendEmails))
+        const loadStatus = setInterval(() => {
+            dispatch(getFriendsStatus(friendEmails))
+        }, 10000)
+
+        return () => {
+            clearInterval(loadStatus)
+        }
+    }, [friends])
 
     const showMessage = (content, ref, severity) => {
         const label = 'You have new message:'

@@ -56,7 +56,6 @@ export const userAccountSlice = createSlice({
             state.isGoogleAccount = action.payload;
         },
         resetAccountState: state => {
-            state.user = {};
             state.loading = false;
             state.error = null;
             state.loginSuccess = false;

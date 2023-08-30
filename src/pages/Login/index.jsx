@@ -1,6 +1,6 @@
 import google from "~/assets/img/google-icon.png";
-import { Link, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
+import {Link, useNavigate} from "react-router-dom";
+import {useFormik} from "formik";
 import * as Yup from "yup";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import logo from "~/assets/img/logo.svg";
@@ -8,29 +8,24 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useGoogleLogin} from "@react-oauth/google";
 import {
+    googleLogin,
     loginToAccount,
     resetAccountState,
-    googleLogin,
     selectAccountError,
     selectLoginIsSuccess,
+    selectUserAccountSliceIsLoading,
     selectUserData,
-    setSuccess,
-  loginToAccount,
-  selectAccountError,
-  selectLoginIsSuccess,
-  selectUserAccountSliceIsLoading,
-  selectUserData,
 } from "~/features/userAccount/index.js";
 
 function Login() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector(selectUserData);
-  const success = useSelector(selectLoginIsSuccess);
-  const loading = useSelector(selectUserAccountSliceIsLoading);
-  const error = useSelector(selectAccountError);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector(selectUserData);
+    const success = useSelector(selectLoginIsSuccess);
+    const loading = useSelector(selectUserAccountSliceIsLoading);
+    const error = useSelector(selectAccountError);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const handleLogin = (values) => {
         const email = values.email;
@@ -39,8 +34,11 @@ function Login() {
     };
 
     const handleGoogleLogin = useGoogleLogin({
-        onSuccess: (response) => dispatch(googleLogin(response))
+        onSuccess: (response) => {
+            dispatch(googleLogin(response))
+        }
     })
+    console.log('rerender')
 
     useEffect(() => {
         if (success) {
@@ -54,22 +52,22 @@ function Login() {
             dispatch(resetAccountState());
         };
     }, [success, user]);
-  useEffect(() => {
-    if (success) {
-      if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-        console.log("Login success!");
-        navigate("/");
-      }
-    }
-  }, [success, user]);
+    useEffect(() => {
+        if (success) {
+            if (user) {
+                localStorage.setItem("user", JSON.stringify(user));
+                console.log("Login success!");
+                navigate("/");
+            }
+        }
+    }, [success, user]);
 
-  useEffect(() => {
-    console.log(success)
-    if (error) {
-      setErrorMessage("Wrong email or password!");
-    }
-  }, [loading]);
+    useEffect(() => {
+        console.log(success)
+        if (error) {
+            setErrorMessage("Wrong email or password!");
+        }
+    }, [loading]);
 
     const formik = useFormik({
         initialValues: {
@@ -83,8 +81,8 @@ function Login() {
         onSubmit: (values) => handleLogin(values),
     });
 
-  let isInvalidEmail = formik.touched.email && formik.errors.email;
-  let isInvalidPassword = formik.touched.password && formik.errors.password;
+    let isInvalidEmail = formik.touched.email && formik.errors.email;
+    let isInvalidPassword = formik.touched.password && formik.errors.password;
 
     return (
         <div className="main-wrap">
@@ -141,8 +139,7 @@ function Login() {
                                     show={isInvalidEmail ? true : false}
                                     overlay={
                                         <Tooltip id="tooltip-left">{formik.errors.email}</Tooltip>
-                                    }
-                                >
+                                    }>
                                     <div className="form-group icon-input mb-3">
                                         <i className="font-sm ti-email text-grey-500 pe-0"></i>
                                         <input
@@ -249,7 +246,7 @@ function Login() {
                                     <div className="form-group mb-1 ">
                                         <button
                                             className="w-100 d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"
-                                            onClick={handleGoogleLogin}>
+                                            onClick={() => handleGoogleLogin()}>
                                             <img
                                                 src={google}
                                                 alt="icon"

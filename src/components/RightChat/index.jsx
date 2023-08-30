@@ -12,11 +12,14 @@ import {resetUnreadMessage, selectNewsMessages, selectUnreadMessage} from "~/fea
 import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
+import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
+import {fr} from "date-fns/locale";
 
 function RightChat() {
     const dispatch = useDispatch()
     const user = useSelector(selectUserData)
     const friendList = useSelector(selectFriendList)
+    const onlineList = useSelector(selectOnlineList)
     const btChatStatus = useSelector(selectBottomChatStatus)
     const isOpenChat = useSelector((state) => state.openChat.isOn);
     const [conversation, setConversation] = useState({})
@@ -33,6 +36,7 @@ function RightChat() {
     const [haveContent, setHaveContent] = useState(false);
     const messages = useSelector(selectNewsMessages)
     const [displayMessages, setDisplayMessages] = useState([]);
+    const [displayFriends, setDisplayFriends] = useState([]);
 
     useEffect(() => {
         const rvMessages = [...messages].reverse()
@@ -143,6 +147,21 @@ function RightChat() {
         }
     }
 
+    useEffect(() => {
+        if (friendList) {
+            let newList = []
+            friendList.forEach(friend => {
+                newList.push({
+                    ...friend,
+                    status: onlineList[friend.email]
+                })
+            })
+            newList.sort((a, b) => {
+                return b.status - a.status
+            })
+            setDisplayFriends(newList)
+        }
+    }, [friendList, onlineList])
 
     return (
         <>
@@ -153,7 +172,7 @@ function RightChat() {
                         <i className="feather-message-circle font-xs align-text-top ms-2"/>
                     </span>
                         <ListGroup as="ul" className="list-group-flush">
-                            {friendList.map((friend, index) => (
+                            {displayFriends.map((friend, index) => (
                                 <li key={index}
                                     className="bg-transparent list-group-item px-2 py-2 border-0 rounded d-flex align-items-center hover-button cursor-pointer"
                                     onClick={() => {
@@ -200,7 +219,8 @@ function RightChat() {
                                              zIndex: 101
                                          }}/>
                                     <span
-                                        className="position-absolute bg-primary-gradiant spinner-border rounded-circle left-0"
+                                        className={"position-absolute bg-primary-gradiant rounded-circle left-0 "
+                                        + (onlineList[currentConversation?.email] ? "spinner-border" : "")}
                                         style={{
                                             width: 37,
                                             height: 37
@@ -208,9 +228,9 @@ function RightChat() {
                                     </span>
                                 </div>
                                 <div className="ms-2 cursor-pointer">
-                                    <h5 className="fw-700 text-primary font-xssss mt-1 mb-1">{currentConversation.firstName}</h5>
+                                    <h5 className="fw-700 text-primary font-xss mt-1 mb-1">{currentConversation.firstName}</h5>
                                     <h4 className="text-grey-500 font-xsssss mt-0 mb-0">
-                                        {friendList[currentConversation.email]?.status
+                                        {onlineList[currentConversation?.email]
                                             ? <><span
                                                 className="d-inline-block bg-success btn-round-xss m-0">
                                                 </span>Available</>
@@ -236,7 +256,7 @@ function RightChat() {
                                          className={"message mt-2 "
                                              + ((user.email === message.sender)
                                                  ? "self text-right" : message.sender)}>
-                                        <div className="message-content font-xssss lh-24 fw-500">{message.content}</div>
+                                        <div className="message-content font-xss lh-24 fw-500">{message.content}</div>
                                     </div>
                                 )
                         })}
@@ -246,7 +266,7 @@ function RightChat() {
                                  className={"message mt-2 "
                                      + ((user.email === message.sender)
                                          ? "self text-right" : message.sender)}>
-                                <div className="message-content font-xssss lh-24 fw-500">{message.content}</div>
+                                <div className="message-content font-xss lh-24 fw-500">{message.content}</div>
                             </div>
                         ))}
 
