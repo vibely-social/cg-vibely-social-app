@@ -514,7 +514,7 @@
       }
 
       .comment-wrap {
-        background-color: #3bb6b4;
+        background-color: #879897;
         color: #fff;
       }
     }
@@ -542,7 +542,6 @@
         height: 80%;
         position: relative;
         z-index: 2;  
-        clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 0% 88%);
 
         &:after {
           background-color: var(--theme-color);
