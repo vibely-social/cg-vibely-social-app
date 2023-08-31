@@ -39,6 +39,15 @@ export const commentPosts = async (postId) => {
     }
 };
 
+export const editComment = async (postId) => {
+    try {
+        const response = await axios.get(`${VIBELY_API}/posts/${postId}/comments`,{headers});
+        return response.data
+    } catch (error) {
+        return error.response
+    }
+};
+
 export const likeComment = async (postId,commentId) => {
     try {
         const response = await axios.get(`${VIBELY_API}/posts/${postId}/like/${commentId}`,{headers});

@@ -55,6 +55,8 @@ function Comment({data,isShowComment}) {
       }
     }
 
+
+    
     const handleSelect = (event) => {
       event.target.style.height = 'auto'
       event.target.style.height = event.target.scrollHeight + "px"
@@ -78,7 +80,7 @@ function Comment({data,isShowComment}) {
     
       return (
             <>
-              {!isShowComment && <Card.Body className="p-0 pt-3 d-flex pb-0 border-dark mt-3">
+              {!isShowComment && <Card.Body className="p-0 pt-3 d-flex pb-0 border-dark mt-3" style={{overflowX: "hidden"}}>
                   <figure className="avatar ms-0 mt-1 top-2 " >
                           <img  
                               style={{width: '40px',height: "38px",overflow: 'hidden'}} 

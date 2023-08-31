@@ -497,6 +497,7 @@
     -ms-flex-align: start;
     align-items: flex-start;
     padding-bottom: 0px;
+    margin-left: -10px;
     // height: 800px;
 
 
@@ -514,7 +515,7 @@
       }
 
       .comment-wrap {
-        background-color: #879897;
+        // background-color: #879897;
         color: #fff;
       }
     }
@@ -529,7 +530,7 @@
 
       .comment-wrap {
         padding: 10px 0 0 12px;
-        background-color: #fff;
+        // background-color: #fff;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
@@ -538,13 +539,14 @@
         font-size: 14px;
         color: #000;
         font-weight: 400;
+        cursor: text;
         line-height: 18px;
         height: 80%;
         position: relative;
         z-index: 2;  
 
         &:after {
-          background-color: var(--theme-color);
+          // background-color: var(--theme-color);
           opacity: 0.1;
           width: 100%;
           height: 100%;
@@ -573,24 +575,24 @@
         -webkit-align-items: center;
         -moz-box-align: center;
         -ms-flex-align: center;
-        align-items: start;
+        // align-items: start;
         margin-bottom: 5px;
 
         .avatar {
-          top: 3px;
+          top: 0px;
           position: relative;
-          margin-top: 3px;
+          margin-top: -10px;
         }
 
         .avatar img {
           display: inline-block;
           margin-bottom: 0;
-          height: 30px;
-          width: 32px;
+          height: 32px;
+          width: 34px;
           -webkit-border-radius: 50%;
           -moz-border-radius: 50%;
           border-radius: 50%;
-          margin-right: 10px;
+          margin-right: 8px;
           box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
         }
 

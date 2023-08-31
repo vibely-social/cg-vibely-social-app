@@ -8,9 +8,11 @@ import { useState ,useEffect } from "react";
 import Comment from "../Comment";
 import likebtn from "../../assets/img/likebtn.png"
 import { likePost } from "~/api/postApi";
-import { set } from "date-fns";
-import {wrapText} from "~/utils/wrapText";
-
+import Earth from "~/assets/img/new_post_icons/earth.png"
+import Friends from "~/assets/img/new_post_icons/friends.png"
+import Private from "~/assets/img/new_post_icons/private.png"
+import "./index.css"
+import { Popover } from '@headlessui/react'
 
 
 function PostDetail({data}) {
@@ -28,22 +30,22 @@ function PostDetail({data}) {
 
     return (
         <>
-            <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3">
-                <Card.Body className="p-0 d-flex ">
+            <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3" >
+                <Card.Body className="p-0 d-flex">
                     <figure className="avatar me-2">
                         <img
                             src={!data.author.avatar ? ppl : data.author.avatar}
                             alt="image"
                             className="shadow-sm rounded-circle w45" style={{height: "42px"}}/>
                     </figure>
-                    <h4 className="fw-700 text-grey-900 font-xsss  mt-1">
-                        {(data.author.firstName ? data.author.firstName : "") 
-                                                                  + " " 
-                                                                    + data.author.lastName}
-                        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                    <h4 className="fw-700 text-grey-900 font-xsss mt-1">
+                        {(data.author.firstName ? data.author.firstName : "")  + " "  + data.author.lastName}
+                        <span className="flex font-xssss fw-500 mt-1 lh-3 text-grey-500">
                             <ReactTimeAgo date={data.createdDate} locale="en-US"/>
+                                                  {data.privacy == "PUBLIC" ? <img src={Earth} className="icon-privacy"/>
+                                                    :data.privacy == "FRIENDS" ? <img src={Friends} className="icon-privacy"/>
+                                                                               : <img src={Private} className="icon-privacy"/>}
                         </span>
-                        <i data-feather="circle"></i>
                     </h4>
 
                     <a href="#" className="ms-auto" id="dropdownMenu2"><i
