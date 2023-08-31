@@ -765,9 +765,10 @@
 }
 
 .chat-navigation{
+  background: rgba(255, 255, 255, 0.75) !important;
   width: 340px;
   &.menu-active{
-    width: 200px;
+    width: 185px;
   }
   @include media-breakpoint-down(md){
     z-index: 998 !important;

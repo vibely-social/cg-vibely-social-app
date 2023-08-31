@@ -17,7 +17,7 @@ function MediaTab() {
         if (status === "idle") {
             dispatch(getMedia(user.id))
         }
-    }, [dispatch]);
+    }, []);
 
     return (
         <>
@@ -41,15 +41,17 @@ function MediaTab() {
                         ))}
                     </ul>
                 </div>
-                <div className="card-body">
-                    <div className="row ps-2 pe-2">
-                        <MediaList
-                            images={images}
-                            type="tab"
-                        />
+                {type === tabs[0] && (
+                    <div className="card-body">
+                        <div className="row ps-2 pe-2">
+                            <MediaList
+                                images={images}
+                                type="tab"
+                            />
 
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </>
     )

@@ -2,11 +2,11 @@ import axios from "axios";
 import {VIBELY_API} from "~/app/constants.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
-export const findFriends = async () => {
+export const findFriends = async (id) => {
     let result = null;
     let user = getStoredUserData()
     try {
-        result = await axios.get(`${VIBELY_API}/friends/` + user.id,{
+        result = await axios.get(`${VIBELY_API}/friends/` + id,{
             headers:{
                 Authorization: 'Bearer ' + user.accessToken
             }
