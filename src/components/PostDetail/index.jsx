@@ -13,7 +13,7 @@ import {wrapText} from "~/utils/wrapText";
 
 
 
-function PostDetail({data}) {
+function PostDetail({data={}}) {
     const [like,setLike] = useState(data.likeCount)
     const [isLiked,setIsLiked] = useState(data.liked)
     const [isShowComment,setIsShowComment] = useState(false)
@@ -34,7 +34,7 @@ function PostDetail({data}) {
                         <img
                             src={!data.author.avatar ? ppl : data.author.avatar}
                             alt="image"
-                            className="shadow-sm rounded-circle w45" style={{height: "42px"}}/>
+                            className="shadow-sm avatar-45"/>
                     </figure>
                     <h4 className="fw-700 text-grey-900 font-xsss  mt-1">
                         {(data.author.firstName ? data.author.firstName : "") 

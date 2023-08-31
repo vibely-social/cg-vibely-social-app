@@ -1,6 +1,5 @@
 import axios from "axios";
 import {VIBELY_API , HEADERS as headers} from "~/app/constants.js";
-import {getStoredUserData} from "~/service/accountService.js";
 
 export const getPostDetail = async (id) => {
     let result = null;
