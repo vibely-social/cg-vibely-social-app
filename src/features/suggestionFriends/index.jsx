@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { findSuggestionFriendsApi } from "~/api/suggestionFriendApi";
 
 export const getSuggestionFriends = createAsyncThunk(
-  "suggestionFriends/getSuggestionFriends",
+  "suggestionFriends",
   async () => {
+    console.log('api call');
     const response = await findSuggestionFriendsApi();
+    console.log('response');
     return response.data;
   }
 );
@@ -17,6 +19,7 @@ export const suggestionFriendsSlice = createSlice({
     error: null,
     success: false,
   },
+
   reducers: {
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -31,9 +34,14 @@ export const suggestionFriendsSlice = createSlice({
       const updatedSuggestions = state.suggestionFriendsList.filter(
         (friend) => friend.id !== action.payload.id
       );
-      state.suggestionFriendsList = updatedSuggestions;
+      return {
+        ...state,
+        suggestionFriendsList: updatedSuggestions,
+      };
     },
+    
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(getSuggestionFriends.pending, (state) => {
@@ -50,7 +58,7 @@ export const suggestionFriendsSlice = createSlice({
         state.loading = false;
         state.error = action.error;
         state.success = false;
-      });
+      })
   },
 });
 
@@ -65,6 +73,6 @@ export const selectSuggestionFriendsList = (state) =>
   state.suggestionFriends.suggestionFriendsList;
 export const selectLoading = (state) => state.suggestionFriends.loading;
 export const selectError = (state) => state.suggestionFriends.error;
-export const selectSuccess = (state) => state.suggestionFriends.success;
+export const selectGetSuggestionSuccess = (state) => state.suggestionFriends.success;
 
 export default suggestionFriendsSlice.reducer;
