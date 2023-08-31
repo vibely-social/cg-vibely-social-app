@@ -1,12 +1,11 @@
 import {selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
 import {ListGroup} from "react-bootstrap";
-import SidebarData from "~/data/SideBarData.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
 import useSidebarData from "~/data/SideBarData.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {setUser} from "~/features/userAccount/index.js";
+import {resetAccountState} from "~/features/userAccount/index.js";
 
 function MainNavigate({sidebarHover, chatNav = false}) {
     const position = useSelector(selectSidebarPosition)
@@ -25,7 +24,7 @@ function MainNavigate({sidebarHover, chatNav = false}) {
     const handleLogout = () => {
         localStorage.removeItem("user")
         localStorage.removeItem("lastAuth")
-        dispatch(setUser({}))
+        dispatch(resetAccountState())
         socketClient.deactivate()
         navigate("/login")
     }
@@ -62,7 +61,13 @@ function MainNavigate({sidebarHover, chatNav = false}) {
                                             }}
                                             onHoverEnd={e => {
                                             }}
-                                            style={{maxWidth: 50, minWidth: 50}}
+                                            style={{
+                                                maxHeight: 50,
+                                                minWidth: 50,
+                                                minHeight: 50,
+                                                width: 50,
+                                                objectFit: "cover"
+                                            }}
                                             className={" btn-sidebar me-3 "} src={item.icon}/>}
                                     {(window.location.pathname === item.path)
                                         ? <span className="text-primary">{item.heading}</span>
@@ -84,7 +89,7 @@ function MainNavigate({sidebarHover, chatNav = false}) {
                             <span>Settings</span>
                         </Link>
                     </ListGroup.Item>
-                    <ListGroup.Item as="li" className="border-0 p-0 cursor-pointer"
+                    <ListGroup.Item as="li" className="border-0 p-0 cursor-pointer no-icon"
                                     onClick={handleLogout}>
                         <a className="nav-content-bttn open-font h-auto pt-2 pb-2">
                             <i className="font-sm feather-log-out me-3 text-grey-500"></i>

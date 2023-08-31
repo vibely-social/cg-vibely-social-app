@@ -8,8 +8,8 @@ const initialState = {
     success: false,
 };
 
-export const getFriends = createAsyncThunk("friends", async () => {
-    const response = await findFriends();
+export const getFriends = createAsyncThunk("friends", async (id) => {
+    const response = await findFriends(id);
     return response.data;
 });
 

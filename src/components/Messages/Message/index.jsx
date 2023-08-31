@@ -12,7 +12,7 @@ function Message({message}){
             <div className={"message-item " + (!income && "outgoing-message")}>
                 <div className="message-user">
                     <figure className="avatar">
-                        <img src={income? contactUser.avatarUrl : user.avatarUrl} alt="image"/>
+                        <img src={income? contactUser.avatarUrl : user.avatarUrl} alt="image" className="avatar top-0"/>
                     </figure>
                     <div>
                         <h5>{senderName}</h5>
@@ -25,25 +25,6 @@ function Message({message}){
                 </div>
                 <div className="message-wrap">{content}</div>
             </div>
-            <>
-                {/*<div className="message-item outgoing-message">*/}
-                {/*    <div className="message-user">*/}
-                {/*        <figure className="avatar">*/}
-                {/*            <img src="https://via.placeholder.com/50x50.png" alt="image"/>*/}
-                {/*        </figure>*/}
-                {/*        <div>*/}
-                {/*            <h5>Byrom Guittet</h5>*/}
-                {/*            <div className="time">*/}
-                {/*                01:35 PM*/}
-                {/*                <i className="ti-double-check text-info"></i>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*    <div className="message-wrap">*/}
-                {/*        Ai am phai then kìu èn dú?*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-            </>
         </>
     )
 }
