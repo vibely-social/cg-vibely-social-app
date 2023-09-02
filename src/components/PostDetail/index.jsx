@@ -1,6 +1,5 @@
 import ReadMore from "./ReadMore";
 import { Card } from "react-bootstrap";
-import Photogrid from "react-facebook-photo-grid";
 import ppl from "~/assets/img/ppl.png"
 import { motion } from "framer-motion";
 import ReactTimeAgo from 'react-time-ago'
@@ -13,6 +12,7 @@ import Friends from "~/assets/img/new_post_icons/friends.png"
 import Private from "~/assets/img/new_post_icons/private.png"
 import "./index.css"
 import { Popover } from '@headlessui/react'
+import Gallery from "./Gallery";
 
 
 function PostDetail({data={}}) {
@@ -31,7 +31,7 @@ function PostDetail({data={}}) {
     return (
         <>
             <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3" >
-                <Card.Body className="p-0 d-flex">
+                <Card.Body className="p-0 d-flex mb-3">
                     <figure className="avatar me-2">
                         <img
                             src={!data.author.avatar ? ppl : data.author.avatar}
@@ -39,7 +39,9 @@ function PostDetail({data={}}) {
                             className="shadow-sm avatar-45"/>
                     </figure>
                     <h4 className="fw-700 text-grey-900 font-xsss mt-1">
-                        {(data.author.firstName ? data.author.firstName : "")  + " "  + data.author.lastName}
+                        {(data.author.firstName ? data.author.firstName : "")  
+                        + " "  
+                        + data.author.lastName}
                         <span className="flex font-xssss fw-500 mt-1 lh-3 text-grey-500">
                             <ReactTimeAgo date={data.createdDate} locale="en-US"/>
                                                   {data.privacy == "PUBLIC" ? <img src={Earth} className="icon-privacy"/>
@@ -81,11 +83,9 @@ function PostDetail({data={}}) {
                 <Card.Body className="p-0 ps-2 me-lg-5">
                     <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0 ? true : false}/>
                 </Card.Body>
-                <Card.Body className="d-block p-2" >
-                      <Photogrid 
+                      {data.gallery && <Gallery 
 						    images={data.gallery} 
-						/>
-                </Card.Body>
+						/>}
                 <Card.Body className="d-flex p-0 mt-3 ms-2 ">
                     <div 
                        className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">
@@ -120,14 +120,23 @@ function PostDetail({data={}}) {
                             <li className="emoji list-inline-item"><i className="em em-full_moon_with_face"></i></li>
                         </ul>
                     </div>
-                    <a className="hover-vibe rounded-xl d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
-                    onClick={() => setIsShowComment(true)} ><i
-                        className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span
-                        className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment</span></a>
+                    <a 
+                    className="hover-vibe rounded-xl d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
+                    onClick={() => setIsShowComment(true)} >
+                        <i
+                        className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg">
+                        </i>
+                        <span
+                        className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment
+                        </span>
+                    </a>
                     <a  
-                       className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
-                        className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span
-                        className="d-none-xs">Share</span></a>
+                       className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
+                        <i
+                        className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"/>
+                        <span
+                        className="d-none-xs">Share</span>
+                        </a>
                 </Card.Body>
                 <Comment data={data} isShowComment={isShowComment}/>
             </Card>

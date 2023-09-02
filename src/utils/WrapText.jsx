@@ -4,7 +4,7 @@ function WrapText({content}) {
     return ( 
         <span 
             style={content?.length <65 
-                ? {whiteSpace: "normal", overflow:"hidden"} 
+                ? {whiteSpace: "pre-wrap", overflow:"hidden"} 
                 : {whiteSpace: "pre-wrap", overflow:"hidden"} }>
             {newText}
         </span>
