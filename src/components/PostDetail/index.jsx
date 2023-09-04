@@ -9,10 +9,11 @@ import Comment from "../Comment";
 import likebtn from "../../assets/img/likebtn.png"
 import { likePost } from "~/api/postApi";
 import { set } from "date-fns";
+import {wrapText} from "~/utils/wrapText";
 
 
 
-function PostDetail({data}) {
+function PostDetail({data={}}) {
     const [like,setLike] = useState(data.likeCount)
     const [isLiked,setIsLiked] = useState(data.liked)
     const [isShowComment,setIsShowComment] = useState(false)
@@ -28,12 +29,12 @@ function PostDetail({data}) {
     return (
         <>
             <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3">
-                <Card.Body className="p-0 d-flex">
+                <Card.Body className="p-0 d-flex ">
                     <figure className="avatar me-2">
                         <img
                             src={!data.author.avatar ? ppl : data.author.avatar}
                             alt="image"
-                            className="shadow-sm rounded-circle w45" style={{height: "42px"}}/>
+                            className="shadow-sm avatar-45"/>
                     </figure>
                     <h4 className="fw-700 text-grey-900 font-xsss  mt-1">
                         {(data.author.firstName ? data.author.firstName : "") 
@@ -121,7 +122,7 @@ function PostDetail({data}) {
                     onClick={() => setIsShowComment(true)} ><i
                         className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i><span
                         className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment</span></a>
-                    <a  id="dropdownMenu21" data-bs-toggle="dropdown" aria-expanded="false"
+                    <a  
                        className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"><i
                         className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span
                         className="d-none-xs">Share</span></a>

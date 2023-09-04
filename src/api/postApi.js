@@ -1,6 +1,5 @@
 import axios from "axios";
 import {VIBELY_API , HEADERS as headers} from "~/app/constants.js";
-import {getStoredUserData} from "~/service/accountService.js";
 
 export const getPostDetail = async (id) => {
     let result = null;
@@ -33,6 +32,24 @@ export const likePost = async (postId) => {
 export const commentPosts = async (postId) => {
     try {
         const response = await axios.get(`${VIBELY_API}/posts/${postId}/comments`,{headers});
+        return response.data
+    } catch (error) {
+        return error.response
+    }
+};
+
+export const likeComment = async (postId,commentId) => {
+    try {
+        const response = await axios.get(`${VIBELY_API}/posts/${postId}/like/${commentId}`,{headers});
+        return response.data
+    } catch (error) {
+        return error.response
+    }
+};
+
+export const likeReply = async (postId,commentId,replyId) => {
+    try {
+        const response = await axios.get(`${VIBELY_API}/posts/${postId}/like/${commentId}/${replyId}`,{headers});
         return response.data
     } catch (error) {
         return error.response

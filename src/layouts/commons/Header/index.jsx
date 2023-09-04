@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {forwardRef, useState} from 'react';
+import {forwardRef, useEffect, useState} from 'react';
 import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
@@ -7,7 +7,7 @@ import Avatar from '~/assets/img/ppl.png'
 import Logo from '~/assets/img/logo.svg'
 import ava from "~/assets/img/ava.jpg"
 import {Card, Form, FormGroup} from 'react-bootstrap';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
@@ -15,6 +15,9 @@ import {useFormik} from "formik";
 import {searchUser} from "~/features/searchUser/index.js";
 import * as Yup from "yup";
 import {setKeyword} from "~/features/getKeywordSearch/index.js";
+import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
+import {selectUserData} from "~/features/userAccount/index.js";
+import {activeSidebar, toggle} from "~/features/toggleSidebar/index.js";
 
 function Header() {
     const USER = getStoredUserData()
@@ -22,9 +25,34 @@ function Header() {
     let isFocusNotification = false;
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
+    const [active, setActive] = useState(false);
     const isChatPage = window.location.pathname === '/messenger'
     const navigate = useNavigate();
+    const user = useSelector(selectUserData)
+    const socketClient = useStompWsClient()
+
     useAuthorizeUser()
+
+    const handleNavClick = () => {
+        setActive(prevState => !prevState)
+        dispatch(activeSidebar(!active))
+    }
+
+    useEffect(() => {
+        if (user.accessToken) {
+            socketClient.connectHeaders = {
+                Authorization: 'Bearer ' + user.accessToken
+            }
+            if (!socketClient.connected) {
+                socketClient.activate()
+                console.log('activated')
+            }else {
+                socketClient.deactivate()
+                socketClient.activate()
+                console.log('activated')
+            }
+        }
+    }, [user.accessToken])
 
     const CustomToggle = forwardRef(({children, onClick}, ref) => (
         <div className='position-relative'>
@@ -82,13 +110,17 @@ function Header() {
                         whileHover={{scale: 1.2}}
                         style={{maxWidth: 50, zIndex: "10000"}} className='d-inline-block  logo-nav' src={Logo}/>
                 </Link>
-                <a href="src/layouts/commons/Header#" className="mob-menu ms-auto me-2 chat-active-btn"><i
-                    className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="default-video.html" className="mob-menu me-2"><i
-                    className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="src/layouts/commons/Header#" className="me-2 menu-search-icon mob-menu"><i
-                    className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <button className="nav-menu me-0 ms-2"></button>
+                <span className="cursor-pointer mob-menu ms-auto me-2 chat-active-btn"
+                      onClick={() => dispatch(toggleChatButton())}>
+                    {!isChatPage && <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>}
+                </span>
+                <span className="cursor-pointer mob-menu me-2"><i
+                    className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
+                <span className="cursor-pointer me-2 menu-search-icon mob-menu"><i
+                    className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
+                <button className={"nav-menu me-0 ms-2 cursor-pointer " + (active?"active":"")}
+                        onClick={handleNavClick}>
+                </button>
             </div>
 
             <Form className="float-left header-search" onSubmit={formikSearch.handleSubmit}>
@@ -138,7 +170,7 @@ function Header() {
                                className='dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg'>
                     <h5 className="fw-700 font-xs mb-4 text-vibe">Notifications</h5>
                     <Dropdown.Item href="#" eventKey="1"
-                                   style={(notificationItem == 1) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                                   style={(notificationItem === 1) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(1)}
                                    className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0 "/>
@@ -148,16 +180,18 @@ function Header() {
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2 "> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item as={Card} href="#" eventKey="2"
-                                   style={(notificationItem == 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                                   style={(notificationItem === 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                                    onMouseDown={() => setNotificationItem(2)}
                                    className='bg-transparent-card w-100 border-0 ps-5 mb-2'>
-                        <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
-                        <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
-                            <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
-                        <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
+                             <img 
+                                src={ava} alt="user" 
+                                className="w50 position-absolute rounded-circle left-0"/>
+                            <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
+                                <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
+                            <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item
-                        style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                        style={(notificationItem === 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
                         onMouseDown={() => setNotificationItem(3)}
                         className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
