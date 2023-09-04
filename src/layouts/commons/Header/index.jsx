@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {forwardRef, useState} from 'react';
 import NavData from "~/data/NavData.jsx"
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -11,6 +11,10 @@ import {useDispatch} from 'react-redux';
 import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
+import {useFormik} from "formik";
+import {searchUser} from "~/features/searchUser/index.js";
+import * as Yup from "yup";
+import {setKeyword} from "~/features/getKeywordSearch/index.js";
 
 function Header() {
     const USER = getStoredUserData()
@@ -19,6 +23,7 @@ function Header() {
     const [notificationItem, setNotificationItem] = useState(0);
     const [isOnMess, setIsOnMess] = useState(false);
     const isChatPage = window.location.pathname === '/messenger'
+    const navigate = useNavigate();
     useAuthorizeUser()
 
     const CustomToggle = forwardRef(({children, onClick}, ref) => (
@@ -41,6 +46,34 @@ function Header() {
         </div>
     ));
 
+
+    const formikSearch = useFormik({
+        initialValues: {
+            keyword: '',
+        },
+        enableReinitialize: true,
+
+        validationSchema: Yup.object({
+            keyword: Yup
+                .string()
+                .required()
+        }),
+
+        onSubmit: (values) => {
+            dispatch(searchUser({
+                keyword: values.keyword,
+                page: 0
+            })).then(() => {
+                formikSearch.resetForm();
+                dispatch(setKeyword(values));
+                if (!window.location.pathname.includes('search')) {
+                    navigate('/search');
+                }
+                window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+            });
+        }
+    });
+
     return (
         <div className="nav-header shadow-xs border-0">
             <div className="nav-top">
@@ -58,12 +91,23 @@ function Header() {
                 <button className="nav-menu me-0 ms-2"></button>
             </div>
 
-            <Form className="float-left header-search">
+            <Form className="float-left header-search" onSubmit={formikSearch.handleSubmit}>
                 <FormGroup className=" mb-0 icon-input">
                     <i className="feather-search font-md text-grey-400 me-2 position-absolute"
                        style={{marginTop: '12px', marginLeft: '18px'}}/>
-                    <input type="text" placeholder="search on vibely..." style={{backgroundColor: '#ebebeb'}}
-                           className="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg"/>
+                    <input
+                        onKeyDown={(event) => {
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+                                formikSearch.submitForm();
+                            }
+                        }}
+                        onChange={formikSearch.handleChange}
+                        value={formikSearch.values.keyword}
+                        name="keyword"
+                        type="text" placeholder="search on vibely..."
+                        style={{backgroundColor: '#ebebeb'}}
+                        className="border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg"/>
                 </FormGroup>
             </Form>
 
@@ -113,9 +157,9 @@ function Header() {
                         <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
                     </Dropdown.Item>
                     <Dropdown.Item
-                                   style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
-                                   onMouseDown={() => setNotificationItem(3)}
-                                   className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
+                        style={(notificationItem == 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
+                        onMouseDown={() => setNotificationItem(3)}
+                        className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
                         <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
                         <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
                             <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
@@ -137,7 +181,7 @@ function Header() {
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
-                            transition={{duration: 0.3}} 
+                            transition={{duration: 0.3}}
                             src={USER?.avatarUrl ? USER?.avatarUrl : Avatar}
                             className="w45 rounded-xl mt--1"/>
             </Link>
