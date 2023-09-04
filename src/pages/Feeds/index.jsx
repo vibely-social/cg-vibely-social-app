@@ -1,5 +1,5 @@
 import RightFeed from "./RightFeeds";
-import {Col, Row, Button} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import CreatePost from "../../components/CreatePost";
 import PostDetail from "../../components/PostDetail";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
@@ -8,8 +8,8 @@ import "./index.scss"
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 import { useDispatch,useSelector } from 'react-redux';
-import { fetchPosts } from "~/features/getPosts";
-import {createPost} from "../../features/getPosts"
+import { fetchPosts, resetPost } from "~/features/getPosts";
+
 
 function Feeds() {
 
@@ -29,6 +29,9 @@ function Feeds() {
         else{
             setLoaded(true)
         }
+        return () => {
+            dispatch(resetPost())
+        };
       },[dispatch]);
     
 
@@ -39,7 +42,7 @@ function Feeds() {
 
                 <CreatePost />
                 { createPost && <PostDetail data={createPost}/>}
-             {!loaded ? 
+                {!loaded ? 
                 (<div className="preloader-feed">
                         <div className="box shimmer">
                             <div className="lines">
@@ -60,7 +63,7 @@ function Feeds() {
                     </div>) 
                  : 
                  
-                 isSuccess && newPosts?.map((post,index) => {
+                 isSuccess && newPosts && newPosts?.map((post,index) => {
                    return <PostDetail data={post} key={index}/>
                  })
                 }
