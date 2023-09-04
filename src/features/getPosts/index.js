@@ -18,7 +18,10 @@ const postsSlice = createSlice({
     reducers: {
       createPost: (state, action) => {
           state.createPost = action.payload;
-      }
+      },
+      resetPost: (state, action) => {
+        state.createPost = null;
+    }
     },
       extraReducers: (builder) => {
         builder.addCase(fetchPosts.pending, (state, action) => {
@@ -36,6 +39,6 @@ const postsSlice = createSlice({
     },
   });
 
-export const { setPosts, createPost } = postsSlice.actions;
+export const { setPosts, createPost, resetPost } = postsSlice.actions;
 
 export default postsSlice;

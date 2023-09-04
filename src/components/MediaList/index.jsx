@@ -45,7 +45,7 @@ function MediaList({images, type}) {
 
             {images.map((image, imageIndex) => {
                 return (
-                    image.gallery.map((url, galleryIndex) => {
+                    image.gallery?.map((url, galleryIndex) => {
                         if (type === "photos" && count >= limit) {
                             return null;
                         }

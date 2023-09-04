@@ -1,4 +1,4 @@
-import google from "../../assets/img/google-icon.png";
+import google from "~/assets/img/google-icon.png";
 import {Link, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -7,12 +7,13 @@ import logo from "~/assets/img/logo.svg";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
+    googleLogin,
     loginToAccount,
     resetAccountState,
     selectAccountError,
     selectLoginIsSuccess,
+    selectUserAccountSliceIsLoading,
     selectUserData,
-    setSuccess,
 } from "~/features/userAccount/index.js";
 import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
 import {CLIENT_ID} from "~/app/constants.js";
@@ -23,6 +24,7 @@ function Login() {
     const navigate = useNavigate();
     const user = useSelector(selectUserData);
     const success = useSelector(selectLoginIsSuccess);
+    const loading = useSelector(selectUserAccountSliceIsLoading);
     const error = useSelector(selectAccountError);
     const [errorMessage, setErrorMessage] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -47,10 +49,11 @@ function Login() {
     }, [success, user]);
 
     useEffect(() => {
+        console.log(success)
         if (error) {
             setErrorMessage("Wrong email or password!");
         }
-    }, [error]);
+    }, [loading]);
 
     const formik = useFormik({
         initialValues: {
@@ -63,7 +66,6 @@ function Login() {
         }),
         onSubmit: (values) => handleLogin(values),
     });
-
 
     let isInvalidEmail = formik.touched.email && formik.errors.email;
     let isInvalidPassword = formik.touched.password && formik.errors.password;
@@ -87,7 +89,7 @@ function Login() {
                     <a href="#" className="mob-menu ms-auto me-2 chat-active-btn">
                         <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>
                     </a>
-                    <a href="default-video.html" className="mob-menu me-2">
+                    <a href="#" className="mob-menu me-2">
                         <i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i>
                     </a>
                     <a href="#" className="me-2 menu-search-icon mob-menu">
@@ -123,8 +125,7 @@ function Login() {
                                     show={isInvalidEmail ? true : false}
                                     overlay={
                                         <Tooltip id="tooltip-left">{formik.errors.email}</Tooltip>
-                                    }
-                                >
+                                    }>
                                     <div className="form-group icon-input mb-3">
                                         <i className="font-sm ti-email text-grey-500 pe-0"></i>
                                         <input

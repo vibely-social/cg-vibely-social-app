@@ -182,6 +182,7 @@ form .options .list-items-post{
   margin: 0 1px;
   cursor: pointer;
   border-radius: 50%;
+  padding: 0;
 }
 
 .options .list-items-post li:hover{
@@ -234,4 +235,3 @@ form textarea:valid ~ .button-post:hover{
   pointer-events: none;
   cursor: not-allowed;
 }
-
