@@ -1,13 +1,14 @@
-import google from "~/assets/img/google-icon.png";
-import {Link, useNavigate} from "react-router-dom";
-import {useFormik} from "formik";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import {Form, OverlayTrigger, Tooltip, Alert} from "react-bootstrap";
+import { CLIENT_ID } from "~/app/constants.js";
 import logo from "~/assets/img/logo.svg";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
 import {
-    googleLogin,
     loginToAccount,
     resetAccountState,
     selectAccountError,
@@ -15,9 +16,6 @@ import {
     selectUserAccountSliceIsLoading,
     selectUserData,
 } from "~/features/userAccount/index.js";
-import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
-import {CLIENT_ID} from "~/app/constants.js";
-import {GoogleOAuthProvider} from "@react-oauth/google";
 
 function Login() {
     const dispatch = useDispatch();
