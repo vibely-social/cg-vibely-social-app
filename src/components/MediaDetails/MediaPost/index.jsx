@@ -12,7 +12,7 @@ const MediaPost = ({id}) => {
     const dispatch = useDispatch();
     const mediaPostDetail = useSelector(state => state.mediaPostDetails.post);
 
-    TimeAgo.addLocale(en);
+    TimeAgo.addDefaultLocale(en);
 
     useEffect(() => {
         dispatch(getMediaPostDetails(id))
@@ -27,13 +27,12 @@ const MediaPost = ({id}) => {
                     <img src={`${mediaPostDetail.author.avatar || "https://i.pravatar.cc/100"}`}
                          alt="image" className="shadow-sm rounded-circle w45"/>
                 </figure>
-                {/*<h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">asdsadsadsa<span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">2 hours ago</span></h4>*/}
 
                 <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">
                     {`${mediaPostDetail.author.firstName || ""} ${mediaPostDetail.author.lastName || ""}`}
                     <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                         {
-                            <ReactTimeAgo date={mediaPostDetail.createdDate} locale="en-us"/>
+                            <ReactTimeAgo date={mediaPostDetail.createdDate} locale="en"/>
                         }
                     </span>
                 </h4>

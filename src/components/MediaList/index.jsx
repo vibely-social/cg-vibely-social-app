@@ -23,24 +23,26 @@ function MediaList({images, type}) {
 
     let firstDiv;
     let secondDiv;
+    let containerDiv;
     let count = 0;
     let limit = 9;
 
     if (type === "tab") {
-        firstDiv = 'col-md-3 col-xss-6';
-        secondDiv = "card h240 w240 d-block border-0 mb-3 align";
+        containerDiv = 'row';
+        // firstDiv = 'col-md-3 col-xss-6 col-lg-3';
+        firstDiv = 'col-lg-3 col-md-2'
+        secondDiv = "card d-block border-0 align";
     }
-    if (type === "post") {
-        firstDiv = "col-xs-4 col-sm-2 p-1";
-        secondDiv = "card h175 w175"
-    }
+
     if (type === "photos") {
-        firstDiv = 'col-sm-4 col-xss-3';
-        secondDiv = "card h100 w100 d-block border-0 mb-2 me-1 align";
+        containerDiv = "h400 row justify-content-around d-flex";
+        firstDiv = 'col-4 my-0 py-0';
+        secondDiv = "card d-block border-0 align";
     }
 
     return (
-        <>
+        <div className={containerDiv}>
+
             {images.map((image, imageIndex) => {
                 return (
                     image.gallery.map((url, galleryIndex) => {
@@ -52,6 +54,7 @@ function MediaList({images, type}) {
 
                         return (
                             <div className={firstDiv} key={galleryIndex}>
+
                                 <div
                                     className={secondDiv}
                                     onClick={() => {
@@ -59,7 +62,7 @@ function MediaList({images, type}) {
                                     }}
                                 >
                                     <img
-                                        className="rounded-3 w-100 h-100 border border-1 border-gray shadow-md image-hover-effect"
+                                        className="rounded-3 my-0 w-100 h-100 border border-1 border-gray shadow-md image-hover-effect"
                                         src={url}
                                         style={{
                                             objectFit: "cover",
@@ -84,7 +87,8 @@ function MediaList({images, type}) {
                     currentGalleryIndex={selectedGalleryIndex}
                     onClose={handleHide}
                 />}
-        </>
+
+        </div>
     )
 }
 
