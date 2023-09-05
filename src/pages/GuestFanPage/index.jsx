@@ -19,6 +19,7 @@ function GuestFanPage() {
     const params = useParams();
     const currentUser = getStoredUserData();
     const navigate = useNavigate();
+    const [liked, setLiked] = useState(false);
 
     const toggleToAbout = () => {
         setType("About")
@@ -45,6 +46,10 @@ function GuestFanPage() {
         getUserInfo()
     }, [])
 
+    const handleLikeClick = () => {
+        setLiked(!liked);
+    };
+
     return (<>
         <div className="row">
             <div className="col-lg-12">
@@ -53,7 +58,7 @@ function GuestFanPage() {
                         <img src="https://via.placeholder.com/960x250.png" alt="image" style={{width: '100%'}}/>
                     </div>
                     <div className="card-body p-0 position-relative">
-                        <figure className="avatar position-absolute w100 z-index-1"
+                        <figure className="avatar position-absolute w100"
                                 style={{top: -40, left: 30}}>
                             <img src="https://via.placeholder.com/50x50.png" alt="image"
                                  className="float-right p-1 bg-white rounded-circle w-100"/>
@@ -90,11 +95,11 @@ function GuestFanPage() {
                                     <i className="feather-message-circle p-1 font-xss"></i>
                                     Message
                                 </a>
-                                <a href="#"
-                                   className="d-none d-lg-block bg-success p-3 ms-2 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
+                                <span onClick={handleLikeClick}
+                                   className="d-flex align-items-center bg-success cursor-pointer p-3 ms-2 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
                                     <i className="feather-thumbs-up p-1 font-xss"></i>
-                                    Like
-                                </a>
+                                    {liked ? 'Unlike' : 'Like'}
+                                </span>
                                 <a href="#"
                                    className="d-none d-lg-block bg-success p-3 ms-2 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
                                     <i className="feather-search p-1 font-xss"></i>
