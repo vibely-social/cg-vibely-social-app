@@ -22,26 +22,19 @@ function MediaList({images, type}) {
 
 
     let firstDiv;
-    let secondDiv;
-    let containerDiv;
     let count = 0;
     let limit = 9;
 
     if (type === "tab") {
-        containerDiv = 'row';
-        // firstDiv = 'col-md-3 col-xss-6 col-lg-3';
-        firstDiv = 'col-lg-3 col-md-2'
-        secondDiv = "card d-block border-0 align";
+        firstDiv = 'col-3'
     }
 
     if (type === "photos") {
-        containerDiv = "h400 row justify-content-around d-flex";
-        firstDiv = 'col-4 my-0 py-0';
-        secondDiv = "card d-block border-0 align";
+        firstDiv = 'col-4';
     }
 
     return (
-        <div className={containerDiv}>
+        <div className="d-flex flex-row flex-wrap">
 
             {images.map((image, imageIndex) => {
                 return (
@@ -53,27 +46,25 @@ function MediaList({images, type}) {
                         count++;
 
                         return (
-                            <div className={firstDiv} key={galleryIndex}>
-
-                                <div
-                                    className={secondDiv}
-                                    onClick={() => {
-                                        handleClick(imageIndex, galleryIndex);
+                            <div className={firstDiv} key={galleryIndex}
+                                 style={{
+                                     maxHeight: "100%",
+                                     minHeight: "100%",
+                                     // maxWidth: "25%",
+                                     // minWidth: "25%"
+                                 }}>
+                                <img
+                                    className="rounded-3 my-0 border border-1 border-gray shadow-md image-hover-effect"
+                                    src={url}
+                                    style={{
+                                        objectFit: "cover",
+                                        // maxHeight: "100%",
+                                        // maxWidth: "100%",
+                                        cursor: "pointer"
                                     }}
-                                >
-                                    <img
-                                        className="rounded-3 my-0 w-100 h-100 border border-1 border-gray shadow-md image-hover-effect"
-                                        src={url}
-                                        style={{
-                                            objectFit: "cover",
-                                            width: "100%",
-                                            height: "100%",
-                                            cursor: "pointer"
-                                        }}
-                                        alt="picture"
-                                    />
-
-                                </div>
+                                    alt="picture"
+                                    onClick={() => handleClick(imageIndex, galleryIndex)}
+                                />
                             </div>
                         );
                     })
