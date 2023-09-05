@@ -80,7 +80,7 @@ function Friends() {
                                                     <img src={friend?.avatarUrl}
                                                          className="bg-white avatar w-100 shadow-xss border border-light"
                                                          style={{minHeight: "220px", maxHeight: "220px"}}/>
-                                                    <Link to={`/users/${friend.id}`}>
+                                                    <Link to={`/profile/${friend.id}`}>
                                                         <h4 className="fw-700 font-xs mt-2 mb-1 ms-2 hover-underline">
                                                             {`${friend.firstName} ${friend.lastName}`}
                                                         </h4>
