@@ -2,7 +2,7 @@ import NewPost from "~/components/CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {POST_API} from "~/app/constants.js";
+import {VIBELY_API} from "~/app/constants.js";
 import FanPageIntro from "~/components/FanPageIntro/index.jsx";
 import MediaList from "~/components/MediaList/index.jsx";
 import {useSelector} from "react-redux";
@@ -14,7 +14,7 @@ function PostTabFanPage({toggleAbout, toggleMedia}) {
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get(POST_API);
+            const response = await axios.get(VIBELY_API);
             setPosts(response.data)
             setIsLoading(false)
         } catch (error) {

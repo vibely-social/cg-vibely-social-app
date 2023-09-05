@@ -7,7 +7,6 @@
 
 .dialog-post{
   width: 500px;
-  overflow: hidden;
   background: #fff;
   border-radius: 10px;
   transition: height 0.2s ease;
@@ -15,6 +14,17 @@
   display: flex;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.dialog-post::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+  
+}
+.dialog-post::-webkit-scrollbar-thumb{
+  background: linear-gradient(to bottom right, #aeb6b6 0%, #bdc0c0 100%);
+  border-radius: 5px;
 }
 
 
@@ -172,6 +182,7 @@ form .options .list-items-post{
   margin: 0 1px;
   cursor: pointer;
   border-radius: 50%;
+  padding: 0;
 }
 
 .options .list-items-post li:hover{
@@ -219,9 +230,8 @@ form textarea:valid ~ .button-post:hover{
 
 /* .MuiDialog-container {
   display: none;
-}
-.MuiGrid-align-items-xs-center {
+} */
+.preview-upload {
   pointer-events: none;
   cursor: not-allowed;
-} */
-
+}

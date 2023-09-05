@@ -5,7 +5,7 @@ import {memo, useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
+import {selectSidebarActive, selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
 import {ProgressSpinner} from "primereact/progressspinner";
 import {selectUserData} from "~/features/userAccount/index.js";
 import {
@@ -17,6 +17,7 @@ import {
 } from "~/features/getFriends/index.js";
 import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
 import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/index.jsx";
+import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
 
 // eslint-disable-next-line react/prop-types
 function ChatSidebar() {
@@ -28,9 +29,11 @@ function ChatSidebar() {
     const user = useSelector(selectUserData)
     const loading = useSelector(selectGetFriendIsLoading)
     const currentConversation = useSelector(selectConversation)
-    const [currentContact, setCurrentContact] = useState({})
     const success = useSelector(selectGetFriendIsSuccess)
-    const [friends, setFriends] = useState([])
+    const [displayFriends, setDisplayFriends] = useState([]);
+    const onlineList = useSelector(selectOnlineList)
+    const sidebarActive = useSelector(selectSidebarActive)
+
     useEffect(() => {
         if (viewPort.width < 576) {
             dispatch(toggle(true))
@@ -46,34 +49,38 @@ function ChatSidebar() {
 
     useEffect(() => {
         if (!success) {
-            dispatch(getFriends())
-        } else {
-            setFriends(friendList)
+            dispatch(getFriends(user?.id))
         }
-
         return () => {
             if (success) {
                 dispatch(setGetFriendsSuccess(false))
             }
         }
-    }, [success])
+    }, [success,user])
 
-
-    useEffect(() => {
-        if (Object.keys(currentConversation).length) {
-            setCurrentContact(currentConversation)
-        } else if (currentContact && currentContact.email) {
-            dispatch(switchConversationTo(currentContact))
-        } else if (friends[0]) {
-            setCurrentContact(friends[0])
+    useEffect(()=>{
+        if (friendList){
+            let newList = []
+            friendList.forEach(friend => {
+                newList.push({
+                    ...friend,
+                    status: onlineList[friend.email]
+                })
+            })
+            newList.sort((a,b)=>{return b.status - a.status})
+            setDisplayFriends(newList)
         }
-    }, [friends, currentContact, currentConversation])
+    },[friendList, onlineList])
+
     return (
         <div>
             <motion.nav style={!smallScreen ? {overflow: "hidden", left: '-200px'} : {}}
                         animate={!smallScreen ? {x: 200} : {}}
                         transition={!smallScreen ? {duration: 0.8} : {}}
-                        className={position ? "navigation chat-navigation menu-active " : "navigation chat-navigation"}>
+                        className={" " + (position ?
+                            "navigation chat-navigation menu-active "
+                            : "navigation chat-navigation ")
+                            + (sidebarActive ? "nav-active scroll-bar" : "")}>
                 <Container className="ps-0 pe-0 d-flex">
 
                     <MainNavigate chatNav={true}/>
@@ -90,7 +97,7 @@ function ChatSidebar() {
                                     {loading && <ProgressSpinner/>}
                                 </div>
                                 {
-                                    friends.map(friend => {
+                                    displayFriends.map(friend => {
                                         const name = friend.firstName + " " + friend.lastName;
                                         return (
                                             <ListGroup.Item as="li"

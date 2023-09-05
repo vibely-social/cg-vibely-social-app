@@ -5,6 +5,10 @@
 @import '../css/themify-icons.css';
 @import "primereact/resources/primereact.min.css";
 
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 @import "./base/base";
 @import "./components/components";
 @import 'normalize.css';

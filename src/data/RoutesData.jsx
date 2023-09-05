@@ -10,6 +10,7 @@ import Friends from "~/pages/Friends";
 import OwnerFanPage from "~/pages/OwnerFanPage/index.jsx";
 import GuestFanPage from "~/pages/GuestFanPage/index.jsx";
 import Forgot from "~/pages/Forgot";
+import SearchPage from "~/pages/SearchPage/index.jsx";
 
 export const publicRoutes = [
     {path: '/', component: Feeds, layout: MainLayout},
@@ -21,7 +22,8 @@ export const publicRoutes = [
     {path: '/messenger', component: Chat, layout: ChatLayout},
     {path: '/fanpage', component: OwnerFanPage, layout: MainLayout},
     {path: '/fanpage/:id', component: GuestFanPage, layout: MainLayout},
-    {path: '/forgot', component: Forgot, layout: null}
+    {path: '/forgot', component: Forgot, layout: null},
+    {path: '/search', component: SearchPage, layout: MainLayout}
 ]
 
 export default publicRoutes;

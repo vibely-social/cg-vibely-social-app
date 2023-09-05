@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {checkEmailApi, loginApi, registerApi, checkEmailForgotApi} from "~/api/accountApi.js";
+import {fetchUserInfoFromGoogle, googleLoginApi} from "~/api/oauth2Api.js";
 
 
 export const loginToAccount = createAsyncThunk("login", async (data) => {
@@ -20,6 +21,12 @@ export const checkEmailForgot = createAsyncThunk("check-email-forgot", async (da
     return await checkEmailForgotApi(data)
 })
 
+export const googleLogin = createAsyncThunk("google-login", async (data) => {
+    const userInfo = await fetchUserInfoFromGoogle(data);
+    const response = await googleLoginApi(userInfo);
+    return response.data;
+})
+
 const initialState = {
     user: {},
     loading: false,
@@ -30,6 +37,7 @@ const initialState = {
     registerError: false,
     checkEmailForgotSuccess: false,
     checkEmailForgotError: false,
+    isGoogleAccount: false
 }
 export const userAccountSlice = createSlice({
     name: 'userAccount',
@@ -44,8 +52,10 @@ export const userAccountSlice = createSlice({
         setSuccess: (state, action) => {
             state.loginSuccess = action.payload;
         },
+        setGoogleAccount: (state, action) => {
+            state.isGoogleAccount = action.payload;
+        },
         resetAccountState: state => {
-            state.user = null;
             state.loading = false;
             state.error = null;
             state.loginSuccess = false;
@@ -126,6 +136,24 @@ export const userAccountSlice = createSlice({
                 state.loading = false;
                 state.checkEmailForgotError = false;
             })
+            //Google login
+            .addCase(googleLogin.pending, (state) => {
+                state.loginSuccess = false;
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(googleLogin.rejected, (state, action) => {
+                state.loginSuccess = false;
+                state.loading = false;
+                state.error = action.error;
+            })
+            .addCase(googleLogin.fulfilled, (state, action) => {
+                state.loginSuccess = true;
+                state.loading = false;
+                state.user = action.payload;
+                state.error = false;
+                state.isGoogleAccount = true;
+            })
     }
 })
 
@@ -147,5 +175,7 @@ export const selectLoginIsSuccess = (state) => state.userAccount.loginSuccess;
 export const selectUserData = (state) => state.userAccount.user;
 export const selectCheckEmailForgotSuccess = (state) => state.userAccount.checkEmailForgotSuccess;
 export const selectCheckEmailForgotError = (state) => state.userAccount.checkEmailForgotError;
+export const selectCheckGoogleAccount = (state) => state.userAccount.isGoogleAccount;
+
 
 export default userAccountSlice.reducer;

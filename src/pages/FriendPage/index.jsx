@@ -9,32 +9,51 @@ import FriendTab from "~/components/FriendTab/index.jsx";
 import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
+import {selectFriendList} from "~/features/getFriends/index.js";
 
 function FriendPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
+    const friends = useSelector(selectFriendList)
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const currentUser = getStoredUserData();
     const params = useParams();
 
-
+    const scrollTop = () => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }
     const toggleToAbout = () => {
         setType("About");
-        // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        scrollTop();
+    }
+
+    const toggleToPost = () => {
+        setType("Posts");
+        scrollTop()
     }
 
     const toggleToMedia = () => {
         setType("Media");
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        scrollTop();
     }
 
-    useEffect( () => {
+    const checkFriend = () => {
+        let check = false;
+        friends.map((friend) => {
+            if (friend.id == params.id) {
+                return check = true;
+            }
+        })
+        return check;
+    }
+
+    useEffect(() => {
         const getUserInfo = async () => {
-            if (currentUser.id !== params.id) {
+            if (currentUser.id != params.id) {
                 const result = await userInfoApi(params.id);
-                if (result !==  undefined) {
+                if (result !== undefined) {
                     dispatch(setUserInfo(result));
                 } else {
                     navigate('/404');
@@ -42,10 +61,9 @@ function FriendPage() {
             } else {
                 navigate('/profile');
             }
-
         }
         getUserInfo()
-    },[])
+    }, [params.id])
 
     return (<>
         <div className="row">
@@ -65,23 +83,60 @@ function FriendPage() {
                         </h4>
                         <div
                             className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
-                            <span
-                               className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
-                                <i className="feather-plus font-xss tetx-dark me-1"></i>
-                                Add Friend
-                            </span>
-                            <span
-                               className="d-flex align-items-center cursor-pointer ms-2 bg-gold-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
-                                <i className="feather-message-square font-xss tetx-dark me-1"></i>
-                                Messenger
-                            </span>
+                            {
+                                checkFriend() ?
+                                    <>
+                                        <span
+                                            className="d-flex align-items-center cursor-pointer ms-2 bg-lightblue p-3 rounded-3 text-dark font-xsssss text-uppercase fw-700 ls-3 ">
+                                            <i className="feather-user-check font-xss tetx-dark me-1"></i>
+                                            Friends
+                                        </span>
+                                        <span
+                                            className="d-flex align-items-center cursor-pointer ms-2 bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
+                                            <i className="feather-message-square font-xss tetx-dark me-1"></i>
+                                            Messenger
+                                        </span>
+                                    </>
+                                    :
+                                    <span
+                                        className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
+                                        <i className="feather-plus font-xss tetx-dark me-1"></i>
+                                        Add Friend
+                                    </span>
+
+                            }
+                        </div>
+                    </div>
+
+                    <div className="d-flex">
+                        <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
+                            <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
+                                id="pills-tab" role="tablist">
+                                {tabs.map((tab) => (
+                                    <li key={tab} className="list-inline-item me-5 ">
+                                    <span data-toggle="tab"
+                                          onClick={() => {
+                                              setType(tab)
+                                              scrollTop()
+                                          }}
+                                          className={type === tab ?
+                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
+                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
+                                        {tab}
+                                    </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div
+                            className="align-items-center justify-content-center me-3">
                             <a href="#" id="dropdownMenu4"
                                className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i className="ti-more font-md tetx-dark"></i>
                             </a>
                             <div
-                                className="dropdown-menu dropdown-menu-start p-4 rounded-xxl border-0 shadow-lg"
+                                className="dropdown-menu dropdown-menu-end w250 p-4 rounded-xxl border-0 shadow-lg"
                                 aria-labelledby="dropdownMenu4">
                                 <div className="card-body p-0 d-flex">
                                     <i className="feather-bookmark text-grey-500 me-3 font-lg"></i>
@@ -115,29 +170,13 @@ function FriendPage() {
                         </div>
                     </div>
 
-                    <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
-                        <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
-                            id="pills-tab" role="tablist">
-                            {tabs.map((tab) => (
-                                <li key={tab} className="list-inline-item me-5 ">
-                                    <span data-toggle="tab"
-                                          onClick={() => setType(tab)}
-                                          className={type === tab ?
-                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
-                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
-                                        {tab}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div className="col-lg-12">
                 {
                     type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
                         : type === 'About' ? <AboutTab/>
-                            : type === 'Friends' ? <FriendTab />
+                            : type === 'Friends' ? <FriendTab tongglePost={toggleToPost} friendID={params.id}/>
                                 : <MediaTab/>
                 }
             </div>
