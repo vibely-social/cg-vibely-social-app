@@ -11,7 +11,7 @@ function FriendTab({tongglePost, friendID}) {
 
     const [type, setType] = useState("All friends")
 
-    const getFriendList = async () => {
+    const getFriendListOfFriend = async () => {
         if (friendID) {
             const result = await findFriends(friendID);
             setFriends(result.data);
@@ -19,7 +19,7 @@ function FriendTab({tongglePost, friendID}) {
     }
 
     useEffect(() => {
-        getFriendList()
+        getFriendListOfFriend()
     }, [friendID])
 
 
@@ -36,7 +36,7 @@ function FriendTab({tongglePost, friendID}) {
             setFriends(result)
         } else {
             if (friendID) {
-                getFriendList()
+                getFriendListOfFriend()
             } else {
                 setFriends(friendList)
             }
@@ -89,7 +89,7 @@ function FriendTab({tongglePost, friendID}) {
                                         <Link to={`/profile/${friend.id}`}
                                               onClick={tongglePost}
                                               className="ms-3 cursor-pointer">
-                                            <h4 className="fw-700 font-xsss mt-3 hover-underline hover-scale-1-1">
+                                            <h4 className="fw-700 font-xsss mt-3 hover-underline">
                                                 {`${friend.firstName} ${friend.lastName}`}
                                             </h4>
                                             <div

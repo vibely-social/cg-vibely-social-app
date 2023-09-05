@@ -1,14 +1,14 @@
-import google from "~/assets/img/google-icon.png";
-import {Link, useNavigate} from "react-router-dom";
-import {useFormik} from "formik";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
+import { CLIENT_ID } from "~/app/constants.js";
 import logo from "~/assets/img/logo.svg";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useGoogleLogin} from "@react-oauth/google";
+import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
 import {
-    googleLogin,
     loginToAccount,
     resetAccountState,
     selectAccountError,
@@ -33,12 +33,6 @@ function Login() {
         dispatch(loginToAccount({email, password}));
     };
 
-    const handleGoogleLogin = useGoogleLogin({
-        onSuccess: (response) => {
-            dispatch(googleLogin(response))
-        }
-    })
-
     useEffect(() => {
         if (success) {
             if (user) {
@@ -50,15 +44,6 @@ function Login() {
         return () => {
             dispatch(resetAccountState());
         };
-    }, [success, user]);
-    useEffect(() => {
-        if (success) {
-            if (user) {
-                localStorage.setItem("user", JSON.stringify(user));
-                console.log("Login success!");
-                navigate("/");
-            }
-        }
     }, [success, user]);
 
     useEffect(() => {
@@ -240,23 +225,12 @@ function Login() {
                                         Or, Sign in with your social account
                                     </h6>
                                 </div>
-                                <div className="col-sm-12 p-0 mt-2">
-                                    <div className="form-group mb-1 ">
-                                        <button
-                                            className="w-100 d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"
-                                            onClick={() => handleGoogleLogin()}>
-                                            <img
-                                                src={google}
-                                                alt="icon"
-                                                className="ms-3 mt-2 ms-2 w40 mb-1 me-5"
-                                            />
-                                            <span className="ms-3 justify-content-center">
-                        Sign in with Google
-                      </span>
-                                        </button>
-                                    </div>
-                                </div>
                             </Form>
+                            <GoogleOAuthProvider clientId={CLIENT_ID}>
+                                <GoogleLoginButton
+                                    type="login"
+                                />
+                            </GoogleOAuthProvider>
                         </div>
                     </div>
                 </div>

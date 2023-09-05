@@ -13,7 +13,6 @@ import {Link} from "react-router-dom";
 function Friends() {
     const dispatch = useDispatch();
     const friendRequestList = useSelector(selectFriendRequestList)
-    const [friendRequests, setFriendRequests] = useState([]);
     const [showDeleteModalRequest, setShowDeleteModalRequest] = useState(false);
     const [selectedItemRequest, setSelectedItemRequest] = useState(null);
     const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] = useState(false);
@@ -28,17 +27,10 @@ function Friends() {
     };
 
     useEffect(() => {
-        if (friendRequestList.length === 0) {
-            dispatch(getSuggestionFriends())
-        }
-    }, [friendSuggestion]);
+        dispatch(getSuggestionFriends())
+        dispatch(getFriendRequests())
+    }, []);
 
-    useEffect(() => {
-        if (!friendRequestList.length) {
-            dispatch(getFriendRequests())
-        }
-        setFriendRequests(friendRequestList)
-    }, [friendRequestList]);
 
     // ------------------------friend suggestion----------------------
 
@@ -69,7 +61,7 @@ function Friends() {
                     </Card>
 
                     <Row className="pe-2 ps-2">
-                        {friendRequests.map((friend, index) => {
+                        {friendRequestList?.map((friend, index) => {
                             return (
                                 <Col className=" w-100 pb-3 p-0 text-center me-2"
                                      key={index}>
@@ -82,7 +74,8 @@ function Friends() {
                                                 }}>
                                         <Card className="d-block border-0 shadow-xss rounded-3  overflow-hidden"
                                               style={{width: "220px", height: "380px"}}>
-                                            <Card.Body className="d-flex flex-column justify-content-between p-0 h-100 pb-3">
+                                            <Card.Body
+                                                className="d-flex flex-column justify-content-between p-0 h-100 pb-3">
                                                 <div>
                                                     <img src={friend?.avatarUrl}
                                                          className="bg-white avatar w-100 shadow-xss border border-light"
@@ -92,9 +85,10 @@ function Friends() {
                                                             {`${friend.firstName} ${friend.lastName}`}
                                                         </h4>
                                                     </Link>
-                                                    {friend?.mutualFriends && <p className="fw-500 font-xssss text-grey-500 mt-0 ms-2 mb-1">
-                                                        {friend?.mutualFriends} mutual friends
-                                                    </p>}
+                                                    {friend?.mutualFriends &&
+                                                        <p className="fw-500 font-xssss text-grey-500 mt-0 ms-2 mb-1">
+                                                            {friend?.mutualFriends} mutual friends
+                                                        </p>}
                                                 </div>
                                                 <div>
                                                     <Button
@@ -189,10 +183,12 @@ function Friends() {
                                                     className="bg-white avatar w-100 shadow-xss border border-light"
                                                     style={{minHeight: "220px", maxHeight: "220px"}}
                                                 />
-                                                <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-left">
-                                                    {friend?.firstName}{" "}{friend?.lastName}
-                                                </h4>
-                                                <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-left">
+                                                <Link to={`/profile/${friend.id}`}>
+                                                    <h4 className="fw-700 mont-font font-xs mt-2 mb-1 text-center hover-underline">
+                                                        {`${friend?.firstName} ${friend?.lastName}`}
+                                                    </h4>
+                                                </Link>
+                                                <p className="fw-500 font-xssss text-grey-500 mt-0 mb-1 text-center">
                                                     {friend?.numberMutualFriend} mutual friends
                                                 </p>
                                                 <Button

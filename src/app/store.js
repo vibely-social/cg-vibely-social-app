@@ -2,7 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import toggleChat from '~/features/toggleChat';
 import toggleLoader from '~/features/toggleLoader';
 import {sidebarSlice} from '~/features/toggleSidebar';
-import { userAccountSlice } from "~/features/userAccount/index.js";
+import {userAccountSlice} from "~/features/userAccount/index.js";
 import postsSlice from '~/features/getPosts';
 import {getFriendsSlice} from "~/features/getFriends/index.js";
 import {switchConversationSlice} from "~/features/switchConversation/index.js";
@@ -13,10 +13,12 @@ import {getCitiesSlice} from "~/features/getCities/index.js";
 import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
 import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
-import { getMediaPostDetailsSlice } from "~/features/getMediaPostDetails/index.jsx";
+import {getMediaPostDetailsSlice} from "~/features/getMediaPostDetails/index.jsx";
 import {bottomChatSlice} from "~/features/bottomChat/index.jsx";
 import onlineStatusSlice from "~/features/onlineStatus/index.jsx";
 import {notificationSlice} from "~/features/notification/index.jsx";
+import {searchUserSlice} from "~/features/searchUser/index.js";
+import {getKeyword} from "~/features/getKeywordSearch/index.js";
 
 const store = configureStore({
     reducer: {
@@ -37,7 +39,9 @@ const store = configureStore({
         posts: postsSlice.reducer,
         bottomChatStatus: bottomChatSlice.reducer,
         onlineStatus: onlineStatusSlice.reducer,
-        notifications: notificationSlice.reducer
+        notifications: notificationSlice.reducer,
+        users: searchUserSlice.reducer,
+        keyword: getKeyword.reducer,
     },
 });
 
