@@ -98,24 +98,45 @@ function FriendPage() {
                                         </span>
                                     </>
                                     :
-                                    <>
-                                        <span
-                                            className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
-                                            <i className="feather-plus font-xss tetx-dark me-1"></i>
-                                            Add Friend
-                                        </span>
-                                    </>
+                                    <span
+                                        className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
+                                        <i className="feather-plus font-xss tetx-dark me-1"></i>
+                                        Add Friend
+                                    </span>
 
                             }
+                        </div>
+                    </div>
 
-
+                    <div className="d-flex">
+                        <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
+                            <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
+                                id="pills-tab" role="tablist">
+                                {tabs.map((tab) => (
+                                    <li key={tab} className="list-inline-item me-5 ">
+                                    <span data-toggle="tab"
+                                          onClick={() => {
+                                              setType(tab)
+                                              scrollTop()
+                                          }}
+                                          className={type === tab ?
+                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
+                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
+                                        {tab}
+                                    </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div
+                            className="align-items-center justify-content-center me-3">
                             <a href="#" id="dropdownMenu4"
                                className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i className="ti-more font-md tetx-dark"></i>
                             </a>
                             <div
-                                className="dropdown-menu dropdown-menu-start p-4 rounded-xxl border-0 shadow-lg"
+                                className="dropdown-menu dropdown-menu-end w250 p-4 rounded-xxl border-0 shadow-lg"
                                 aria-labelledby="dropdownMenu4">
                                 <div className="card-body p-0 d-flex">
                                     <i className="feather-bookmark text-grey-500 me-3 font-lg"></i>
@@ -149,25 +170,6 @@ function FriendPage() {
                         </div>
                     </div>
 
-                    <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
-                        <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
-                            id="pills-tab" role="tablist">
-                            {tabs.map((tab) => (
-                                <li key={tab} className="list-inline-item me-5 ">
-                                    <span data-toggle="tab"
-                                          onClick={() => {
-                                              setType(tab)
-                                              scrollTop()
-                                          }}
-                                          className={type === tab ?
-                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
-                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
-                                        {tab}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div className="col-lg-12">
