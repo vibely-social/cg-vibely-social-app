@@ -21,6 +21,9 @@
 }
 
 .hover-card {
+  &:hover{
+    background: rgba(183, 183, 183, 0.25);
+  }
     .card-image {
         overflow: hidden;
         img {

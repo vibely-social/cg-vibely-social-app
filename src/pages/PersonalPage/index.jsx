@@ -42,7 +42,7 @@ function PersonalPage() {
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
-                        <img src={userInfo.background}
+                        <img src={user.background}
                              alt="image"
                              style={
                                  {

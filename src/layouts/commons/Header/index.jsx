@@ -5,28 +5,38 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {motion} from 'framer-motion';
 import Avatar from '~/assets/img/ppl.png'
 import Logo from '~/assets/img/logo.svg'
-import ava from "~/assets/img/ava.jpg"
-import {Card, Form, FormGroup} from 'react-bootstrap';
+import {Form, FormGroup} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleChatButton} from '~/features/toggleChat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
-import {activeSidebar, toggle} from "~/features/toggleSidebar/index.js";
+import {activeSidebar} from "~/features/toggleSidebar/index.js";
+import {selectNotifications} from "~/features/notification/index.jsx";
+import ReactTimeAgo from "react-time-ago";
 
 function Header() {
     const USER = getStoredUserData()
     const dispatch = useDispatch();
     let isFocusNotification = false;
-    const [notificationItem, setNotificationItem] = useState(0);
+    const [displayNotifications, setDisplayNotifications] = useState([]);
     const [isOnMess, setIsOnMess] = useState(false);
     const [active, setActive] = useState(false);
     const isChatPage = window.location.pathname === '/messenger'
     const user = useSelector(selectUserData)
+    const notifications = useSelector(selectNotifications)
     const socketClient = useStompWsClient()
 
     useAuthorizeUser()
+
+    useEffect(() => {
+        let listNotify = [...notifications]
+        console.log(notifications)
+        listNotify.reverse()
+        console.log(listNotify)
+        setDisplayNotifications(listNotify)
+    }, [notifications])
 
     const handleNavClick = () => {
         setActive(prevState => !prevState)
@@ -35,37 +45,37 @@ function Header() {
 
     useEffect(() => {
         if (user.accessToken) {
-            socketClient.connectHeaders = {
-                Authorization: 'Bearer ' + user.accessToken
-            }
             if (!socketClient.connected) {
-                socketClient.activate()
-                console.log('activated')
-            }else {
-                socketClient.deactivate()
+                socketClient.deactivate();
+                socketClient.connectHeaders = {
+                    Authorization: 'Bearer ' + user.accessToken
+                }
                 socketClient.activate()
                 console.log('activated')
             }
         }
     }, [user.accessToken])
 
-    const CustomToggle = forwardRef(({children, onClick}, ref) => (
+    const customToggle = forwardRef(({children, onClick}, ref) => (
         <div className='position-relative'>
-            <motion.a
-                whileHover={{scale: [1, 1.4, 1.2], cursor: "pointer"}}
-                transition={{duration: 0.3}}
-                ref={ref}
-                onClick={(e) => {
-                    e.preventDefault();
-                    onClick(e);
-                    isFocusNotification = !isFocusNotification
-                }}
-                style={{fontSize: '1.5rem'}}
-                className={isFocusNotification ? ' btn-round-md text-vibe bg-vibe-light' : ' btn-round-md text-grey-500 bg-greylight'}
-            >
+            <motion.a whileHover={{scale: [1, 1.4, 1.2], cursor: "pointer"}}
+                      transition={{duration: 0.3}}
+                      ref={ref}
+                      onClick={(e) => {
+                          e.preventDefault();
+                          onClick(e);
+                          isFocusNotification = !isFocusNotification
+                      }}
+                      style={{fontSize: '1.5rem'}}
+                      className={isFocusNotification
+                          ? ' btn-round-md text-vibe bg-vibe-light'
+                          : ' btn-round-md text-grey-500 bg-greylight'}>
                 <i className="feather-bell"></i>
             </motion.a>
-            <span className="dot-count bg-danger font-xsssss text-light fw-bold">21</span>
+            {
+                (notifications?.length > 0) &&
+                <span className="dot-count bg-danger font-xsssss text-light fw-bold">{notifications?.length}</span>
+            }
         </div>
     ));
 
@@ -79,13 +89,14 @@ function Header() {
                 </Link>
                 <span className="cursor-pointer mob-menu ms-auto me-2 chat-active-btn"
                       onClick={() => dispatch(toggleChatButton())}>
-                    {!isChatPage && <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>}
+                    {!isChatPage &&
+                        <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>}
                 </span>
                 <span className="cursor-pointer mob-menu me-2"><i
                     className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
                 <span className="cursor-pointer me-2 menu-search-icon mob-menu"><i
                     className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
-                <button className={"nav-menu me-0 ms-2 cursor-pointer " + (active?"active":"")}
+                <button className={"nav-menu me-0 ms-2 cursor-pointer " + (active ? "active" : "")}
                         onClick={handleNavClick}>
                 </button>
             </div>
@@ -120,41 +131,31 @@ function Header() {
             })}
 
             <Dropdown variant="secondary" className='p-2 text-center ms-auto menu-icon'>
-                <Dropdown.Toggle as={CustomToggle}/>
-
+                <Dropdown.Toggle as={customToggle}/>
                 <Dropdown.Menu style={{width: '350px', overflow: 'auto'}}
                                className='dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg'>
                     <h5 className="fw-700 font-xs mb-4 text-vibe">Notifications</h5>
-                    <Dropdown.Item href="#" eventKey="1"
-                                   style={(notificationItem === 1) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
-                                   onMouseDown={() => setNotificationItem(1)}
-                                   className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
-                        <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0 "/>
-                        <h5 style={{whiteSpace: 'pre-wrap'}}
-                            className=" ms-3 mb-2 mt-0 d-block font-xsss text-grey-900"><span className=' fw-700'>Thành Nguyễn</span> đã
-                            nhắc bạn trong một bình luận</h5>
-                        <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2 "> 3 phút</h6>
-                    </Dropdown.Item>
-                    <Dropdown.Item as={Card} href="#" eventKey="2"
-                                   style={(notificationItem === 2) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
-                                   onMouseDown={() => setNotificationItem(2)}
-                                   className='bg-transparent-card w-100 border-0 ps-5 mb-2'>
-                             <img 
-                                src={ava} alt="user" 
-                                className="w50 position-absolute rounded-circle left-0"/>
-                            <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
-                                <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
-                            <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-2"> 3 phút</h6>
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                        style={(notificationItem === 3) ? {backgroundColor: '#DDFDE1'} : {backgroundColor: '#fff'}}
-                        onMouseDown={() => setNotificationItem(3)}
-                        className='card bg-transparent-card w-100 border-0 ps-5 mb-2'>
-                        <img src={ava} alt="user" className="w50 position-absolute rounded-circle left-0"/>
-                        <h5 style={{whiteSpace: 'pre-wrap'}} className="font-xsss text-grey-900 ms-3 mb-2 mt-0 d-block">
-                            <span className=' fw-700'>Thành Nguyễn</span> đã nhắc bạn trong một bình luận</h5>
-                        <h6 className="text-grey-400 font-xssss fw-600 float-right ms-3 mb-0"> 3 phút</h6>
-                    </Dropdown.Item>
+                    {(displayNotifications.length > 0) ? displayNotifications?.map((notify, index) => {
+                        if (index < 3) {
+                            return (
+                                <Link to={`/friends/${notify.fromUser}`} key={index}>
+                                    <div className='bg-transparent-card w-100 border-0 mt-2 p-2 hover-card rounded'>
+                                        <div className="d-flex">
+                                            <img src={notify.avatarUrl} alt="user" className="avatar-45 left-0"/>
+                                            <h5 style={{whiteSpace: 'pre-wrap'}}
+                                                className=" ms-3 mb-2 mt-0 d-block font-xsss text-grey-900">
+                                                {notify.content}
+                                            </h5>
+                                        </div>
+                                        <div className="d-flex justify-content-end">
+                                            <ReactTimeAgo date={notify.createdAt} className="font-xssss"
+                                                          locale="en-US"/>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )
+                        }
+                    }) : <span className="font-xsss text-grey-500">You have no new notifications</span>}
                 </Dropdown.Menu>
             </Dropdown>
 
@@ -162,16 +163,18 @@ function Header() {
                 onClick={() => dispatch(toggleChatButton())}
                 whileHover={{scale: [null, 1.4, 1.3]}}
                 transition={{duration: 0.3}} onClickCapture={() => {
-                let mess = isOnMess;
-                setIsOnMess(!mess)
-            }} className="p-2 text-center ms-3 menu-icon chat-active-btn ">
+                setIsOnMess(prevState => !prevState)
+            }}
+                className="p-2 text-center ms-3 menu-icon chat-active-btn ">
                 <i style={{fontSize: '1.5rem'}}
-                   className={isOnMess ? "feather-message-square cursor-pointer btn-round-md bg-vibe-light text-vibe" : "feather-message-square cursor-pointer btn-round-md  bg-greylight text-grey-500"}></i>
+                   className={"feather-message-square cursor-pointer btn-round-md "
+                       + (isOnMess ? "bg-vibe-light text-vibe" : "bg-greylight text-grey-500")}>
+                </i>
             </motion.a>}
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
                 <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
-                            transition={{duration: 0.3}} 
+                            transition={{duration: 0.3}}
                             src={USER?.avatarUrl ? USER?.avatarUrl : Avatar}
                             className="w45 rounded-xl mt--1"/>
             </Link>

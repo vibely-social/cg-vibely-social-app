@@ -38,7 +38,6 @@ function Login() {
             dispatch(googleLogin(response))
         }
     })
-    console.log('rerender')
 
     useEffect(() => {
         if (success) {
@@ -63,7 +62,6 @@ function Login() {
     }, [success, user]);
 
     useEffect(() => {
-        console.log(success)
         if (error) {
             setErrorMessage("Wrong email or password!");
         }

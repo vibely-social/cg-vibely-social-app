@@ -13,6 +13,7 @@ import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
+import {Link} from "react-router-dom";
 
 function RightChat() {
     const dispatch = useDispatch()
@@ -205,7 +206,7 @@ function RightChat() {
                     <div
                         className="modal-popup-header w-100 border-bottom rounded-top-3 bg-grey shadow-md transform-none">
                         <div className="p-3 border-0 d-flex justify-content-between">
-                            <div className="d-flex cursor-pointer">
+                            <div className="d-flex">
                                 <div
                                     className="mb-0 position-relative hover-scale-1-1 smooth-transition d-flex justify-content-center align-items-center"
                                     style={{
@@ -227,16 +228,20 @@ function RightChat() {
                                     </span>
                                 </div>
                                 <div className="ms-2 cursor-pointer">
-                                    <h5 className="fw-700 text-primary font-xss mt-1 mb-1">{currentConversation.firstName}</h5>
-                                    <h4 className="text-grey-500 font-xsssss mt-0 mb-0">
-                                        {onlineList[currentConversation?.email]
-                                            ? <><span
-                                                className="d-inline-block bg-success btn-round-xss m-0">
+                                    <Link to={`/friends/${currentConversation.id}`}>
+                                        <h5 className="fw-700 text-primary font-xss mt-1 mb-1">
+                                            {currentConversation.firstName}
+                                        </h5>
+                                        <h4 className="text-grey-500 font-xsssss mt-0 mb-0">
+                                            {onlineList[currentConversation?.email]
+                                                ? <><span
+                                                    className="d-inline-block bg-success btn-round-xss m-0">
                                                 </span>Available</>
-                                            : <><span className="d-inline-block bg-dark-subtle btn-round-xss m-0">
+                                                : <><span className="d-inline-block bg-dark-subtle btn-round-xss m-0">
                                                 </span>Offline</>
-                                        }
-                                    </h4>
+                                            }
+                                        </h4>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="cursor-pointer d-flex align-items-center"
