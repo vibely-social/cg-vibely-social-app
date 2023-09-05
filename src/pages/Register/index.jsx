@@ -6,6 +6,7 @@ import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import "./index.scss"
 import {useEffect, useState} from "react";
 import logo from "~/assets/img/logo.svg";
+import {GoogleOAuthProvider, useGoogleLogin} from "@react-oauth/google";
 import {useDispatch, useSelector} from "react-redux";
 import {
     checkEmail,
@@ -13,9 +14,13 @@ import {
     resetAccountState,
     selectAccountError,
     selectCheckEmailIsSuccess, selectRegisterIsError,
-    selectRegisterIsSuccess
+    selectRegisterIsSuccess,
+    selectLoginIsSuccess,
+    selectUserData,
 } from "~/features/userAccount/index.js";
 import Swal from "sweetalert2";
+import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
+import {CLIENT_ID} from "~/app/constants.js";
 
 function Register() {
     const dispatch = useDispatch()
@@ -155,7 +160,6 @@ function Register() {
         dispatch(checkEmail(email))
     };
 
-
     const generateOptions = (start, end) => {
         return Array.from({length: end - start + 1}, (_, index) => {
             const number = start + index
@@ -200,11 +204,11 @@ function Register() {
                     </a>
                     <button className="nav-menu me-0 ms-2"></button>
                     <Link to="/login"
-                          className="header-btn d-none d-lg-block bg-vibe fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
+                          className="header-btn d-none d-lg-block bg-blue-gradiant fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
                         Login
                     </Link>
                     <span
-                        className="header-btn d-none opacity-30 d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
+                        className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
                             Register
                         </span>
                 </div>
@@ -228,7 +232,7 @@ function Register() {
                                             </Tooltip>
                                         }>
                                         <div className="col-lg-6 mb-3">
-                                            <div className="form-group icon-input mb-0">
+                                            <div className="form-group icon-input">
                                                 <input type="text"
                                                        id="firstName"
                                                        name="firstName"
@@ -256,7 +260,7 @@ function Register() {
                                             </Tooltip>
                                         }>
                                         <div className="col-lg-6 mb-3">
-                                            <div className="form-group icon-input mb-0">
+                                            <div className="form-group icon-input">
                                                 <input type="text"
                                                        id="lastName"
                                                        name="lastName"
@@ -315,8 +319,8 @@ function Register() {
                                         </Tooltip>
                                     }>
                                     <div className="form-group icon-eye-input-res mb-3">
-                                        <div className="icon-eye-input-res">
-                                            <i className={isPasswordVisible ? "font-sm cursor-pointer feather-eye text-grey-500 pe-0" : "font-sm cursor-pointer feather-eye-off text-grey-500 pe-0"}
+                                        <div className="icon-eye-input">
+                                            <i className={isPasswordVisible ? "font-sm feather-eye text-grey-500 pe-0" : "font-sm feather-eye-off text-grey-500 pe-0"}
                                                onClick={() => setIsPasswordVisible(!isPasswordVisible)}></i>
                                             <input type={isPasswordVisible ? 'text' : 'password'}
                                                    id="password"
@@ -354,8 +358,8 @@ function Register() {
                                                     paddingRight: "15px"
                                                 }}
                                                 className={isInvalidDay
-                                                    ? "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
-                                                    : "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
+                                                    ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                    : "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                 }>
                                                 <option value={-1}>Day</option>
                                                 {generateOptions(1, 31).map((day) => (
@@ -366,6 +370,7 @@ function Register() {
                                             </select>
                                         </div>
                                     </div>
+
                                     <div className="col-md-4 col-sm-3">
                                         <div className="form-group">
                                             <select
@@ -376,8 +381,8 @@ function Register() {
                                                 onChange={formik.handleChange}
                                                 style={{borderRadius: "1", height: "auto", paddingRight: "0px"}}
                                                 className={isInvalidMonth
-                                                    ? "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
-                                                    : "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
+                                                    ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                    : "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                 }
                                                 placeholder="Month">
                                                 <option value={-1}>Month</option>
@@ -389,6 +394,7 @@ function Register() {
                                             </select>
                                         </div>
                                     </div>
+
                                     <div className="col-md-4 col-4 cursor-pointer">
                                         <div className="form-group">
                                             <select
@@ -399,8 +405,8 @@ function Register() {
                                                 onChange={formik.handleChange}
                                                 style={{borderRadius: "1", height: "auto"}}
                                                 className={isInvalidYear
-                                                    ? "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
-                                                    : "style2-input cursor-pointer w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
+                                                    ? "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600 border-danger"
+                                                    : "style2-input w114 h50 text-center form-control-sm text-grey-900 font-xsss fw-600"
                                                 }>
                                                 <option value={-1}>Year</option>
                                                 {generateOptions(1905, new Date().getFullYear()).map((year) => (
@@ -471,7 +477,7 @@ function Register() {
 
                                 <div className="form-group d-flex align-items-center mb-3 mt-3">
                                     <input type="checkbox"
-                                           className={`form-check-input m-0 h23 w23 ${isInAcceptTermAndConditions
+                                           className={`form-check-input mt-0 me-2 h23 w23 ${isInAcceptTermAndConditions
                                                ? "border-danger" : ""}`}
                                            id="acceptTermAndConditions"
                                            value="acceptTermAndConditions"
@@ -479,40 +485,31 @@ function Register() {
                                            onChange={formik.handleChange}
                                            onBlur={formik.handleBlur}
                                            name="acceptTermAndConditions"
-                                           style={{borderRadius: "4px"}}
                                     />
-                                    <label className="form-check-label ms-5 font-xssss text-grey-500 cursor-pointer"
+                                    <label className="form-check-label font-xssss text-grey-500 "
                                            htmlFor="acceptTermAndConditions">Accept Term and Conditions
                                     </label>
                                 </div>
                                 <div className="col-sm-12 p-0 text-left">
                                     <div className="form-group mb-1">
                                         <button type="submit"
-                                                className="form-control text-center style2-input text-white fw-600 bg-vibe border-0 p-0">
+                                                className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                                        >
                                             Register
                                         </button>
                                     </div>
-                                    <h6 className="text-grey-500 text-center font-xsss fw-500 mt-0 mb-0">
+                                    <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
                                         Already have account ?
-                                        <Link to="/login" className="fw-700 ms-1 text-vibe">Login </Link>
+                                        <Link to="/login" className="fw-700 ms-1 text-blue-gradiant">Login </Link>
+                                        Or, Sign in with your social account
                                     </h6>
                                 </div>
-                                <div className="col-sm-12 p-0 mt-4">
-                                    <div className="form-group mb-1">
-                                        <button
-                                            className="w-100 font-xss d-flex style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
-                                            <img
-                                                src={google} alt="icon" className="ms-3 mt-2 ms-3 w40 mb-1 me-5"/>
-                                            <span className="ms-4 justify-content-center">
-                                                Sign in with Google
-                                            </span>
-                                        </button>
-                                        <h6 className="text-grey-500 text-center font-xsss fw-500 mt-0 mb-0">
-                                            Or, Sign in with your social account
-                                        </h6>
-                                    </div>
-                                </div>
                             </Form>
+                            <GoogleOAuthProvider clientId={CLIENT_ID}>
+                                <GoogleLoginButton
+                                    type="register"
+                                />
+                            </GoogleOAuthProvider>
                         </div>
                     </div>
                 </div>
