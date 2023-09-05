@@ -60,9 +60,7 @@ function PostTab({toggleAbout, toggleMedia}) {
                                     See more
                                 </span>
                             </h4>
-                            <div className="row ps-2 pe-2">
-                                <MediaList images={images} type="photos"/>
-                            </div>
+                            <MediaList images={images} type="photos"/>
                         </div>
 
                     </div>
