@@ -1,10 +1,11 @@
 import {useState,useEffect} from "react";
-import { wrapText } from "~/utils/wrapText";
+import WrapText from "~/utils/WrapText.jsx";
+
 
 // eslint-disable-next-line react/prop-types
 const ReadMore = ({content,isTextOnly}) => {
 
-    let text = wrapText(content);
+    
     const [isReadMore, setIsReadMore] = useState(false);
 
     const toggleReadMore = () => {
@@ -19,7 +20,7 @@ const ReadMore = ({content,isTextOnly}) => {
                                     : (content.length < 40) ? "font-xl lh-10 " :  "font-xs " )       
                                         + " fw-500 text-grey-700 w-100"}
             style={{whiteSpace: 'pre-wrap'}}>
-            {isReadMore ? text.slice(0, 250) : text}
+            {isReadMore ? <WrapText content={content.slice(0, 250)} /> : <WrapText content={content} />}
             <span onClick={toggleReadMore}
                   className="read-or-hide cursor-pointer font-xssss text-vibe"
             >
