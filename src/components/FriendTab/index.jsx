@@ -89,7 +89,7 @@ function FriendTab({tongglePost, friendID}) {
                                         <Link to={`/profile/${friend.id}`}
                                               onClick={tongglePost}
                                               className="ms-3 cursor-pointer">
-                                            <h4 className="fw-700 font-xsss mt-3 hover-underline hover-scale-1-1">
+                                            <h4 className="fw-700 font-xsss mt-3 hover-underline">
                                                 {`${friend.firstName} ${friend.lastName}`}
                                             </h4>
                                             <div

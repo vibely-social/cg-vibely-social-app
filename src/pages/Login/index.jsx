@@ -47,7 +47,6 @@ function Login() {
     }, [success, user]);
 
     useEffect(() => {
-        console.log(success)
         if (error) {
             setErrorMessage("Wrong email or password!");
         }

@@ -56,10 +56,10 @@ function ChatSidebar() {
                 dispatch(setGetFriendsSuccess(false))
             }
         }
-    }, [success,user])
+    }, [success, user])
 
-    useEffect(()=>{
-        if (friendList){
+    useEffect(() => {
+        if (friendList) {
             let newList = []
             friendList.forEach(friend => {
                 newList.push({
@@ -67,10 +67,12 @@ function ChatSidebar() {
                     status: onlineList[friend.email]
                 })
             })
-            newList.sort((a,b)=>{return b.status - a.status})
+            newList.sort((a, b) => {
+                return b.status - a.status
+            })
             setDisplayFriends(newList)
         }
-    },[friendList, onlineList])
+    }, [friendList, onlineList])
 
     return (
         <div>
@@ -78,8 +80,8 @@ function ChatSidebar() {
                         animate={!smallScreen ? {x: 200} : {}}
                         transition={!smallScreen ? {duration: 0.8} : {}}
                         className={" " + (position ?
-                            "navigation chat-navigation menu-active "
-                            : "navigation chat-navigation ")
+                                "navigation chat-navigation menu-active "
+                                : "navigation chat-navigation ")
                             + (sidebarActive ? "nav-active scroll-bar" : "")}>
                 <Container className="ps-0 pe-0 d-flex">
 
@@ -101,7 +103,7 @@ function ChatSidebar() {
                                         const name = friend.firstName + " " + friend.lastName;
                                         return (
                                             <ListGroup.Item as="li"
-                                                            className={'hover-button rounded '
+                                                            className={'hover-button hover-scale-1-1 rounded smooth-transition mb-1 '
                                                                 + (friend.email === currentConversation.email ? 'bg-dark-subtle' : '')}
                                                             style={{
                                                                 display: (user && user.email === friend.email) ? "none" : "block",
@@ -115,18 +117,8 @@ function ChatSidebar() {
                                                           dispatch(switchConversationTo(friend))
                                                       }}>
 
-                                                    <motion.img
-                                                        whileHover={{scale: 1.1}}
-                                                        style={{
-                                                            maxHeight: 45,
-                                                            minHeight: 45,
-                                                            width: 45,
-                                                            minWidth: 45,
-                                                            marginLeft: 0,
-                                                            objectFit: 'cover',
-                                                        }}
-                                                        className={" btn-sidebar me-3 border"}
-                                                        src={friend.avatarUrl}/>
+                                                    <img className="btn-sidebar me-3 border avatar-45 smooth-transition"
+                                                         src={friend.avatarUrl} alt={'avatar'}/>
                                                     <span className="">{name}</span>
                                                 </Link>
                                             </ListGroup.Item>

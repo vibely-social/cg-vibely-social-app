@@ -135,8 +135,8 @@ function Intro({toggle}) {
                 {userInfo.birthday && (
                     <div className="ms-1 pb-2">
                         <h4 className="d-flex align-items-center">
-                            <i className="ti-thought me-2"></i>
-                            Born on {formatDate(userInfo.birthday)}
+                            <i className="feather-calendar me-2"></i>
+                            Birth day {formatDate(userInfo.birthday)}
                         </h4>
                     </div>
                 )}
