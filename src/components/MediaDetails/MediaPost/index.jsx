@@ -59,7 +59,7 @@ const MediaPost = ({id}) => {
                 </a>
             </div>
 
-            <CommentSection/>
+            {/*<CommentSection/>*/}
 
         </div>
     );

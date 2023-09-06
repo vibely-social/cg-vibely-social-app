@@ -67,9 +67,9 @@ function MediaDetails({images, currentImageIndex, currentGalleryIndex, onClose})
             footer={null}
             style={{width: '80vw', maxWidth: "calc(100vh-280px)"}}
         >
-            <div className="modal-backdrop dialog-content-container">
+            <div className="dialog-content-container modal-backdrop">
                 <div>
-                    <button className="prev-button left-0" onClick={handlePrevImage}>
+                    <button id="post-md-btn" className="btn btn-success btn-lg prev-button left-0" onClick={handlePrevImage}>
                         <span className="pi pi-chevron-left"></span>
                     </button>
                 </div>
@@ -81,10 +81,10 @@ function MediaDetails({images, currentImageIndex, currentGalleryIndex, onClose})
                     />
                 </div>
                 <div>
-                    <button className="close-button" onClick={handleClose}>
+                    <button id="post-md-btn" className="btn btn-success btn-lg close-button" onClick={handleClose}>
                         <span className="pi pi-times"></span>
                     </button>
-                    <button className="next-button" onClick={handleNextImage}>
+                    <button id="post-md-btn" className="btn btn-success btn-lg next-button" onClick={handleNextImage}>
                         <span className="pi pi-chevron-right"></span>
                     </button>
                 </div>
