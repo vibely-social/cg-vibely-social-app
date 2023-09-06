@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
         console.log(' redux');
-import { addFriendApi, deleteRequestFriendApi, findRequestFriendsApi, acceptFriendApi  } from "~/api/requestFriendApi";
+import { deleteRequestFriendApi, findRequestFriendsApi, acceptFriendApi  } from "~/api/requestFriendApi";
 
 export const getRequestFriends = createAsyncThunk(
   "requestFriends",
@@ -15,14 +15,6 @@ export const deleteRequestFriend = createAsyncThunk(
     "requestFriends/delete",
     async (friendIdToDelete) => {
         const response = await deleteRequestFriendApi(friendIdToDelete);
-        return response.data;
-    }
-)
-
-export const createRequestFriend = createAsyncThunk(
-    "requestFriends/add",
-    async (friendRequestDto) => {
-        const response = await addFriendApi(friendRequestDto);
         return response.data;
     }
 )
@@ -71,21 +63,6 @@ export const requestFriendsSlice = createSlice({
         state.error = action.error;
         state.success = false;
       })
-      .addCase(createRequestFriend.pending, (state) => {
-        state.success = false;
-        state.loading = true;
-        state.error = false;
-      })
-      .addCase(createRequestFriend.rejected, (state, action) => {
-        state.success = false;
-        state.loading = false;
-        state.error = action.error;
-      })
-      .addCase(createRequestFriend.fulfilled, (state, action) => {
-        state.success = true;
-        state.loading = false;
-        state.error = false;
-      })
       .addCase(deleteRequestFriend.pending, (state) => {
         state.success = false;
         state.loading = true;
@@ -129,9 +106,6 @@ export const {
   export const selectRequestFriendError = (state) => state.requestFriends.error;
   export const selectRequestFriendSuccess = (state) => state.requestFriends.success;
   export const selectRequestFriendsList = (state) => state.requestFriends.requestFriendsList;
-  export const selectRequestFriendAdded = (state) => state.requestFriends.value;
-  export const selectRequestFriendRemoved = (state) => state.requestFriends.value;
  
-
   export default requestFriendsSlice.reducer;
 

@@ -11,6 +11,13 @@ export const getSuggestionFriends = createAsyncThunk(
   }
 );
 
+export const createRequestFriend = createAsyncThunk(
+  "requestFriends/add",
+  async (id) => {
+      const response = await addFriendApi(id);
+  }
+)
+
 export const suggestionFriendsSlice = createSlice({
   name: "suggestionFriends",
   initialState: {
@@ -58,6 +65,21 @@ export const suggestionFriendsSlice = createSlice({
         state.loading = false;
         state.error = action.error;
         state.success = false;
+      })
+      .addCase(createRequestFriend.pending, (state) => {
+        state.success = false;
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(createRequestFriend.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(createRequestFriend.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.error = false;
       })
   },
 });

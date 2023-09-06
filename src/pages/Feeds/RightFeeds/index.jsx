@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Card, Col } from "react-bootstrap";
+import { Button, Card, Col, Alert } from "react-bootstrap";
 import "./index.css";
 import { useEffect, useState } from "react";
 import {
@@ -7,18 +7,20 @@ import {
   getSuggestionFriends,
   selectGetSuggestionSuccess,
   selectSuggestionFriendsList,
+  createRequestFriend
 } from "~/features/suggestionFriends";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRequestFriends,
   selectRequestFriendsList,
   selectRequestFriendSuccess,
-  acceptRequestFriend
+  acceptRequestFriend,
+  deleteRequestFriend,
 } from "~/features/requestFriends";
-
 
 function RightFeed() {
   const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
 
   const [friendRequests, setFriendRequests] = useState([]);
   const friendRequestList = useSelector(selectRequestFriendsList);
@@ -30,30 +32,48 @@ function RightFeed() {
 
   useEffect(() => {
     console.log("friendRequests");
-     if (successRequest) setFriendRequests(friendRequestList);
+    if (successRequest) setFriendRequests(friendRequestList);
   }, [friendRequestList]);
 
   useEffect(() => {
-    dispatch(getSuggestionFriends());
+    dispatch(getRequestFriends());
   }, []);
 
   useEffect(() => {
     console.log("friendSuggestions");
-     if (successSuggestion) setFriendSuggests(friendSuggestions);
+    if (successSuggestion) setFriendSuggests(friendSuggestions);
   }, [friendSuggestions]);
 
   useEffect(() => {
-    dispatch(getRequestFriends());
+    dispatch(getSuggestionFriends());
   }, []);
 
   const handleDeleteClickSuggestion = (suggestion) => {
     dispatch(deleteSuggestionFriend(suggestion));
   };
 
+  const handleDeleteClickRequest = (friendRequest) => {
+    dispatch(deleteRequestFriend(friendRequest))
+      .then(() => {
+        const updatedFriendRequests = friendRequests.filter(
+          (request) => request.id !== friendRequest.id
+        );
+        setFriendRequests(updatedFriendRequests);
+      })
+      .catch((error) => {
+        console.error("Error deleting friend request:", error);
+      });
+  };
+
   const handleAcceptFriendRequest = (id) => {
-    console.log('dispatch accept fr with id: ' + id);
-    dispatch(acceptRequestFriend(id))
-  }
+    console.log("dispatch accept fr with id: " + id);
+    dispatch(acceptRequestFriend(id));
+    setShowAlert(true);
+  };
+  const handleAddingFriend = (suggestion) => {
+       dispatch(createRequestFriend(suggestion.id))
+  };
+  
   return (
     <Col xl={4} xxl={3} lg={4} className="ps-3">
       <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3">
@@ -81,20 +101,29 @@ function RightFeed() {
                   />
                 </figure>
                 <h4 className="fw-700 text-grey-800 font-xss">
-                  {item?.name}
+                  {item?.firstName}  {"  "}
+                  {item?.lastName}
                   <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
                     12 mutual friends
                   </span>
+                    {showAlert && (
+                      <Alert
+                        variant="success"
+                        onClose={() => setShowAlert(false)}
+                        dismissible
+                      >
+                        You are friend!
+                      </Alert>
+                    )}
+                    <Button
+                      onClick={() => handleAcceptFriendRequest(item.userId)}
+                      className="p-2 w90 mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
+                    >
+                      Confirm
+                    </Button>
                   <Button
-                    onClick={() => handleAcceptFriendRequest(item.userId)}
-                    className="p-2 w90 mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
-                  >
-                    Confirm
-                  </Button>
-                  <Button
-                    href="#"
                     className="p-2 w90 bg-grey text-grey-800 border-0 text-center font-xssss fw-600 ls-1 rounded-xl"
-                    onClick={() => handleDeleteClickRequest(item)}
+                    onClick={() => handleDeleteClickRequest(friendRequest)}
                   >
                     Delete
                   </Button>
@@ -139,7 +168,7 @@ function RightFeed() {
                   <Button
                     className="p-2 w90  mt-1 bg-primary-gradiant border-0 me-2
                               text-white text-center font-xssss fw-600 ls-1 rounded-xl"
-                    // onClick={() => handleConfirmClick(item)}
+                    onClick={() => handleAddingFriend(suggestion)}
                   >
                     Add Friend
                   </Button>
