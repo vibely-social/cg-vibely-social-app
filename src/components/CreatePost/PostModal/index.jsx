@@ -203,142 +203,152 @@ function NewPostModal({ isOpen,closeModal }) {
 												onClick={closeModal}/>
 									</div>
 								<Form onSubmit={handleSubmit}>
-										<Form.Group className="content-dialog">
+									<Form.Group className="content-dialog">
+										<img 
+										src={User.avatarUrl? User.avatarUrl : ppl} 
+										alt="logo" 
+										className='rounded-circle'
+										/>
+										<div 
+										className="details">
+											<p>
+												{User?.firstName + " " + User?.lastName}
+											</p>
+											<Form.Select 
+												className="privacy mt-1" 
+												onChange={(e) => handleChangePrivacy(e.target.value)}>
+												<option value="PUBLIC">🌐 Public</option>
+												<option value="FRIENDS">👫 Friends</option>
+												<option value="PRIVATE">🔒 Only me</option>
+											</Form.Select>
+										</div>
+									</Form.Group>
+										<input 
+											accept="image/*"
+											type="file"
+											multiple
+											id="select-image"
+											style={{ display: "none" }}
+											onChange={(e) =>  handleChangeImages(e.target.files)}
+										/>					
+										<textarea 
+											placeholder="What's on your mind ?" 
+											style={(isAddImage || postImage.length > 0 ) ? {maxHeight: "80px"} : {}}
+											spellCheck="false" 
+											defaultValue={""} 
+											onChange={(e) => handleChangeContent(e.target.value)}/>
+										{postImage.length > 0 && 
+											<motion.div
+												initial={{ scale: 0 }}
+												animate={{ rotate: 0, scale: 1 }}
+												className='border border-1 p-2 rounded-xxxl position-relative'
+											> 
+										<Button 
+												as='label' 
+												htmlFor="select-image"
+												style={{
+													left: "20px",
+													top:"15px",
+													maxWidth:"190px",
+													maxHeight:"38px", 
+													position:"absolute",
+													alignItems:"start"
+												}} 
+													className='bg-grey rounded-md text-grey-700 p-0 border font-xsss mt-1' 
+											>
+										<div 
+												className='inline-flex'
+												style={{
+													marginTop: "-5px",
+													marginLeft: "-5px",
+													paddingRight:"5px"
+												}}
+											>
 											<img 
-											src={User.avatarUrl? User.avatarUrl : ppl} 
-											alt="logo" 
-											className='rounded-circle'
+												src={addImage} 
+												style={{scale:"0.6"}}
 											/>
-											<div 
-											className="details">
-												<p>
-													{User?.firstName + " " + User?.lastName}
-												</p>
-												<Form.Select 
-															className="privacy mt-1" 
-															onChange={(e) => handleChangePrivacy(e.target.value)}>
-													<option value="PUBLIC">🌐 Public</option>
-													<option value="FRIENDS">👫 Friends</option>
-													<option value="PRIVATE">🔒 Only me</option>
-												</Form.Select>
-											</div>
-										</Form.Group>
-											<input 
-												accept="image/*"
-												type="file"
-												multiple
-												id="select-image"
-												style={{ display: "none" }}
-												onChange={(e) =>  handleChangeImages(e.target.files)}
-											/>					
-												<textarea 
-													placeholder="What's on your mind ?" 
-													style={(isAddImage || postImage.length > 0 ) ? {maxHeight: "80px"} : {}}
-													spellCheck="false" 
-													defaultValue={""} 
-													onChange={(e) => handleChangeContent(e.target.value)}/>
-
-														{postImage.length > 0 && 
-																<motion.div
-																	initial={{ scale: 0 }}
-																	animate={{ rotate: 0, scale: 1 }}
-																	className='border border-1 p-2 rounded-xxxl position-relative'
-																> 
-																	<Button 
-																			as='label' 
-																			htmlFor="select-image"
-																		style={{
-																			left: "20px",
-																			top:"15px",
-																			maxWidth:"190px",
-																			maxHeight:"38px", 
-																			position:"absolute",
-																			alignItems:"start"}} 
-																		className='bg-grey rounded-md text-grey-700 p-0 border font-xsss mt-1' 
-																	>
-																		<div className='inline-flex'
-																			style={{marginTop: "-5px",
-																					marginLeft: "-5px",
-																					paddingRight:"5px"}}>
-																		<img 
-																			src={addImage} 
-																			style={{scale:"0.6"}}
-																		/>
-																		<span 
-																		className='mt-3 mb-2'>
-																			Add Photos/Videos
-																		</span>
-																		</div>
-																	</Button>								
-																	<Button 
-																		onClick={() => {setPostImage([]);setPostFileList(null)}} 
-																		style={{right: "20px",
-																				top:"15px", 
-																				position:"absolute"}}  
-																		className='bg-grey feather-x  rounded-circle text-grey-700 p-1 border w35 font-xs' 
-																		/>
-															<div className='preview-upload'>
-																<Photogrid
-																	images={postImage} 
-																	maxWidth={500}
-																/>	
-															</div>
-														</motion.div>}
-		
-														{isAddImage && 
-														<motion.div 
-															className='border border-1 p-2 rounded-xxxl'
-															initial={{ scale: 0 }}
-															animate={{ rotate: 0, scale: 1 }}> 
-															<Button 
-																	as='label' 
-																	htmlFor="select-image" 
-																	id="upload-btn" 
-																	className='grid'
-																	style={addImageButtonStyle}>
-																<img 
-																	className='inline-block '
-																	src={addImage} 
-																	style={{scale:"1"}}/>
-																<p 
-																className='font-xsss mt-1'>
-																	Add Photos/Videos
-																</p>
-															</Button>
-													</motion.div>}
-
-											<div className="theme-emoji">
-												<img src={Theme} alt="theme" />
-												<img src={Smile} alt="smile" />
-											</div>
-										<Form.Group className="options">
-											<p>Add to Your Post</p>
-											<ListGroup 
-											as="ul" 
-											className="list-items-post">
-												<ListGroup.Item 
-													as="li" 
-													onClick={() => {if(postImage.length == 0) setIsAddImage(!isAddImage)}}>
-													<img src={Gallery}/>
-												</ListGroup.Item>
-												<ListGroup.Item as="li"><img src={Tag} /></ListGroup.Item>
-												<ListGroup.Item as="li"><img src={Emoji} /></ListGroup.Item>
-												<ListGroup.Item as="li"><img src={Mic} /></ListGroup.Item>
-												<ListGroup.Item as="li"><img src={More} /></ListGroup.Item>
-											</ListGroup>
-										</Form.Group>
+											<span 
+												className='mt-3 mb-2'>
+												Add Photos/Videos
+											</span>
+										</div>
+									</Button>								
 									<Button 
-										type="submit" 
-										style={{background: !allowPost && "#e4e6ebff"}} 
-										disabled={!allowPost && true} 
-										className='border-0 button-post shadow-xss mt-2'>
-											Post
+											onClick={() => {setPostImage([]);setPostFileList(null)}} 
+											style={{
+												right: "20px",
+												top:"15px", 
+												position:"absolute"
+											}}  
+											className='bg-grey feather-x  rounded-circle text-grey-700 p-1 border w35 font-xs' 
+																		/>
+										<div 
+											className='preview-upload'>
+										<Photogrid
+											images={postImage} 
+											maxWidth={500}
+										/>	
+										</div>
+									</motion.div>}
+		
+									{isAddImage && 
+									<motion.div 
+										className='border border-1 p-2 rounded-xxxl'
+										initial={{ scale: 0 }}
+										animate={{ rotate: 0, scale: 1 }}> 
+									<Button 
+										as='label' 
+										htmlFor="select-image" 
+										id="upload-btn" 
+										className='grid'
+										style={addImageButtonStyle}>
+									<img 
+										className='inline-block '
+										src={addImage} 
+										style={{scale:"1"}}
+									/>
+									<p 
+										className='font-xsss mt-1'>
+										Add Photos/Videos
+									</p>
 									</Button>
-								</Form>
-								</section>
-							</div>
-							</motion.div>
+									</motion.div>}
 
+								<div className="theme-emoji">
+									<img src={Theme} alt="theme" />
+									<img src={Smile} alt="smile" />
+								</div>
+						<Form.Group className="options">
+							<p>
+								Add to Your Post
+							</p>
+											
+							<ListGroup 
+								as="ul" 
+								className="list-items-post">
+							<ListGroup.Item 
+								as="li" 
+								onClick={() => {if(postImage.length == 0) setIsAddImage(!isAddImage)}}>
+							<img src={Gallery}/>
+							</ListGroup.Item>
+								<ListGroup.Item as="li"><img src={Tag} /></ListGroup.Item>
+								<ListGroup.Item as="li"><img src={Emoji} /></ListGroup.Item>
+								<ListGroup.Item as="li"><img src={Mic} /></ListGroup.Item>
+								<ListGroup.Item as="li"><img src={More} /></ListGroup.Item>
+							</ListGroup>
+						</Form.Group>
+							<Button 
+								type="submit" 
+								style={{background: !allowPost && "#e4e6ebff"}} 
+								disabled={!allowPost && true} 
+								className='border-0 button-post shadow-xss mt-2'>
+									Post
+							</Button>
+						</Form>
+						</section>
+						</div>
+						</motion.div>
 					{isLoading && 
 					<PacmanLoader  
 					cssOverride={loaderStyle}  
