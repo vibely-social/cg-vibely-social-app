@@ -1,4 +1,4 @@
-import NewPost from "../CreatePost/index.jsx";
+import CreatePost from "../CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import Intro from "~/components/PostTab/Intro/index.jsx";
 import {VIBELY_API} from "~/app/constants";
@@ -9,6 +9,7 @@ import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
 import "~/pages/PersonalPage/index.css"
 import {getMedia} from "~/features/getMedia/index.jsx";
+import FeedBody from "~/components/FeedBody/index.jsx";
 
 
 function PostTab({toggleAbout, toggleMedia}) {
@@ -23,7 +24,6 @@ function PostTab({toggleAbout, toggleMedia}) {
         try {
             const response = await axios.get(`${VIBELY_API}/posts`);
             setPosts(response.data)
-            setIsLoading(false)
             console.log(posts);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -49,8 +49,8 @@ function PostTab({toggleAbout, toggleMedia}) {
                     </div>
 
                     <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
-                        <div className="card-body d-block p-4 ps-3" style={{height: 380}}>
-                            <h4 className="fw-700 mb-3 font-xsss text-grey-900 d-flex justify-content-between">
+                        <div className="card-body d-block p-2" style={{height: "auto"}}>
+                            <h4 className="fw-700 mb-3 px-4 font-xsss text-grey-900 d-flex justify-content-between">
                                 <span>
                                     Photos
                                 </span>
@@ -65,14 +65,8 @@ function PostTab({toggleAbout, toggleMedia}) {
 
                     </div>
                 </div>
-                <div className="col-xl-8 col-xxl-9 col-lg-8">
-                    <div className="shadow-xss mb-3 mt-3">
-                        <NewPost/>
-                    </div>
-
-                    {posts?.map((post, index) => {
-                        return <PostDetail data={post} key={index}/>
-                    })}
+                <div className="col-xl-8 col-xxl-9 col-lg-8 mt-3">
+                    <FeedBody/>
                 </div>
             </div>
         </>

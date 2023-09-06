@@ -14,7 +14,6 @@ import AboutTab from "~/components/AboutTab/index.jsx";
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
-    const userInfo = useSelector(state => state.userInfo);
     const user = useSelector(selectUserData);
     const dispatch = useDispatch();
 
@@ -42,15 +41,10 @@ function PersonalPage() {
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
-                        <img src={userInfo.background}
+                        <img src={user.background}
+                             className="object-fit-cover w-100"
+                             style={{maxHeight:260}}
                              alt="image"
-                             style={
-                                 {
-                                     width: '100%',
-                                     maxHeight: 250,
-                                     objectFit: "cover"
-                                 }
-                             }
                         />
                     </div>
                     <div className="card-body p-0 position-relative">
@@ -88,8 +82,7 @@ function PersonalPage() {
                                 ))}
                             </ul>
                         </div>
-                        <div
-                            className="align-items-center justify-content-center me-3">
+                        <div className="align-items-center justify-content-center me-3">
                             <a href="#" id="dropdownMenu4"
                                className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

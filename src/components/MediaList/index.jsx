@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
 import "./index.css"
 
@@ -7,6 +7,7 @@ function MediaList({images, type}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
     const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(-1)
     const [showModal, setShowModal] = useState(false);
+
 
     const handleClick = (imageIndex, galleryIndex) => {
         setSelectedImageIndex(imageIndex);
@@ -20,21 +21,11 @@ function MediaList({images, type}) {
         setShowModal(false);
     }
 
-
-    let firstDiv;
     let count = 0;
     let limit = 9;
 
-    if (type === "tab") {
-        firstDiv = 'col-3'
-    }
-
-    if (type === "photos") {
-        firstDiv = 'col-4';
-    }
-
     return (
-        <div className="d-flex flex-row flex-wrap">
+        <div className="container-fluid row mx-0 px-0">
 
             {images.map((image, imageIndex) => {
                 return (
@@ -46,24 +37,18 @@ function MediaList({images, type}) {
                         count++;
 
                         return (
-                            <div className={firstDiv} key={galleryIndex}
-                                 style={{
-                                     maxHeight: "100%",
-                                     minHeight: "100%",
-                                     // maxWidth: "25%",
-                                     // minWidth: "25%"
-                                 }}>
-                                <img
-                                    className="rounded-3 my-0 border border-1 border-gray shadow-md image-hover-effect"
-                                    src={url}
-                                    style={{
-                                        objectFit: "cover",
-                                        // maxHeight: "100%",
-                                        // maxWidth: "100%",
-                                        cursor: "pointer"
-                                    }}
-                                    alt="picture"
-                                    onClick={() => handleClick(imageIndex, galleryIndex)}
+                            <div className={(type === 'tab' ? 'col-3' : 'col-lg-4 col-sm-3') + ' mb-3 pe-2'} key={galleryIndex}>
+                                <img className="rounded-3 my-0 border border-1 border-gray shadow-md image-hover-effect"
+                                     src={url}
+                                     style={{
+                                         objectFit: "cover",
+                                         width: "100%",
+                                         maxHeight: type === 'tab' ? 200 : 100,
+                                         minHeight: type === 'tab' ? 200 : 100,
+                                         cursor: "pointer"
+                                     }}
+                                     alt="picture"
+                                     onClick={() => handleClick(imageIndex, galleryIndex)}
                                 />
                             </div>
                         );

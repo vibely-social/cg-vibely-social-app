@@ -1,14 +1,18 @@
 import axios from "axios";
-
-const SUGGESTION_FRIENDS_API = "https://64a4d936c3b509573b57d457.mockapi.io/api";
+import {VIBELY_API} from "~/app/constants.js";
+import {getAccessToken} from "~/service/accountService.js";
 
 export const findSuggestionFriendsApi = async () => {
     let result = null;
     try {
-      result = await axios.get(`${SUGGESTION_FRIENDS_API}/user`);
+        result = await axios.get(`${VIBELY_API}/users/suggestion_friends`,{
+            headers:{
+                Authorization: `Bearer ${getAccessToken()}`
+            }
+        });
     } catch (e) {
-      console.log("Find suggestion friends API error: " + e);
+        console.log("Find suggestion friends API error: " + e);
     }
     return result;
-  };
+};
   

@@ -7,6 +7,7 @@ export const getMedia = createAsyncThunk("media", async (id) => {
 });
 
 const initialState = {
+    currentUserId: -1,
     images: [
         {
             id: "1",

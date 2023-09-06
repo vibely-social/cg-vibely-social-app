@@ -21,6 +21,9 @@
 }
 
 .hover-card {
+  &:hover{
+    background: rgba(183, 183, 183, 0.25);
+  }
     .card-image {
         overflow: hidden;
         img {
@@ -273,7 +276,7 @@
 .scroll-bar::-webkit-scrollbar-thumb {background-color: #bbbbbb;}
 
 .smooth-transition{
-  transition: all 0.55s ease 0s;
+  transition: all 0.5s ease 0s;
 }
 
 

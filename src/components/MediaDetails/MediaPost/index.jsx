@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import CommentSection from "../../Comment";
+import Comment from "../../Comment";
 import "./index.css"
 import {getMediaPostDetails} from "~/features/getMediaPostDetails/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -59,7 +59,7 @@ const MediaPost = ({id}) => {
                 </a>
             </div>
 
-            {/*<CommentSection/>*/}
+            <Comment data={mediaPostDetail} isShowComment={false}/>
 
         </div>
     );

@@ -67,34 +67,37 @@ function MediaDetails({images, currentImageIndex, currentGalleryIndex, onClose})
             footer={null}
             style={{width: '80vw', maxWidth: "calc(100vh-280px)"}}
         >
-            <div className="dialog-content-container modal-backdrop">
-                <div>
-                    <button id="post-md-btn" className="btn btn-success btn-lg prev-button left-0" onClick={handlePrevImage}>
-                        <span className="pi pi-chevron-left"></span>
-                    </button>
+            <div className="modal-backdrop">
+                <div className="dialog-content-container">
+                    <div>
+                        <button id="post-md-btn" className="btn btn-outline-secondary btn-md h-100 prev-button"
+                                onClick={handlePrevImage}>
+                            <span className="pi pi-chevron-left"></span>
+                        </button>
+                    </div>
+                    <div className="image-container">
+                        <img
+                            className="modal-image"
+                            src={images[selectedImageIndex].gallery[selectedGalleryIndex]}
+                            alt="Picture"
+                        />
+                    </div>
+                    <div>
+                        {/*<button id="post-md-btn" className="btn btn-outline-success btn-md close-button"*/}
+                        {/*        onClick={handleClose}>*/}
+                        {/*    <span className="pi pi-times"></span>*/}
+                        {/*</button>*/}
+                        <button id="post-md-btn" className="btn btn-outline-secondary btn-md h-100 next-button"
+                                onClick={handleNextImage}>
+                            <span className="pi pi-chevron-right"></span>
+                        </button>
+                    </div>
                 </div>
-                <div className="image-container">
-                    <img
-                        className="modal-image"
-                        src={images[selectedImageIndex].gallery[selectedGalleryIndex]}
-                        alt="Picture"
-                    />
-                </div>
-                <div>
-                    <button id="post-md-btn" className="btn btn-success btn-lg close-button" onClick={handleClose}>
-                        <span className="pi pi-times"></span>
-                    </button>
-                    <button id="post-md-btn" className="btn btn-success btn-lg next-button" onClick={handleNextImage}>
-                        <span className="pi pi-chevron-right"></span>
-                    </button>
-                </div>
-                <div>
+                <div className="media-post-container">
                     <MediaPost
                         id={images[selectedImageIndex].id}
                     />
                 </div>
-
-                {/*<PostDetail/>*/}
             </div>
         </Dialog>
 
