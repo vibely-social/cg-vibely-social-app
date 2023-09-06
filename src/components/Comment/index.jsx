@@ -15,6 +15,11 @@ import SendBtn from "~/assets/img/new_post_icons/send.png"
 import toBase64 from '~/utils/toBase64.js';
 import UseAnimations from "react-useanimations";
 import trash2 from 'react-useanimations/lib/trash2';
+import { useStompWsClient } from '../HOC_SocketClient';
+import {Client} from "@stomp/stompjs";
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
+import {over} from "stompjs"
 
 const imgStyle = {
   maxWidth: "100px",
@@ -43,7 +48,7 @@ function Comment({data,isShowComment}) {
     const [commentGallery, setCommentGallery] = useState(null)
     const [showGallery, setShowGallery] = useState(null)
     const [imageTooltip, setImageTooltip] = useState(false)
-      
+
     const getComments = async() => {
       setIsLoading(true)
       const response = await commentPosts(data.id)
@@ -110,22 +115,92 @@ function Comment({data,isShowComment}) {
       event.target.style.height = event.target.scrollHeight + "px"
       event.target.style.paddingBottom  = "-20px"
     }
-    // const socket = io('http://localhost:4000');    
-    // socket.emit('joinChannel', channelName);
-    // const handleEnterDown = (event) => {
-    //          let comment = event
-    //          socket.emit('sendComment', ({ channelName, comment }));
-    // }
 
-    // useEffect(() => {
-    //     socket.on('newComment', (comment) => {
-    //         setComments((prevComments) => [...prevComments, comment]);
-    //     });
-    //     return () => {
-    //       socket.off('newComment');
-    //     };
-    // }, []);
+
+  //   const socket = new WebSocket(`ws://localhost:8080/comment`);
+  //   const stompClient = Stomp.over(socket);
+
+
+      // stompClient.send(`/app/comment/${data.id}`, {
+      //   Authorization: 'Bearer ' + token
+      // },  'Hello, WebSocket Server!' );
+
     
+  //   useEffect(() => {
+  //     if(stompClient){
+  //       stompClient.connect({
+  //         Authorization: 'Bearer ' + token
+  //       } , () => {
+  //         stompClient.subscribe(`/topic/post/${data.id}`, (message) => {
+  //           alert('Received message:', message.body);
+  //         } , {
+  //           Authorization: 'Bearer ' + token                         
+  //         });
+  //     },(error) => {
+  //       console.error('Stomp.js Connection Error:', error);
+  //     }   
+  //     );
+  //     }
+  //     return () => {
+  //         stompClient.disconnect();
+  //     };
+  // }, []);
+
+
+  let _stompClient = null;
+  const webSocket = () => {
+    //const [message, newMessage] = useState();
+  
+    _stompClient = new Client({
+      brokerURL: `ws://localhost:8080/ws`,
+      connectHeaders: {
+        Authorization: 'Bearer ' + token
+      },
+      reconnectDelay: 500,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      onStompError: (frame) => {
+        console.log("Stomp Error", frame);
+      },
+      onConnect: (frame) => {
+        console.log("Stomp Connect", frame);
+        if(_stompClient){
+          _stompClient.subscribe(`/users/topic/post/${data.id}`, (message) => {
+            console.log(message);
+          });
+        }
+      },
+      onDisconnect: (frame) => {
+        console.log("Stomp Disconnect", frame);
+      },
+      onWebSocketClose: (frame) => {
+        console.log("Stomp WebSocket Closed", frame);
+      },
+      onWebSocketError: (frame) => {
+        console.log("Stomp WebSocket Error", frame);
+      },
+    });
+  
+    _stompClient.activate();
+    return _stompClient;
+  };
+  useEffect(() => {
+    webSocket();
+  }, []);
+
+  const send = () => {
+    _stompClient.publish({
+      destination: `/app/comment/${data.id}`,
+      body: JSON.stringify({
+        isStatusType: true,
+        typingStatus: false,
+        receiver: "thanh@gmail.com",
+        content: 'hehreshershbnersbhnsebnesbresbers'
+    } , {
+      Authorization: 'Bearer ' + token
+    })
+  });
+}
       return (
             <>
               {!isShowComment && 
@@ -153,11 +228,11 @@ function Comment({data,isShowComment}) {
                                   placeholder="Write a comment..." 
                                   />
                         <div 
-                           className='flex'
-                           style={{
-                            justifyContent: "space-between",
-                            alignSelf: "start"}}
-                           >
+                          className='flex'
+                          style={{
+                          justifyContent: "space-between",
+                          alignSelf: "start"}}
+                          >
                        {onFocusComment && <Button    
                                   as='label' 
                                   htmlFor={data.id}
@@ -186,7 +261,7 @@ function Comment({data,isShowComment}) {
                                 onChange={(e) =>  handleChangeImages(e.target.files[0])}
                            />		
                       </div>
-                        </Form.Group>
+                      </Form.Group>
                         {showGallery && <div style={{
                                 position: "absolute",
                                 marginLeft: "85px",
@@ -205,6 +280,8 @@ function Comment({data,isShowComment}) {
                           style={imgStyle}/>
                     </Form>
               </Card.Body>}
+
+
               <Card.Body  
                       className="d-flex " 
                       id="comment-section">
