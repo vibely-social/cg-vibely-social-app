@@ -21,7 +21,7 @@ export const getPostsList = async () => {
         const response = await axios.get(`${VIBELY_API}/posts`,{headers});
         return response
     } catch (error) {
-        return error.response
+        console.log(error)
     }
 };
 

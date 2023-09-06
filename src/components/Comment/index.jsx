@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card,Form, Button } from 'react-bootstrap';
 import ppl from "~/assets/img/ppl.png"
-import CommentLine from './CommentLine';
 import "./index.css"
 import { VIBELY_API } from '~/app/constants.js';
 import axios from 'axios';
@@ -10,16 +9,11 @@ import { commentPosts } from '~/api/postApi';
 import { BeatLoader } from 'react-spinners';
 import AddImageBtn from "~/assets/img/new_post_icons/add-image.png";
 import { motion } from "framer-motion";
-import { sendBtnStyle } from './CommentLine';
+import CommentLine , { sendBtnStyle } from './CommentLine';
 import SendBtn from "~/assets/img/new_post_icons/send.png"
 import toBase64 from '~/utils/toBase64.js';
 import UseAnimations from "react-useanimations";
 import trash2 from 'react-useanimations/lib/trash2';
-import { useStompWsClient } from '../HOC_SocketClient';
-import {Client} from "@stomp/stompjs";
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
-import {over} from "stompjs"
 
 const imgStyle = {
   maxWidth: "100px",
@@ -70,34 +64,34 @@ function Comment({data,isShowComment}) {
           formData.append('newComment', newComment)
           if(commentGallery){
             formData.append('file', commentGallery)
-          }
-        try {
+            }
+            try {
               const response =  await axios.post(`${VIBELY_API}/posts/${data.id}/comment`, formData, 
               {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': 'Bearer '+ token,
-              },})
-              .then((response) => {
+            },
+            }).then((response) => {
                 setInputContent("")
                 setOnFocusComment(false)
                 setShowGallery(null)
                 setCommentGallery(null)
                 setComments((comments) => [...comments, response.data])
               })
-              } catch (error) {
+            } catch (error) {
                 setInputContent("")
-              }
+            }
       }
     }
 
 
     const handleChangeImages = (target) =>{
       toBase64(target).then((result) => {
-        setShowGallery(result)
-      })
-			setCommentGallery(target)
-		}
+      setShowGallery(result)
+    })
+	  setCommentGallery(target)
+	}
 
 
     const handleFocusOut = (event) => {
@@ -116,91 +110,6 @@ function Comment({data,isShowComment}) {
       event.target.style.paddingBottom  = "-20px"
     }
 
-
-  //   const socket = new WebSocket(`ws://localhost:8080/comment`);
-  //   const stompClient = Stomp.over(socket);
-
-
-      // stompClient.send(`/app/comment/${data.id}`, {
-      //   Authorization: 'Bearer ' + token
-      // },  'Hello, WebSocket Server!' );
-
-    
-  //   useEffect(() => {
-  //     if(stompClient){
-  //       stompClient.connect({
-  //         Authorization: 'Bearer ' + token
-  //       } , () => {
-  //         stompClient.subscribe(`/topic/post/${data.id}`, (message) => {
-  //           alert('Received message:', message.body);
-  //         } , {
-  //           Authorization: 'Bearer ' + token                         
-  //         });
-  //     },(error) => {
-  //       console.error('Stomp.js Connection Error:', error);
-  //     }   
-  //     );
-  //     }
-  //     return () => {
-  //         stompClient.disconnect();
-  //     };
-  // }, []);
-
-
-  let _stompClient = null;
-  const webSocket = () => {
-    //const [message, newMessage] = useState();
-  
-    _stompClient = new Client({
-      brokerURL: `ws://localhost:8080/ws`,
-      connectHeaders: {
-        Authorization: 'Bearer ' + token
-      },
-      reconnectDelay: 500,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
-      onStompError: (frame) => {
-        console.log("Stomp Error", frame);
-      },
-      onConnect: (frame) => {
-        console.log("Stomp Connect", frame);
-        if(_stompClient){
-          _stompClient.subscribe(`/users/topic/post/${data.id}`, (message) => {
-            console.log(message);
-          });
-        }
-      },
-      onDisconnect: (frame) => {
-        console.log("Stomp Disconnect", frame);
-      },
-      onWebSocketClose: (frame) => {
-        console.log("Stomp WebSocket Closed", frame);
-      },
-      onWebSocketError: (frame) => {
-        console.log("Stomp WebSocket Error", frame);
-      },
-    });
-  
-    _stompClient.activate();
-    return _stompClient;
-  };
-  useEffect(() => {
-    webSocket();
-  }, []);
-
-  const send = () => {
-    _stompClient.publish({
-      destination: `/app/comment/${data.id}`,
-      body: JSON.stringify({
-        isStatusType: true,
-        typingStatus: false,
-        receiver: "thanh@gmail.com",
-        content: 'hehreshershbnersbhnsebnesbresbers'
-    } , {
-      Authorization: 'Bearer ' + token
-    })
-  });
-}
       return (
             <>
               {!isShowComment && 
@@ -245,7 +154,8 @@ function Comment({data,isShowComment}) {
                                   src={AddImageBtn}
                                  />
                                  </Button>}
-                        {onFocusComment && <motion.img 
+                        {onFocusComment && 
+                        <motion.img 
                                   whileHover={{scale: 1.0,rotate: 0 }}
                                   whileTap={{ scale: 0.9 }}
                                   transition={{ type: "spring", stiffness: 400}}
@@ -283,28 +193,30 @@ function Comment({data,isShowComment}) {
 
 
               <Card.Body  
-                      className="d-flex " 
-                      id="comment-section">
-                    <div 
-                      className="pt-0 w-100 position-relative scroll-bar bg-white "
-                      style={{
-                            maxHeight: "500px",
-                            overflowX: "hidden"
-                            }}>
-                    <div 
-                        className="comment-body p-0 pt-1" >
-                          {isLoading 
-                          && <div className='d-flex justify-content-center p-2'>
-                                 <BeatLoader color="#36d7b7" />
-                            </div>}
-                          {!isShowComment  && data?.topComment && 
-                          <CommentLine 
-                            data={data} 
-                            commentData={data?.topComment}
-                          />}
-                          {comments 
-                          && comments.map((comment,index) => {
-                            return <CommentLine 
+                    className="d-flex " 
+                    id="comment-section">
+                <div 
+                    className="pt-0 w-100 position-relative scroll-bar bg-white "
+                    style={{
+                    maxHeight: "500px",
+                    overflowX: "hidden"
+                    }}>
+                <div 
+                    className="comment-body p-0 pt-1" >
+
+                    {isLoading  && 
+                    <div className='d-flex justify-content-center p-2'>
+                        <BeatLoader color="#36d7b7" />
+                    </div>}
+
+                     {!isShowComment  && data?.topComment && 
+                <CommentLine 
+                    data={data} 
+                    commentData={data?.topComment}
+                    />}
+                    {comments 
+                     && comments.map((comment,index) => {
+                     return <CommentLine 
                                           key={index} 
                                           data={data} 
                                           commentData={comment}/>
@@ -375,7 +287,8 @@ function Comment({data,isShowComment}) {
                            />		
                           </div>
                         </Form.Group>
-                        {showGallery && <div style={{
+                        {showGallery && 
+                        <div style={{
                                 position: "absolute",
                                 marginLeft: "85px",
                                 marginTop: "5px",
@@ -391,7 +304,6 @@ function Comment({data,isShowComment}) {
                         <img 
                         src={showGallery} 
                         style={imgStyle}/>
-
                   </Form>
               </Card.Body>}
               

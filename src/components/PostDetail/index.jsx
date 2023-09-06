@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import ppl from "~/assets/img/ppl.png"
 import { motion } from "framer-motion";
 import ReactTimeAgo from 'react-time-ago'
-import { useState ,useEffect } from "react";
+import { useState } from "react";
 import Comment from "../Comment";
 import likebtn from "../../assets/img/likebtn.png"
 import { likePost } from "~/api/postApi";
@@ -11,7 +11,6 @@ import Earth from "~/assets/img/new_post_icons/earth.png"
 import Friends from "~/assets/img/new_post_icons/friends.png"
 import Private from "~/assets/img/new_post_icons/private.png"
 import "./index.css"
-import { Popover } from '@headlessui/react'
 import Gallery from "./Gallery";
 
 

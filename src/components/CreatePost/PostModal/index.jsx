@@ -9,7 +9,7 @@ import Theme from "~/assets/img/new_post_icons/theme.svg"
 import Smile from "~/assets/img/new_post_icons/smile.svg"
 import More from "~/assets/img/new_post_icons/more.svg"
 import Mic from "~/assets/img/new_post_icons/mic.svg"
-import { useState, useRef , useEffect, useMemo  } from 'react'
+import { useState, useEffect } from 'react'
 import addImage from "~/assets/img/new_post_icons/add-image.png"
 import toBase64 from '~/utils/toBase64.js';
 import Photogrid from "react-facebook-photo-grid";
@@ -145,7 +145,7 @@ function NewPostModal({ isOpen,closeModal }) {
 				}
 				setNewImages([])
 			}
-			if(postImage.length != 0 || newPostDTO.content != "") setAllowPost(true)
+			if ( postImage.length != 0 || newPostDTO.content != "") setAllowPost(true)
 			else{setAllowPost(false)}
 		},[newImages,newPostDTO,postImage]);
 
@@ -196,15 +196,26 @@ function NewPostModal({ isOpen,closeModal }) {
 										<span className='ms-4'>Create Post</span>
 											<Button 
 												className='bg-grey feather-x rounded-circle text-grey-700 p-1 border w35 font-xs' 
-												style={{float:'right',marginRight: "20px"}} 
+												style={{
+													float:'right',
+													marginRight: "20px"
+													}} 
 												onClick={closeModal}/>
 									</div>
 								<Form onSubmit={handleSubmit}>
 										<Form.Group className="content-dialog">
-											<img src={User.avatarUrl? User.avatarUrl : ppl} alt="logo" />
-											<div className="details">
-												<p>{User?.firstName + " " + User?.lastName}</p>
-												<Form.Select className="privacy mt-1" 
+											<img 
+											src={User.avatarUrl? User.avatarUrl : ppl} 
+											alt="logo" 
+											className='rounded-circle'
+											/>
+											<div 
+											className="details">
+												<p>
+													{User?.firstName + " " + User?.lastName}
+												</p>
+												<Form.Select 
+															className="privacy mt-1" 
 															onChange={(e) => handleChangePrivacy(e.target.value)}>
 													<option value="PUBLIC">🌐 Public</option>
 													<option value="FRIENDS">👫 Friends</option>
@@ -249,10 +260,15 @@ function NewPostModal({ isOpen,closeModal }) {
 																			style={{marginTop: "-5px",
 																					marginLeft: "-5px",
 																					paddingRight:"5px"}}>
-																			<img 
-																				src={addImage} 
-																				style={{scale:"0.6"}}
-																		/><span className='mt-3 mb-2'>Add Photos/Videos</span></div>
+																		<img 
+																			src={addImage} 
+																			style={{scale:"0.6"}}
+																		/>
+																		<span 
+																		className='mt-3 mb-2'>
+																			Add Photos/Videos
+																		</span>
+																		</div>
 																	</Button>								
 																	<Button 
 																		onClick={() => {setPostImage([]);setPostFileList(null)}} 
@@ -269,7 +285,9 @@ function NewPostModal({ isOpen,closeModal }) {
 															</div>
 														</motion.div>}
 		
-														{isAddImage && <motion.div className='border border-1 p-2 rounded-xxxl'
+														{isAddImage && 
+														<motion.div 
+															className='border border-1 p-2 rounded-xxxl'
 															initial={{ scale: 0 }}
 															animate={{ rotate: 0, scale: 1 }}> 
 															<Button 
@@ -282,7 +300,10 @@ function NewPostModal({ isOpen,closeModal }) {
 																	className='inline-block '
 																	src={addImage} 
 																	style={{scale:"1"}}/>
-																<p className='font-xsss mt-1'>Add Photos/Videos</p>
+																<p 
+																className='font-xsss mt-1'>
+																	Add Photos/Videos
+																</p>
 															</Button>
 													</motion.div>}
 
@@ -292,11 +313,13 @@ function NewPostModal({ isOpen,closeModal }) {
 											</div>
 										<Form.Group className="options">
 											<p>Add to Your Post</p>
-											<ListGroup as="ul" className="list-items-post">
+											<ListGroup 
+											as="ul" 
+											className="list-items-post">
 												<ListGroup.Item 
 													as="li" 
 													onClick={() => {if(postImage.length == 0) setIsAddImage(!isAddImage)}}>
-														<img src={Gallery}/>
+													<img src={Gallery}/>
 												</ListGroup.Item>
 												<ListGroup.Item as="li"><img src={Tag} /></ListGroup.Item>
 												<ListGroup.Item as="li"><img src={Emoji} /></ListGroup.Item>
@@ -304,13 +327,24 @@ function NewPostModal({ isOpen,closeModal }) {
 												<ListGroup.Item as="li"><img src={More} /></ListGroup.Item>
 											</ListGroup>
 										</Form.Group>
-									<Button type="submit" style={{background: !allowPost && "#e4e6ebff"}} disabled={!allowPost && true} className='border-0 button-post shadow-xss mt-2'>Post</Button>
+									<Button 
+										type="submit" 
+										style={{background: !allowPost && "#e4e6ebff"}} 
+										disabled={!allowPost && true} 
+										className='border-0 button-post shadow-xss mt-2'>
+											Post
+									</Button>
 								</Form>
 								</section>
 							</div>
 							</motion.div>
 
-					{isLoading && <PacmanLoader  cssOverride={loaderStyle}  size={25} color="#36d7b7" />}
+					{isLoading && 
+					<PacmanLoader  
+					cssOverride={loaderStyle}  
+					size={25} 
+					color="#36d7b7" 
+					/>}
 
 					</Dialog>)}
 			</AnimatePresence>

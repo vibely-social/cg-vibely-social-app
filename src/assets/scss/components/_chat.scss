@@ -334,7 +334,7 @@
     -moz-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
-    max-height: calc(100vh - 260px);
+    height: calc(100vh - 260px);
 
     .message-item.outgoing-message {
       margin-left: auto;

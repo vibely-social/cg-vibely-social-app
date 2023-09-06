@@ -31,7 +31,6 @@ import Like from "~/assets/img/likebtn.png"
         const [isEdit, setIsEdit] = useState(false)
         const [content, setContent] = useState(replyData.content)
         const [editContent,setEditContent] = useState(replyData.content)
-        const [file,setFile] = useState(null)
         const [showToolkit,setShowToolkit] = useState(false)
         const viewPort = useViewport();
         const [isDeleted, setIsDeleted] = useState(false)
