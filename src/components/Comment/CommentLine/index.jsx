@@ -193,7 +193,7 @@ function CommentLine({data,commentData}) {
                 <figure style={{alignSelf: "start", marginTop: "10px"}}>
                         <img 
                         style={avatarStyle}
-                        src={commentData.author.avatar ? commentData.author.avatar : ppl} 
+                        src={commentData.author.avatar ? commentData.author.avatar : ppl}
                         />
                 </figure>
                 <div>

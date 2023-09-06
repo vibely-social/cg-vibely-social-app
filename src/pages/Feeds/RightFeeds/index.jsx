@@ -4,36 +4,36 @@ import "./index.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {
-    deleteSuggestionFriend,
+    deleteSuggestionFriend, getFriendRequests,
     getSuggestionFriends,
+    selectFriendRequestList,
     selectSuggestionFriendsList,
 } from "~/features/suggestionFriends";
 import {useDispatch, useSelector} from "react-redux";
+import {findFriendRequest} from "~/api/friendRequestApi.js";
+import {VIBELY_API} from "~/app/constants.js";
 
 function RightFeed() {
-    const FRIENDS_REQUEST_API =
-        "https://64c7702c0a25021fde927b0e.mockapi.io/api/";
-
+    const friendRequestList = useSelector(selectFriendRequestList)
     const [friendRequests, setFriendRequests] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedItem, setSeletedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(null);
     const [isReload, setIsReload] = useState(false);
 
     const [showDeleteModalSuggestion, setShowDeleteModalSuggestion] =
         useState(false);
     const [suggestSelectedItem, setSuggestSelectedItem] = useState(null);
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     // -------------------------friend request delete----------------------------
     const handleDeleteClick = (item) => {
-        setSeletedItem(item);
+        setSelectedItem(item);
         setShowDeleteModal(true);
     };
 
     const handleConfirmDelete = () => {
         if (selectedItem) {
             axios
-                .delete(`${FRIENDS_REQUEST_API}friends/${selectedItem?.id}`)
+                .delete(`${VIBELY_API}friends/${selectedItem?.id}`)
                 .then((res) => {
                     console.log(res.data);
                     setIsReload(!isReload);
@@ -47,22 +47,20 @@ function RightFeed() {
     };
 
     useEffect(() => {
-        axios
-            .get(`${FRIENDS_REQUEST_API}/friends`)
-            .then((res) => {
-                setFriendRequests(res.data);
-            })
-            .catch((err) => {
-                throw err;
-            });
-    }, [isReload]);
+        if (!friendRequestList.length){
+            dispatch(getFriendRequests())
+        }
+        setFriendRequests(friendRequestList)
+    }, []);
 
     const dispatch = useDispatch();
     const friendSuggestions = useSelector(selectSuggestionFriendsList);
 
     useEffect(() => {
-        dispatch(getSuggestionFriends());
-    }, [dispatch]);
+        if (friendSuggestions.length === 0) {
+            dispatch(getSuggestionFriends());
+        }
+    }, [friendSuggestions]);
 
     const handleDeleteClickSuggestion = (suggestion) => {
         setSuggestSelectedItem(suggestion);
@@ -93,15 +91,15 @@ function RightFeed() {
 
                 {/* ---------------------render data friend request---------------------- */}
 
-                <div className="friend-requests-list">
-                    {friendRequests.map((item={}) => (
+                <div className="friend-requests-list scroll-bar">
+                    {friendRequests.map((item = {}) => (
                         <div key={item?.id}>
-                            <Card.Body className="d-flex pb-2 border-top-xs bor-0  friend-box pe-0">
+                            <Card.Body className="d-flex pb-2 border-top-xs bor-0 friend-box pe-0 align-items-center">
                                 <figure className="avatar me-3">
                                     <img
-                                        src={item?.avatar}
+                                        src={item?.avatarUrl}
                                         alt="image"
-                                        className=" shadow-sm rounded-circle w50"
+                                        className="shadow-sm avatar-45"
                                     />
                                 </figure>
                                 <h4 className="fw-700 text-grey-800 font-xss">
@@ -139,7 +137,7 @@ function RightFeed() {
                     Are you sure you want to delete {selectedItem?.firstName}{" "}
                     {selectedItem?.lastName}?{" "}
                     <img
-                        src={selectedItem?.avatar}
+                        src={selectedItem?.avatarUrl}
                         alt="image"
                         className=" shadow-sm rounded-circle w50"
                     />
@@ -170,7 +168,7 @@ function RightFeed() {
                 </Card.Body>
                 {/* ----------------------render data friend suggestion---------------- */}
 
-                <div className="friend-requests-list">
+                <div className="friend-requests-list scroll-bar">
                     {friendSuggestions.map((suggestion) => (
                         <div key={suggestion?.id}>
                             <Card.Body className="d-flex pb-2 border-top-xs bor-0  friend-box pe-0">

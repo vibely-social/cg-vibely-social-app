@@ -8,11 +8,17 @@ import {loadOldMessages, selectAllOldMessages} from "~/features/loadOldMessages/
 import {selectUserData} from "~/features/userAccount/index.js";
 import {selectBottomChatStatus, setBtChatActive, setBtChatInactive} from "~/features/bottomChat/index.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {resetUnreadMessage, selectNewsMessages, selectUnreadMessage} from "~/features/messeger/index.jsx";
+import {
+    resetNewMessages,
+    resetUnreadMessage,
+    selectNewsMessages,
+    selectUnreadMessage
+} from "~/features/messeger/index.jsx";
 import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
+import {Link} from "react-router-dom";
 
 function RightChat() {
     const dispatch = useDispatch()
@@ -49,6 +55,7 @@ function RightChat() {
                     contact: currentConversation.email,
                     page: 0
                 }))
+                dispatch(resetNewMessages())
             }
         }
     }, [currentConversation, btChatStatus])
@@ -124,6 +131,13 @@ function RightChat() {
             }
         }
     }, [haveContent, chatFocus])
+
+    useEffect(()=>{
+        if (chatFocus){
+            console.log('focus')
+            dispatch(resetUnreadMessage(currentConversation.email))
+        }
+    },[chatFocus])
 
     useEffect(() => {
         if (newMessage.length > 0) {
@@ -205,7 +219,7 @@ function RightChat() {
                     <div
                         className="modal-popup-header w-100 border-bottom rounded-top-3 bg-grey shadow-md transform-none">
                         <div className="p-3 border-0 d-flex justify-content-between">
-                            <div className="d-flex cursor-pointer">
+                            <div className="d-flex">
                                 <div
                                     className="mb-0 position-relative hover-scale-1-1 smooth-transition d-flex justify-content-center align-items-center"
                                     style={{
@@ -227,16 +241,20 @@ function RightChat() {
                                     </span>
                                 </div>
                                 <div className="ms-2 cursor-pointer">
-                                    <h5 className="fw-700 text-primary font-xss mt-1 mb-1">{currentConversation.firstName}</h5>
-                                    <h4 className="text-grey-500 font-xsssss mt-0 mb-0">
-                                        {onlineList[currentConversation?.email]
-                                            ? <><span
-                                                className="d-inline-block bg-success btn-round-xss m-0">
+                                    <Link to={`/friends/${currentConversation.id}`}>
+                                        <h5 className="fw-700 text-primary font-xss mt-1 mb-1">
+                                            {currentConversation.firstName}
+                                        </h5>
+                                        <h4 className="text-grey-500 font-xsssss mt-0 mb-0">
+                                            {onlineList[currentConversation?.email]
+                                                ? <><span
+                                                    className="d-inline-block bg-success btn-round-xss m-0">
                                                 </span>Available</>
-                                            : <><span className="d-inline-block bg-dark-subtle btn-round-xss m-0">
+                                                : <><span className="d-inline-block bg-dark-subtle btn-round-xss m-0">
                                                 </span>Offline</>
-                                        }
-                                    </h4>
+                                            }
+                                        </h4>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="cursor-pointer d-flex align-items-center"
@@ -304,7 +322,7 @@ function RightChat() {
                                        onKeyDown={(event) => {
                                            if (event.key === "Enter") sendMessage()
                                        }}
-                                       placeholder="Start typing.."
+                                       placeholder="Start typing..."
                                        className="form-control rounded-xl bg-greylight border-0 font-xssss fw-500 pe-3 ps-5"/>
                                 <i className="feather-send text-grey-500 font-md cursor-pointer"
                                    onClick={sendMessage}></i>
