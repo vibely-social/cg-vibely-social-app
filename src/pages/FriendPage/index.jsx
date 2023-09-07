@@ -10,6 +10,7 @@ import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
 import {selectFriendList} from "~/features/getFriends/index.js";
+import {Row} from "react-bootstrap";
 
 function FriendPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
@@ -66,7 +67,7 @@ function FriendPage() {
     }, [params.id])
 
     return (<>
-        <div className="row">
+        <Row style={{marginTop:"12px"}}>
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
@@ -190,7 +191,7 @@ function FriendPage() {
                                 : <MediaTab/>
                 }
             </div>
-        </div>
+        </Row>
     </>);
 }
 
