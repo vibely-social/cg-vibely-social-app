@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { findSuggestionFriendsApi } from "~/api/suggestionFriendApi";
+import { findSuggestionFriendsApi,addFriendApi  } from "~/api/suggestionFriendApi";
 
 export const getSuggestionFriends = createAsyncThunk(
   "suggestionFriends",
   async () => {
-    console.log('api call');
     const response = await findSuggestionFriendsApi();
-    console.log('response');
     return response.data;
   }
 );

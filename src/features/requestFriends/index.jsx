@@ -6,7 +6,6 @@ export const getRequestFriends = createAsyncThunk(
   "requestFriends",
   async () => {
     const response = await findRequestFriendsApi();
-    console.log("response");
     return response.data;
   }
 );

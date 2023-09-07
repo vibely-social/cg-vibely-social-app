@@ -14,19 +14,17 @@ export const findRequestFriendsApi = async () => {
   } catch (e) {
     console.log("Find request friends API error: " + e);
   }
-  console.log(result);
   return result;
 };
 
 export const deleteRequestFriendApi = async (id) => {
   let user = getStoredUserData();
   try {
-    const response = await axios.delete(`${VIBELY_API}/friends/${id}`, {
+    const response = await axios.delete(`${VIBELY_API}/friends/requests/${id}`, {
       headers: {
         Authorization: "Bearer " + user.accessToken,
       },
     });
-    // return response.data;
   } catch (e) {
     console.log("Delete request friend API error: " + e);
     throw e;
