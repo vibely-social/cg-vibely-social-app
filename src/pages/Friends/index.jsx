@@ -1,5 +1,5 @@
-import { Row, Col, Card, Button, Modal } from "react-bootstrap";
-import { motion } from "framer-motion";
+import {Button, Card, Col, Modal, Row} from "react-bootstrap";
+import {motion} from "framer-motion";
 import "./index.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

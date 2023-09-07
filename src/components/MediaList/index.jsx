@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
 import "./index.css"
 
@@ -20,27 +20,12 @@ function MediaList({images, type}) {
         setShowModal(false);
     }
 
-
-    let firstDiv;
-    let secondDiv;
     let count = 0;
     let limit = 9;
 
-    if (type === "tab") {
-        firstDiv = 'col-md-3 col-xss-6';
-        secondDiv = "card h240 w240 d-block border-0 mb-3 align";
-    }
-    if (type === "post") {
-        firstDiv = "col-xs-4 col-sm-2 p-1";
-        secondDiv = "card h175 w175"
-    }
-    if (type === "photos") {
-        firstDiv = 'col-sm-4 col-xss-3';
-        secondDiv = "card h100 w100 d-block border-0 mb-2 me-1 align";
-    }
-
     return (
-        <>
+        <div className="container-fluid row mx-0 px-0">
+
             {images.map((image, imageIndex) => {
                 return (
                     image.gallery?.map((url, galleryIndex) => {
@@ -51,26 +36,19 @@ function MediaList({images, type}) {
                         count++;
 
                         return (
-                            <div className={firstDiv} key={galleryIndex}>
-                                <div
-                                    className={secondDiv}
-                                    onClick={() => {
-                                        handleClick(imageIndex, galleryIndex);
-                                    }}
-                                >
-                                    <img
-                                        className="rounded-3 w-100 h-100 border border-1 border-gray shadow-md image-hover-effect"
-                                        src={url}
-                                        style={{
-                                            objectFit: "cover",
-                                            width: "100%",
-                                            height: "100%",
-                                            cursor: "pointer"
-                                        }}
-                                        alt="picture"
-                                    />
-
-                                </div>
+                            <div className={(type === 'tab' ? 'col-3' : 'col-lg-4 col-sm-3') + ' mb-3 pe-2'} key={galleryIndex}>
+                                <img className="rounded-3 my-0 border border-1 border-gray shadow-md image-hover-effect"
+                                     src={url}
+                                     style={{
+                                         objectFit: "cover",
+                                         width: "100%",
+                                         maxHeight: type === 'tab' ? 200 : 100,
+                                         minHeight: type === 'tab' ? 200 : 100,
+                                         cursor: "pointer"
+                                     }}
+                                     alt="picture"
+                                     onClick={() => handleClick(imageIndex, galleryIndex)}
+                                />
                             </div>
                         );
                     })
@@ -84,7 +62,8 @@ function MediaList({images, type}) {
                     currentGalleryIndex={selectedGalleryIndex}
                     onClose={handleHide}
                 />}
-        </>
+
+        </div>
     )
 }
 

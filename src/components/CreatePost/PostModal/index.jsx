@@ -2,7 +2,6 @@ import { Dialog } from '@headlessui/react'
 import { motion, AnimatePresence } from "framer-motion"
 import { Button, Form, ListGroup } from 'react-bootstrap';
 import "./index.css"
-import Logo from "~/assets/img/new_post_icons/Logo.png"
 import Gallery from "~/assets/img/new_post_icons/gallery.svg"
 import Tag from "~/assets/img/new_post_icons/tag.svg"
 import Emoji from "~/assets/img/new_post_icons/emoji.svg"
@@ -18,10 +17,10 @@ import { VIBELY_API } from '~/app/constants';
 import axios from 'axios';
 import fileListFrom from '~/utils/fileListFromFiles';
 import { PacmanLoader } from 'react-spinners';
-import {getStoredUserData} from "~/service/accountService.js";
-import { getAccessToken } from '~/service/accountService.js';
+import {getStoredUserData, getAccessToken} from "~/service/accountService.js";
 import {createPost} from "../../../features/getPosts"
 import { useDispatch } from 'react-redux';
+import ppl from "~/assets/img/ppl.png"
 
 	const addImageButtonStyle = {
 		border: "none",
@@ -202,10 +201,10 @@ function NewPostModal({ isOpen,closeModal }) {
 									</div>
 								<Form onSubmit={handleSubmit}>
 										<Form.Group className="content-dialog">
-											<img src={User.avatarUrl? User.avatarUrl : Logo} alt="logo" />
+											<img src={User.avatarUrl? User.avatarUrl : ppl} alt="logo" />
 											<div className="details">
 												<p>{User?.firstName + " " + User?.lastName}</p>
-												<Form.Select className="privacy" 
+												<Form.Select className="privacy mt-1" 
 															onChange={(e) => handleChangePrivacy(e.target.value)}>
 													<option value="PUBLIC">🌐 Public</option>
 													<option value="FRIENDS">👫 Friends</option>
@@ -246,14 +245,14 @@ function NewPostModal({ isOpen,closeModal }) {
 																			alignItems:"start"}} 
 																		className='bg-grey rounded-md text-grey-700 p-0 border font-xsss mt-1' 
 																	>
-																		<div 
+																		<div className='inline-flex'
 																			style={{marginTop: "-5px",
 																					marginLeft: "-5px",
 																					paddingRight:"5px"}}>
 																			<img 
 																				src={addImage} 
 																				style={{scale:"0.6"}}
-																		/>Add Photos/Videos</div>
+																		/><span className='mt-3 mb-2'>Add Photos/Videos</span></div>
 																	</Button>								
 																	<Button 
 																		onClick={() => {setPostImage([]);setPostFileList(null)}} 
@@ -277,8 +276,12 @@ function NewPostModal({ isOpen,closeModal }) {
 																	as='label' 
 																	htmlFor="select-image" 
 																	id="upload-btn" 
+																	className='grid'
 																	style={addImageButtonStyle}>
-																<img src={addImage} style={{scale:"1"}}/>
+																<img 
+																	className='inline-block '
+																	src={addImage} 
+																	style={{scale:"1"}}/>
 																<p className='font-xsss mt-1'>Add Photos/Videos</p>
 															</Button>
 													</motion.div>}

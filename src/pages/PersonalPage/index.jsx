@@ -14,7 +14,6 @@ import AboutTab from "~/components/AboutTab/index.jsx";
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
-    const userInfo = useSelector(state => state.userInfo);
     const user = useSelector(selectUserData);
     const dispatch = useDispatch();
 
@@ -42,15 +41,10 @@ function PersonalPage() {
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
-                        <img src={userInfo.background}
+                        <img src={user.background}
+                             className="object-fit-cover w-100"
+                             style={{maxHeight:260}}
                              alt="image"
-                             style={
-                                 {
-                                     width: '100%',
-                                     maxHeight: 250,
-                                     objectFit: "cover"
-                                 }
-                             }
                         />
                     </div>
                     <div className="card-body p-0 position-relative">
@@ -69,22 +63,33 @@ function PersonalPage() {
                         <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{`${user.firstName} ${user.lastName}`}<span
                             className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{user.email}</span>
                         </h4>
-                        <div
-                            className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
-                            <a href="#"
-                               className="d-none invisible d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Add
-                                Friend</a>
-                            <a href="#"
-                               className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700">
-                                <i className="feather-mail font-md"></i>
-                            </a>
+                    </div>
+
+                    <div className="d-flex">
+                        <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
+                            <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
+                                id="pills-tab" role="tablist">
+                                {tabs.map((tab) => (
+                                    <li key={tab} className="list-inline-item me-5 ">
+                                    <span data-toggle="tab"
+                                          onClick={() => setType(tab)}
+                                          className={type === tab ?
+                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
+                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
+                                        {tab}
+                                    </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="align-items-center justify-content-center me-3">
                             <a href="#" id="dropdownMenu4"
                                className="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i className="ti-more font-md tetx-dark"></i>
                             </a>
                             <div
-                                className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
+                                className="dropdown-menu dropdown-menu-end w250 p-4 rounded-xxl border-0 shadow-lg"
                                 aria-labelledby="dropdownMenu4">
                                 <div className="card-body p-0 d-flex">
                                     <i className="feather-bookmark text-grey-500 me-3 font-lg"></i>
@@ -113,23 +118,6 @@ function PersonalPage() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="card-body d-block w-100 mb-0 p-0 border-top-xs">
-                        <ul className="nav nav-tabs h55 d-flex product-info-tab border-bottom-0 ps-4"
-                            id="pills-tab" role="tablist">
-                            {tabs.map((tab) => (
-                                <li key={tab} className="list-inline-item me-5 ">
-                                    <span data-toggle="tab"
-                                          onClick={() => setType(tab)}
-                                          className={type === tab ?
-                                              "fw-600 font-xss text-dark pt-2 pb-3 ls-1 d-inline-block cursor-pointer border-bottom-dark " :
-                                              "fw-600 font-xsss text-grey-500 pt-3 pb-3 ls-1 d-inline-block cursor-pointer"}>
-                                        {tab}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
                     </div>
                 </div>
             </div>

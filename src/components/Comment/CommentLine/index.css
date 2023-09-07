@@ -1,21 +1,26 @@
 .comment-wrap {
-    max-width: 85%;
+    width: 85%;
+    max-width: 550px;
+    margin-left: 2px;
+    background-color: rgb(237, 244, 245);
 }
 
-.reply-box {
-    width: 90%;
-    margin-top: 0px;
-    height: fit-content;
+
+  .replyshow-btn {
+    position: relative;
+    width: 140px;
+    margin-left: 40px;
+    padding-left: 15px;
   }
-  .reply-input{
-    white-space: pre-wrap;
-    border: none;
-    outline: none;
-    width: 95%;
-    resize: none;
-    overflow: hidden;
-    height: 40px;
-    transition: transform 0.3s ease ;
-    margin-top: 0
+
+  .edit-box {
+    width: 50px;
+    display: flex;
+    margin-left: -10px;
+    justify-content: center;
+    align-items: center;
   }
-  
+  .edit-btn {
+    scale: 0.9;
+    padding: 4px;
+  }

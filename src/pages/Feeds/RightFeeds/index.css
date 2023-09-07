@@ -14,7 +14,6 @@
 
 .friend-requests-list {
     max-height: 350px;
-    overflow-y: auto;
 }
 
 .see-all-btn {

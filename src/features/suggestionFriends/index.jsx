@@ -35,6 +35,7 @@ export const suggestionFriendsSlice = createSlice({
     setSuccess: (state, action) => {
       state.success = action.payload;
     },
+
     deleteSuggestionFriend: (state, action) => {
       const updatedSuggestions = state.suggestionFriendsList.filter(
         (friend) => friend.id !== action.payload.id
@@ -44,7 +45,6 @@ export const suggestionFriendsSlice = createSlice({
         suggestionFriendsList: updatedSuggestions,
       };
     },
-    
   },
 
   extraReducers: (builder) => {
@@ -78,19 +78,19 @@ export const suggestionFriendsSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.error = false;
-      })
+      });
   },
 });
 
 export const {
-  setLoading,
-  setError,
-  setSuccess,
-  deleteSuggestionFriend,
+    setLoading,
+    setError,
+    setSuccess,
+    deleteSuggestionFriend,
 } = suggestionFriendsSlice.actions;
 
-export const selectSuggestionFriendsList = (state) =>
-  state.suggestionFriends.suggestionFriendsList;
+export const selectSuggestionFriendsList = (state) => state.suggestionFriends.suggestionFriendsList;
+export const selectFriendRequestList = (state) => state.suggestionFriends.friendRequests;
 export const selectLoading = (state) => state.suggestionFriends.loading;
 export const selectError = (state) => state.suggestionFriends.error;
 export const selectGetSuggestionSuccess = (state) => state.suggestionFriends.success;
