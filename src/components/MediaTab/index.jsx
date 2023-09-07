@@ -42,15 +42,10 @@ function MediaTab() {
                     </ul>
                 </div>
                 {type === tabs[0] && (
-                    <div className="card-body">
-                        <div className="row ps-2 pe-2">
-                            <MediaList
-                                images={images}
-                                type="tab"
-                            />
-
-                        </div>
-                    </div>
+                    <MediaList
+                        images={images}
+                        type="tab"
+                    />
                 )}
             </div>
         </>

@@ -16,6 +16,7 @@ import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
 import {getMediaPostDetailsSlice} from "~/features/getMediaPostDetails/index.jsx";
 import {bottomChatSlice} from "~/features/bottomChat/index.jsx";
 import onlineStatusSlice from "~/features/onlineStatus/index.jsx";
+import {notificationSlice} from "~/features/notification/index.jsx";
 import {searchUserSlice} from "~/features/searchUser/index.js";
 import {getKeyword} from "~/features/getKeywordSearch/index.js";
 
@@ -38,6 +39,7 @@ const store = configureStore({
         posts: postsSlice.reducer,
         bottomChatStatus: bottomChatSlice.reducer,
         onlineStatus: onlineStatusSlice.reducer,
+        notifications: notificationSlice.reducer,
         users: searchUserSlice.reducer,
         keyword: getKeyword.reducer,
     },
