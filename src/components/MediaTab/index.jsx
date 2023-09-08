@@ -33,14 +33,7 @@ function MediaTab() {
         if (status === "idle") {
             dispatch(getMedia(user.id, 0))
         }
-        console.log("test fetch")
-        console.log(images)
     }, []);
-
-    // useEffect(() => {
-    //     fetchImages()
-    // }, [page])
-
 
     return (
         <>
