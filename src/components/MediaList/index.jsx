@@ -1,23 +1,27 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
 import "./index.css"
+import InfiniteScroll from "react-infinite-scroll-component";
+import {getMedia} from "~/features/getMedia/index.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {getStoredUserData} from "~/service/accountService.js";
+
 
 //type: tab, photos, post
 function MediaList({images, type}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
-    const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(-1)
     const [showModal, setShowModal] = useState(false);
 
+    const pageIndex = useSelector(state => state.media.pageIndex)
+    const status = useSelector(state => state.media.status)
 
-    const handleClick = (imageIndex, galleryIndex) => {
+    const handleClick = (imageIndex) => {
         setSelectedImageIndex(imageIndex);
-        setSelectedGalleryIndex(galleryIndex);
         setShowModal(true);
     }
 
     const handleHide = () => {
         setSelectedImageIndex(-1);
-        setSelectedGalleryIndex(-1);
         setShowModal(false);
     }
 
@@ -27,19 +31,22 @@ function MediaList({images, type}) {
     return (
         <div className="container-fluid row mx-0 px-0">
 
-            {images.map((image, imageIndex) => {
-                return (
-                    image.gallery?.map((url, galleryIndex) => {
+            {/*<InfiniteScroll*/}
+            {/*    next={useDispatch(getMedia(getStoredUserData().id, pageIndex))}*/}
+            {/*    hasMore={status !== "failed"}*/}
+            {/*    loader={<h4>loading...</h4>}*/}
+            {/*    dataLength={images.length}>*/}
+                {images.map((image, imageIndex) => {
                         if (type === "photos" && count >= limit) {
+                            console.log(`This was called ${count}`)
                             return null;
                         }
-
                         count++;
 
                         return (
-                            <div className={(type === 'tab' ? 'col-3' : 'col-lg-4 col-sm-3') + ' mb-3 pe-2'} key={galleryIndex}>
+                            <div className={(type === 'tab' ? 'col-3' : 'col-lg-4 col-sm-3') + ' mb-3 pe-2'} key={image.id}>
                                 <img className="rounded-3 my-0 border border-1 border-gray shadow-md image-hover-effect"
-                                     src={url}
+                                     src={image.imageUrl}
                                      style={{
                                          objectFit: "cover",
                                          width: "100%",
@@ -48,19 +55,19 @@ function MediaList({images, type}) {
                                          cursor: "pointer"
                                      }}
                                      alt="picture"
-                                     onClick={() => handleClick(imageIndex, galleryIndex)}
+                                     onClick={() => handleClick(imageIndex)}
                                 />
                             </div>
                         );
-                    })
-                );
-            })}
+                    }
+                )
+                }
+            {/*</InfiniteScroll>*/}
 
             {showModal &&
                 <MediaDetails
                     images={images}
                     currentImageIndex={selectedImageIndex}
-                    currentGalleryIndex={selectedGalleryIndex}
                     onClose={handleHide}
                 />}
 
