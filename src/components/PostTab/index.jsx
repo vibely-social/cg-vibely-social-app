@@ -16,6 +16,8 @@ function PostTab({toggleAbout, toggleMedia}) {
     const [posts, setPosts] = useState([]);
     const images = useSelector(state => state.media.images)
     const status = useSelector(state => state.media.status)
+    const currentUser = getStoredUserData();
+    const userInfo = useSelector(state => state.userInfo);
 
     const dispatch = useDispatch();
 
@@ -32,9 +34,8 @@ function PostTab({toggleAbout, toggleMedia}) {
 
 
     useEffect(() => {
-        const user = getStoredUserData();
         if (status === "idle") {
-            dispatch(getMedia(user.id))
+            dispatch(getMedia(currentUser.id))
         }
         fetchPosts()
     }, [dispatch]);
@@ -66,7 +67,14 @@ function PostTab({toggleAbout, toggleMedia}) {
                     </div>
                 </div>
                 <div className="col-xl-8 col-xxl-9 col-lg-8 mt-3">
-                    <FeedBody/>
+                    {
+                        currentUser.id === userInfo.id ?
+                            <FeedBody/>
+                            : <></>
+                    }
+                    <div className="w-100 shadow-xss rounded-xxl border-0 ps-2 x pe-4 pb-2 mb-3 card h400">
+                        post list
+                    </div>
                 </div>
             </div>
         </>
