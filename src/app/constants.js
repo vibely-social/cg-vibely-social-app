@@ -1,8 +1,8 @@
 import { getAccessToken } from "~/service/accountService"
 
-export const BROKER_URL = 'ws://localhost:8080/ws'
+export const BROKER_URL = 'ws://vibelysocial.azurewebsites.net/ws'
 
-export const VIBELY_API = "http://localhost:8080/api"
+export const VIBELY_API = "https://vibelysocial.azurewebsites.net/api"
 
 export const PROVINCES_API = "https://provinces.open-api.vn/api/?depth=2"
 

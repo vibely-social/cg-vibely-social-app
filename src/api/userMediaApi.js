@@ -5,13 +5,14 @@ export const getUserMedia = async (id) => {
     let result = null;
     let user = JSON.parse(localStorage.getItem('user'))
     try {
-        result = await axios.get(`${VIBELY_API}/posts/user/${id}`,{
-            headers:{
+        result = await axios.get(`${VIBELY_API}/posts/user/${id}`, {
+            headers: {
                 Authorization: 'Bearer ' + user.accessToken
             }
         });
+        return result;
     } catch (e) {
-        return e.response
+        console.log('Error at get media!')
+        console.log(e)
     }
-    return result;
 };

@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {Dialog} from 'primereact/dialog';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
-import './index.css';
+import './index.scss';
 import MediaPost from '~/components/MediaDetails/MediaPost/index.jsx';
 
-function MediaDetails({images, currentImageIndex, currentGalleryIndex, onClose}) {
+function MediaDetails({images = [], currentImageIndex, currentGalleryIndex, onClose}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(currentImageIndex);
     const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(currentGalleryIndex)
 
@@ -65,34 +65,35 @@ function MediaDetails({images, currentImageIndex, currentGalleryIndex, onClose})
             resizable={false}
             position="left"
             footer={null}
-            style={{width: '80vw', maxWidth: "calc(100vh-280px)"}}
+            // style={{width: '100%', maxWidth: "calc(100vh-280px)"}}
         >
-            <div className="modal-backdrop dialog-content-container">
-                <div>
-                    <button className="prev-button left-0" onClick={handlePrevImage}>
-                        <span className="pi pi-chevron-left"></span>
-                    </button>
+            <div className="modal-backdrop dialog-content-container d-flex container-fluid px-0 color-theme-green">
+                <div className='d-flex col-9 position-relative justify-content-center'>
+                    <div className="image-container justify-content-center align-items-center">
+                        <img className="modal-image w-100"
+                            src={images[selectedImageIndex].gallery[selectedGalleryIndex]}
+                            alt="Picture"
+                        />
+                    </div>
+
+                    <div className='position-absolute w60 right-15 top-10'>
+                        <button className="close-button" onClick={handleClose}>
+                            <span className="pi pi-times"></span>
+                        </button>
+                    </div>
+                    <div className='position-absolute w60 h-100 left-0 dialog-btn' onClick={handlePrevImage}>
+                        <button className="prev-button" >
+                            <span className="pi pi-chevron-left"></span>
+                        </button>
+                    </div>
+                    <div className='position-absolute w60 h-100 right-0 dialog-btn' onClick={handleNextImage}>
+                        <button className="next-button" >
+                            <span className="pi pi-chevron-right"></span>
+                        </button>
+                    </div>
                 </div>
-                <div className="image-container">
-                    <img
-                        className="modal-image"
-                        src={images[selectedImageIndex].gallery[selectedGalleryIndex]}
-                        alt="Picture"
-                    />
-                </div>
-                <div>
-                    <button className="close-button" onClick={handleClose}>
-                        <span className="pi pi-times"></span>
-                    </button>
-                    <button className="next-button" onClick={handleNextImage}>
-                        <span className="pi pi-chevron-right"></span>
-                    </button>
-                </div>
-                <div>
-                    <MediaPost
-                        id={images[selectedImageIndex].id}
-                    />
-                </div>
+
+                <MediaPost id={images[selectedImageIndex].id}/>
 
                 {/*<PostDetail/>*/}
             </div>

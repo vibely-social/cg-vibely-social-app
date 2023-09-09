@@ -35,7 +35,6 @@ function RightFeed() {
             axios
                 .delete(`${VIBELY_API}friends/${selectedItem?.id}`)
                 .then((res) => {
-                    console.log(res.data);
                     setIsReload(!isReload);
                 })
                 .catch((err) => {
@@ -76,57 +75,54 @@ function RightFeed() {
 
     return (
         <Col xl={4} xxl={3} lg={4} className="ps-3">
-            <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3">
-                <Card.Body className="d-flex align-items-center  ">
-                    <h4 className="fw-700 mb-0 font-xsss text-grey-600">
-                        Friend Request
-                    </h4>
-                    <Link
-                        to="/friends"
-                        className="fw-600 ms-auto font-xssss text-primary"
-                    >
-                        See all
-                    </Link>
-                </Card.Body>
+            {
+                (friendRequests?.length > 0) &&
+                <Card className="w-100 shadow-xss rounded-xxl border-0 mb-3">
+                    <Card.Body className="d-flex align-items-center  ">
+                        <h4 className="fw-700 mb-0 font-xsss text-grey-600">
+                            Friend Request
+                        </h4>
+                        <Link to="/friends" className="fw-600 ms-auto font-xssss text-primary">
+                            See all
+                        </Link>
+                    </Card.Body>
 
-                {/* ---------------------render data friend request---------------------- */}
-
-                <div className="friend-requests-list scroll-bar">
-                    {friendRequests.map((item = {}) => (
-                        <div key={item?.id}>
-                            <Card.Body className="d-flex pb-2 border-top-xs bor-0 friend-box pe-0 align-items-center">
-                                <figure className="avatar me-3">
-                                    <img
-                                        src={item?.avatarUrl}
-                                        alt="image"
-                                        className="shadow-sm avatar-45"
-                                    />
-                                </figure>
-                                <h4 className="fw-700 text-grey-800 font-xss">
-                                    {item?.firstName}
-                                    {"  "}
-                                    {item?.lastName}
-                                    <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
+                    <div className="friend-requests-list scroll-bar">
+                        {friendRequests.map((item = {}) => (
+                            <div key={item?.id}>
+                                <Card.Body className="d-flex pb-2 border-top-xs bor-0 friend-box pe-0 align-items-center">
+                                    <figure className="avatar me-3">
+                                        <img
+                                            src={item?.avatarUrl}
+                                            alt="image"
+                                            className="shadow-sm avatar-45"
+                                        />
+                                    </figure>
+                                    <h4 className="fw-700 text-grey-800 font-xss">
+                                        {item?.firstName}
+                                        {"  "}
+                                        {item?.lastName}
+                                        <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
                                         12 mutual friends
                                     </span>
-                                    <Button href="#"
-                                            className="p-2 w90 mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
-                                    >
-                                        Confirm
-                                    </Button>
-                                    <Button href="#"
-                                            className="p-2 w90 bg-grey text-grey-800 border-0 text-center font-xssss fw-600 ls-1 rounded-xl"
-                                            onClick={() => handleDeleteClick(item)}
-                                    >
-                                        Delete
-                                    </Button>
-                                </h4>
-                            </Card.Body>
-                        </div>
-                    ))}
-                </div>
-            </Card>
-
+                                        <Button href="#"
+                                                className="p-2 w90 mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
+                                        >
+                                            Confirm
+                                        </Button>
+                                        <Button href="#"
+                                                className="p-2 w90 bg-grey text-grey-800 border-0 text-center font-xssss fw-600 ls-1 rounded-xl"
+                                                onClick={() => handleDeleteClick(item)}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </h4>
+                                </Card.Body>
+                            </div>
+                        ))}
+                    </div>
+                </Card>
+            }
             {/* --------------------show pop up confirm delete from friend request-------------------- */}
 
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
@@ -209,10 +205,7 @@ function RightFeed() {
             </Card>
             {/* ----------------show pop up confirm delete from friend suggestion----------- */}
 
-            <Modal
-                show={showDeleteModalSuggestion}
-                onHide={() => setShowDeleteModalSuggestion(false)}
-            >
+            <Modal show={showDeleteModalSuggestion} onHide={() => setShowDeleteModalSuggestion(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Deletion</Modal.Title>
                 </Modal.Header>

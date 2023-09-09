@@ -21,7 +21,7 @@ function PostDetail({data={}}) {
     const [isShowComment,setIsShowComment] = useState(false)
 
     const handleClickLike = async () => {
-        const response = await likePost(data.id)
+        await likePost(data.id)
         .then(response => {
            setLike(response.likeCount)
            setIsLiked(response.isLiked)
@@ -43,10 +43,10 @@ function PostDetail({data={}}) {
                         + " "  
                         + data.author.lastName}
                         <span className="flex font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                            <ReactTimeAgo date={data.createdDate} locale="en-US"/>
-                                                  {data.privacy == "PUBLIC" ? <img src={Earth} className="icon-privacy"/>
-                                                    :data.privacy == "FRIENDS" ? <img src={Friends} className="icon-privacy"/>
-                                                                               : <img src={Private} className="icon-privacy"/>}
+                            <ReactTimeAgo date={Date.parse(data.createdDate)}/>
+                                                  {data.privacy === "PUBLIC" ? <img alt={'img'} src={Earth} className="icon-privacy"/>
+                                                    :data.privacy === "FRIENDS" ? <img alt={'img'} src={Friends} className="icon-privacy"/>
+                                                                               : <img alt={'img'} src={Private} className="icon-privacy"/>}
                         </span>
                     </h4>
 

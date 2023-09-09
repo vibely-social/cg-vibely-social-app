@@ -7,14 +7,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import {getMedia} from "~/features/getMedia/index.jsx";
 import FeedBody from "~/components/FeedBody/index.jsx";
 
 
 function PostTab({toggleAbout, toggleMedia}) {
     const [posts, setPosts] = useState([]);
-    const images = useSelector(state => state.media.images)
     const status = useSelector(state => state.media.status)
 
     const dispatch = useDispatch();
@@ -24,7 +23,6 @@ function PostTab({toggleAbout, toggleMedia}) {
         try {
             const response = await axios.get(`${VIBELY_API}/posts`);
             setPosts(response.data)
-            console.log(posts);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -36,7 +34,7 @@ function PostTab({toggleAbout, toggleMedia}) {
         if (status === "idle") {
             dispatch(getMedia(user.id))
         }
-        fetchPosts()
+        // fetchPosts()
     }, [dispatch]);
 
 
@@ -60,7 +58,7 @@ function PostTab({toggleAbout, toggleMedia}) {
                                     See more
                                 </span>
                             </h4>
-                            <MediaList images={images} type="photos"/>
+                            <MediaList type="photos"/>
                         </div>
 
                     </div>

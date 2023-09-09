@@ -11,6 +11,8 @@ import {selectUserData} from "~/features/userAccount/index.js";
 import {getFriendsStatus} from "~/features/onlineStatus/index.jsx";
 import {selectFriendList} from "~/features/getFriends/index.js";
 import {addNotify} from "~/features/notification/index.jsx";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 function App() {
     const dispatch = useDispatch()
@@ -19,6 +21,7 @@ function App() {
     const friends = useSelector(selectFriendList)
     const toastBottomRight = useRef(null);
 
+    TimeAgo.addLocale(en)
 
     useEffect(() => {
         if (!Notification) {
@@ -68,7 +71,6 @@ function App() {
             socketClient.subscribe('/users/queue/notify', (message) => {
                 //Feature is in development
                 const notify = message.body;
-                console.log(JSON.parse(notify))
                 dispatch(addNotify(JSON.parse(notify)))
                 // showMessage(messageContent,toastBottomRight, 'success')
             })

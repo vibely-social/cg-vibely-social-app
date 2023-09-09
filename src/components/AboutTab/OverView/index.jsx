@@ -1,4 +1,4 @@
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -29,7 +29,6 @@ function OverView() {
     useEffect(() => {
         if (!success) {
             dispatch(getCities());
-            console.log('Loading city list');
         } else {
             setCities(cityList);
         }

@@ -37,7 +37,6 @@ function Login() {
         if (success) {
             if (user) {
                 localStorage.setItem("user", JSON.stringify(user));
-                console.log("Login success!");
                 navigate("/");
             }
         }

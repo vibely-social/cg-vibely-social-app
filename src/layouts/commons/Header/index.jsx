@@ -37,9 +37,7 @@ function Header() {
 
     useEffect(() => {
         let listNotify = [...notifications]
-        console.log(notifications)
         listNotify.reverse()
-        console.log(listNotify)
         setDisplayNotifications(listNotify)
     }, [notifications])
 

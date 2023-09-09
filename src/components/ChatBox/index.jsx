@@ -26,7 +26,6 @@ function ChatBox() {
     const messages = useSelector(selectNewsMessages)
     const typingStatus = useSelector(selectTypingStatus)
     const oldMessagesPage = useSelector(selectAllOldMessages)
-
     const loadOldMessagesSuccess = useSelector(selectLoadOldMessagesIsSuccess)
     const totalPage = useSelector(selectTotalPage)
     const [newMessage, setNewMessage] = useState('');
@@ -142,9 +141,7 @@ function ChatBox() {
         const clientHeight = chatBox.current.clientHeight;
         if (scrollTop === scrollableHeight*0.8) {
             if (scrollableHeight > clientHeight) {
-                console.log('page: ' + page)
                 if (page < totalPage - 1) {  //1 page is on redis db
-                    console.log('set page')
                     setPage(prevState => prevState + 1)
                 }
             }

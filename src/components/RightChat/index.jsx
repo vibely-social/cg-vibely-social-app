@@ -67,7 +67,7 @@ function RightChat() {
     }, [oldMessages, currentConversation])
 
     useEffect(() => {
-        if (user.accessToken) {
+        if (user.id) {
             dispatch(getFriends(user.id))
         }
     }, [user.accessToken])
@@ -134,7 +134,6 @@ function RightChat() {
 
     useEffect(()=>{
         if (chatFocus){
-            console.log('focus')
             dispatch(resetUnreadMessage(currentConversation.email))
         }
     },[chatFocus])

@@ -1,4 +1,4 @@
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";

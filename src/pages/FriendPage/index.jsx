@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserInfo} from "~/features/userInfo/userInfoSlice.js";

@@ -1,12 +1,14 @@
 import {useState} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
 import "./index.css"
+import {useSelector} from "react-redux";
 
 //type: tab, photos, post
-function MediaList({images, type}) {
+function MediaList({type}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
     const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(-1)
     const [showModal, setShowModal] = useState(false);
+    const images = useSelector(state => state.media.images)
 
     const handleClick = (imageIndex, galleryIndex) => {
         setSelectedImageIndex(imageIndex);

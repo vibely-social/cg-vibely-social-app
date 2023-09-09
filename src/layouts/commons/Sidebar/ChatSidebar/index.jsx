@@ -49,7 +49,9 @@ function ChatSidebar() {
 
     useEffect(() => {
         if (!success) {
-            dispatch(getFriends(user?.id))
+            if (user?.id){
+                dispatch(getFriends(user.id))
+            }
         }
         return () => {
             if (success) {
@@ -94,7 +96,7 @@ function ChatSidebar() {
                                 <i className="font-xxl feather-more-horizontal text-grey-500"></i>
                             </div>
 
-                            <ListGroup as="ul" className="mb-1 top-content ps-1 scroll-bar">
+                            <ListGroup as="ul" className="mb-1 top-content ps-1 scroll-bar overflow-x-hidden">
                                 <div className='d-flex position-relative justify-content-center '>
                                     {loading && <ProgressSpinner/>}
                                 </div>
@@ -117,9 +119,9 @@ function ChatSidebar() {
                                                           dispatch(switchConversationTo(friend))
                                                       }}>
 
-                                                    <img className="btn-sidebar me-3 border avatar-45 smooth-transition"
+                                                    <img className="btn-sidebar border avatar-45 smooth-transition"
                                                          src={friend.avatarUrl} alt={'avatar'}/>
-                                                    <span className="">{name}</span>
+                                                    <span className="ms-3">{name}</span>
                                                 </Link>
                                             </ListGroup.Item>
                                         )

@@ -1,10 +1,7 @@
 .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    display: flex;
 }
 
 .modal-image {
@@ -18,8 +15,6 @@
 
 .prev-button,
 .next-button {
-    position: absolute;
-    top: 50%;
     background-color: transparent;
     border: transparent;
     color: #0a573b;
@@ -68,4 +63,23 @@
     display: grid;
     grid-template-columns: 1fr 7fr 1fr 3fr;
     grid-gap: 10px;
+}
+
+.dialog-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.8s ease;
+    &:hover{
+        background-color: rgba(255, 255, 255, 0.15);
+        .next-button {
+            transition: all 0.8s ease-out;
+            color: #6bf5be;
+        }
+        .prev-button{
+            transition: all 0.8s ease-out;
+            color: #6bf5be;
+        }
+    }
 }
