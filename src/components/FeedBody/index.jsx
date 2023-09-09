@@ -10,7 +10,7 @@ import {fetchPosts, resetPost} from "~/features/getPosts/index.js";
 import "./index.scss"
 
 function FeedBody () {
-    TimeAgo.addDefaultLocale(en)
+
     useAuthorizeUser()
     const dispatch = useDispatch();
     const {isLoading, isSuccess, newPosts, isFailed , createPost } = useSelector((state) => state.posts);
