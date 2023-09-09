@@ -1,12 +1,15 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getUserMedia} from "~/api/userMediaApi.js";
 
-export const getMedia = createAsyncThunk("media", async (id) => {
-    const response = await getUserMedia(id);
+export const getMedia = createAsyncThunk("media", async (id, pageIndex) => {
+    const response = await getUserMedia(id, pageIndex);
     return response.data;
 });
 
 const initialState = {
+    currentUserId: -1,
+    pageIndex: 0,
+    hasMoreData: true,
     images: [],
     status: 'idle',
     error: null
@@ -27,7 +30,12 @@ export const getMediaSlice = createSlice({
             })
             .addCase(getMedia.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.images = action.payload;
+                if (action.payload.length === 0) {
+                    state.hasMoreData = false;
+                }
+                state.images = [...state.images, ...action.payload];
+                state.pageIndex += 1;
+
             })
             .addCase(getMedia.rejected, (state, action) => {
                 state.status = "failed";

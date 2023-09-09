@@ -99,7 +99,7 @@ function Contact() {
                         <form className="info-form" onSubmit={formikPhone.handleSubmit}>
                             <div className="row">
                                 <div className="col-lg-12 h75">
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
 
                                         <input type="text"
                                                className="form-control"
@@ -136,8 +136,8 @@ function Contact() {
 
                         : userInfo.phoneNumber != null ?
                             <div
-                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                className="fw-600 mb-1 row">
+                                <div className="mt-1 text-dark mb-1 height-24">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="feather-phone me-2"></i>
                                         {userInfo.phoneNumber}
@@ -158,14 +158,14 @@ function Contact() {
                                        className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
                                     </i>
                                     <h4 onClick={() => setPhoneStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                         Add Mobile Phone number
                                     </h4>
                                 </div>
                                 :
                                 <div
                                     className="fw-600 mb-1 row">
-                                    <div className="mt-1 text-dark mb-1">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center text-grey-500 float-left">
                                             <i className="feather-phone me-2"></i>
                                             No Phone number to show
@@ -193,7 +193,7 @@ function Contact() {
                                             formikCity.handleBlur;
                                             formikCity.values.district = ""
                                         }}
-                                        className="form-select-md form-gender cursor-pointer">
+                                        className="form-select-md form-gender cursor-pointer mt-2">
                                         <option className="font-xsss"
                                                 value="">Select City
                                         </option>
@@ -218,7 +218,7 @@ function Contact() {
                                         value={formikCity.values.district}
                                         onChange={formikCity.handleChange}
                                         onBlur={formikCity.handleBlur}
-                                        className="form-select-md form-gender cursor-pointer">
+                                        className="form-select-md form-gender cursor-pointer mt-2">
                                         <option className="font-xsss"
                                                 value="">Select District
                                         </option>
@@ -262,20 +262,21 @@ function Contact() {
                                     <h4 className="fw-500">City</h4>
                                 </div>
                                 <div
-                                    className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                    <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-home me-2"></i>
                                             {userInfo.city + ", " + userInfo.district}</h4>
-                                        {userInfo.id === currentUser.id ?
-                                            <i onClick={() => setCityStatus(!cityStatus)}
-                                               className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
-                                            </i>
-                                            : <></>
-                                        }
+                                            {userInfo.id === currentUser.id ?
+                                                <i onClick={() => setCityStatus(!cityStatus)}
+                                                   className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                                </i>
+                                                : <></>
+                                            }
 
                                     </div>
                                 </div>
+
                             </div>
                             : userInfo.id === currentUser.id ?
 
@@ -288,7 +289,7 @@ function Contact() {
                                            className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
                                         </i>
                                         <h4 onClick={() => setCityStatus(true)}
-                                            className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                            className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                             Add current City
                                         </h4>
                                     </div>
@@ -300,7 +301,7 @@ function Contact() {
                                     </div>
                                     <div
                                         className="fw-600 mb-1 row">
-                                        <div className="mt-1 text-dark mb-1">
+                                        <div className="mt-1 text-dark mb-1 height-24">
                                             <h4 className="d-flex align-items-center text-grey-500 float-left">
                                                 <i className="feather-home me-2"></i>
                                                 No City to show
@@ -317,8 +318,8 @@ function Contact() {
                     <h4 className="fw-500">Email</h4>
                 </div>
                 <div
-                    className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                    <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                    className="fw-600 mb-1 row">
+                    <div className="mt-1 text-dark mb-1 height-24">
                         <h4 className="d-flex align-items-center float-left">
                             <i className="feather-mail me-2"></i>
                             {userInfo.email}</h4>

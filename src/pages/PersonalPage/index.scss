@@ -42,14 +42,54 @@
   text-align: center;
   padding-top: 65px;
   border-radius: 50%;
-  i{
+
+  i {
     display: none;
   }
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.36);
     cursor: pointer;
-    i{
+
+    i {
       display: block;
+    }
+  }
+}
+
+.background {
+  img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 260px;
+  }
+
+  .change-icon {
+    display: none;
+    border-radius: 20%;
+  }
+
+  &:hover {
+    .change-icon {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all ease 1s;
+      box-shadow: #0ec4a6;
+
+      &:hover {
+        background-color: white;
+        transition: all ease 1s;
+
+        i {
+          color: #0ec4a6 !important;
+
+          &:active {
+            color: #fc8181 !important;
+          }
+        }
+      }
     }
   }
 }

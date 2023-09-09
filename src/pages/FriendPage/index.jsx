@@ -10,16 +10,23 @@ import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
 import {selectFriendList} from "~/features/getFriends/index.js";
+import {Row} from "react-bootstrap";
+import {createRequestFriend} from "~/features/suggestionFriends/index.jsx";
+import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
+import {setBtChatActive} from "~/features/bottomChat/index.jsx";
 
 function FriendPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
+    const [friendCheck, setFriendCheck] = useState(false)
+    const [addFrDisable, setAddFrDisable] = useState(false)
     const friends = useSelector(selectFriendList)
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const currentUser = getStoredUserData();
     const params = useParams();
+    const currentProfileId = +params.id
 
     const scrollTop = () => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
@@ -39,20 +46,19 @@ function FriendPage() {
         scrollTop();
     }
 
-    const checkFriend = () => {
-        let check = false;
-        friends.map((friend) => {
-            if (friend.id == params.id) {
-                return check = true;
+    
+    useEffect(()=>{
+        friends.forEach(friend => {
+            if (friend.id === currentProfileId){
+                setFriendCheck(true)
             }
         })
-        return check;
-    }
+    },[friends, currentProfileId])
 
     useEffect(() => {
         const getUserInfo = async () => {
-            if (currentUser.id != params.id) {
-                const result = await userInfoApi(params.id);
+            if (currentUser.id !== currentProfileId) {
+                const result = await userInfoApi(currentProfileId);
                 if (result !== undefined) {
                     dispatch(setUserInfo(result));
                 } else {
@@ -63,10 +69,26 @@ function FriendPage() {
             }
         }
         getUserInfo()
-    }, [params.id])
+    }, [currentProfileId])
+
+    const handleAddingFriend = (event) => {
+        setAddFrDisable(true)
+        if (!addFrDisable) {
+            dispatch(createRequestFriend(currentProfileId));
+        }
+    };
+
+    const handleChat = () => {
+        friends.forEach(friend => {
+            if (friend.id === currentProfileId){
+                dispatch(switchConversationTo(friend))
+                dispatch(setBtChatActive())
+            }
+        })
+    }
 
     return (<>
-        <div className="row">
+        <Row style={{marginTop:"12px"}}>
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="card-body h260 p-0 rounded-xxl overflow-hidden m-3">
@@ -95,22 +117,22 @@ function FriendPage() {
                         <div
                             className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
                             {
-                                checkFriend() ?
+                               friendCheck ?
                                     <>
                                         <span
                                             className="d-flex align-items-center cursor-pointer ms-2 bg-lightblue p-3 rounded-3 text-dark font-xsssss text-uppercase fw-700 ls-3 ">
                                             <i className="feather-user-check font-xss tetx-dark me-1"></i>
                                             Friends
                                         </span>
-                                        <span
+                                        <span onClick={handleChat}
                                             className="d-flex align-items-center cursor-pointer ms-2 bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
                                             <i className="feather-message-square font-xss tetx-dark me-1"></i>
                                             Messenger
                                         </span>
                                     </>
                                     :
-                                    <span
-                                        className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 ">
+                                    <span onClick={handleAddingFriend}
+                                        className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
                                         <i className="feather-plus font-xss tetx-dark me-1"></i>
                                         Add Friend
                                     </span>
@@ -186,11 +208,11 @@ function FriendPage() {
                 {
                     type === 'Posts' ? <PostTab toggleAbout={toggleToAbout} toggleMedia={toggleToMedia}/>
                         : type === 'About' ? <AboutTab/>
-                            : type === 'Friends' ? <FriendTab tongglePost={toggleToPost} friendID={params.id}/>
+                            : type === 'Friends' ? <FriendTab tongglePost={toggleToPost} friendID={currentProfileId}/>
                                 : <MediaTab/>
                 }
             </div>
-        </div>
+        </Row>
     </>);
 }
 

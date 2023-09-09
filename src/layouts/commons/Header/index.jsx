@@ -158,7 +158,7 @@ function Header() {
                 ><Link
                     to={item.path} key={item.path} className=" p-2 text-center ms-0 menu-icon center-menu-icon">
                     <motion.i
-                        whileHover={{scale: [null, 1.5, 1.5]}}
+                        whileHover={{scale: [null, 1.2, 1.3]}}
                         transition={{duration: 0.3}}
                         className={
                             window.location.pathname === item.path
@@ -178,9 +178,9 @@ function Header() {
                                className='dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg'>
                     <h5 className="fw-700 font-xs mb-4 text-vibe">Notifications</h5>
                     {(displayNotifications.length > 0) ? displayNotifications?.map((notify, index) => {
-                        if (index < 3) {
+                        if (index < 5) {
                             return (
-                                <Link to={`/friends/${notify.fromUser}`} key={index}>
+                                <Link to={`/profile/${notify.fromUser}`} key={index}>
                                     <div className='bg-transparent-card w-100 border-0 mt-2 p-2 hover-card rounded'>
                                         <div className="d-flex">
                                             <img src={notify.avatarUrl} alt="user" className="avatar-45 left-0"/>
@@ -203,7 +203,7 @@ function Header() {
 
             {!isChatPage && <motion.a
                 onClick={() => dispatch(toggleChatButton())}
-                whileHover={{scale: [null, 1.4, 1.3]}}
+                whileHover={{scale: [null, 1.2, 1.3]}}
                 transition={{duration: 0.3}} onClickCapture={() => {
                 setIsOnMess(prevState => !prevState)
             }}
@@ -215,10 +215,10 @@ function Header() {
             </motion.a>}
 
             <Link to="/profile" className="p-0 ms-3 menu-icon">
-                <motion.img whileHover={{scale: [null, 1.5, 1.4]}}
+                <motion.img whileHover={{scale: [null, 1.2, 1.3]}}
                             transition={{duration: 0.3}}
                             src={USER?.avatarUrl ? USER?.avatarUrl : Avatar}
-                            className="w45 rounded-xl mt--1"/>
+                            className="avatar-45"/>
             </Link>
 
         </div>

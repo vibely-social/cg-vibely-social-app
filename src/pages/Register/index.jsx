@@ -477,7 +477,7 @@ function Register() {
 
                                 <div className="form-group d-flex align-items-center mb-3 mt-3">
                                     <input type="checkbox"
-                                           className={`form-check-input mt-0 me-2 h23 w23 ${isInAcceptTermAndConditions
+                                           className={`form-check-input mt-0 me-2 h17 w17 ${isInAcceptTermAndConditions
                                                ? "border-danger" : ""}`}
                                            id="acceptTermAndConditions"
                                            value="acceptTermAndConditions"

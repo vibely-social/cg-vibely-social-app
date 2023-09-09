@@ -3,10 +3,14 @@ import PostDetail from "~/components/PostDetail/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {fetchPosts, resetPost} from "~/features/getPosts/index.js";
+import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 import "./index.scss"
 
 function FeedBody () {
+
+    useAuthorizeUser()
+
     const dispatch = useDispatch();
     const {isLoading, isSuccess, newPosts, isFailed , createPost } = useSelector((state) => state.posts);
     const [loaded,setLoaded] = useState(false)

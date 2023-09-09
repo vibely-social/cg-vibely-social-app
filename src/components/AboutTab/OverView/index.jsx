@@ -207,7 +207,7 @@ function OverView() {
                             <div>
                                 <div
                                     className="fw-600 mb-1 row">
-                                    <div className="mt-1 text-dark mb-1">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-briefcase me-2"></i>
                                             Work at {userInfo.company} as {userInfo.position}
@@ -230,7 +230,7 @@ function OverView() {
                                            className="feather-plus-circle text-dark btn-round-sm font-lg cursor-pointer hover-edit">
                                         </i>
                                         <h4 onClick={() => setWorkStatus(true)}
-                                            className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                            className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                             Add current Workplace
                                         </h4>
                                     </div>
@@ -238,7 +238,7 @@ function OverView() {
                                 :
                                 <div
                                     className="fw-600 mb-1 row">
-                                    <div className="mt-1 text-dark mb-1">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center text-grey-500 float-left">
                                             <i className="feather-briefcase me-2"></i>
                                             No Workplace to show
@@ -292,7 +292,7 @@ function OverView() {
                         : userInfo.school != null ?
                             <div
                                 className="fw-600 mb-1 row">
-                                <div className="mt-1 text-dark mb-1">
+                                <div className="mt-1 text-dark mb-1 height-24">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="ti-ruler-pencil me-2"></i>
                                         Study at {userInfo.school}</h4>
@@ -312,14 +312,14 @@ function OverView() {
                                        className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
                                     </i>
                                     <h4 onClick={() => setSchoolStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                         Add School
                                     </h4>
                                 </div>
                                 :
                                 <div
                                     className="fw-600 mb-1 row">
-                                    <div className="mt-1 text-dark mb-1">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center text-grey-500 float-left">
                                             <i className="ti-ruler-pencil me-2"></i>
                                             No School to show
@@ -406,7 +406,7 @@ function OverView() {
                         : userInfo.city != null ?
                             <div
                                 className="fw-600 mb-1 row">
-                                <div className="mt-1 text-dark mb-1">
+                                <div className="mt-1 text-dark mb-1 height-24">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="feather-home me-2"></i>
                                         Lives in {userInfo.city + ", " + userInfo.district}
@@ -426,16 +426,16 @@ function OverView() {
                                        className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
                                     </i>
                                     <h4 onClick={() => setCityStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                         Add current City
                                     </h4>
                                 </div>
                                 :
                                 <div
                                     className="fw-600 mb-1 row">
-                                    <div className="mt-1 text-dark mb-1">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center text-grey-500 float-left">
-                                            <i className="ti-ruler-pencil me-2"></i>
+                                            <i className="feather-home me-2"></i>
                                             No City to show
                                         </h4>
                                     </div>
@@ -485,7 +485,8 @@ function OverView() {
                                 </div>
                             </div>
                         </form>
-                        : <div
+                        : userInfo.birthday != null ?
+                        <div
                             className="fw-600 row">
                             <div className="mt-2 align-items-center text-dark lh-26 col-lg-12">
                                 {userInfo.birthday && (
@@ -503,6 +504,26 @@ function OverView() {
 
                             </div>
                         </div>
+                            : userInfo.id === currentUser.id ?
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setBirthdayStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setBirthdayStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
+                                        Add Birthday
+                                    </h4>
+                                </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1 height-24">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="ti-thought me-2"></i>
+                                            No Birthday to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
         </>

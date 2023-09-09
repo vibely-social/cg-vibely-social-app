@@ -49,7 +49,11 @@ function MainNavigate({sidebarHover, chatNav = false}) {
                                                 padding: '0',
                                                 filter: "hue-rotate(338deg)"
                                             }} key={index}>
-                                <Link to={item.path} className="nav-content-bttn open-font smooth-transition">
+                                <Link to={item.path}
+                                      className="nav-content-bttn open-font smooth-transition"
+                                      onClick={() => {
+                                          window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+                                      }}>
                                     {window.location.pathname === item.path
                                         ? <motion.img
                                             className={" btn-sidebar me-3 "}

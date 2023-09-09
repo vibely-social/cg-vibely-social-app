@@ -240,7 +240,7 @@ function RightChat() {
                                     </span>
                                 </div>
                                 <div className="ms-2 cursor-pointer">
-                                    <Link to={`/friends/${currentConversation.id}`}>
+                                    <Link to={`/profile/${currentConversation.id}`}>
                                         <h5 className="fw-700 text-primary font-xss mt-1 mb-1">
                                             {currentConversation.firstName}
                                         </h5>

@@ -174,7 +174,7 @@ function ChatBox() {
                         </div>
                     </div>
                     <div>
-                        <Link to={`/friends/${currentConversation.id}`}
+                        <Link to={`/profile/${currentConversation.id}`}
                               className='px-2 py-1 rounded cursor-pointer text-dark'>
                             <i className='feather-info font-lg text-light'></i>
                         </Link>

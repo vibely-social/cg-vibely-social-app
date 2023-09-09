@@ -77,7 +77,7 @@ function WorkAndEducation() {
                                     <div>
                                         <h4 className="fw-500">Company</h4>
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
                                         <input type="text"
                                                className="form-control"
                                                id="company"
@@ -95,7 +95,7 @@ function WorkAndEducation() {
                                     <div>
                                         <h4 className="fw-500">Position</h4>
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
                                         <input type="text"
                                                className="form-control"
                                                id="position"
@@ -122,8 +122,8 @@ function WorkAndEducation() {
                                         setWorkStatus(false)
                                         formikWork.resetForm()
                                     }}
-                                            className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">
-                                        Canel
+                                            className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
@@ -134,8 +134,8 @@ function WorkAndEducation() {
                                     <h4 className="fw-500">Work</h4>
                                 </div>
                                 <div
-                                    className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                    <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1 height-24">
                                         <h4 className="d-flex align-items-center float-left">
                                             <i className="feather-briefcase me-2"></i>
                                             {userInfo.position + " in " + userInfo.company}</h4>
@@ -161,7 +161,7 @@ function WorkAndEducation() {
                                            className="feather-plus-circle text-dark btn-round-sm font-lg cursor-pointer hover-edit">
                                         </i>
                                         <h4 onClick={() => setWorkStatus(true)}
-                                            className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                            className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                             Add current Workplace
                                         </h4>
                                     </div>
@@ -194,7 +194,7 @@ function WorkAndEducation() {
                         <form className="info-form" onSubmit={formikSchool.handleSubmit}>
                             <div className="row">
                                 <div className="col-lg-12 h75">
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
 
                                         <input type="text"
                                                className="form-control"
@@ -222,16 +222,16 @@ function WorkAndEducation() {
                                         setSchoolStatus(false)
                                         formikSchool.resetForm()
                                     }}
-                                            className="text-center mb-4 p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button me-2">
-                                        Canel
+                                            className="text-center mb-4 p-1 w75 border-0 float-right rounded-2 d-inline-block hover-button me-2">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
                         </form>
                         : userInfo.school != null ?
                             <div
-                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                className="fw-600 mb-1 row">
+                                <div className="mt-1 text-dark mb-1 height-24">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="ti-ruler-pencil me-2"></i>
                                         {userInfo.school}</h4>
@@ -251,7 +251,7 @@ function WorkAndEducation() {
                                        className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
                                     </i>
                                     <h4 onClick={() => setSchoolStatus(true)}
-                                        className="fw-700 text-grey-500 font-xsss mt-2 hover-underline cursor-pointer">
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
                                         Add School
                                     </h4>
                                 </div>

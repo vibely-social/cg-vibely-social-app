@@ -1,13 +1,14 @@
 import {Button, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {useRef, useState} from "react";
+import {memo, useRef, useState} from "react";
 import {updateAvatarApi} from "~/api/updateAvatarApi.js";
 import {selectUserInfo, setUserInfo} from "~/features/userInfo/userInfoSlice.js";
 import {selectUserData, setUser} from "~/features/userAccount/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
+import {updateBackgroundApi} from "~/api/updateBackgroundApi.js";
 
 // eslint-disable-next-line react/prop-types
-function UpdateAvatar({show = false, handleClose, type = 'avatar'}) {
+function UpdateVisual({show = false, handleClose, type = 'avatar'}) {
     const dispatch = useDispatch();
     const images = useSelector(state => state.media.images)
     const [selected, setSelected] = useState(false);
@@ -15,8 +16,8 @@ function UpdateAvatar({show = false, handleClose, type = 'avatar'}) {
     const [selectedFile, setSelectedFile] = useState(null);
     const userInfo = useSelector(selectUserInfo)
     const user = useSelector(selectUserData)
-
     const fileInput = useRef();
+
     const handleClick = (url) => {
         setSelected(true)
         setSelectedFile(null)
@@ -42,21 +43,24 @@ function UpdateAvatar({show = false, handleClose, type = 'avatar'}) {
             file: fileInput.current.files[0],
             fileName: selectedImage ? getFileName(selectedImage) : null
         }
-        updateAvatarApi(body).then(data => {
+        const update = type === "avatar" ? updateAvatarApi(body) : updateBackgroundApi(body);
+        update.then(data => {
+            const field = type === "avatar" ? 'avatarUrl' : 'background';
+
             if (data) {
                 const newInfo = {
                     ...userInfo,
-                    avatarUrl: data
+                    [field]: data
                 }
                 dispatch(setUserInfo(newInfo))
                 dispatch(setUser({
                     ...user,
-                    avatarUrl: data
+                    [field]: data
                 }))
                 const storedUser = getStoredUserData()
                 localStorage.setItem('user', JSON.stringify({
                     ...storedUser,
-                    avatarUrl: data
+                    [field]: data
                 }))
             }
         })
@@ -76,26 +80,25 @@ function UpdateAvatar({show = false, handleClose, type = 'avatar'}) {
                className={'scroll-bar overflow-y-auto'}
                style={{backgroundColor: "#ffffff33"}}>
             <Modal.Header closeButton>
-                <Modal.Title className='font-lg fw-400'>Update avatar</Modal.Title>
+                <Modal.Title className='font-lg fw-400'>{`Update ${type}`}</Modal.Title>
             </Modal.Header>
             <Modal.Body style={{height: '70vh'}}>
                 <input type="file" accept="image" hidden ref={fileInput} onChange={handleFileChange}/>
                 <button className='btn btn-outline-success w-100'
-                        onClick={() => fileInput.current.click()}
-                ><i className='feather-file-plus'></i>Upload
+                        onClick={() => fileInput.current.click()}>
+                    <i className='feather-file-plus'></i>
+                    Upload
                 </button>
                 <div className='d-flex flex-column border rounded mt-2'
                      style={{height: 'calc(100% - 0.5rem - 40px)'}}>
                     <div hidden={selected} className='text-center font-sm'>Suggest images</div>
                     <div hidden={selected} className='container-fluid row mx-0 px-0 scroll-bar'>
-                        {images.map((image) => {
+                        {images.map((image,index) => {
                             return (
-                                image.gallery?.map((url, galleryIndex) => {
-                                    return (
-                                        <div className={'col-4 col-lg-3 mb-3 pe-2'} key={galleryIndex}>
+                                        <div className={'col-4 col-lg-3 mb-3 pe-2'} key={index}>
                                             <img
                                                 className="rounded-3 my-0 border border-1 border-gray shadow-md image-hover-effect"
-                                                src={url}
+                                                src={image.imageUrl}
                                                 style={{
                                                     objectFit: "cover",
                                                     width: "100%",
@@ -104,13 +107,12 @@ function UpdateAvatar({show = false, handleClose, type = 'avatar'}) {
                                                     cursor: "pointer"
                                                 }}
                                                 alt="picture"
-                                                onClick={() => handleClick(url)}
+                                                onClick={() => handleClick(image.imageUrl)}
                                             />
                                         </div>
                                     );
                                 })
-                            );
-                        })}
+                        }
                     </div>
                     <div hidden={!selected}
                          style={{marginLeft: 'calc((100% - 400px) / 2)'}}
@@ -132,4 +134,4 @@ function UpdateAvatar({show = false, handleClose, type = 'avatar'}) {
     )
 }
 
-export default UpdateAvatar;
+export default memo(UpdateVisual);

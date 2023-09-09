@@ -4,9 +4,6 @@ import "./index.css"
 import {getMediaPostDetails} from "~/features/getMediaPostDetails/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import ReactTimeAgo from "react-time-ago";
-import TimeAgo from 'javascript-time-ago';
-
-import en from 'javascript-time-ago/locale/en-UG.json';
 
 const MediaPost = ({id}) => {
     const dispatch = useDispatch();
