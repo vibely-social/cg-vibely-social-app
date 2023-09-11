@@ -42,36 +42,39 @@ function MediaDetails({images, currentImageIndex, onClose}) {
             style={{width: '80vw', maxWidth: "calc(100vh-280px)"}}
         >
             <div className="modal-backdrop">
-                <div className="dialog-content-container">
-                    <div className="dialog-btn">
-                        <button className="btn btn-md h-100 prev-button"
-                                onClick={handlePrevImage}>
-                            <span className="pi pi-chevron-left"></span>
-                        </button>
+                <div className="dialog-content-container h-100">
+                    <div>
+                        <div className="dialog-btn dialog-btn-left">
+                            <button className="btn btn-md h-100 prev-button"
+                                    onClick={handlePrevImage}>
+                                <span className="pi pi-chevron-left"></span>
+                            </button>
+                        </div>
+                        <div className="image-container">
+                            <img
+                                className="modal-image"
+                                src={images[selectedImageIndex].imageUrl}
+                                alt="Picture"
+                            />
+                        </div>
+                        <div className="dialog-btn dialog-btn-right">
+                            <button className="btn-md close-button"
+                                    onClick={handleClose}>
+                                <span className="pi pi-times"></span>
+                            </button>
+                            <button className="btn btn-md h-100 next-button"
+                                    onClick={handleNextImage}>
+                                <span className="pi pi-chevron-right"></span>
+                            </button>
+                        </div>
                     </div>
-                    <div className="image-container">
-                        <img
-                            className="modal-image"
-                            src={images[selectedImageIndex].imageUrl}
-                            alt="Picture"
+                    <div className="media-post-container">
+                        <MediaPost
+                            id={images[selectedImageIndex].postId}
                         />
                     </div>
-                    <div className="dialog-btn">
-                        <button className="btn-md close-button"
-                                onClick={handleClose}>
-                            <span className="pi pi-times"></span>
-                        </button>
-                        <button className="btn btn-md h-100 next-button"
-                                onClick={handleNextImage}>
-                            <span className="pi pi-chevron-right"></span>
-                        </button>
-                    </div>
                 </div>
-                <div className="media-post-container">
-                    <MediaPost
-                        id={images[selectedImageIndex].postId}
-                    />
-                </div>
+
             </div>
         </Dialog>
 

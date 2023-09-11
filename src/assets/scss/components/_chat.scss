@@ -466,14 +466,10 @@
 
 
 .right-comment {
-  position: fixed;
-  top: 0;
   width: 320px;
-  height: 100vh;
+  height: 100%;
   background-color: #fff;
   z-index: 1000;
-  right: 0;
-  padding: 0 0 0 8px;
 }
 
 .comment-body {

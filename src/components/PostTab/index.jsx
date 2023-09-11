@@ -67,14 +67,7 @@ function PostTab({toggleAbout, toggleMedia}) {
                     </div>
                 </div>
                 <div className="col-xl-8 col-xxl-9 col-lg-8 mt-3">
-                    {
-                        currentUser.id === userInfo.id ?
-                            <FeedBody/>
-                            : <></>
-                    }
-                    <div className="w-100 shadow-xss rounded-xxl border-0 ps-2 x pe-4 pb-2 mb-3 card h400">
-                        post list
-                    </div>
+                    <FeedBody/>
                 </div>
             </div>
         </>

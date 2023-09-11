@@ -23,10 +23,14 @@ function MediaTab() {
         if (loading) {
             return;
         }
+        console.log(`Before dispatch loading: ${loading}`)
+        console.log(`Before dispatch page: ${page}`)
         setLoading(true);
+        console.log(`After dispatch loading: ${loading}`)
         dispatch(getMedia(user.id, page)).then(() => {
             setLoading(false);
         });
+        console.log(`After dispatch page: ${page}`)
     }
 
     useEffect(() => {
