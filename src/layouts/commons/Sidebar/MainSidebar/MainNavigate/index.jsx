@@ -50,21 +50,24 @@ function MainNavigate({sidebarHover, chatNav = false}) {
                                                 filter: "hue-rotate(338deg)"
                                             }} key={index}>
                                 <Link to={item.path}
+                                      className="nav-content-bttn open-font smooth-transition"
                                       onClick={() => {
                                           window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-                                      }}
-                                      className="nav-content-bttn open-font">
+                                      }}>
                                     {window.location.pathname === item.path
                                         ? <motion.img
                                             className={" btn-sidebar me-3 "}
                                             whileHover={{scale: 1.2}}
-                                            style={{width: 50}} src={item.icon}/>
+                                            style={{
+                                                maxHeight: 50,
+                                                minWidth: 50,
+                                                minHeight: 50,
+                                                width: 50,
+                                                objectFit: "cover"
+                                            }}
+                                            src={item.icon}/>
                                         : <motion.img
                                             whileHover={{scale: 1.2}}
-                                            onHoverStart={e => {
-                                            }}
-                                            onHoverEnd={e => {
-                                            }}
                                             style={{
                                                 maxHeight: 50,
                                                 minWidth: 50,

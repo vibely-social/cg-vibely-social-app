@@ -46,5 +46,4 @@ const store = configureStore({
         keyword: getKeyword.reducer,
     },
 });
-
 export default store

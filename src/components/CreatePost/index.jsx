@@ -20,7 +20,11 @@ function CreatePost() {
             <Card.Body className="p-0">
                 </Card.Body>
                 <Card.Body className="p-0 mt-3 d-flex justify-content-center pb-2 ">
-                    <figure className="avatar ms-0 mt-1 top-2 " ><img onClick={() => setIsOpen(true)} style={{width: '40px',height: "40px",overflow: 'hidden'}} src={USER?.avatarUrl ? USER?.avatarUrl : ppl}  className="hover-vibe shadow-sm rounded-circle" /></figure>
+                    <figure className="avatar ms-0 mt-1 top-2 hover-scale-1-1 smooth-transition" >
+                        <img onClick={() => setIsOpen(true)}
+                             src={USER?.avatarUrl ? USER?.avatarUrl : ppl}
+                             className="shadow-sm avatar-40 cursor-pointer" />
+                    </figure>
                     <textarea onClick={() => setIsOpen(true)} style={{height: "50px",width: "90%",resize: "none"}} className="hover-vibe cursor-pointer float-right ms-2 bor-0 rounded-xxl p-2 ps-3 font-xssss text-grey-500 fw-500 border-light-md " placeholder="What's on your mind?" />
                 </Card.Body>
                   <NewPostModal isOpen={isOpen} closeModal={closeModal} />

@@ -18,6 +18,7 @@ import {
   acceptRequestFriend,
   deleteRequestFriend,
 } from "~/features/requestFriends";
+import {Link} from "react-router-dom";
 
 function Friends() {
   const dispatch = useDispatch();
@@ -39,7 +40,6 @@ function Friends() {
   }, []);
 
   useEffect(() => {
-    console.log("friendSuggestions");
     if (successSuggestion) setFriendSuggests(friendSuggestions);
   }, [friendSuggestions]);
 
@@ -109,10 +109,10 @@ function Friends() {
                           className="bg-white avatar w-100 shadow-xss border border-light"
                           style={{ minHeight: "220px", maxHeight: "220px" }}
                         />
-                        <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-left">
-                          {friend?.firstName} {friend?.lastName}
+                        <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-center">
+                          <Link to={`/profile/${friend.id}`}>{friend?.firstName} {friend?.lastName}</Link>
                         </h4>
-                        <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-left">
+                        <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-center">
                           {friend?.mutualFriends} mutual friends
                         </p>
                         <Button
@@ -154,7 +154,7 @@ function Friends() {
               </h2>
             </Card.Body>
           </Card>
-          <Row className="pe-2 ps-2">
+          <Row className="pe-2 ps-2 smooth-transition">
             {friendSuggests.map((friend, index) => {
               return (
                 <Col
@@ -180,10 +180,10 @@ function Friends() {
                           className="bg-white avatar w-100 shadow-xss border border-light"
                           style={{ minHeight: "220px", maxHeight: "220px" }}
                         />
-                        <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-left">
-                          {friend?.firstName} {friend?.lastName}
+                        <h4 className="mont-font fw-600 font-xs mt-2 mb-1 ms-2 text-center">
+                          <Link to={`/profile/${friend.id}`}>{friend?.firstName} {friend?.lastName}</Link>
                         </h4>
-                        <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-left">
+                        <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-center">
                           {friend?.numberMutualFriend} mutual friends
                         </p>
                         <Button

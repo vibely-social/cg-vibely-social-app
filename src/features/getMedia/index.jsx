@@ -1,10 +1,9 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getUserMedia} from "~/api/userMediaApi.js";
 
-export const getMedia = createAsyncThunk("media", async (id, pageIndex) => {
-    const response = await getUserMedia(id, pageIndex);
-    console.log("test in getMedia")
-    console.log(response.data)
+export const getMedia = createAsyncThunk("media", async ({id, page}) => {
+    const response = await getUserMedia({id, page});
+    console.log(response.data);
     return response.data;
 });
 
@@ -22,10 +21,17 @@ export const getMediaSlice = createSlice({
     initialState,
     reducers: {
         setImages: (state, action) => {
-            state.images = action.payload.images;
+            state.images = action.payload;
+            // state.images = [...action.payload, ...state.images]
         },
-        setPage: (state) => {
-            state.pageIndex += 1;
+        setStatus: (state, action) => {
+            state.status = action.payload;
+        },
+        setPage: (state, action) => {
+            state.pageIndex = action.payload;
+        },
+        setHasMore: (state, action) => {
+            state.hasMoreData = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -35,14 +41,12 @@ export const getMediaSlice = createSlice({
             })
             .addCase(getMedia.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                if (action.payload.listString.length === 0) {
+                if (action.payload.length === 0) {
                     state.hasMoreData = false;
                 } else {
-                    state.images  = [...state.images, ...action.payload.listString];
+                    state.images  = [...state.images, ...action.payload];
                     state.pageIndex += 1;
                 }
-
-
             })
             .addCase(getMedia.rejected, (state, action) => {
                 state.status = "failed";
@@ -51,5 +55,5 @@ export const getMediaSlice = createSlice({
     },
 });
 
-export const {setImages} = getMediaSlice.actions;
+export const {setImages, setStatus, setHasMore, setPage} = getMediaSlice.actions;
 export default getMediaSlice.reducer;

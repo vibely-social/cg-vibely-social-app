@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Dialog} from 'primereact/dialog';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
 import './index.scss';
 import MediaPost from '~/components/MediaDetails/MediaPost/index.jsx';
 
-function MediaDetails({images, currentImageIndex, onClose}) {
+function MediaDetails({images=[], currentImageIndex, onClose}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(currentImageIndex);
 
     const handleClose = () => {

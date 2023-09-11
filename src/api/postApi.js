@@ -1,10 +1,6 @@
 import axios from "axios";
-import { getAccessToken } from "~/service/accountService";
-import {VIBELY_API , HEADERS as headers} from "~/app/constants.js";
+import {HEADERS as headers, VIBELY_API} from "~/app/constants.js";
 
-const header = {
-    'Authorization': 'Bearer ' + getAccessToken()
-  };
 
 export const getPostDetail = async (id) => {
     let result = null;
@@ -18,8 +14,7 @@ export const getPostDetail = async (id) => {
 
 export const getPostsList = async () => {
     try {
-        const response = await axios.get(`${VIBELY_API}/posts`,{headers});
-        return response
+        return await axios.get(`${VIBELY_API}/posts`, {headers})
     } catch (error) {
         console.log(error)
     }

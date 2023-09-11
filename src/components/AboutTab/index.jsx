@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import OverView from "~/components/AboutTab/OverView/index.jsx";
 import Contact from "~/components/AboutTab/Contact/index.jsx";
 import UserDetail from "~/components/AboutTab/UserDetail/index.jsx";

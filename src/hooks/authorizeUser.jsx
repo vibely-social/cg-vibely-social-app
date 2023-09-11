@@ -1,5 +1,5 @@
 import {refreshTokenApi} from "~/api/accountApi.js";
-import {useEffect, useRef} from "react";
+import {useLayoutEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "~/features/userAccount/index.js";
@@ -11,7 +11,7 @@ export const useAuthorizeUser = () => {
     const lastAuthentication = localStorage.getItem('lastAuth')
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let refreshToken;
         if (!storedUser.current) {
             navigate("/login")
@@ -27,6 +27,7 @@ export const useAuthorizeUser = () => {
                         storedUser.current.accessToken = data;
                         localStorage.setItem('user', JSON.stringify(storedUser.current))
                         localStorage.setItem('lastAuth','' + now)
+                        console.log('Authenticated!')
                     })
                     .catch(reason => {
                         console.log('reason')

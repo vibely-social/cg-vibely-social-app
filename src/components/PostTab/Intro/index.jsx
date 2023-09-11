@@ -235,7 +235,6 @@ function Intro({toggle}) {
                                         type="submit"
                                         className="text-center p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button">
                                         OK
-                                        {console.log(formikHobby.values)}
                                     </button>
                                 </div>
 

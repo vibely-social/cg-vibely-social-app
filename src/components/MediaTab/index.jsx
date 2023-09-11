@@ -23,19 +23,20 @@ function MediaTab() {
         if (loading) {
             return;
         }
-        console.log(`Before dispatch loading: ${loading}`)
-        console.log(`Before dispatch page: ${page}`)
         setLoading(true);
-        console.log(`After dispatch loading: ${loading}`)
-        dispatch(getMedia(user.id, page)).then(() => {
+        const para = {
+            id : `${user.id}`,
+            page : `${page}`
+        }
+        dispatch(getMedia(para)).then(() => {
             setLoading(false);
         });
-        console.log(`After dispatch page: ${page}`)
     }
 
     useEffect(() => {
         if (status === "idle") {
-            dispatch(getMedia(user.id, 0))
+            // dispatch(getMedia(user.id, 0))
+            dispatch(getMedia(`${user.id}`))
         }
     }, []);
 

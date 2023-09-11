@@ -2,9 +2,11 @@ import RightFeed from "./RightFeeds";
 import {Col, Row} from "react-bootstrap";
 import "../../components/FeedBody/index.scss"
 import FeedBody from "~/components/FeedBody/index.jsx";
+import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 
 function Feeds() {
+    useAuthorizeUser()
 
     return (
         <Row className="feed-body pt-3">

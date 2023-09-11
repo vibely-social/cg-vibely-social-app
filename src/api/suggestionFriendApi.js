@@ -8,7 +8,7 @@ export const findSuggestionFriendsApi = async () => {
     let user = getStoredUserData()
     try {
       
-      result = await axios.get(`${VIBELY_API}/users/${user.id}/suggestion_friends`,{
+      result = await axios.get(`${VIBELY_API}/users/suggestion_friends`,{
         headers:{
           Authorization: 'Bearer ' + user.accessToken
           }

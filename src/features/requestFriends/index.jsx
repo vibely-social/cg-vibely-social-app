@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-        console.log(' redux');
 import { deleteRequestFriendApi, findRequestFriendsApi, acceptFriendApi  } from "~/api/requestFriendApi";
 
 export const getRequestFriends = createAsyncThunk(
