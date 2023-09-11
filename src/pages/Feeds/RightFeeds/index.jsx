@@ -105,13 +105,13 @@ function RightFeed() {
                     onClick={() => handleAcceptFriendRequest(item.friendId)}
                     className="p-2 w90 mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
                   >
-                    Deny
+                    Confirm
                   </Button>
                   <Button
                     className="p-2 w90 bg-grey text-grey-800 border-0 text-center font-xssss fw-600 ls-1 rounded-xl"
                     onClick={() => handleDeleteClickRequest(item.friendId)}
                   >
-                    Delete
+                    Deny
                   </Button>
                 </h4>
               </Card.Body>
