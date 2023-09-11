@@ -24,9 +24,9 @@ function MediaTab() {
             return;
         }
         setLoading(true);
-        dispatch(getMedia(user.id, page)).then(() => {
-            setLoading(false);
-        });
+        // dispatch(getMedia(user.id, page)).then(() => {
+        //     setLoading(false);
+        // });
     }
 
     useEffect(() => {

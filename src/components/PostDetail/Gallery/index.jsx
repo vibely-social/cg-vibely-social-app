@@ -1,5 +1,5 @@
-import {ImageGrid} from "react-fb-image-video-grid"
 import { Card } from "react-bootstrap";
+import Photogrid from "react-facebook-photo-grid";
 
 
 
@@ -19,13 +19,14 @@ function Gallery({images}) {
         justifyContent: "center"
     }
     return ( 
-        <Card style={imageCardStyle}>
+        <Card>
             <Card.Body style={{padding : 0
                                  ,maxHeight: "500px"}}>
-                <ImageGrid >
-                    {images.map((image,index) => {return <img key={index} style={imageStyle}  src={image}/>})}
-                </ImageGrid>
-            </Card.Body> 
+                {/*<ImageGrid >*/}
+                {/*    {images.map((image,index) => {return <img key={index} style={imageStyle}  src={image}/>})}*/}
+                {/*</ImageGrid>*/}
+                <Photogrid images={images}></Photogrid>
+            </Card.Body>
         </Card>
     );
 }

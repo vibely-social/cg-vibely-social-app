@@ -466,9 +466,9 @@
 
 
 .right-comment {
-  position: fixed;
-  top: 0;
-  width: 320px;
+  //position: fixed;
+  //top: 0;
+  //width: 380px;
   height: 100vh;
   background-color: #fff;
   z-index: 1000;
@@ -597,12 +597,21 @@
   object-fit: cover;
 }
 
+.avatar-40{
+  border-radius: 50%;
+  max-height: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  min-width: 40px;
+  object-fit: cover;
+}
+
 .avatar-45{
   border-radius: 50%;
-  max-height: 45px;
-  min-height: 45px;
-  max-width: 45px;
-  min-width: 45px;
+  max-height: 45px !important;
+  min-height: 45px !important;
+  max-width: 45px !important;
+  min-width: 45px !important;
   object-fit: cover;
 }
 

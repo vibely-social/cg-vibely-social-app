@@ -1,11 +1,11 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import {GoogleOAuthProvider} from "@react-oauth/google";
+import {useFormik} from "formik";
+import {useEffect, useState} from "react";
+import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
 import * as Yup from "yup";
-import { CLIENT_ID } from "~/app/constants.js";
+import {CLIENT_ID} from "~/app/constants.js";
 import logo from "~/assets/img/logo.svg";
 import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
 import {
@@ -37,7 +37,6 @@ function Login() {
         if (success) {
             if (user) {
                 localStorage.setItem("user", JSON.stringify(user));
-                console.log("Login success!");
                 navigate("/");
             }
         }
@@ -69,38 +68,23 @@ function Login() {
 
     return (
         <div className="main-wrap">
-            <div className="nav-header bg-transparent shadow-none border-0">
-                <div className="nav-top w-100">
-          <span href="default.html">
-            <i className="text-success display1-size me-2 ms-0">
-              <img
-                  src={logo}
-                  alt="icon"
-                  style={{maxWidth: 50, zIndex: "10000"}}
-              />
-            </i>
-            <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
-              Vibely Social
-            </span>
-          </span>
-                    <a href="#" className="mob-menu ms-auto me-2 chat-active-btn">
-                        <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>
-                    </a>
-                    <a href="#" className="mob-menu me-2">
-                        <i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i>
-                    </a>
-                    <a href="#" className="me-2 menu-search-icon mob-menu">
-                        <i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i>
-                    </a>
-                    <button className="nav-menu me-0 ms-2"></button>
-                    <span
-                        className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
-            Login
-          </span>
-                    <Link
-                        to="/register"
-                        className="header-btn d-none d-lg-block bg-blue-gradiant fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
-                    >
+            <div className="nav-header bg-transparent shadow-none border-0 justify-content-between">
+                <div className="nav-top w-auto">
+                    <div className='d-flex'>
+                        <i className="text-success display1-size me-2 ms-0">
+                          <img src={logo} alt="icon" style={{maxWidth: 50, zIndex: "10000"}}/>
+                        </i>
+                        <span className="d-none d-sm-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+                          Vibely Social
+                        </span>
+                    </div>
+                </div>
+                <div className='d-flex'>
+                    <span className="header-btn bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
+                        Login
+                    </span>
+                    <Link to="/register"
+                          className="header-btn bg-blue-gradiant fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
                         Register
                     </Link>
                 </div>

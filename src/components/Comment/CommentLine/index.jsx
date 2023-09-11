@@ -332,7 +332,7 @@ function CommentLine({data,commentData}) {
    
                                 <div className="comment-btn text-dark">
                                     <ReactTimeAgo 
-                                        date={commentData.date} 
+                                        date={Date.parse(commentData.date)}
                                         locale="en-US"
                                     />
                                 </div>

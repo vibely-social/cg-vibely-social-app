@@ -3,8 +3,6 @@ import {getUserMedia} from "~/api/userMediaApi.js";
 
 export const getMedia = createAsyncThunk("media", async (id, pageIndex) => {
     const response = await getUserMedia(id, pageIndex);
-    console.log("test in getMedia")
-    console.log(response.data)
     return response.data;
 });
 
@@ -12,68 +10,7 @@ const initialState = {
     currentUserId: -1,
     pageIndex: 0,
     hasMoreData: true,
-    images: [
-        // {
-        //     id: 1,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+0"
-        // },
-        // {
-        //     id: 2,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+1"
-        // },
-        // {
-        //     id: 3,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+2"
-        // },
-        // {
-        //     id: 4,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+3"
-        // },
-        // {
-        //     id: 5,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+4"
-        // },
-        // {
-        //     id: 6,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+5"
-        // },
-        // {
-        //     id: 7,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+6"
-        // },
-        // {
-        //     id: 8,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+7"
-        // },
-        // {
-        //     id: 9,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+8"
-        // },
-        // {
-        //     id: 10,
-        //     userId: -1,
-        //     postId: -1,
-        //     imageUrl: "https://placehold.co/600x400?text=Hello+9"
-        // }
-    ],
+    images: [],
     status: 'idle',
     error: null
 }

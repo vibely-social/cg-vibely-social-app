@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Dialog} from 'primereact/dialog';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
-import './index.css';
+import './index.scss';
 import MediaPost from '~/components/MediaDetails/MediaPost/index.jsx';
 
-function MediaDetails({images, currentImageIndex, onClose}) {
+function MediaDetails({images=[], currentImageIndex, onClose}) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(currentImageIndex);
 
     const handleClose = () => {
@@ -28,7 +28,6 @@ function MediaDetails({images, currentImageIndex, onClose}) {
             setSelectedImageIndex(0);
         }
     };
-
     return (
         <Dialog
             visible={selectedImageIndex >= 0}
@@ -39,43 +38,39 @@ function MediaDetails({images, currentImageIndex, onClose}) {
             resizable={false}
             position="left"
             footer={null}
-            style={{width: '80vw', maxWidth: "calc(100vh-280px)"}}
+            // style={{width: '100%', maxWidth: "calc(100vh-280px)"}}
         >
-            <div className="modal-backdrop">
-                <div className="dialog-content-container">
-                    <div >
-                        <button id="post-md-btn" className="btn btn-outline-secondary btn-md h-100 prev-button"
-                                onClick={handlePrevImage}>
+            <div className="modal-backdrop dialog-content-container d-flex container-fluid px-0 color-theme-green">
+                <div className='d-flex col-9 position-relative justify-content-center'>
+                    <div className="image-container justify-content-center align-items-center">
+                        <img className="modal-image w-100"
+                             src={images[selectedImageIndex].imageUrl}
+                             alt="Picture"
+                        />
+                    </div>
+
+                    <div className='position-absolute w60 right-15 top-10'>
+                        <button className="close-button" onClick={handleClose}>
+                            <span className="pi pi-times"></span>
+                        </button>
+                    </div>
+                    <div className='position-absolute w60 h-100 left-0 dialog-btn' onClick={handlePrevImage}>
+                        <button className="prev-button" >
                             <span className="pi pi-chevron-left"></span>
                         </button>
                     </div>
-                    <div className="image-container">
-                        <img
-                            className="modal-image"
-                            src={images[selectedImageIndex].imageUrl}
-                            alt="Picture"
-                        />
-                    </div>
-                    <div>
-                        <button id="post-md-btn" className="btn btn-outline-success btn-md close-button"
-                                onClick={handleClose}>
-                            <span className="pi pi-times"></span>
-                        </button>
-                        <button id="post-md-btn" className="btn btn-outline-secondary btn-md h-100 next-button"
-                                onClick={handleNextImage}>
+                    <div className='position-absolute w60 h-100 right-0 dialog-btn' onClick={handleNextImage}>
+                        <button className="next-button" >
                             <span className="pi pi-chevron-right"></span>
                         </button>
                     </div>
                 </div>
-                <div className="media-post-container">
-                    <MediaPost
-                        id={images[selectedImageIndex].id}
-                    />
-                </div>
+
+                <MediaPost id={images[selectedImageIndex].postId}/>
+
+                {/*<PostDetail/>*/}
             </div>
         </Dialog>
-
-
     );
 }
 
