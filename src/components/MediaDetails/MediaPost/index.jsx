@@ -18,9 +18,9 @@ const MediaPost = ({id}) => {
              style={{padding: '20px'}}>
             {/* Comment Header */}
             <div className="card-body ps-2 pe-4 pb-0 d-flex">
-                <figure className="avatar me-3">
-                    <img src={`${mediaPostDetail.author.avatar || "https://i.pravatar.cc/100"}`}
-                         alt="image" className="shadow-sm rounded-circle w45"/>
+                <figure className=" me-3">
+                    <img src={`${mediaPostDetail.author?.avatar || "https://i.pravatar.cc/100"}`}
+                         alt="image" className="shadow-sm avatar-45"/>
                 </figure>
 
                 <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-left">

@@ -1,5 +1,5 @@
 .image-container {
-    /*display: flex;*/
+    display: flex;
     align-items: center;
     height: 100%;
     max-width: 100%;
@@ -22,26 +22,21 @@
     z-index: 12321;
 }
 
-.next-button {
-    left: 1100px;
-}
+
 
 .close-button {
     position: absolute;
     cursor: pointer;
     z-index: 2;
     width: 10vh;
-
 }
 
 .dialog-content-container {
-    left: 0;
-    display: flex;
 
 }
 
 .media-post-container {
-    right: 0;
+
 }
 
 #post-md-btn:hover {
