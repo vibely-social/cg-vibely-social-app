@@ -201,7 +201,7 @@ function NewPostModal({ isOpen,closeModal }) {
 									</div>
 								<Form onSubmit={handleSubmit}>
 										<Form.Group className="content-dialog">
-											<img src={User.avatarUrl? User.avatarUrl : ppl} alt="logo" />
+											<img src={User.avatarUrl? User.avatarUrl : ppl} alt="logo" className='avatar-45'/>
 											<div className="details">
 												<p>{User?.firstName + " " + User?.lastName}</p>
 												<Form.Select className="privacy mt-1" 

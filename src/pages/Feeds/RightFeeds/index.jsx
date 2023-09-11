@@ -31,7 +31,7 @@ function RightFeed() {
   const successSuggestion = useSelector(selectGetSuggestionSuccess);
 
   useEffect(() => {
-    if (successRequest) setFriendRequests(friendRequestList);
+    setFriendRequests(friendRequestList);
   }, [friendRequestList]);
 
   useEffect(() => {
@@ -39,7 +39,6 @@ function RightFeed() {
   }, []);
 
   useEffect(() => {
-    console.log("friendSuggestions");
     if (successSuggestion) setFriendSuggests(friendSuggestions);
   }, [friendSuggestions]);
 
@@ -89,29 +88,27 @@ function RightFeed() {
           {friendRequests.map((item = {}) => (
             <div key={item?.id}>
               <Card.Body className="d-flex pb-2 border-top-xs bor-0  friend-box pe-0">
-                <figure className="avatar me-3">
+                <figure className="avatar me-3 d-flex align-items-center">
                   <img
                     src={item?.avatarUrl}
                     alt="image"
-                    className=" shadow-sm rounded-circle w50"
+                    className="shadow-sm avatar-45"
                   />
                 </figure>
                 <h4 className="fw-700 text-grey-800 font-xss">
-                  {`${item?.firstName}`} {`${item?.lastName}`}
+                  <Link to={`/profile/${item.friendId}`}>{`${item?.firstName}`} {`${item?.lastName}`}</Link>
                   <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
                     12 mutual friends
                   </span>
                   <Button
-                    onClick={() => handleAcceptFriendRequest(item.friendId)}
                     className="p-2 w90 mt-1 bg-primary-gradiant border-0 me-2 text-white text-center font-xssss fw-600 ls-1 rounded-xl"
-                  >
-                    Deny
+                    onClick={() => handleAcceptFriendRequest(item.friendId)}>
+                    Accept
                   </Button>
                   <Button
                     className="p-2 w90 bg-grey text-grey-800 border-0 text-center font-xssss fw-600 ls-1 rounded-xl"
-                    onClick={() => handleDeleteClickRequest(item.friendId)}
-                  >
-                    Delete
+                    onClick={() => handleDeleteClickRequest(item.friendId)}>
+                    Deny
                   </Button>
                 </h4>
               </Card.Body>
@@ -133,7 +130,7 @@ function RightFeed() {
           </Link>
         </Card.Body>
         {/* render data friend suggestion */}
-        <div className="friend-requests-list">
+        <div className="friend-requests-list scroll-bar">
           {friendSuggests?.map((suggestion) => (
             <div key={suggestion?.id}>
               <Card.Body className="d-flex pb-2 border-top-xs bor-0  friend-box pe-0">
@@ -145,7 +142,7 @@ function RightFeed() {
                   />
                 </figure>
                 <h4 className="fw-700 text-grey-800 font-xss">
-                  {`${suggestion?.firstName}`} {`${suggestion?.lastName}`}
+                  <Link to={`/profile/${suggestion.id}`}>{`${suggestion?.firstName}`} {`${suggestion?.lastName}`}</Link>
                   <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
                     {suggestion?.numberMutualFriend} mutual friends
                   </span>

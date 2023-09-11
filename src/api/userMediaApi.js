@@ -4,6 +4,7 @@ import {VIBELY_API} from "~/app/constants.js";
 export const getUserMedia = async (id, pageIndex) => {
     let result = null;
     let user = JSON.parse(localStorage.getItem('user'))
+    console.log('id: ' + id)
     try {
         result = await axios.get(`${VIBELY_API}/media/${id}`,{
             headers:{
@@ -11,7 +12,8 @@ export const getUserMedia = async (id, pageIndex) => {
             }
         });
     } catch (e) {
-        return e.response
+        console.log('Error at get media!')
+        console.log(e)
     }
     return result;
 };
