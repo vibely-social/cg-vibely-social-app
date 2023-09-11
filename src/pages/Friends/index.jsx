@@ -110,7 +110,7 @@ function Friends() {
                           style={{ minHeight: "220px", maxHeight: "220px" }}
                         />
                         <h4 className="fw-600 font-xs mt-2 mb-1 ms-2 text-center">
-                          <Link to={`/profile/${friend.id}`}>{friend?.firstName} {friend?.lastName}</Link>
+                          <Link to={`/profile/${friend.friendId}`}>{friend?.firstName} {friend?.lastName}</Link>
                         </h4>
                         <p className="fw-500 font-xsss text-grey-500 mt-0 ms-2 mb-1 text-center">
                           {friend?.mutualFriends} mutual friends

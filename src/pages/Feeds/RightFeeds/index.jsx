@@ -96,7 +96,7 @@ function RightFeed() {
                   />
                 </figure>
                 <h4 className="fw-700 text-grey-800 font-xss">
-                  {`${item?.firstName}`} {`${item?.lastName}`}
+                  <Link to={`/profile/${item.friendId}`}>{`${item?.firstName}`} {`${item?.lastName}`}</Link>
                   <span className="d-block mt-1 font-xssss fw-500 lh-3 text-grey-500">
                     12 mutual friends
                   </span>
