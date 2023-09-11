@@ -36,6 +36,7 @@ function PostTab({toggleAbout, toggleMedia}) {
             dispatch(getMedia(currentUser.id))
         }
         // fetchPosts()
+        // dispatch(getMedia(currentUser.id))
     }, []);
 
 

@@ -3,7 +3,6 @@ import {getUserMedia} from "~/api/userMediaApi.js";
 
 export const getMedia = createAsyncThunk("media", async ({id, page}) => {
     const response = await getUserMedia({id, page});
-    console.log(response.data);
     return response.data;
 });
 

@@ -38,7 +38,7 @@ function MediaTab() {
             // dispatch(getMedia(user.id, 0))
             dispatch(getMedia(`${user.id}`))
         }
-    }, []);
+    }, [status]);
 
     return (
         <>
