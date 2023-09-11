@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Dialog} from 'primereact/dialog';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
-import './index.css';
+import './index.scss';
 import MediaPost from '~/components/MediaDetails/MediaPost/index.jsx';
 
 function MediaDetails({images, currentImageIndex, onClose}) {
@@ -43,8 +43,8 @@ function MediaDetails({images, currentImageIndex, onClose}) {
         >
             <div className="modal-backdrop">
                 <div className="dialog-content-container">
-                    <div >
-                        <button id="post-md-btn" className="btn btn-outline-secondary btn-md h-100 prev-button"
+                    <div className="dialog-btn">
+                        <button className="btn btn-md h-100 prev-button"
                                 onClick={handlePrevImage}>
                             <span className="pi pi-chevron-left"></span>
                         </button>
@@ -56,12 +56,12 @@ function MediaDetails({images, currentImageIndex, onClose}) {
                             alt="Picture"
                         />
                     </div>
-                    <div>
-                        <button id="post-md-btn" className="btn btn-outline-success btn-md close-button"
+                    <div className="dialog-btn">
+                        <button className="btn-md close-button"
                                 onClick={handleClose}>
                             <span className="pi pi-times"></span>
                         </button>
-                        <button id="post-md-btn" className="btn btn-outline-secondary btn-md h-100 next-button"
+                        <button className="btn btn-md h-100 next-button"
                                 onClick={handleNextImage}>
                             <span className="pi pi-chevron-right"></span>
                         </button>
@@ -69,7 +69,7 @@ function MediaDetails({images, currentImageIndex, onClose}) {
                 </div>
                 <div className="media-post-container">
                     <MediaPost
-                        id={images[selectedImageIndex].id}
+                        id={images[selectedImageIndex].postId}
                     />
                 </div>
             </div>

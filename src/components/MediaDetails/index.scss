@@ -1,0 +1,68 @@
+.image-container {
+    //display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.modal-image {
+    max-height: calc(100vh - 150px);
+    max-width: calc(150vh - 10px);
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+//.prev-button,
+//.next-button {
+//    position: absolute;
+//    top: 50%;
+//    cursor: pointer;
+//    z-index: 12321;
+//}
+
+.next-button {
+    left: 1100px;
+}
+
+.close-button {
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+    width: 10vh;
+
+}
+
+.dialog-content-container {
+    left: 0;
+    display: flex;
+
+}
+
+.media-post-container {
+    right: 0;
+}
+
+#post-md-btn:hover {
+    background-color: #4d7566;
+}
+
+.dialog-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.8s ease;
+    &:hover{
+        background-color: rgba(255, 255, 255, 0.15);
+        .next-button {
+            transition: all 0.8s ease-out;
+            color: #6bf5be;
+        }
+        .prev-button{
+            transition: all 0.8s ease-out;
+            color: #6bf5be;
+        }
+    }
+}
