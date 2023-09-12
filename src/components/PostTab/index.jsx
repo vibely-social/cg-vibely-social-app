@@ -33,7 +33,10 @@ function PostTab({toggleAbout, toggleMedia}) {
 
     useEffect(() => {
         if (status === "idle") {
-            dispatch(getMedia(currentUser.id))
+            dispatch(getMedia({
+                id : currentUser.id,
+                page : 0
+            }))
         }
         // fetchPosts()
         // dispatch(getMedia(currentUser.id))
