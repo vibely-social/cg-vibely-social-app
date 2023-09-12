@@ -24,16 +24,21 @@ function MediaTab() {
             return;
         }
         setLoading(true);
-        // dispatch(getMedia(user.id, page)).then(() => {
-        //     setLoading(false);
-        // });
+        const para = {
+            id : `${user.id}`,
+            page : `${page}`
+        }
+        dispatch(getMedia(para)).then(() => {
+            setLoading(false);
+        });
     }
 
     useEffect(() => {
         if (status === "idle") {
-            dispatch(getMedia(user.id, 0))
+            // dispatch(getMedia(user.id, 0))
+            dispatch(getMedia(`${user.id}`))
         }
-    }, []);
+    }, [status]);
 
     return (
         <>
