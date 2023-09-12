@@ -19,7 +19,7 @@
 .prev-button,
 .next-button {
     position: absolute;
-    top: 50%;
+    top: 45%;
     background-color: transparent;
     border: transparent;
     color: #0a573b;
@@ -29,7 +29,7 @@
 }
 
 .next-button {
-    left: 1100px;
+    left: 800px;
 }
 
 .close-button {
