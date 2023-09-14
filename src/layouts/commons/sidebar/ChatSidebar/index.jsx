@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
-import useViewport from "~/hooks/Viewport.jsx";
+import useViewport from "~/hooks/viewport.jsx";
 import {memo, useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
