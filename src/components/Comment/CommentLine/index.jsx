@@ -1,7 +1,7 @@
 import React from 'react';
 import ppl from "~/assets/img/ppl.png"
 import "./index.css"
-import ReplyComment from '../ReplyComment';
+import ReplyComment from '~/components/Comment/ReplyComment';
 import ReactTimeAgo from 'react-time-ago';
 import { likeComment, deleteComment } from '~/api/postApi';
 import { useState, useRef , Fragment, useEffect } from 'react';

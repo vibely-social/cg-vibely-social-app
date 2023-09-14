@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 import { useState } from "react";
 import NewPostModal from "./PostModal";
 import "./index.css"
-import ppl from "../../assets/img/ppl.png"
+import ppl from "~/assets/img/ppl.png"
 import {getStoredUserData} from "~/service/accountService.js";
 
 function CreatePost() {

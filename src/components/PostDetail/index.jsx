@@ -4,8 +4,8 @@ import ppl from "~/assets/img/ppl.png"
 import {motion} from "framer-motion";
 import ReactTimeAgo from 'react-time-ago'
 import {useState} from "react";
-import Comment from "../Comment";
-import likebtn from "../../assets/img/likebtn.png"
+import Comment from "~/components/Comment";
+import likebtn from "~/assets/img/likebtn.png"
 import {likePost} from "~/api/postApi";
 import Earth from "~/assets/img/new_post_icons/earth.png"
 import Friends from "~/assets/img/new_post_icons/friends.png"

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Comment from "../../Comment";
+import Comment from "~/components/Comment";
 import "./index.css"
 import {getMediaPostDetails} from "~/features/getMediaPostDetails/index.jsx";
 import {useDispatch, useSelector} from "react-redux";

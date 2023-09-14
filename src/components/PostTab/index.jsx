@@ -1,5 +1,3 @@
-import CreatePost from "../CreatePost/index.jsx";
-import PostDetail from "~/components/PostDetail/index.jsx";
 import Intro from "~/components/PostTab/Intro/index.jsx";
 import {VIBELY_API} from "~/app/constants";
 import MediaList from "~/components/MediaList/index.jsx";

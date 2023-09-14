@@ -1,4 +1,4 @@
-import Header from "../commons/Header/index.jsx";
+import Header from "~/layouts/commons/Header/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import PreLoader from "~/components/Preloader/index.jsx";
 import {turnOffLoader} from "~/features/toggleLoader/index.js";

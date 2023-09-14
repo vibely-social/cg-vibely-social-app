@@ -4,7 +4,7 @@ import ReactTimeAgo from "react-time-ago";
 import WrapText from "~/utils/WrapText.jsx";
 import useViewport from "~/hooks/viewport";
 import { deleteReply, likeReply } from "~/api/postApi";
-import { sendBtnStyle, replySection ,replyInputStyle, avatarStyle } from "../CommentLine";
+import { sendBtnStyle, replySection ,replyInputStyle, avatarStyle } from "~/components/Comment/CommentLine";
 import { motion } from "framer-motion";
 import SendBtn from "~/assets/img/new_post_icons/send.png"
 import { getStoredUserData, getAccessToken } from "~/service/accountService";
