@@ -10,7 +10,7 @@ import {
     setCity,
     setSchool,
     setWork
-} from "~/features/user_info/UserInfoSlice";
+} from "~/features/user_info/userInfoSlice.js";
 import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/get_cities/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 

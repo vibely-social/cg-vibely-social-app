@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import "./index.scss"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/user_info/UserInfoSlice.js";
+import {setUserInfo} from "~/features/user_info/userInfoSlice.js";
 import {Modal, Row} from "react-bootstrap";
 import {getStoredUserData} from "~/service/accountService.js";
 import PostTab from "~/components/PostTab/index.jsx";

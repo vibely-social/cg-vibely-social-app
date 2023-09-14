@@ -8,7 +8,7 @@ import {getFriendsSlice} from "~/features/get_friends/index.jsx";
 import {switchConversationSlice} from "~/features/switch_conversation/index.js";
 import {loadOldMessagesSlice} from "~/features/load_old_messages/index.jsx";
 import {messengerSlice} from "~/features/messeger/index.jsx";
-import {userInfoSlice} from "~/features/user_info/UserInfoSlice.js";
+import {userInfoSlice} from "~/features/user_info/userInfoSlice.js";
 import {getCitiesSlice} from "~/features/get_cities/index.js";
 import {suggestionFriendsSlice} from "~/features/suggestion_friends/index.jsx";
 import {requestFriendsSlice } from '~/features/request_friends';
