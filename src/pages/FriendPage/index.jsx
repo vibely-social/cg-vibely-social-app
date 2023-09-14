@@ -9,7 +9,7 @@ import FriendTab from "~/components/FriendTab/index.jsx";
 import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
-import {selectFriendList} from "~/features/getFriends/index.js";
+import {selectFriendList} from "~/features/getFriends/index.jsx";
 import {Row} from "react-bootstrap";
 import {createRequestFriend} from "~/features/suggestionFriends/index.jsx";
 import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";

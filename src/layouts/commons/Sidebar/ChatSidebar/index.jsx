@@ -14,7 +14,7 @@ import {
     selectGetFriendIsLoading,
     selectGetFriendIsSuccess,
     setGetFriendsSuccess
-} from "~/features/getFriends/index.js";
+} from "~/features/getFriends/index.jsx";
 import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
 import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/index.jsx";
 import {selectOnlineList} from "~/features/onlineStatus/index.jsx";

@@ -1,6 +1,6 @@
 import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {getFriends, selectFriendList} from "~/features/getFriends/index.js";
+import {getFriends, selectFriendList} from "~/features/getFriends/index.jsx";
 import "./index.css"
 import {useEffect, useRef, useState} from "react";
 import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
@@ -46,6 +46,9 @@ function RightChat() {
     useEffect(() => {
         const rvMessages = [...messages].reverse()
         setDisplayMessages(rvMessages)
+
+        console.log('friends in rightchat')
+        console.log(friendList)
     }, [messages])
 
     useEffect(() => {
@@ -132,11 +135,11 @@ function RightChat() {
         }
     }, [haveContent, chatFocus])
 
-    useEffect(()=>{
-        if (chatFocus){
+    useEffect(() => {
+        if (chatFocus) {
             dispatch(resetUnreadMessage(currentConversation.email))
         }
-    },[chatFocus])
+    }, [chatFocus])
 
     useEffect(() => {
         if (newMessage.length > 0) {
@@ -232,7 +235,7 @@ function RightChat() {
                                          }}/>
                                     <span
                                         className={"position-absolute bg-primary-gradiant rounded-circle left-0 "
-                                        + (onlineList[currentConversation?.email] ? "spinner-border" : "")}
+                                            + (onlineList[currentConversation?.email] ? "spinner-border" : "")}
                                         style={{
                                             width: 37,
                                             height: 37

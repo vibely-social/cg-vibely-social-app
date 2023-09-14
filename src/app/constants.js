@@ -1,6 +1,7 @@
 import { getAccessToken } from "~/service/accountService"
 
-const hostnameLocal = 'localhost:8080'
+// const hostnameLocal = 'localhost:8080'
+const hostnameLocal = '192.168.4.47:8080'
 const hostnameProduction = 'vibelysocial.azurewebsites.net'
 
 export const BROKER_URL = `ws://${hostnameLocal}/ws`
@@ -13,7 +14,4 @@ export const CLIENT_ID = "532640652631-tadeecfp8o33mipvo37n8fdp76vcq0i3.apps.goo
 
 export const GOOGLE_USER_INFO_API = "https://www.googleapis.com/oauth2/v2/userinfo"
 
-export const HEADERS = {
-    'Authorization': 'Bearer ' + getAccessToken(),
-    'Content-Type': 'application/json'
-  };
+

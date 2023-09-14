@@ -9,7 +9,7 @@ import {
 } from "~/features/searchUser/index.js";
 import {useEffect, useState} from "react";
 import {selectKeyword} from "~/features/getKeywordSearch/index.js";
-import {selectFriendList} from "~/features/getFriends/index.js";
+import {selectFriendList} from "~/features/getFriends/index.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function SearchPage() {

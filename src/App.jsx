@@ -9,13 +9,14 @@ import {Toast} from "primereact/toast";
 import {setTypingStatus} from "~/features/typingStatus/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
 import {getFriendsStatus} from "~/features/onlineStatus/index.jsx";
-import {getFriends, selectFriendList} from "~/features/getFriends/index.js";
+import {getFriends, selectFriendList} from "~/features/getFriends/index.jsx";
 import {addNotify} from "~/features/notification/index.jsx";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import {getRequestFriends} from "~/features/requestFriends/index.jsx";
 import {selectBottomChatStatus, setBtChatActive} from "~/features/bottomChat/index.jsx";
 import {switchConversationTo} from "~/features/switchConversation/index.js";
+import {getStoredUserData} from "~/service/accountService.js";
 
 function App() {
     const dispatch = useDispatch()
@@ -34,8 +35,8 @@ function App() {
             return;
         }
         if (Notification.permission !== 'granted') {
-            Notification.requestPermission().then(permission => {
-                const notify = new Notification('Vibely', {
+            Notification.requestPermission().then(() => {
+                new Notification('Vibely', {
                     icon: "src/assets/img/logo.svg",
                     body: "Hey there! Welcome to Vibely Social!",
                 });
@@ -43,12 +44,18 @@ function App() {
         }
     })
 
+    useEffect(() => {
+        if (friends && friends.length === 0) {
+            dispatch(getFriends(getStoredUserData().id))
+        }
+    })
+
     const handleNewMessage = (message) => {
         dispatch(addUnreadMessage(message))
         dispatch(addNewMessage(message))
-        if (!btChatStatus){
+        if (!btChatStatus) {
             friends.forEach(friend => {
-                if (friend.email === message.sender){
+                if (friend.email === message.sender) {
                     dispatch(switchConversationTo(friend))
                     dispatch(setBtChatActive())
                 }
@@ -72,10 +79,14 @@ function App() {
             })
             socketClient.subscribe('/users/queue/notify', (message) => {
                 notifySound.current.play()
-                const notify = message.body;
-                dispatch(addNotify(JSON.parse(notify)))
+                const notify = JSON.parse(message.body);
+                dispatch(addNotify(notify))
                 dispatch(getFriends(user.id))
                 dispatch(getRequestFriends())
+                new Notification('Vibely', {
+                    icon: notify.avatarUrl,
+                    body: notify.content,
+                });
                 // showMessage(messageContent,toastBottomRight, 'success')
             })
         }
@@ -107,11 +118,11 @@ function App() {
         }
     }, [friends])
 
-    const showMessage = (content, ref, severity) => {
-        const label = 'You have new message:'
-
-        ref.current.show({severity: severity, summary: content, detail: label, life: 3000});
-    };
+    // const showMessage = (content, ref, severity) => {
+    //     const label = 'You have new message:'
+    //
+    //     ref.current.show({severity: severity, summary: content, detail: label, life: 3000});
+    // };
 
     return (
         <>
@@ -119,7 +130,8 @@ function App() {
                 <AppRoutes/>
             </BrowserRouter>
             <Toast ref={toastBottomRight} position="bottom-right"/>
-            <audio src="src/assets/the-notification-email.mp3" ref={notifySound} ></audio>
+            <audio src="https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/the-notification-email.mp3?alt=media"
+                   ref={notifySound}></audio>
         </>
     )
 }

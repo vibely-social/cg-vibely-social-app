@@ -4,7 +4,7 @@ import toggleLoader from '~/features/toggleLoader';
 import {sidebarSlice} from '~/features/toggleSidebar';
 import {userAccountSlice} from "~/features/userAccount/index.js";
 import postsSlice from '~/features/getPosts';
-import {getFriendsSlice} from "~/features/getFriends/index.js";
+import {getFriendsSlice} from "~/features/getFriends/index.jsx";
 import {switchConversationSlice} from "~/features/switchConversation/index.js";
 import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.jsx";
 import {messengerSlice} from "~/features/messeger/index.jsx";

@@ -1,9 +1,16 @@
 import axios from "axios";
-import {HEADERS as headers, VIBELY_API} from "~/app/constants.js";
+import {getAccessToken} from "~/service/accountService.js";
+import {VIBELY_API} from "~/app/constants.js";
 
-
+const getHeaders =() => {
+    return {
+        'Authorization' : 'Bearer ' + getAccessToken(),
+        'Content-Type' : 'application/json'
+    }
+};
 export const getPostDetail = async (id) => {
     let result = null;
+    const headers = getHeaders();
     try {
         result = await axios.get(`${VIBELY_API}/posts/${id}`,{headers});
     } catch (e) {
@@ -13,6 +20,7 @@ export const getPostDetail = async (id) => {
 };
 
 export const getPostsList = async () => {
+    const headers = getHeaders();
     try {
         return await axios.get(`${VIBELY_API}/posts`, {headers})
     } catch (error) {
@@ -21,6 +29,7 @@ export const getPostsList = async () => {
 };
 
 export const likePost = async (postId) => {
+    const headers = getHeaders();
     try {
         const response = await axios.get(`${VIBELY_API}/posts/like/${postId}`,{headers});
         return response.data
@@ -30,6 +39,7 @@ export const likePost = async (postId) => {
 };
 
 export const commentPosts = async (postId) => {
+    const headers = getHeaders();
     try {
         const response = await axios.get(`${VIBELY_API}/posts/${postId}/comments/list`,{headers});
         return response.data
@@ -39,6 +49,7 @@ export const commentPosts = async (postId) => {
 };
 
 // export const editComment = async (postId) => {
+//     const headers = getHeaders;
 //     try {
 //         const response = await axios.get(`${VIBELY_API}/posts/${postId}/comments`,{headers});
 //         return response.data
@@ -48,6 +59,7 @@ export const commentPosts = async (postId) => {
 // };
 
 export const deleteComment = async (postID,cmtID) => {
+    const headers = getHeaders();
     try {
         const response = await axios.delete(`${VIBELY_API}/posts/${postID}/comment/${cmtID}`,{headers});
         return response
@@ -57,6 +69,7 @@ export const deleteComment = async (postID,cmtID) => {
 };
 
 export const likeComment = async (postId,commentId) => {
+    const headers = getHeaders();
     try {
         const response = await axios.get(`${VIBELY_API}/posts/${postId}/like/${commentId}`,{headers});
         return response.data
@@ -66,6 +79,7 @@ export const likeComment = async (postId,commentId) => {
 };
 
 export const likeReply = async (postId,commentId,replyId) => {
+    const headers = getHeaders();
     try {
         const response = await axios.get(`${VIBELY_API}/posts/${postId}/like/${commentId}/${replyId}`,{headers});
         return response.data
@@ -75,6 +89,7 @@ export const likeReply = async (postId,commentId,replyId) => {
 };
 
 export const deleteReply = async (postId,commentId,replyId) => {
+    const headers = getHeaders();
     try {
         const response = await axios.delete(`${VIBELY_API}/posts/${postId}/comment/${commentId}/${replyId}`,{headers});
         return response
