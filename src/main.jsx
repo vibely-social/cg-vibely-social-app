@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import GlobalStyles from "./Components/GlobalStyles"
+import GlobalStyles from "./components/GlobalStyles"
 import {Provider} from "react-redux";
 import store from "~/app/store"
 import {StompClientContextProvider} from "~/components/HOC_SocketClient/index.jsx";
