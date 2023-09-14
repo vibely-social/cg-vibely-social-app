@@ -1,8 +1,7 @@
-import { getAccessToken } from "~/service/accountService"
 
 // const hostnameLocal = 'localhost:8080'
 const hostnameLocal = '192.168.4.47:8080'
-const hostnameProduction = '20.11.80.252:8080'
+const hostnameProduction = '20.11.80.219:8080'
 
 export const BROKER_URL = `ws://${hostnameProduction}/ws`
 
