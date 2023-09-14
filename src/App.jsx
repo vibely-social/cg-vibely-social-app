@@ -1,6 +1,6 @@
 import "bootstrap/dist/js/bootstrap.min"
 import {BrowserRouter} from 'react-router-dom'
-import AppRoutes from './Routes/AppRoutes'
+import AppRoutes from './routes/AppRoutes'
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {useEffect, useRef} from "react";
 import {addNewMessage, addUnreadMessage} from "~/features/messeger/index.jsx";
