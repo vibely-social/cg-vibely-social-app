@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {getMedia} from "~/features/getMedia/index.jsx";
+import {getMedia} from "~/features/get_media/index.jsx";
 import {useCallback, useEffect, useState} from "react";
 import MediaList from "~/components/MediaList/index.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
@@ -24,7 +24,7 @@ function MediaTab() {
             return;
         }
         setLoading(true);
-        // dispatch(getMedia(user.id, page)).then(() => {
+        // dispatch(get_media(user.id, page)).then(() => {
         //     setLoading(false);
         // });
     }

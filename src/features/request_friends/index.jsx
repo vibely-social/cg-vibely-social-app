@@ -10,7 +10,7 @@ export const getRequestFriends = createAsyncThunk(
 );
 
 export const deleteRequestFriend = createAsyncThunk(
-    "requestFriends/delete",
+    "request_friends/delete",
     async (friendIdToDelete) => {
         const response = await deleteRequestFriendApi(friendIdToDelete);
         return response.data;
@@ -18,7 +18,7 @@ export const deleteRequestFriend = createAsyncThunk(
 )
 
 export const acceptRequestFriend = createAsyncThunk(
-    "requestFriends/accept",
+    "request_friends/accept",
     async (id) => {
         await acceptFriendApi(id);
     }

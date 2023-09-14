@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {selectFriendList} from "~/features/getFriends/index.jsx";
+import {selectFriendList} from "~/features/get_friends/index.jsx";
 import {Link} from "react-router-dom";
 import {findFriends} from "~/api/friendListApi.js";
 

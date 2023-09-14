@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, setSchool, setWork} from "~/features/userInfo/userInfoSlice.js";
+import {editUserInfo, setSchool, setWork} from "~/features/user_info/userInfoSlice.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function WorkAndEducation() {

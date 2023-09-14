@@ -1,5 +1,5 @@
 import {useGoogleLogin} from "@react-oauth/google";
-import {googleLogin, resetAccountState} from "~/features/userAccount/index.js";
+import {googleLogin, resetAccountState} from "~/features/user_account/index.js";
 import {useState, useRef, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import google from "~/assets/img/google-icon.png";
@@ -8,7 +8,7 @@ import {
     selectLoginIsSuccess,
     selectUserData,
     selectAccountError
-} from "~/features/userAccount/index.js";
+} from "~/features/user_account/index.js";
 import {useNavigate} from "react-router-dom";
 import Popup from "reactjs-popup";
 

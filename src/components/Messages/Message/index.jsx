@@ -1,7 +1,7 @@
 // eslint-disable-next-line react/prop-types
 import {getStoredUserData} from "~/service/accountService.js";
 import {useSelector} from "react-redux";
-import {selectConversation} from "~/features/switchConversation/index.js";
+import {selectConversation} from "~/features/switch_conversation/index.js";
 
 function Message({message}){
     const {senderName, time, content, check, income} = message;

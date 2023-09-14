@@ -8,7 +8,7 @@ import {
   selectGetSuggestionSuccess,
   selectSuggestionFriendsList,
   createRequestFriend,
-} from "~/features/suggestionFriends";
+} from "~/features/suggestion_friends";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,7 +17,7 @@ import {
   selectRequestFriendSuccess,
   acceptRequestFriend,
   deleteRequestFriend,
-} from "~/features/requestFriends";
+} from "~/features/request_friends";
 
 function RightFeed() {
   const dispatch = useDispatch();

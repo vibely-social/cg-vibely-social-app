@@ -7,16 +7,16 @@ import Avatar from '~/assets/img/ppl.png'
 import Logo from '~/assets/img/logo.svg'
 import {Form, FormGroup} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux';
-import {toggleChatButton} from '~/features/toggleChat';
+import {toggleChatButton} from '~/features/toggle_chat';
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 import {useFormik} from "formik";
-import {searchUser} from "~/features/searchUser/index.js";
+import {searchUser} from "~/features/search_user/index.js";
 import * as Yup from "yup";
-import {setKeyword} from "~/features/getKeywordSearch/index.js";
+import {setKeyword} from "~/features/get_search_key/index.js";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {selectUserData} from "~/features/userAccount/index.js";
-import {activeSidebar} from "~/features/toggleSidebar/index.js";
+import {selectUserData} from "~/features/user_account/index.js";
+import {activeSidebar} from "~/features/toggle_sidebar/index.js";
 import {selectNotifications} from "~/features/notification/index.jsx";
 import ReactTimeAgo from "react-time-ago";
 

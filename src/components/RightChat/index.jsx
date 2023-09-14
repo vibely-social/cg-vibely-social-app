@@ -1,12 +1,12 @@
 import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {getFriends, selectFriendList} from "~/features/getFriends/index.jsx";
+import {getFriends, selectFriendList} from "~/features/get_friends/index.jsx";
 import "./index.css"
 import {useEffect, useRef, useState} from "react";
-import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
-import {loadOldMessages, selectAllOldMessages} from "~/features/loadOldMessages/index.jsx";
-import {selectUserData} from "~/features/userAccount/index.js";
-import {selectBottomChatStatus, setBtChatActive, setBtChatInactive} from "~/features/bottomChat/index.jsx";
+import {selectConversation, switchConversationTo} from "~/features/switch_conversation/index.js";
+import {loadOldMessages, selectAllOldMessages} from "~/features/load_old_messages/index.jsx";
+import {selectUserData} from "~/features/user_account/index.js";
+import {selectBottomChatStatus, setBtChatActive, setBtChatInactive} from "~/features/bottom_chat/index.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {
     resetNewMessages,
@@ -14,10 +14,10 @@ import {
     selectNewsMessages,
     selectUnreadMessage
 } from "~/features/messeger/index.jsx";
-import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
+import {selectTypingStatus} from "~/features/typing_status/index.jsx";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
+import {selectOnlineList} from "~/features/online_status/index.jsx";
 import {Link} from "react-router-dom";
 
 function RightChat() {

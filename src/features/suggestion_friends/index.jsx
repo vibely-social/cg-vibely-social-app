@@ -10,7 +10,7 @@ export const getSuggestionFriends = createAsyncThunk(
 );
 
 export const createRequestFriend = createAsyncThunk(
-  "requestFriends/add",
+  "request_friends/add",
   async (id) => {
       const response = await addFriendApi(id);
   }

@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import {editUserInfo, setCity, setPhoneNumber} from "~/features/userInfo/UserInfoSlice";
-import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
+import {editUserInfo, setCity, setPhoneNumber} from "~/features/user_info/UserInfoSlice";
+import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/get_cities/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function Contact() {

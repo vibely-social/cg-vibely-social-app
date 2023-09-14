@@ -9,7 +9,7 @@ import {
   selectGetSuggestionSuccess,
   selectSuggestionFriendsList,
   createRequestFriend,
-} from "~/features/suggestionFriends";
+} from "~/features/suggestion_friends";
 
 import {
   getRequestFriends,
@@ -17,7 +17,7 @@ import {
   selectRequestFriendSuccess,
   acceptRequestFriend,
   deleteRequestFriend,
-} from "~/features/requestFriends";
+} from "~/features/request_friends";
 import {Link} from "react-router-dom";
 
 function Friends() {

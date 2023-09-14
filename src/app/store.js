@@ -1,25 +1,25 @@
 import {configureStore} from '@reduxjs/toolkit';
-import toggleChat from '~/features/toggleChat';
-import toggleLoader from '~/features/toggleLoader';
-import {sidebarSlice} from '~/features/toggleSidebar';
-import {userAccountSlice} from "~/features/userAccount/index.js";
-import postsSlice from '~/features/getPosts';
-import {getFriendsSlice} from "~/features/getFriends/index.jsx";
-import {switchConversationSlice} from "~/features/switchConversation/index.js";
-import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.jsx";
+import toggleChat from '~/features/toggle_chat';
+import toggleLoader from '~/features/toggle_loader';
+import {sidebarSlice} from '~/features/toggle_sidebar';
+import {userAccountSlice} from "~/features/user_account/index.js";
+import postsSlice from '~/features/get_posts';
+import {getFriendsSlice} from "~/features/get_friends/index.jsx";
+import {switchConversationSlice} from "~/features/switch_conversation/index.js";
+import {loadOldMessagesSlice} from "~/features/load_old_messages/index.jsx";
 import {messengerSlice} from "~/features/messeger/index.jsx";
-import {userInfoSlice} from "~/features/userInfo/UserInfoSlice.js";
-import {getCitiesSlice} from "~/features/getCities/index.js";
-import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.jsx";
-import {requestFriendsSlice } from '~/features/requestFriends';
-import {getMediaSlice} from "~/features/getMedia/index.jsx";
-import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
-import {getMediaPostDetailsSlice} from "~/features/getMediaPostDetails/index.jsx";
-import {bottomChatSlice} from "~/features/bottomChat/index.jsx";
-import onlineStatusSlice from "~/features/onlineStatus/index.jsx";
+import {userInfoSlice} from "~/features/user_info/UserInfoSlice.js";
+import {getCitiesSlice} from "~/features/get_cities/index.js";
+import {suggestionFriendsSlice} from "~/features/suggestion_friends/index.jsx";
+import {requestFriendsSlice } from '~/features/request_friends';
+import {getMediaSlice} from "~/features/get_media/index.jsx";
+import {typingStatusSlice} from "~/features/typing_status/index.jsx";
+import {getMediaPostDetailsSlice} from "~/features/get_media_post_details/index.jsx";
+import {bottomChatSlice} from "~/features/bottom_chat/index.jsx";
+import onlineStatusSlice from "~/features/online_status/index.jsx";
 import {notificationSlice} from "~/features/notification/index.jsx";
-import {searchUserSlice} from "~/features/searchUser/index.js";
-import {getKeyword} from "~/features/getKeywordSearch/index.js";
+import {searchUserSlice} from "~/features/search_user/index.js";
+import {getKeyword} from "~/features/get_search_key/index.js";
 
 const store = configureStore({
     reducer: {

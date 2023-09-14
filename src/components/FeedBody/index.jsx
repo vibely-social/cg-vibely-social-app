@@ -2,7 +2,7 @@ import CreatePost from "~/components/CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {fetchPosts, resetPost} from "~/features/getPosts/index.js";
+import {fetchPosts, resetPost} from "~/features/get_posts/index.js";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 import "./index.scss"

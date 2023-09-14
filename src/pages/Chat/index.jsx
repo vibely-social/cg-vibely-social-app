@@ -1,9 +1,9 @@
 import ChatBox from "~/components/ChatBox/index.jsx";
-import {selectSidebarPosition} from "~/features/toggleSidebar/index.js";
+import {selectSidebarPosition} from "~/features/toggle_sidebar/index.js";
 import {useSelector} from "react-redux";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
-import ChatSidebar from "~/layouts/commons/Sidebar/ChatSidebar/index.jsx";
-import {selectConversation} from "~/features/switchConversation/index.js";
+import ChatSidebar from "~/layouts/commons/sidebar/ChatSidebar/index.jsx";
+import {selectConversation} from "~/features/switch_conversation/index.js";
 
 function Chat() {
     const position = useSelector(selectSidebarPosition)

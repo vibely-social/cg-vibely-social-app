@@ -5,19 +5,19 @@ import {memo, useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ListGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {selectSidebarActive, selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
+import {selectSidebarActive, selectSidebarPosition, toggle} from "~/features/toggle_sidebar/index.js";
 import {ProgressSpinner} from "primereact/progressspinner";
-import {selectUserData} from "~/features/userAccount/index.js";
+import {selectUserData} from "~/features/user_account/index.js";
 import {
     getFriends,
     selectFriendList,
     selectGetFriendIsLoading,
     selectGetFriendIsSuccess,
     setGetFriendsSuccess
-} from "~/features/getFriends/index.jsx";
-import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
-import MainNavigate from "~/layouts/commons/Sidebar/MainSidebar/MainNavigate/index.jsx";
-import {selectOnlineList} from "~/features/onlineStatus/index.jsx";
+} from "~/features/get_friends/index.jsx";
+import {selectConversation, switchConversationTo} from "~/features/switch_conversation/index.js";
+import MainNavigate from "~/layouts/commons/sidebar/MainSidebar/MainNavigate/index.jsx";
+import {selectOnlineList} from "~/features/online_status/index.jsx";
 
 // eslint-disable-next-line react/prop-types
 function ChatSidebar() {

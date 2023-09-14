@@ -6,16 +6,16 @@ import {useEffect, useRef} from "react";
 import {addNewMessage, addUnreadMessage} from "~/features/messeger/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {Toast} from "primereact/toast";
-import {setTypingStatus} from "~/features/typingStatus/index.jsx";
-import {selectUserData} from "~/features/userAccount/index.js";
-import {getFriendsStatus} from "~/features/onlineStatus/index.jsx";
-import {getFriends, selectFriendList} from "~/features/getFriends/index.jsx";
+import {setTypingStatus} from "~/features/typing_status/index.jsx";
+import {selectUserData} from "~/features/user_account/index.js";
+import {getFriendsStatus} from "~/features/online_status/index.jsx";
+import {getFriends, selectFriendList} from "~/features/get_friends/index.jsx";
 import {addNotify} from "~/features/notification/index.jsx";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import {getRequestFriends} from "~/features/requestFriends/index.jsx";
-import {selectBottomChatStatus, setBtChatActive} from "~/features/bottomChat/index.jsx";
-import {switchConversationTo} from "~/features/switchConversation/index.js";
+import {getRequestFriends} from "~/features/request_friends/index.jsx";
+import {selectBottomChatStatus, setBtChatActive} from "~/features/bottom_chat/index.jsx";
+import {switchConversationTo} from "~/features/switch_conversation/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function App() {

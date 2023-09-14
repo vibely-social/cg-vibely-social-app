@@ -12,7 +12,7 @@ import {
   selectUserData,
   checkEmailForgot,
   setCheckEmailForgotSuccess,
-} from "~/features/userAccount/index.js";
+} from "~/features/user_account/index.js";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";

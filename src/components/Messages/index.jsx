@@ -1,4 +1,4 @@
-import {selectConversation} from "~/features/switchConversation/index.js";
+import {selectConversation} from "~/features/switch_conversation/index.js";
 import {useSelector} from "react-redux";
 import {memo} from "react";
 import Message from "./Message";

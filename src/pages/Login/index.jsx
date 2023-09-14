@@ -15,7 +15,7 @@ import {
     selectLoginIsSuccess,
     selectUserAccountSliceIsLoading,
     selectUserData,
-} from "~/features/userAccount/index.js";
+} from "~/features/user_account/index.js";
 
 function Login() {
     const dispatch = useDispatch();

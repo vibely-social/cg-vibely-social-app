@@ -1,7 +1,7 @@
 import RingLoader from "react-spinners/RingLoader"
 import './index.css'
 import { useSelector , useDispatch } from "react-redux";
-import { turnOffLoader } from "~/features/toggleLoader";
+import { turnOffLoader } from "~/features/toggle_loader";
 
 function PreLoader() {
     const firstLoad = useSelector((state) => state.firstLoad.isOn);

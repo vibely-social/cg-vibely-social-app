@@ -7,7 +7,7 @@ import newfeedNav from '~/assets/img/sidebar/newfeed.png'
 import ppl from '~/assets/img/ppl.png'
 import mess from "~/assets/img/messenger.png"
 import {useSelector} from "react-redux";
-import {selectUserData} from "~/features/userAccount/index.js";
+import {selectUserData} from "~/features/user_account/index.js";
 import {useEffect, useState} from "react";
 
 const useSidebarData = () => {

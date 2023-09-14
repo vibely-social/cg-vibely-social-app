@@ -2,8 +2,8 @@ import {Button, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {memo, useRef, useState} from "react";
 import {updateAvatarApi} from "~/api/updateAvatarApi.js";
-import {selectUserInfo, setUserInfo} from "~/features/userInfo/userInfoSlice.js";
-import {selectUserData, setUser} from "~/features/userAccount/index.js";
+import {selectUserInfo, setUserInfo} from "~/features/user_info/userInfoSlice.js";
+import {selectUserData, setUser} from "~/features/user_account/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 import {updateBackgroundApi} from "~/api/updateBackgroundApi.js";
 

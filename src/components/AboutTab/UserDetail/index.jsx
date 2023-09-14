@@ -9,7 +9,7 @@ import {
     setBirthday,
     setFullName,
     setGender
-} from "~/features/userInfo/UserInfoSlice";
+} from "~/features/user_info/UserInfoSlice";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function UserDetail() {

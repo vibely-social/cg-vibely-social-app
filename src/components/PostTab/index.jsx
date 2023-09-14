@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
 import "~/pages/PersonalPage/index.scss"
-import {getMedia} from "~/features/getMedia/index.jsx";
+import {getMedia} from "~/features/get_media/index.jsx";
 import FeedBody from "~/components/FeedBody/index.jsx";
 
 

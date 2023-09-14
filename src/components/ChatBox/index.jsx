@@ -2,19 +2,19 @@ import {memo, useEffect, useRef, useState} from "react";
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {useDispatch, useSelector} from "react-redux";
-import {selectConversation} from "~/features/switchConversation/index.js";
+import {selectConversation} from "~/features/switch_conversation/index.js";
 import {
     loadOldMessages,
     selectAllOldMessages,
     selectLoadOldMessagesIsSuccess,
     selectTotalPage,
     setLoadOldMessagesSuccess
-} from "~/features/loadOldMessages/index.jsx";
+} from "~/features/load_old_messages/index.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
 import {resetNewMessages, selectNewsMessages} from "~/features/messeger/index.jsx";
 import Message from "~/components/Messages/Message/index.jsx";
 import {Link} from "react-router-dom";
-import {selectTypingStatus} from "~/features/typingStatus/index.jsx";
+import {selectTypingStatus} from "~/features/typing_status/index.jsx";
 
 
 function ChatBox() {

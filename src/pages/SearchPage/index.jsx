@@ -6,10 +6,10 @@ import {
     selectSearchUsersIsSuccess,
     selectUsers,
     setSearchUsersSuccess
-} from "~/features/searchUser/index.js";
+} from "~/features/search_user/index.js";
 import {useEffect, useState} from "react";
-import {selectKeyword} from "~/features/getKeywordSearch/index.js";
-import {selectFriendList} from "~/features/getFriends/index.jsx";
+import {selectKeyword} from "~/features/get_search_key/index.js";
+import {selectFriendList} from "~/features/get_friends/index.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function SearchPage() {

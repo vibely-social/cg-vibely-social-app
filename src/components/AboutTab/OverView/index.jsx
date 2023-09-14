@@ -10,8 +10,8 @@ import {
     setCity,
     setSchool,
     setWork
-} from "~/features/userInfo/UserInfoSlice";
-import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/getCities/index.js";
+} from "~/features/user_info/UserInfoSlice";
+import {getCities, selectCities, selectGetCitiesIsSuccess, setGetCitiesSuccess} from "~/features/get_cities/index.js";
 import {getStoredUserData} from "~/service/accountService.js";
 
 function OverView() {

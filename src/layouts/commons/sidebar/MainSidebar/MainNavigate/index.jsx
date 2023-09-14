@@ -1,11 +1,11 @@
-import {selectSidebarPosition, toggle} from "~/features/toggleSidebar/index.js";
+import {selectSidebarPosition, toggle} from "~/features/toggle_sidebar/index.js";
 import {ListGroup} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
 import useSidebarData from "~/data/SideBarData.jsx";
 import {useStompWsClient} from "~/components/HOC_SocketClient/index.jsx";
-import {resetAccountState} from "~/features/userAccount/index.js";
+import {resetAccountState} from "~/features/user_account/index.js";
 
 function MainNavigate({sidebarHover, chatNav = false}) {
     const position = useSelector(selectSidebarPosition)

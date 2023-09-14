@@ -2,18 +2,18 @@ import {useEffect, useState} from "react";
 import "~/pages/PersonalPage/index.scss"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/userInfo/userInfoSlice.js";
+import {setUserInfo} from "~/features/user_info/userInfoSlice.js";
 import PostTab from "~/components/PostTab/index.jsx";
 import AboutTab from "~/components/AboutTab/index.jsx";
 import FriendTab from "~/components/FriendTab/index.jsx";
 import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
-import {selectFriendList} from "~/features/getFriends/index.jsx";
+import {selectFriendList} from "~/features/get_friends/index.jsx";
 import {Row} from "react-bootstrap";
-import {createRequestFriend} from "~/features/suggestionFriends/index.jsx";
-import {selectConversation, switchConversationTo} from "~/features/switchConversation/index.js";
-import {setBtChatActive} from "~/features/bottomChat/index.jsx";
+import {createRequestFriend} from "~/features/suggestion_friends/index.jsx";
+import {selectConversation, switchConversationTo} from "~/features/switch_conversation/index.js";
+import {setBtChatActive} from "~/features/bottom_chat/index.jsx";
 
 function FriendPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]

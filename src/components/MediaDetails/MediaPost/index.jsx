@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Comment from "~/components/Comment";
 import "./index.css"
-import {getMediaPostDetails} from "~/features/getMediaPostDetails/index.jsx";
+import {getMediaPostDetails} from "~/features/get_media_post_details/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import ReactTimeAgo from "react-time-ago";
 

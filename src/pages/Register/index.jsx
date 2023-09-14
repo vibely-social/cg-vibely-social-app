@@ -17,7 +17,7 @@ import {
     selectRegisterIsSuccess,
     selectLoginIsSuccess,
     selectUserData,
-} from "~/features/userAccount/index.js";
+} from "~/features/user_account/index.js";
 import Swal from "sweetalert2";
 import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
 import {CLIENT_ID} from "~/app/constants.js";

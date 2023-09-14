@@ -18,7 +18,7 @@ import axios from 'axios';
 import fileListFrom from '~/utils/fileListFromFiles';
 import { PacmanLoader } from 'react-spinners';
 import {getStoredUserData, getAccessToken} from "~/service/accountService.js";
-import {createPost} from "~/features/getPosts"
+import {createPost} from "~/features/get_posts"
 import { useDispatch } from 'react-redux';
 import ppl from "~/assets/img/ppl.png"
 

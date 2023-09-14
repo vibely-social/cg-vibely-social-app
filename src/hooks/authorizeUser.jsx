@@ -2,7 +2,7 @@ import {refreshTokenApi} from "~/api/accountApi.js";
 import {useLayoutEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setUser} from "~/features/userAccount/index.js";
+import {setUser} from "~/features/user_account/index.js";
 
 export const useAuthorizeUser = () => {
     let storedUser = useRef()

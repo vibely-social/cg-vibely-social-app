@@ -1,7 +1,7 @@
 import Header from "~/layouts/commons/Header/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import PreLoader from "~/components/Preloader/index.jsx";
-import {turnOffLoader} from "~/features/toggleLoader/index.js";
+import {turnOffLoader} from "~/features/toggle_loader/index.js";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 // eslint-disable-next-line react/prop-types
