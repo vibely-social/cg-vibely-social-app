@@ -3,9 +3,9 @@
 const hostnameLocal = '192.168.4.47:8080'
 const hostnameProduction = '20.11.80.219:8080'
 
-export const BROKER_URL = `ws://${hostnameProduction}/ws`
+export const BROKER_URL = `wss://${hostnameProduction}/ws`
 
-export const VIBELY_API = `http://${hostnameProduction}/api`
+export const VIBELY_API = `https://${hostnameProduction}/api`
 
 export const PROVINCES_API = "https://provinces.open-api.vn/api/?depth=2"
 
