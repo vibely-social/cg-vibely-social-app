@@ -48,9 +48,7 @@ function FriendTab({tongglePost, friendID}) {
             <div className="card w-100 d-block d-flex shadow-xss rounded-xxl border-0 mt-3">
                 <div className="card-body d-flex p-4">
                     <h2 className="fw-700 mb-0 mt-0 font-md text-grey-900">Friends
-                        <h2 className="font-xss text-grey-600">
                             ({friends.length} people)
-                        </h2>
                     </h2>
                     <div className="search-form-2 ms-auto">
                         <i className="ti-search font-xss cursor-pointer"></i>

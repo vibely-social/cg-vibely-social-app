@@ -22,7 +22,8 @@ export const suggestionFriendsSlice = createSlice({
     suggestionFriendsList: [],
     loading: false,
     error: null,
-    success: false,
+    suggestionSuccess: false,
+    requestSuccess: false
   },
 
   reducers: {
@@ -52,30 +53,30 @@ export const suggestionFriendsSlice = createSlice({
       .addCase(getSuggestionFriends.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.success = false;
+        state.suggestionSuccess = false;
       })
       .addCase(getSuggestionFriends.fulfilled, (state, action) => {
         state.loading = false;
         state.suggestionFriendsList = action.payload;
-        state.success = true;
+        state.suggestionSuccess = true;
       })
       .addCase(getSuggestionFriends.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
-        state.success = false;
+        state.suggestionSuccess = false;
       })
       .addCase(createRequestFriend.pending, (state) => {
-        state.success = false;
+        state.requestSuccess = false;
         state.loading = true;
         state.error = false;
       })
       .addCase(createRequestFriend.rejected, (state, action) => {
-        state.success = false;
+        state.requestSuccess = false;
         state.loading = false;
         state.error = action.error;
       })
       .addCase(createRequestFriend.fulfilled, (state, action) => {
-        state.success = true;
+        state.requestSuccess = true;
         state.loading = false;
         state.error = false;
       });
@@ -93,6 +94,7 @@ export const selectSuggestionFriendsList = (state) => state.suggestionFriends.su
 export const selectFriendRequestList = (state) => state.suggestionFriends.friendRequests;
 export const selectLoading = (state) => state.suggestionFriends.loading;
 export const selectError = (state) => state.suggestionFriends.error;
-export const selectGetSuggestionSuccess = (state) => state.suggestionFriends.success;
+export const selectGetSuggestionSuccess = (state) => state.suggestionFriends.suggestionSuccess;
+export const selectGetRequestSuccess = (state) => state.suggestionFriends.requestSuccess;
 
 export default suggestionFriendsSlice.reducer;

@@ -51,8 +51,9 @@ function PostDetail({data={}}) {
                         </span>
                     </h4>
 
-                    <a href="#" className="ms-auto" id="dropdownMenu2"><i
-                        className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
+                    <span className="ms-auto cursor-pointer" id="dropdownMenu2">
+                        <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
+                    </span>
                     <div className="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
                          aria-labelledby="dropdownMenu2">
                         <div className="card-body p-0 d-flex">
@@ -82,11 +83,9 @@ function PostDetail({data={}}) {
                     </div>
                 </Card.Body>
                 <Card.Body className="p-0 ps-2 me-lg-5">
-                    <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0 ? true : false}/>
+                    <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0}/>
                 </Card.Body>
-                      {data.gallery && <Gallery 
-						    images={data.gallery} 
-						/>}
+                      {data.gallery && <Gallery images={data.gallery}/>}
                 <Card.Body className="d-flex p-0 mt-3 ms-2 ">
                     <div 
                        className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">

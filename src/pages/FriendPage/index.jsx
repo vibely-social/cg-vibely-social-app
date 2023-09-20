@@ -10,9 +10,9 @@ import MediaTab from "~/components/MediaTab/index.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getStoredUserData} from "~/service/accountService.js";
 import {selectFriendList} from "~/features/get_friends/index.jsx";
-import {Row} from "react-bootstrap";
+import {Button, Row} from "react-bootstrap";
 import {createRequestFriend} from "~/features/suggestion_friends/index.jsx";
-import {selectConversation, switchConversationTo} from "~/features/switch_conversation/index.js";
+import {switchConversationTo} from "~/features/switch_conversation/index.js";
 import {setBtChatActive} from "~/features/bottom_chat/index.jsx";
 
 function FriendPage() {
@@ -71,7 +71,7 @@ function FriendPage() {
         getUserInfo()
     }, [currentProfileId])
 
-    const handleAddingFriend = (event) => {
+    const handleAddingFriend = () => {
         setAddFrDisable(true)
         if (!addFrDisable) {
             dispatch(createRequestFriend(currentProfileId));
@@ -131,11 +131,11 @@ function FriendPage() {
                                         </span>
                                     </>
                                     :
-                                    <span onClick={handleAddingFriend}
-                                        className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
+                                    <Button onClick={handleAddingFriend} disabled={addFrDisable}
+                                        className="d-flex align-items-center cursor-pointer bg-primary-gradiant p-3 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3 border-0">
                                         <i className="feather-plus font-xss tetx-dark me-1"></i>
                                         Add Friend
-                                    </span>
+                                    </Button>
 
                             }
                         </div>

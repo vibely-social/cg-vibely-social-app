@@ -55,7 +55,7 @@ export const avatarStyle = {
 }
 
 
-function CommentLine({data,commentData}) {
+function CommentLine({data={},commentData={}}) {
     let commendID = commentData.commentId
     let postID = data.id
     const user = getStoredUserData() 
@@ -68,9 +68,8 @@ function CommentLine({data,commentData}) {
     const [isReply,setIsReply] = useState(false)
     const [inputContent,setInputContent] = useState("")
     const [editContent,setEditContent] = useState(commentData.content)
-    const [file,setFile] = useState(null)
     const [commentBox, setCommentBox] = useState("85%")
-    const [replys,setReply] = useState(commentData.replyCommentDTOs)
+    const [replies,setReply] = useState(commentData.replyCommentDTOs)
     const [isShowReplies,setIsShowReplies] = useState(false)
     const [showToolkit,setShowToolkit] = useState(false)
     const [isEdit,setIsEdit] = useState(false)
@@ -130,7 +129,7 @@ function CommentLine({data,commentData}) {
                 },})
                 .then((response) => {
                   setInputContent("")
-                  if(!replys){
+                  if(!replies){
                     setReply([])
                   }
                   setIsShowReplies(true)
@@ -189,12 +188,18 @@ function CommentLine({data,commentData}) {
             onMouseLeave={() => setShowToolkit(false)}
             >
             <div className='d-flex' >
-             <div className="comment-user content-start mt-3  ">
+             <div className="comment-user content-start">
                 <figure style={{alignSelf: "start", marginTop: "10px"}}>
-                        <img 
-                        style={avatarStyle}
-                        src={commentData.author.avatar ? commentData.author.avatar : ppl}
-                        />
+                        {/*<img */}
+                        {/*style={avatarStyle}*/}
+                        {/*src={commentData.author.avatar ? commentData.author.avatar : ppl}*/}
+                        {/*/>*/}
+                    <img src={commentData.author.avatar
+                        ? `https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/${commentData.author.avatar}?alt=media`
+                        : ppl}
+                         className="shadow-sm avatar-40"
+                         alt="img"
+                    />
                 </figure>
                 <div>
                     </div>
@@ -341,21 +346,21 @@ function CommentLine({data,commentData}) {
 
                          </div>
                         
-                            {(replys?.length > 0) && 
+                            {(replies?.length > 0) &&
                             <div className='replyshow-btn hover-vibe font-xssss fw-500 text-grey-800'
                                 onClick={handleShowReplies}
                                 style={{marginBottom: "-10px"}}>
                                     {!isShowReplies
 
                                     ?  <><i className='feather-corner-down-right'></i>
-                                            <span> Show {replys?.length} Replies</span></> 
+                                            <span> Show {replies?.length} Replies</span></>
 
                                     : <><i className='feather-corner-left-up'></i>
-                                            <span> Hide {replys?.length} Replies</span></>   
+                                            <span> Hide {replies?.length} Replies</span></>
                                     }
                             </div>}
                     </div>  
-                {isShowReplies && replys?.map((reply,index) => {
+                {isShowReplies && replies?.map((reply,index) => {
                             return <ReplyComment 
                                             key={reply.commentId} 
                                             data={data} 
@@ -373,7 +378,7 @@ function CommentLine({data,commentData}) {
                                         className="avatar ms-0  p-1 top-2 " >
                                     <img  
                                         style={{width:'30px',height:"28px"}} 
-                                        src={user.avatar ? user?.avatar : ppl}  
+                                        src={user.avatarUrl ? user?.avatarUrl : ppl}
                                         className="shadow-sm rounded-circle" 
                                     />
                                 </figure>

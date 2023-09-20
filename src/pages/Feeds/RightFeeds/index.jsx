@@ -7,7 +7,7 @@ import {
   getSuggestionFriends,
   selectGetSuggestionSuccess,
   selectSuggestionFriendsList,
-  createRequestFriend,
+  createRequestFriend, selectGetRequestSuccess,
 } from "~/features/suggestion_friends";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +28,8 @@ function RightFeed() {
 
   const [friendSuggests, setFriendSuggests] = useState([]);
   const friendSuggestions = useSelector(selectSuggestionFriendsList);
-  const successSuggestion = useSelector(selectGetSuggestionSuccess);
+  const getFriendSuggestionSuccess = useSelector(selectGetSuggestionSuccess);
+  const getRequestFriendSuccess = useSelector(selectGetRequestSuccess);
 
   useEffect(() => {
     setFriendRequests(friendRequestList);
@@ -39,12 +40,12 @@ function RightFeed() {
   }, []);
 
   useEffect(() => {
-    if (successSuggestion) setFriendSuggests(friendSuggestions);
+    if (getFriendSuggestionSuccess) setFriendSuggests(friendSuggestions);
   }, [friendSuggestions]);
 
   useEffect(() => {
     dispatch(getSuggestionFriends());
-  }, []);
+  }, [getRequestFriendSuccess]);
 
   const handleAcceptFriendRequest = (id) => {
     dispatch(acceptRequestFriend(id)).then(() => {
@@ -138,7 +139,7 @@ function RightFeed() {
                   <img
                     src={suggestion?.avatar}
                     alt="image"
-                    className=" shadow-sm rounded-circle w50"
+                    className="shadow-sm avatar-45"
                   />
                 </figure>
                 <h4 className="fw-700 text-grey-800 font-xss">

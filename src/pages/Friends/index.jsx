@@ -8,7 +8,7 @@ import {
   getSuggestionFriends,
   selectGetSuggestionSuccess,
   selectSuggestionFriendsList,
-  createRequestFriend,
+  createRequestFriend, selectGetRequestSuccess,
 } from "~/features/suggestion_friends";
 
 import {
@@ -30,6 +30,7 @@ function Friends() {
   const [friendSuggests, setFriendSuggests] = useState([]);
   const friendSuggestions = useSelector(selectSuggestionFriendsList);
   const successSuggestion = useSelector(selectGetSuggestionSuccess);
+  const getRequestFriendSuccess = useSelector(selectGetRequestSuccess);
 
   useEffect(() => {
     if (successRequest) setFriendRequests(friendRequestList);
@@ -45,7 +46,7 @@ function Friends() {
 
   useEffect(() => {
     dispatch(getSuggestionFriends());
-  }, []);
+  }, [getRequestFriendSuccess]);
 
   const handleAcceptFriendRequest = (id) => {
     dispatch(acceptRequestFriend(id)).then(() => {

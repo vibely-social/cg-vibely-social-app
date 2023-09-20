@@ -14,6 +14,8 @@ import SendBtn from "~/assets/img/new_post_icons/send.png"
 import toBase64 from '~/utils/toBase64.js';
 import UseAnimations from "react-useanimations";
 import trash2 from 'react-useanimations/lib/trash2';
+import {useSelector} from "react-redux";
+import {selectUserData} from "~/features/user_account/index.js";
 
 const imgStyle = {
     maxWidth: "100px",
@@ -37,7 +39,7 @@ function Comment({data = {}, isShowComment = {}}) {
     const [inputContent, setInputContent] = useState("")
     const [file, setFile] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const user = getStoredUserData()
+    const user = useSelector(selectUserData)
     const [onFocusComment, setOnFocusComment] = useState(false)
     const [commentGallery, setCommentGallery] = useState(null)
     const [showGallery, setShowGallery] = useState(null)
@@ -58,15 +60,14 @@ function Comment({data = {}, isShowComment = {}}) {
 
 
     const handleSubmit = async (event) => {
-        let newComment = inputContent
-        if (inputContent != "" || commentGallery) {
+        if (inputContent !== "" || commentGallery) {
             const formData = new FormData();
-            formData.append('newComment', newComment)
+            formData.append('newComment', inputContent)
             if (commentGallery) {
                 formData.append('file', commentGallery)
             }
             try {
-                const response = await axios.post(`${VIBELY_API}/posts/${data.id}/comment`, formData,
+                await axios.post(`${VIBELY_API}/posts/${data.id}/comment`, formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',
@@ -110,21 +111,6 @@ function Comment({data = {}, isShowComment = {}}) {
         event.target.style.height = event.target.scrollHeight + "px"
         event.target.style.paddingBottom = "-20px"
     }
-    // const socket = io('http://localhost:4000');    
-    // socket.emit('joinChannel', channelName);
-    // const handleEnterDown = (event) => {
-    //          let comment = event
-    //          socket.emit('sendComment', ({ channelName, comment }));
-    // }
-
-    // useEffect(() => {
-    //     socket.on('newComment', (comment) => {
-    //         setComments((prevComments) => [...prevComments, comment]);
-    //     });
-    //     return () => {
-    //       socket.off('newComment');
-    //     };
-    // }, []);
 
     return (
         <>
@@ -132,14 +118,12 @@ function Comment({data = {}, isShowComment = {}}) {
                 <Card.Body
                     className="p-0 pt-3 d-flex pb-0 border-dark mt-3">
                     <figure className="avatar mt-1 top-2 ">
-                        <img
-                            style={{
-                                width: '40px',
-                                height: "38px",
-                                overflow: 'hidden'
-                            }}
-                            src={user.avatar ? user?.avatar : ppl}
-                            className="shadow-sm rounded-circle"/>
+                        <img src={user.avatarUrl
+                                ? user.avatarUrl
+                                : ppl}
+                            className="shadow-sm avatar-40"
+                             alt="img"
+                        />
                     </figure>
                     <Form className='comment-box rounded-xxl ms-2 bor-0 border-light-md'>
                         <Form.Group className='d-flex'>
@@ -234,16 +218,12 @@ function Comment({data = {}, isShowComment = {}}) {
                 className="d-flex p-0 mt-2">
                 <figure
                     className="avatar ms-0 mt-1 top-2 ">
-                    <img
-                        style={{
-                            width: '35px',
-                            height: "32px",
-                            overflow: 'hidden'
-                        }}
-                        src={user.avatar
-                            ? user
-                                ?.avatar : ppl}
-                        className="shadow-sm input-comment-avatar rounded-circle"/>
+                    <img src={user.avatarUrl
+                        ? user.avatarUrl
+                        : ppl}
+                         className="shadow-sm avatar-40"
+                         alt="img"
+                    />
                 </figure>
                 <Form
                     className='comment-box rounded-xxl mt-1 ms-2 border-light-md'>

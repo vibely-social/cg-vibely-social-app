@@ -1,22 +1,20 @@
-import google from "~/assets/img/google-icon.png";
-import {Link, useNavigate} from "react-router-dom"
+import {Link, useNavigate, useParams} from "react-router-dom"
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import "./index.scss"
 import {useEffect, useState} from "react";
 import logo from "~/assets/img/logo.svg";
-import {GoogleOAuthProvider, useGoogleLogin} from "@react-oauth/google";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 import {useDispatch, useSelector} from "react-redux";
 import {
     checkEmail,
     registerAccount,
     resetAccountState,
     selectAccountError,
-    selectCheckEmailIsSuccess, selectRegisterIsError,
+    selectCheckEmailIsSuccess,
+    selectRegisterIsError,
     selectRegisterIsSuccess,
-    selectLoginIsSuccess,
-    selectUserData,
 } from "~/features/user_account/index.js";
 import Swal from "sweetalert2";
 import GoogleLoginButton from "~/components/GoogleLoginButton/index.jsx";
@@ -31,6 +29,8 @@ function Register() {
     const registerError = useSelector(selectRegisterIsError);
     const [emailExists, setEmailExists] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const pathName = window.location.pathname.substring(1,)
 
     const formik = useFormik({
         initialValues: {
@@ -181,34 +181,27 @@ function Register() {
     return (
         <div className="main-wrap">
             <div className="nav-header bg-transparent shadow-none border-0">
-                <div className="nav-top w-100">
-                        <span>
+                <div className="nav-top w-100 justify-content-start">
+                        <span className='d-flex'>
                             <i className="text-success display1-size me-2 ms-0">
                                 <img src={logo} alt="icon"
                                      style={{maxWidth: 50, zIndex: "10000"}}
                                 />
                             </i>
                             <span
-                                className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+                                className="d-none d-md-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                                 Vibely Social
                             </span>
                         </span>
-                    <a href="#" className="mob-menu ms-auto me-2 chat-active-btn">
-                        <i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i>
-                    </a>
-                    <a href="default-video.html" className="mob-menu me-2">
-                        <i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i>
-                    </a>
-                    <a href="#" className="me-2 menu-search-icon mob-menu">
-                        <i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i>
-                    </a>
-                    <button className="nav-menu me-0 ms-2"></button>
+
                     <Link to="/login"
-                          className="header-btn d-none d-lg-block bg-blue-gradiant fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">
+                          className={"header-btn bg-blue-gradiant fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl "
+                          + ((pathName === "login")?"d-none d-md-inline-block":"d-inline-block")}>
                         Login
                     </Link>
                     <span
-                        className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">
+                        className={"header-btn bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl "
+                            + ((pathName === "register")?"d-none d-md-inline-block":"d-inline-block")}>
                             Register
                         </span>
                 </div>

@@ -46,9 +46,6 @@ function RightChat() {
     useEffect(() => {
         const rvMessages = [...messages].reverse()
         setDisplayMessages(rvMessages)
-
-        console.log('friends in rightchat')
-        console.log(friendList)
     }, [messages])
 
     useEffect(() => {
