@@ -1,16 +1,10 @@
 import {useGoogleLogin} from "@react-oauth/google";
-import {googleLogin, resetAccountState} from "~/features/user_account/index.js";
-import {useState, useRef, useEffect} from "react";
+import {googleLogin, resetAccountState, selectLoginIsSuccess, selectUserData} from "~/features/user_account/index.js";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import google from "~/assets/img/google-icon.png";
-import { Toast } from 'primereact/toast';
-import {
-    selectLoginIsSuccess,
-    selectUserData,
-    selectAccountError
-} from "~/features/user_account/index.js";
+import {Toast} from 'primereact/toast';
 import {useNavigate} from "react-router-dom";
-import Popup from "reactjs-popup";
 
 
 function GoogleLoginButton({type}) {
@@ -19,7 +13,6 @@ function GoogleLoginButton({type}) {
     const navigate = useNavigate();
     const user = useSelector(selectUserData);
     const success = useSelector(selectLoginIsSuccess);
-    const [hasError, setHasError] = useState(false);
 
     const toast = useRef(null);
 

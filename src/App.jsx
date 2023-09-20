@@ -8,7 +8,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {Toast} from "primereact/toast";
 import {setTypingStatus} from "~/features/typing_status/index.jsx";
 import {selectUserData} from "~/features/user_account/index.js";
-import {getFriendsStatus} from "~/features/online_status/index.jsx";
 import {getFriends, selectFriendList} from "~/features/get_friends/index.jsx";
 import {addNotify} from "~/features/notification/index.jsx";
 import TimeAgo from "javascript-time-ago";
@@ -36,10 +35,10 @@ function App() {
         }
         if (Notification.permission !== 'granted') {
             Notification.requestPermission().then(() => {
-                new Notification('Vibely', {
-                    icon: "src/assets/img/logo.svg",
-                    body: "Hey there! Welcome to Vibely Social!",
-                });
+                // new Notification('Vibely', {
+                //     icon: "src/assets/img/logo.svg",
+                //     body: "Hey there! Welcome to Vibely Social!",
+                // });
             });
         }
     })
@@ -48,7 +47,7 @@ function App() {
         if (friends && friends.length === 0) {
             dispatch(getFriends(getStoredUserData().id))
         }
-    })
+    },[user])
 
     const handleNewMessage = (message) => {
         dispatch(addUnreadMessage(message))
@@ -103,21 +102,6 @@ function App() {
     }, [user])
 
 
-    useEffect(() => {
-        let friendEmails = []
-        if (friends) {
-            friends.forEach(friend => friendEmails.push(friend.email))
-        }
-        dispatch(getFriendsStatus(friendEmails))
-        const loadStatus = setInterval(() => {
-            dispatch(getFriendsStatus(friendEmails))
-        }, 10000)
-
-        return () => {
-            clearInterval(loadStatus)
-        }
-    }, [friends])
-
     // const showMessage = (content, ref, severity) => {
     //     const label = 'You have new message:'
     //
@@ -130,8 +114,9 @@ function App() {
                 <AppRoutes/>
             </BrowserRouter>
             <Toast ref={toastBottomRight} position="bottom-right"/>
-            <audio src="https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/the-notification-email.mp3?alt=media"
-                   ref={notifySound}></audio>
+            <audio
+                src="https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/the-notification-email.mp3?alt=media"
+                ref={notifySound}></audio>
         </>
     )
 }

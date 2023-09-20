@@ -12,7 +12,7 @@ function FeedBody () {
     useAuthorizeUser()
 
     const dispatch = useDispatch();
-    const {isLoading, isSuccess, newPosts, isFailed , createPost } = useSelector((state) => state.posts);
+    const {isLoading, isSuccess, newPosts , createPost } = useSelector((state) => state.posts);
     const [loaded,setLoaded] = useState(false)
 
 
@@ -25,6 +25,7 @@ function FeedBody () {
         else{
             setLoaded(true)
         }
+        console.log(newPosts)
         return () => {
             dispatch(resetPost())
         };
@@ -52,9 +53,7 @@ function FeedBody () {
                         </div>
                     </div>
                 </div>)
-                :
-
-                isSuccess && newPosts && newPosts?.map((post,index) => {
+                : (isSuccess && newPosts) && newPosts?.map((post,index) => {
                     return <PostDetail data={post} key={index}/>
                 })
             }

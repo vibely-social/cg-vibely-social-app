@@ -19,6 +19,8 @@ import {selectUserData} from "~/features/user_account/index.js";
 import {activeSidebar} from "~/features/toggle_sidebar/index.js";
 import {selectNotifications} from "~/features/notification/index.jsx";
 import ReactTimeAgo from "react-time-ago";
+import {getFriendsStatus} from "~/features/online_status/index.jsx";
+import {selectFriendList} from "~/features/get_friends/index.jsx";
 
 function Header() {
     const USER = getStoredUserData()
@@ -32,6 +34,7 @@ function Header() {
     const user = useSelector(selectUserData)
     const notifications = useSelector(selectNotifications)
     const socketClient = useStompWsClient()
+    const friends = useSelector(selectFriendList)
 
     useAuthorizeUser()
 
@@ -40,6 +43,21 @@ function Header() {
         listNotify.reverse()
         setDisplayNotifications(listNotify)
     }, [notifications])
+
+    useEffect(() => {
+        let friendEmails = []
+        if (friends) {
+            friends.forEach(friend => friendEmails.push(friend.email))
+        }
+        dispatch(getFriendsStatus(friendEmails))
+        const loadStatus = setInterval(() => {
+            dispatch(getFriendsStatus(friendEmails))
+        }, 10000)
+
+        return () => {
+            clearInterval(loadStatus)
+        }
+    }, [friends])
 
     const handleNavClick = () => {
         setActive(prevState => !prevState)
@@ -54,10 +72,9 @@ function Header() {
                     Authorization: 'Bearer ' + user.accessToken
                 }
                 socketClient.activate()
-                console.log('activated')
             }
         }
-    }, [user.accessToken])
+    }, [user])
 
     const customToggle = forwardRef(({children, onClick}, ref) => (
         <div className='position-relative'>
