@@ -1,22 +1,26 @@
 import CreatePost from "~/components/CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {fetchPosts, resetPost} from "~/features/get_posts/index.js";
-import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 import "./index.scss"
 import {selectUserData} from "~/features/user_account/index.js";
 
 function FeedBody({personal = false}) {
     const user = useSelector(selectUserData)
-    useAuthorizeUser()
-
     const dispatch = useDispatch();
     const {isLoading, isSuccess, newPosts, createPost} = useSelector((state) => state.posts);
+    const [posts, setPosts] = useState([])
 
+    useEffect(()=>{
+        if (isSuccess){
+            setPosts(newPosts)
+        }
+    },[isSuccess])
 
     useEffect(() => {
+        if (!isSuccess)
         dispatch(fetchPosts())
         return () => {
             dispatch(resetPost())
@@ -46,7 +50,7 @@ function FeedBody({personal = false}) {
                     </div>
                 </div>)
                 : isSuccess
-                    ? newPosts.map((post, index) => {
+                    ? posts.map((post, index) => {
                         if (!personal) {
                             return <PostDetail data={post} key={index}/>
                         }else {

@@ -50,13 +50,6 @@ function Header() {
             friends.forEach(friend => friendEmails.push(friend.email))
         }
         dispatch(getFriendsStatus(friendEmails))
-        const loadStatus = setInterval(() => {
-            dispatch(getFriendsStatus(friendEmails))
-        }, 10000)
-
-        return () => {
-            clearInterval(loadStatus)
-        }
     }, [friends])
 
     const handleNavClick = () => {
