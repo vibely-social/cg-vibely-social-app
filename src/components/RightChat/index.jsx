@@ -19,6 +19,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import {selectOnlineList} from "~/features/online_status/index.jsx";
 import {Link} from "react-router-dom";
+import TypingStatus from "~/components/TypingStatus/index.jsx";
 
 function RightChat() {
     const dispatch = useDispatch()
@@ -287,15 +288,7 @@ function RightChat() {
                         ))}
 
                         {/*<div className="date-break font-xsssss lh-24 fw-500 text-grey-500 mt-2 mb-2">Mon 10:20am</div>*/}
-
-                        <div className="pt-3 pe-3 pb-2 ps-4 bg-grey rounded-xl position-absolute border border-light"
-                             hidden={!typingStatus[currentConversation.email]}
-                             style={{bottom: 105, left: 30}}
-                             data-title=".dot-typing">
-                            <div className="stage">
-                                <div className="dot-typing"></div>
-                            </div>
-                        </div>
+                        <TypingStatus hidden={!typingStatus[currentConversation.email]} style={{bottom: 105, left: 30}}/>
                     </div>
 
                     <div className="modal-popup-footer w-100 border-top">

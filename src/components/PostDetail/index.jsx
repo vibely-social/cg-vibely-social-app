@@ -3,7 +3,7 @@ import {Card} from "react-bootstrap";
 import ppl from "~/assets/img/ppl.png"
 import {motion} from "framer-motion";
 import ReactTimeAgo from 'react-time-ago'
-import {useState} from "react";
+import {memo, useEffect, useState} from "react";
 import Comment from "~/components/Comment";
 import likebtn from "~/assets/img/likebtn.png"
 import {likePost} from "~/api/postApi";
@@ -15,21 +15,26 @@ import Gallery from "./Gallery";
 import {Link} from "react-router-dom";
 
 
-function PostDetail({data={}}) {
-    const [like,setLike] = useState(data.likeCount)
-    const [isLiked,setIsLiked] = useState(data.liked)
-    const [isShowComment,setIsShowComment] = useState(false)
+function PostDetail({data = {}}) {
+    const [like, setLike] = useState(data.likeCount)
+    const [isLiked, setIsLiked] = useState(data.liked)
+    const [isShowComment, setIsShowComment] = useState(false)
+
+    useEffect(()=>{
+        console.log('data')
+        console.log(data)
+    },[])
 
     const handleClickLike = async () => {
         await likePost(data.id)
-        .then(response => {
-           setLike(response.likeCount)
-           setIsLiked(response.isLiked)
-        })
+            .then(response => {
+                setLike(response.likeCount)
+                setIsLiked(response.isLiked)
+            })
     }
     return (
         <>
-            <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3" >
+            <Card className="w-100 shadow-md rounded-xxl border-0 p-3 mb-3">
                 <Card.Body className="p-0 d-flex mb-3">
                     <figure className="avatar me-2">
                         <img
@@ -45,9 +50,9 @@ function PostDetail({data={}}) {
                         </Link>
                         <span className="flex font-xssss fw-500 mt-1 lh-3 text-grey-500">
                             <ReactTimeAgo date={Date.parse(data.createdDate)}/>
-                                                  {data.privacy === "PUBLIC" ? <img alt={'img'} src={Earth} className="icon-privacy"/>
-                                                    :data.privacy === "FRIENDS" ? <img alt={'img'} src={Friends} className="icon-privacy"/>
-                                                                               : <img alt={'img'} src={Private} className="icon-privacy"/>}
+                            {data.privacy === "PUBLIC" ? <img alt={'img'} src={Earth} className="icon-privacy"/>
+                                : data.privacy === "FRIENDS" ? <img alt={'img'} src={Friends} className="icon-privacy"/>
+                                    : <img alt={'img'} src={Private} className="icon-privacy"/>}
                         </span>
                     </h4>
 
@@ -85,27 +90,27 @@ function PostDetail({data={}}) {
                 <Card.Body className="p-0 ps-2 me-lg-5">
                     <ReadMore content={data.content} isTextOnly={data.gallery?.length > 0}/>
                 </Card.Body>
-                      {data.gallery && <Gallery images={data.gallery}/>}
+                {data.gallery && <Gallery images={data.gallery}/>}
                 <Card.Body className="d-flex p-0 mt-3 ms-2 ">
-                    <div 
-                       className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">
-                            <motion.i
-                                className={(isLiked ? "bg-primary-gradiant" : "bg-tumblr") + " feather-thumbs-up cursor-pointer text-white me-1 btn-round-xs me-2 font-xsss"}
-                                whileHover={{ scale: 1.4 }}
-                                whileTap={{ scale: 1 }}
-                                style={{scale: 1.1}}
-                                src={likebtn}
-                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                                onClick={handleClickLike}
-                            />
-                            <motion.i
-                                className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xsss"
-                                whileHover={{ scale: 1.6 }}
-                                whileTap={{ scale: 1 }}
-                                style={{scale: 1.1}}
-                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                                onClick={handleClickLike}
-                            />
+                    <div
+                        className="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2 ">
+                        <motion.i
+                            className={(isLiked ? "bg-primary-gradiant" : "bg-tumblr") + " feather-thumbs-up cursor-pointer text-white me-1 btn-round-xs me-2 font-xsss"}
+                            whileHover={{scale: 1.4}}
+                            whileTap={{scale: 1}}
+                            style={{scale: 1.1}}
+                            src={likebtn}
+                            transition={{type: "spring", stiffness: 400, damping: 17}}
+                            onClick={handleClickLike}
+                        />
+                        <motion.i
+                            className="feather-heart text-white cursor-pointer bg-pinterest ms-1 me-3 btn-round-xs  font-xsss"
+                            whileHover={{scale: 1.6}}
+                            whileTap={{scale: 1}}
+                            style={{scale: 1.1}}
+                            transition={{type: "spring", stiffness: 400, damping: 17}}
+                            onClick={handleClickLike}
+                        />
                         <div className="hover-vibe rounded-xl p-1"> {!like ? 0 : like} Like</div>
                     </div>
                     <div className="emoji-wrap">
@@ -120,23 +125,23 @@ function PostDetail({data={}}) {
                             <li className="emoji list-inline-item"><i className="em em-full_moon_with_face"></i></li>
                         </ul>
                     </div>
-                    <a 
-                    className="hover-vibe rounded-xl d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
-                    onClick={() => setIsShowComment(true)} >
+                    <a
+                        className="hover-vibe rounded-xl d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss"
+                        onClick={() => setIsShowComment(true)}>
                         <i
-                        className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg">
+                            className="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg">
                         </i>
                         <span
-                        className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment
+                            className="d-none-xs"> {!data.commentCount ? 0 : data.commentCount} Comment
                         </span>
                     </a>
-                    <a  
-                       className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
+                    <a
+                        className="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
                         <i
-                        className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"/>
+                            className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"/>
                         <span
-                        className="d-none-xs">Share</span>
-                        </a>
+                            className="d-none-xs">Share</span>
+                    </a>
                 </Card.Body>
                 <Comment data={data} isShowComment={isShowComment}/>
             </Card>
@@ -144,4 +149,4 @@ function PostDetail({data={}}) {
     )
 }
 
-export default PostDetail;
+export default memo(PostDetail);

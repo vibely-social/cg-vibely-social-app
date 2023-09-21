@@ -18,6 +18,7 @@ import {
 import Message from "~/components/Messages/Message/index.jsx";
 import { Link } from "react-router-dom";
 import { selectTypingStatus } from "~/features/typing_status/index.jsx";
+import TypingStatus from "~/components/TypingStatus/index.jsx";
 
 function ChatBox() {
 	const [emojiVisible, setEmojiVisible] = useState(false);
@@ -222,14 +223,8 @@ function ChatBox() {
 								return <Message key={index} message={displayMessage} />;
 							}
 						})}
-						<div className="clearfix">
-							<img
-								src="src/assets/img/typing.gif"
-								alt="dot"
-								hidden={!typingStatus[currentConversation.email]}
-								style={{ height: 45 }}
-							/>
-						</div>
+
+						<TypingStatus hidden={!typingStatus[currentConversation.email]} style={{bottom: 15}}/>
 					</div>
 				</div>
 			</div>

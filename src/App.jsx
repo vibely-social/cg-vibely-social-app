@@ -65,6 +65,8 @@ function App() {
     useEffect(() => {
         socketClient.onConnect = (frame) => {
             console.log(frame)
+            console.log('socketClient')
+            console.log(socketClient)
             socketClient.subscribe('/users/queue/messages', (message) => {
                 const messageContent = JSON.parse(message.body);
                 if (!messageContent.isStatusType) {

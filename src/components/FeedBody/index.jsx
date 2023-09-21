@@ -1,40 +1,32 @@
 import CreatePost from "~/components/CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo} from "react";
 import {fetchPosts, resetPost} from "~/features/get_posts/index.js";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 import "./index.scss"
+import {selectUserData} from "~/features/user_account/index.js";
 
-function FeedBody () {
-
+function FeedBody() {
+    const user = useSelector(selectUserData)
     useAuthorizeUser()
 
     const dispatch = useDispatch();
-    const {isLoading, isSuccess, newPosts , createPost } = useSelector((state) => state.posts);
-    const [loaded,setLoaded] = useState(false)
+    const {isLoading, isSuccess, newPosts, createPost} = useSelector((state) => state.posts);
 
 
     useEffect(() => {
         dispatch(fetchPosts())
-        // fake loader
-        if(isLoading === false){
-            setTimeout(() => setLoaded(true),500)
-        }
-        else{
-            setLoaded(true)
-        }
-        console.log(newPosts)
         return () => {
             dispatch(resetPost())
         };
-    },[dispatch]);
-    return(
+    }, [user]);
+    return (
         <>
-            <CreatePost />
-            { createPost && <PostDetail data={createPost}/>}
-            {!loaded ?
+            <CreatePost/>
+            {createPost && <PostDetail data={createPost}/>}
+            {isLoading ?
                 (<div className="preloader-feed">
                     <div className="box shimmer">
                         <div className="lines">
@@ -53,11 +45,16 @@ function FeedBody () {
                         </div>
                     </div>
                 </div>)
-                : (isSuccess && newPosts) && newPosts?.map((post,index) => {
-                    return <PostDetail data={post} key={index}/>
-                })
+                : isSuccess
+                    ? newPosts.map((post, index) => {
+                        const postData = {...post}
+                        return <PostDetail data={postData} key={index}/>
+                    })
+                    : <div>No post to show. Follow more friend!</div>
+
             }
         </>
     )
 }
+
 export default FeedBody;

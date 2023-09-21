@@ -59,8 +59,6 @@
   box-shadow: none;
   animation: dotTyping 1.5s infinite linear;
   top: -4px;
-
-  position: relative;
 }
 
 
@@ -317,12 +315,18 @@
 .chat-body {
   @include box-flex();
   margin: 0px 0 0;
+  .typing-status{
+    left: 20px;
+  }
   @include media-breakpoint-down(md) {
-    margin-top: 20px;
+    //margin-top: 20px;
     margin-bottom: 0px;
     padding-right: 20px;
     padding-left: 20px;
     overflow: auto !important;
+    .typing-status{
+      left: 0 !important;
+    }
   }
 
 
