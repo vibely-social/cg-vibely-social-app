@@ -224,7 +224,7 @@ function ChatBox() {
 						})}
 						<div className="clearfix">
 							<img
-								src="src/assets/img/KindlyActualKawala-size_restricted.gif"
+								src="src/assets/img/typing.gif"
 								alt="dot"
 								hidden={!typingStatus[currentConversation.email]}
 								style={{ height: 45 }}
