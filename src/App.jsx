@@ -12,10 +12,9 @@ import {getFriends, selectFriendList} from "~/features/get_friends/index.jsx";
 import {addNotify} from "~/features/notification/index.jsx";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import {getRequestFriends} from "~/features/request_friends/index.jsx";
+import {getRequestFriends, selectAcceptFriendSuccess} from "~/features/request_friends/index.jsx";
 import {selectBottomChatStatus, setBtChatActive} from "~/features/bottom_chat/index.jsx";
 import {switchConversationTo} from "~/features/switch_conversation/index.js";
-import {getStoredUserData} from "~/service/accountService.js";
 
 function App() {
     const dispatch = useDispatch()
@@ -23,6 +22,7 @@ function App() {
     const user = useSelector(selectUserData)
     const btChatStatus = useSelector(selectBottomChatStatus)
     const friends = useSelector(selectFriendList)
+    const acceptFriend = useSelector(selectAcceptFriendSuccess)
     const toastBottomRight = useRef(null);
     const notifySound = useRef()
 
@@ -44,10 +44,10 @@ function App() {
     })
 
     useEffect(() => {
-        if (friends && friends.length === 0) {
-            dispatch(getFriends(getStoredUserData().id))
+        if (user) {
+            dispatch(getFriends(user.id))
         }
-    },[user])
+    }, [user, acceptFriend])
 
     const handleNewMessage = (message) => {
         dispatch(addUnreadMessage(message))
@@ -65,8 +65,6 @@ function App() {
     useEffect(() => {
         socketClient.onConnect = (frame) => {
             console.log(frame)
-            console.log('socketClient')
-            console.log(socketClient)
             socketClient.subscribe('/users/queue/messages', (message) => {
                 const messageContent = JSON.parse(message.body);
                 if (!messageContent.isStatusType) {
@@ -102,13 +100,6 @@ function App() {
             console.log('Disconnected!')
         }
     }, [user])
-
-
-    // const showMessage = (content, ref, severity) => {
-    //     const label = 'You have new message:'
-    //
-    //     ref.current.show({severity: severity, summary: content, detail: label, life: 3000});
-    // };
 
     return (
         <>

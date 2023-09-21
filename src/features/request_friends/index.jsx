@@ -31,6 +31,7 @@ export const requestFriendsSlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    successAccept: false,
   },
 
   reducer: {
@@ -77,17 +78,17 @@ export const requestFriendsSlice = createSlice({
         state.error = false;
       })
       .addCase(acceptRequestFriend.pending, (state) => {
-        state.success = false;
+        state.successAccept = false;
         state.loading = true;
         state.error = false;
       })
       .addCase(acceptRequestFriend.rejected, (state, action) => {
-        state.success = false;
+        state.successAccept = false;
         state.loading = false;
         state.error = action.error;
       })
       .addCase(acceptRequestFriend.fulfilled, (state, action) => {
-        state.success = true;
+        state.successAccept = true;
         state.loading = false;
         state.error = false;
       })
@@ -103,6 +104,7 @@ export const {
   export const selectRequestFriendLoading = (state) => state.requestFriends.loading;
   export const selectRequestFriendError = (state) => state.requestFriends.error;
   export const selectRequestFriendSuccess = (state) => state.requestFriends.success;
+  export const selectAcceptFriendSuccess = (state) => state.requestFriends.successAccept;
   export const selectRequestFriendsList = (state) => state.requestFriends.requestFriendsList;
  
   export default requestFriendsSlice.reducer;

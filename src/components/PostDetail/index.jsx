@@ -15,15 +15,11 @@ import Gallery from "./Gallery";
 import {Link} from "react-router-dom";
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 function PostDetail({data = {}}) {
     const [like, setLike] = useState(data.likeCount)
     const [isLiked, setIsLiked] = useState(data.liked)
     const [isShowComment, setIsShowComment] = useState(false)
-
-    useEffect(()=>{
-        console.log('data')
-        console.log(data)
-    },[])
 
     const handleClickLike = async () => {
         await likePost(data.id)

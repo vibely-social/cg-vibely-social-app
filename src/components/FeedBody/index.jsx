@@ -8,7 +8,7 @@ import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import "./index.scss"
 import {selectUserData} from "~/features/user_account/index.js";
 
-function FeedBody() {
+function FeedBody({personal = false}) {
     const user = useSelector(selectUserData)
     useAuthorizeUser()
 
@@ -21,7 +21,7 @@ function FeedBody() {
         return () => {
             dispatch(resetPost())
         };
-    }, [user]);
+    }, [user.accessToken]);
     return (
         <>
             <CreatePost/>
@@ -47,8 +47,13 @@ function FeedBody() {
                 </div>)
                 : isSuccess
                     ? newPosts.map((post, index) => {
-                        const postData = {...post}
-                        return <PostDetail data={postData} key={index}/>
+                        if (!personal) {
+                            return <PostDetail data={post} key={index}/>
+                        }else {
+                            if (post.author.id === user.id){
+                                return <PostDetail data={post} key={index}/>
+                            }
+                        }
                     })
                     : <div>No post to show. Follow more friend!</div>
 
