@@ -20,39 +20,46 @@ export const formatDate = (date = '') => {
 
 export const userInfoSlice = createSlice({
     name: 'userInfo',
-    initialState:{},
+    initialState:{
+        value: {},
+        success: false,
+        loading: false,
+        error: null,
+    },
     reducers: {
         setFullName(state, payload) {
-            state.firstName = payload.payload.firstName;
-            state.lastName = payload.payload.lastName;
+            state.value.firstName = payload.payload.firstName;
+            state.value.lastName = payload.payload.lastName;
         },
         setBirthday(state, payload) {
-            state.birthday = payload.payload.birthday;
+            state.value.birthday = payload.payload.birthday;
         },
         setGender(state, payload) {
-            state.gender = payload.payload.gender;
+            state.value.gender = payload.payload.gender;
         },
         setPhoneNumber(state, payload) {
-            state.phoneNumber = payload.payload.phoneNumber;
+            state.value.phoneNumber = payload.payload.phoneNumber;
         },
         setCity(state, payload) {
-            state.city = payload.payload.city;
-            state.district = payload.payload.district;
+            state.value.city = payload.payload.city;
+            state.value.district = payload.payload.district;
         },
         setSchool(state, payload) {
-            state.school = payload.payload.school;
+            state.value.school = payload.payload.school;
         },
         setWork(state, payload) {
-            state.company = payload.payload.company;
-            state.position = payload.payload.position;
+            state.value.company = payload.payload.company;
+            state.value.position = payload.payload.position;
         },
         setBio(state, payload) {
-            state.bio = payload.payload.bio;
+            state.value.bio = payload.payload.bio;
         },
         setHobbies(state, payload) {
-            state.hobbies = payload.payload.hobbies;
+            state.value.hobbies = payload.payload.hobbies;
         },
-        setUserInfo: (state, action) => action.payload,
+        setUserInfo: (state, action) => {
+            state.value = action.payload
+        },
     },
     extraReducers: builder => {
         builder
@@ -87,5 +94,6 @@ export const {
     setHobbies,
     setUserInfo,
 } = userInfoSlice.actions;
-export const selectUserInfo = state => state.userInfo
+export const selectUserInfo = state => state.userInfo.value
+export const selectLoadingUserInfo = state => state.userInfo.loading
 export default userInfoSlice.reducer

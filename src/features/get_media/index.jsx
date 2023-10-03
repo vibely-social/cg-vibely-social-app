@@ -33,7 +33,7 @@ export const getMediaSlice = createSlice({
                 if (action.payload.length === 0) {
                     state.hasMoreData = false;
                 }
-                state.images = [...state.images, ...action.payload];
+                state.images = action.payload;
                 state.pageIndex += 1;
 
             })

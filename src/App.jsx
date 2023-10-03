@@ -15,6 +15,7 @@ import en from "javascript-time-ago/locale/en";
 import {getRequestFriends, selectAcceptFriendSuccess} from "~/features/request_friends/index.jsx";
 import {selectBottomChatStatus, setBtChatActive} from "~/features/bottom_chat/index.jsx";
 import {switchConversationTo} from "~/features/switch_conversation/index.js";
+import notifySoundFile from "~/assets/the-notification-email.mp3"
 
 function App() {
     const dispatch = useDispatch()
@@ -108,7 +109,7 @@ function App() {
             </BrowserRouter>
             <Toast ref={toastBottomRight} position="bottom-right"/>
             <audio
-                src="https://firebasestorage.googleapis.com/v0/b/vibely-social.appspot.com/o/the-notification-email.mp3?alt=media"
+                src={notifySoundFile}
                 ref={notifySound}></audio>
         </>
     )

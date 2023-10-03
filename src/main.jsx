@@ -6,14 +6,17 @@ import store from "~/app/store"
 import {StompClientContextProvider} from "~/components/HOC_SocketClient/index.jsx";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
+import {StrictMode} from "react";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <GlobalStyles>
-        <Provider store={store}>
-            <StompClientContextProvider>
-                <App/>
-            </StompClientContextProvider>
-        </Provider>
-    </GlobalStyles>
+    <StrictMode>
+        <GlobalStyles>
+            <Provider store={store}>
+                <StompClientContextProvider>
+                    <App/>
+                </StompClientContextProvider>
+            </Provider>
+        </GlobalStyles>
+    </StrictMode>
 )
 

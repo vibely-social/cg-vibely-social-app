@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import "./index.scss"
 import {userInfoApi} from "~/api/userInfoApi.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "~/features/user_info/userInfoSlice.js";
+import {selectUserInfo, setUserInfo} from "~/features/user_info/userInfoSlice.js";
 import {Modal, Row} from "react-bootstrap";
 import {getStoredUserData} from "~/service/accountService.js";
 import PostTab from "~/components/PostTab/index.jsx";
@@ -11,11 +11,12 @@ import MediaTab from "~/components/MediaTab/index.jsx";
 import AboutTab from "~/components/AboutTab/index.jsx";
 import UpdateVisual from "~/components/UpdateVisual/index.jsx";
 import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
+import {ProgressSpinner} from "primereact/progressspinner";
 
 function PersonalPage() {
     const tabs = ["Posts", "About", "Friends", "Media"]
     const [type, setType] = useState("Posts")
-    const userInfo = useSelector(state => state.userInfo);
+    const userInfo = useSelector(selectUserInfo);
     const dispatch = useDispatch();
     const [showAvatarModal, setShowAvatarModal] = useState(false)
     const [showBackgroundModal, setShowBackgroundModal] = useState(false)
@@ -59,7 +60,11 @@ function PersonalPage() {
             <div className="col-lg-12">
                 <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                     <div className="background position-relative card-body h260 p-0 rounded-xxl overflow-hidden m-3">
-                        <img src={userInfo.background} alt="image"/>
+                        {
+                            userInfo.background
+                                ? <img src={userInfo.background} alt="image"/>
+                                : <ProgressSpinner/>
+                        }
                         <div className="change-icon position-absolute right-15 bottom-15 z-3"
                              onClick={handleUpdateBackground}>
                             <i className="feather-camera font-md text-white"></i>
@@ -73,8 +78,12 @@ function PersonalPage() {
                                     minWidth: 104,
                                     minHeight: 104
                                 }}>
-                            <img src={userInfo.avatarUrl} alt="image"
-                                 className="main-avatar float-right p-1 bg-white w-100 z-index-1"/>
+                            {
+                                userInfo.avatarUrl
+                                    ? <img src={userInfo.avatarUrl} alt="image"
+                                           className="main-avatar float-right p-1 bg-white w-100 z-index-1"/>
+                                    : <ProgressSpinner className="z-1"/>
+                            }
                             <span
                                 className="position-absolute w-100 h-100 bg-primary-gradiant rounded-circle spinner-border"></span>
                             <a className="change-avatar position-absolute"

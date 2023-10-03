@@ -15,7 +15,6 @@ export const publicRoutes = [
     {path: '/profile', component: PersonalPage, layout: MainLayout},
     {path: `/profile/:id`, component: FriendPage, layout: MainLayout},
     {path: '/login', component: Login, layout: null},
-    {path: '/register', component: Register, layout: null},
     {path: '/friends', component: Friends, layout: MainLayout},
     {path: '/messenger', component: Chat, layout: ChatLayout},
     {path: '/forgot', component: Forgot, layout: null},

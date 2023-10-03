@@ -97,9 +97,6 @@ function ChatSidebar() {
                             </div>
 
                             <ListGroup as="ul" className="mb-1 top-content ps-1 scroll-bar overflow-x-hidden">
-                                <div className='d-flex position-relative justify-content-center '>
-                                    {loading && <ProgressSpinner/>}
-                                </div>
                                 {
                                     displayFriends.map(friend => {
                                         const name = friend.firstName + " " + friend.lastName;
@@ -127,6 +124,9 @@ function ChatSidebar() {
                                         )
                                     })
                                 }
+                                <div className='d-flex position-relative justify-content-center '>
+                                    {loading && <ProgressSpinner/>}
+                                </div>
                             </ListGroup>
                         </div>
                     </div>

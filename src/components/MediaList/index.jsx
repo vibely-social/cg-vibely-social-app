@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import MediaDetails from "~/components/MediaDetails/index.jsx";
 import "./index.css"
 import {useSelector} from "react-redux";
@@ -21,7 +21,10 @@ function MediaList({type}) {
 
     let count = 0;
     let limit = 9;
-
+useEffect(()=>{
+    console.log('images')
+    console.log(images)
+},[images])
     return (
         <div className="container-fluid row mx-0 px-0">
                 {images.map((image, imageIndex) => {
@@ -48,8 +51,7 @@ function MediaList({type}) {
                             </div>
                         );
                     }
-                )
-                }
+                )}
 
             {showModal &&
                 <MediaDetails

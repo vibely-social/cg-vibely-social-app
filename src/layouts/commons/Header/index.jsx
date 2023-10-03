@@ -58,6 +58,12 @@ function Header() {
     }
 
     useEffect(() => {
+        return () => {
+            dispatch(activeSidebar(false))
+        }
+    }, [])
+
+    useEffect(() => {
         if (user.accessToken) {
             if (!socketClient.connected) {
                 socketClient.deactivate();

@@ -12,6 +12,7 @@ function FeedBody({personal = false}) {
     const dispatch = useDispatch();
     const {isLoading, isSuccess, newPosts, createPost} = useSelector((state) => state.posts);
     const [posts, setPosts] = useState([])
+    const [token, setToken] = useState('')
 
     useEffect(()=>{
         if (isSuccess){
@@ -19,13 +20,17 @@ function FeedBody({personal = false}) {
         }
     },[isSuccess])
 
+    useEffect(()=>{
+        setToken(user.accessToken)
+    },[user.accessToken])
+
     useEffect(() => {
         if (!isSuccess)
         dispatch(fetchPosts())
         return () => {
             dispatch(resetPost())
         };
-    }, [user.accessToken]);
+    }, [token]);
     return (
         <>
             <CreatePost/>

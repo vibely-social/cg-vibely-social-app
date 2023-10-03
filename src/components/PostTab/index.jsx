@@ -15,19 +15,7 @@ function PostTab({toggleAbout, toggleMedia}) {
     const status = useSelector(state => state.media.status)
     const currentUser = getStoredUserData();
     const userInfo = useSelector(state => state.userInfo);
-
     const dispatch = useDispatch();
-
-
-    const fetchPosts = async () => {
-        try {
-            const response = await axios.get(`${VIBELY_API}/posts`);
-            setPosts(response.data)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
 
     useEffect(() => {
         if (status === "idle") {
@@ -35,7 +23,6 @@ function PostTab({toggleAbout, toggleMedia}) {
         }
         // fetchPosts()
     }, []);
-
 
     return (
         <>
