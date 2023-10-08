@@ -1,5 +1,6 @@
-const hostnameLocal = 'localhost:8080'
-const hostnameProduction = 'vibely-service.azurewebsites.net'
+// const hostnameLocal = 'localhost:8080'
+// const hostnameProduction = 'vibely-service.azurewebsites.net'
+const hostnameProduction = 'ec2-3-27-218-108.ap-southeast-2.compute.amazonaws.com'
 
 export const BROKER_URL = `wss://${hostnameProduction}/ws`
 
