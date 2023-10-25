@@ -1,22 +1,23 @@
-import {Button, Card, Col, Modal, Row} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import {motion} from "framer-motion";
 import "./index.css";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
+  createRequestFriend,
   deleteSuggestionFriend,
   getSuggestionFriends,
+  selectGetRequestSuccess,
   selectGetSuggestionSuccess,
   selectSuggestionFriendsList,
-  createRequestFriend, selectGetRequestSuccess,
 } from "~/features/suggestion_friends";
 
 import {
+  acceptRequestFriend,
+  deleteRequestFriend,
   getRequestFriends,
   selectRequestFriendsList,
   selectRequestFriendSuccess,
-  acceptRequestFriend,
-  deleteRequestFriend,
 } from "~/features/request_friends";
 import {Link} from "react-router-dom";
 
