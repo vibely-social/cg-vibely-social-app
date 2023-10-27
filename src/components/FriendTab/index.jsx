@@ -20,7 +20,7 @@ function FriendTab({tongglePost, friendID}) {
 
     useEffect(() => {
         getFriendListOfFriend()
-    }, [friendID])
+    }, [])
 
 
     const handleSearch = (event) => {

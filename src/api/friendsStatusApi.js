@@ -9,8 +9,7 @@ export const getStatus = async (friendEmails) => {
             friendEmails,
         );
     } catch (e) {
-        console.log('Get status error!')
-        console.log(e);
+        console.log('Get status error!', e)
     }
     return result;
 };

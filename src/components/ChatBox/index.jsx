@@ -83,7 +83,7 @@ function ChatBox() {
 		if (currentConversation) {
 			if (newMessage) {
 				socketClient.publish({
-					destination: "/app/ws",
+					destination: "/app/chat",
 					body: JSON.stringify({
 						receiver: currentConversation.email,
 						content: newMessage,
@@ -91,7 +91,7 @@ function ChatBox() {
 				});
 
 				socketClient.publish({
-					destination: "/app/ws",
+					destination: "/app/chat",
 					body: JSON.stringify({
 						isStatusType: true,
 						typingStatus: false,
@@ -109,7 +109,7 @@ function ChatBox() {
 		if (socketClient.connected) {
 			if (haveContent && chatFocus) {
 				socketClient.publish({
-					destination: "/app/ws",
+					destination: "/app/chat",
 					body: JSON.stringify({
 						isStatusType: true,
 						typingStatus: true,
@@ -119,7 +119,7 @@ function ChatBox() {
 				});
 			} else {
 				socketClient.publish({
-					destination: "/app/ws",
+					destination: "/app/chat",
 					body: JSON.stringify({
 						isStatusType: true,
 						typingStatus: false,

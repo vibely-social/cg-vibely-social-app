@@ -11,8 +11,7 @@ export const getUserMedia = async (id, pageIndex) => {
             }
         });
     } catch (e) {
-        console.log('Error at get media!')
-        console.log(e)
+        console.log('Error at get media!', e)
     }
     return result;
 };

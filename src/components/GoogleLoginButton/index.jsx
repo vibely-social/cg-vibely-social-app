@@ -23,13 +23,11 @@ function GoogleLoginButton({type}) {
     const handleGoogleLogin = useGoogleLogin({
         onSuccess: (response) => dispatch(googleLogin(response)),
         onNonOAuthError: (error) => {
-            console.log("Non OAuth Error");
-            console.log(error)
+            console.log("Non OAuth Error", error);
             showError()
         },
         onError: (error) => {
-            console.log("Error")
-            console.log(error)
+            console.log("Error", error)
             showError()
         }
     })

@@ -18,7 +18,6 @@ export const updateBackgroundApi = async (body) => {
         )
         return response.data;
     }catch (e){
-        console.log('Fail to update avatar!')
-        console.log(e)
+        console.log('Fail to update avatar!', e)
     }
 }

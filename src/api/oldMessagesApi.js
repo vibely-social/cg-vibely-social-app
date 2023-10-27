@@ -16,7 +16,6 @@ export const loadOldMessagesApi = async (contact, page) => {
             })
         return response;
     }catch (e){
-        console.log(e.response);
         return e.response;
     }
 }

@@ -29,7 +29,6 @@ export const findSuggestionFriendsApi = async () => {
       });
     } catch (e) {
       console.log("Adding friend API error: " + e);
-      throw e;
     }
   };
   

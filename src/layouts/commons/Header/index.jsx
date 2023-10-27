@@ -50,7 +50,7 @@ function Header() {
             friends.forEach(friend => friendEmails.push(friend.email))
         }
         dispatch(getFriendsStatus(friendEmails))
-    }, [friends])
+    }, [])
 
     const handleNavClick = () => {
         setActive(prevState => !prevState)

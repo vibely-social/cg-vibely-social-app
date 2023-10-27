@@ -27,6 +27,19 @@ function App() {
     const toastBottomRight = useRef(null);
     const notifySound = useRef()
 
+    const handleNewMessage = (message) => {
+        dispatch(addUnreadMessage(message))
+        dispatch(addNewMessage(message))
+        if (!btChatStatus) {
+            friends.forEach(friend => {
+                if (friend.email === message.sender) {
+                    dispatch(switchConversationTo(friend))
+                    dispatch(setBtChatActive())
+                }
+            })
+        }
+    }
+
     TimeAgo.addLocale(en)
 
     useEffect(() => {
@@ -45,23 +58,10 @@ function App() {
     })
 
     useEffect(() => {
-        if (user) {
+        if (user && user.id) {
             dispatch(getFriends(user.id))
         }
     }, [user, acceptFriend])
-
-    const handleNewMessage = (message) => {
-        dispatch(addUnreadMessage(message))
-        dispatch(addNewMessage(message))
-        if (!btChatStatus) {
-            friends.forEach(friend => {
-                if (friend.email === message.sender) {
-                    dispatch(switchConversationTo(friend))
-                    dispatch(setBtChatActive())
-                }
-            })
-        }
-    }
 
     useEffect(() => {
         socketClient.onConnect = (frame) => {

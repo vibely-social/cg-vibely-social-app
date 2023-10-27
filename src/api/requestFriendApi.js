@@ -27,7 +27,6 @@ export const deleteRequestFriendApi = async (id) => {
     });
   } catch (e) {
     console.log("Delete request friend API error: " + e);
-    throw e;
   }
 };
 

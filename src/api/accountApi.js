@@ -16,8 +16,7 @@ export const registerApi = async (data) => {
     try {
         response = await axios.post(VIBELY_API + '/users', data)
     } catch (e) {
-        console.log('Register error!')
-        console.log(e)
+        console.log('Register error!', e)
     }
     return response;
 }
@@ -41,8 +40,7 @@ export const refreshTokenApi = async (refreshToken) => {
             }
         })
     } catch (e) {
-        console.log("Refresh token failed!: ");
-        console.log(e)
+        console.log("Refresh token failed!: ", e);
         return e.code
     }
 }

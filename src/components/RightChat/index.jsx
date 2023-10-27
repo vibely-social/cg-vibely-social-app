@@ -82,7 +82,7 @@ function RightChat() {
         if (currentConversation) {
             if (newMessage) {
                 socketClient.publish({
-                    destination: "/app/ws",
+                    destination: "/app/chat",
                     body: JSON.stringify({
                         receiver: currentConversation.email,
                         content: newMessage
@@ -90,7 +90,7 @@ function RightChat() {
                 });
 
                 socketClient.publish({
-                    destination: "/app/ws",
+                    destination: "/app/chat",
                     body: JSON.stringify({
                         isStatusType: true,
                         typingStatus: false,
@@ -111,7 +111,7 @@ function RightChat() {
         if (socketClient.connected) {
             if (haveContent && chatFocus) {
                 socketClient.publish({
-                    destination: "/app/ws",
+                    destination: "/app/chat",
                     body: JSON.stringify({
                         isStatusType: true,
                         typingStatus: true,
@@ -121,7 +121,7 @@ function RightChat() {
                 });
             } else {
                 socketClient.publish({
-                    destination: "/app/ws",
+                    destination: "/app/chat",
                     body: JSON.stringify({
                         isStatusType: true,
                         typingStatus: false,

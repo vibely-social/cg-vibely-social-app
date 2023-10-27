@@ -12,8 +12,7 @@ export const findFriends = async (id) => {
             }
         });
     } catch (e) {
-        console.log('Find friends error!')
-        console.log(e);
+        console.log('Find friends error!', e)
     }
     return result;
 };

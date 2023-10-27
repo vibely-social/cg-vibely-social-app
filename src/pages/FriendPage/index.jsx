@@ -56,19 +56,19 @@ function FriendPage() {
     },[friends, currentProfileId])
 
     useEffect(() => {
-        const getUserInfo = async () => {
-            if (currentUser.id !== currentProfileId) {
-                const result = await userInfoApi(currentProfileId);
-                if (result !== undefined) {
-                    dispatch(setUserInfo(result));
-                } else {
-                    navigate('/404');
-                }
-            } else {
-                navigate('/profile');
-            }
-        }
-        getUserInfo()
+        // const getUserInfo = async () => {
+        //     if (currentUser.id !== currentProfileId) {
+        //         const result = await userInfoApi(currentProfileId);
+        //         if (result !== undefined) {
+        //             dispatch(setUserInfo(result));
+        //         } else {
+        //             navigate('/404');
+        //         }
+        //     } else {
+        //         navigate('/profile');
+        //     }
+        // }
+        // getUserInfo()
     }, [currentProfileId])
 
     const handleAddingFriend = () => {
