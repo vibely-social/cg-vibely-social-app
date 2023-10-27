@@ -104,9 +104,7 @@ function App() {
 
     return (
         <>
-            <BrowserRouter>
-                <AppRoutes/>
-            </BrowserRouter>
+            <AppRoutes/>
             <Toast ref={toastBottomRight} position="bottom-right"/>
             <audio
                 src={notifySoundFile}
