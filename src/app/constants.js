@@ -1,10 +1,10 @@
-// const hostnameLocal = 'localhost:8080'
+const hostnameLocal = 'localhost:8080'
 // const hostnameProduction = 'vibely-service.azurewebsites.net'
-const hostnameProduction = '34.101.119.126'
+const hostnameProduction = 'cg-vibely-social-service-3ndqmbuk6q-uc.a.run.app'
 
-export const BROKER_URL = `ws://${hostnameProduction}/ws`
+export const BROKER_URL = `wss://${hostnameProduction}/ws`
 
-export const VIBELY_API = `http://${hostnameProduction}/api`
+export const VIBELY_API = `https://${hostnameProduction}/api`
 
 export const PROVINCES_API = "https://provinces.open-api.vn/api/?depth=2"
 
