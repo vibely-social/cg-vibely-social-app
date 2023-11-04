@@ -1,4 +1,4 @@
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -106,7 +106,7 @@ function UserDetail() {
                                     <div>
                                         <h4 className="fw-500">Last Name</h4>
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
                                         <input type="text"
                                                className="form-control"
                                                id="lastName"
@@ -123,7 +123,7 @@ function UserDetail() {
                                     <div>
                                         <h4 className="fw-500">First Name</h4>
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
                                         <input type="text"
                                                className="form-control"
                                                id="firstName"
@@ -161,11 +161,12 @@ function UserDetail() {
                                 <h4 className="fw-500">Full Name</h4>
                             </div>
                             <div
-                                className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                                <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
+                                className="fw-600 mb-1 row">
+                                <div className="mt-1 text-dark mb-1 height-24">
                                     <h4 className="d-flex align-items-center float-left">
                                         <i className="feather-airplay me-2"></i>
-                                        {userInfo.lastName + ' ' + userInfo.firstName}</h4>
+                                        {userInfo.lastName + ' ' + userInfo.firstName}
+                                    </h4>
                                     {userInfo.id === currentUser.id ?
                                         <i onClick={() => setNameStatus(true)}
                                            className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
@@ -187,7 +188,7 @@ function UserDetail() {
                     genderStatus === true ?
                         <form className="info-form" onSubmit={formikGender.handleSubmit}>
                             <div className="row">
-                                <div className="col-lg-12 h75 mt-1">
+                                <div className="col-lg-12 h75 mt-2">
                                     <select
                                         id="gender"
                                         name="gender"
@@ -225,21 +226,42 @@ function UserDetail() {
                                 </div>
                             </div>
                         </form>
-                        : <div
-                            className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                            <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                <h4 className="d-flex align-items-center float-left">
-                                    <i className="feather-users me-2"></i>
-                                    {userInfo.gender}
-                                </h4>
-                                {userInfo.id === currentUser.id ?
-                                    <i onClick={() => setGenderStatus(!genderStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
-                                    </i>
-                                    : <></>
-                                }
+                        : userInfo.gender != null ?
+                            <div
+                                className="fw-600 mb-1 row">
+                                <div className="mt-1 text-dark mb-1 height-24">
+                                    <h4 className="d-flex align-items-center float-left">
+                                        <i className="feather-users me-2"></i>
+                                        {userInfo.gender}
+                                    </h4>
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setGenderStatus(!genderStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : <></>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                            : userInfo.id === currentUser.id ?
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setGenderStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setGenderStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
+                                        Add Gender
+                                    </h4>
+                                </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1 height-24">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="feather-users me-2"></i>
+                                            No Gender to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
 
@@ -252,7 +274,7 @@ function UserDetail() {
                         <form className="info-form" onSubmit={formikBirthday.handleSubmit}>
                             <div className="row">
                                 <div className="col-lg-12 h75">
-                                    <div className="form-group">
+                                    <div className="form-group mt-2">
 
                                         <input type="date"
                                                min="1900-01-01"
@@ -287,24 +309,45 @@ function UserDetail() {
                                 </div>
                             </div>
                         </form>
-                        : <div
-                            className="fw-600 text-dark lh-26 font-xssss mb-1 row">
-                            <div className="mt-1 align-items-center text-dark lh-26 mb-1 col-lg-12">
-                                {userInfo.birthday && (
-                                    <h4 className="d-flex align-items-center float-left">
-                                        <i className="ti-thought me-2"></i>
-                                        Birthday: {formatDate(userInfo.birthday)}
-                                    </h4>
-                                )}
-                                {userInfo.id === currentUser.id ?
-                                    <i onClick={() => setBirthdayStatus(!birthdayStatus)}
-                                       className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
-                                    </i>
-                                    : <></>
-                                }
+                        : userInfo.birthday != null ?
+                            <div
+                                className="fw-600 row">
+                                <div className="mt-2 align-items-center text-dark lh-26 col-lg-12">
+                                    {userInfo.birthday && (
+                                        <h4 className="d-flex align-items-center float-left">
+                                            <i className="ti-thought me-2"></i>
+                                            Born on {formatDate(userInfo.birthday)}
+                                        </h4>
+                                    )}
+                                    {userInfo.id === currentUser.id ?
+                                        <i onClick={() => setBirthdayStatus(!birthdayStatus)}
+                                           className="ti-pencil d-flex font-md float-right cursor-pointer hover-edit">
+                                        </i>
+                                        : <></>
+                                    }
 
+                                </div>
                             </div>
-                        </div>
+                            : userInfo.id === currentUser.id ?
+                                <div className="d-flex align-items-center mb-1 ">
+                                    <i onClick={() => setBirthdayStatus(true)}
+                                       className="feather-plus-circle btn-round-sm text-dark font-lg cursor-pointer hover-edit">
+                                    </i>
+                                    <h4 onClick={() => setBirthdayStatus(true)}
+                                        className="fw-700 text-grey-500 font-xsss hover-underline cursor-pointer">
+                                        Add Birthday
+                                    </h4>
+                                </div>
+                                :
+                                <div
+                                    className="fw-600 mb-1 row">
+                                    <div className="mt-1 text-dark mb-1 height-24">
+                                        <h4 className="d-flex align-items-center text-grey-500 float-left">
+                                            <i className="ti-thought me-2"></i>
+                                            No Birthday to show
+                                        </h4>
+                                    </div>
+                                </div>
                 }
             </div>
 

@@ -80,10 +80,10 @@ function SearchPage() {
                                                     <div className="card-body d-block d-flex w-100 align-items-center h125">
                                                         <img className="h75 w75 rounded"
                                                              style={{objectFit: "cover"}}
-                                                             src="https://via.placeholder.com/50x50.png" alt="avatar"/>
+                                                             src={user.avatarUrl} alt="avatar"/>
                                                         <Link to={`/profile/${user.id}`}
                                                               className="ms-3 cursor-pointer">
-                                                            <h4 className="fw-700 font-xsss mt-3 hover-underline hover-scale-1-1">
+                                                            <h4 className="fw-700 font-xsss mt-3 hover-underline">
                                                                 {`${user.firstName} ${user.lastName}`}
                                                             </h4>
                                                             <div

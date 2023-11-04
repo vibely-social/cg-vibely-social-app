@@ -3,7 +3,6 @@ import {getPostDetail} from "~/api/postApi.js";
 
 export const getMediaPostDetails = createAsyncThunk("mediaPostDetails", async (id) => {
     const response = await getPostDetail(id);
-    console.log(response.data);
     return response.data;
 });
 

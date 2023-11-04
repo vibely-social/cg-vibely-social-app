@@ -87,5 +87,5 @@ export const {
     setHobbies,
     setUserInfo,
 } = userInfoSlice.actions;
-
+export const selectUserInfo = state => state.userInfo
 export default userInfoSlice.reducer

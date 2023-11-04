@@ -141,8 +141,7 @@ function Comment({data = {}, isShowComment = {}}) {
                             src={user.avatar ? user?.avatar : ppl}
                             className="shadow-sm rounded-circle"/>
                     </figure>
-                    <Form className='comment-box rounded-xxl ms-2 bor-0 border-light-md'
-                    >
+                    <Form className='comment-box rounded-xxl ms-2 bor-0 border-light-md'>
                         <Form.Group className='d-flex'>
                             <textarea
                                 id="input"
@@ -153,13 +152,7 @@ function Comment({data = {}, isShowComment = {}}) {
                                 className="comment-input ms-0 p-1 ps-3 font-xsss text-grey-600 fw-500 "
                                 placeholder="Write a comment..."
                             />
-                            <div
-                                className='flex'
-                                style={{
-                                    justifyContent: "space-between",
-                                    alignSelf: "start"
-                                }}
-                            >
+                            <div className='d-flex justify-content-between align-self-start'>
                                 {onFocusComment && <Button
                                     as='label'
                                     htmlFor={data.id}

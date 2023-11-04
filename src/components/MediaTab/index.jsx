@@ -1,8 +1,10 @@
-import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getMedia} from "~/features/getMedia/index.jsx";
+import {useCallback, useEffect, useState} from "react";
 import MediaList from "~/components/MediaList/index.jsx";
 import {getStoredUserData} from "~/service/accountService.js";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {ColorRing} from "react-loader-spinner";
 
 function MediaTab() {
     const tabs = ["Photos", "Videos"]
@@ -10,12 +12,26 @@ function MediaTab() {
     const dispatch = useDispatch();
     const images = useSelector(state => state.media.images)
     const status = useSelector(state => state.media.status)
+    const page = useSelector(state => state.media.pageIndex)
+    const hasMore = useSelector(state => state.media.hasMoreData)
     const [type, setType] = useState("Photos")
 
+    const [loading, setLoading] = useState(false);
+    const user = getStoredUserData();
+
+    function fetchImages() {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
+        // dispatch(getMedia(user.id, page)).then(() => {
+        //     setLoading(false);
+        // });
+    }
+
     useEffect(() => {
-        const user = getStoredUserData();
         if (status === "idle") {
-            dispatch(getMedia(user.id))
+            dispatch(getMedia(user.id, 0))
         }
     }, []);
 
@@ -42,10 +58,26 @@ function MediaTab() {
                     </ul>
                 </div>
                 {type === tabs[0] && (
-                    <MediaList
-                        images={images}
-                        type="tab"
-                    />
+                    <InfiniteScroll
+                        next={fetchImages}
+                        hasMore={hasMore}
+                        loader={
+                            <ColorRing
+                                visible={loading}
+                                height="80"
+                                width="80"
+                                ariaLabel="blocks-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="blocks-wrapper"
+                                colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                            />
+                        }
+                        dataLength={images.length}>
+                        <MediaList
+                            images={images}
+                            type="tab"
+                        />
+                    </InfiniteScroll>
                 )}
             </div>
         </>

@@ -1,17 +1,16 @@
 import CreatePost from "~/components/CreatePost/index.jsx";
 import PostDetail from "~/components/PostDetail/index.jsx";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
-import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {fetchPosts, resetPost} from "~/features/getPosts/index.js";
+import {useAuthorizeUser} from "~/hooks/authorizeUser.jsx";
 
 import "./index.scss"
 
 function FeedBody () {
-    TimeAgo.addDefaultLocale(en)
+
     useAuthorizeUser()
+
     const dispatch = useDispatch();
     const {isLoading, isSuccess, newPosts, isFailed , createPost } = useSelector((state) => state.posts);
     const [loaded,setLoaded] = useState(false)

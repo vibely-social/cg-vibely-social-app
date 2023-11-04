@@ -7,15 +7,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getStoredUserData} from "~/service/accountService.js";
 import axios from "axios";
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import {getMedia} from "~/features/getMedia/index.jsx";
 import FeedBody from "~/components/FeedBody/index.jsx";
 
 
 function PostTab({toggleAbout, toggleMedia}) {
     const [posts, setPosts] = useState([]);
-    const images = useSelector(state => state.media.images)
     const status = useSelector(state => state.media.status)
+    const currentUser = getStoredUserData();
+    const userInfo = useSelector(state => state.userInfo);
 
     const dispatch = useDispatch();
 
@@ -24,7 +25,6 @@ function PostTab({toggleAbout, toggleMedia}) {
         try {
             const response = await axios.get(`${VIBELY_API}/posts`);
             setPosts(response.data)
-            console.log(posts);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -32,12 +32,11 @@ function PostTab({toggleAbout, toggleMedia}) {
 
 
     useEffect(() => {
-        const user = getStoredUserData();
         if (status === "idle") {
-            dispatch(getMedia(user.id))
+            dispatch(getMedia(currentUser.id))
         }
-        fetchPosts()
-    }, [dispatch]);
+        // fetchPosts()
+    }, []);
 
 
     return (
@@ -59,13 +58,20 @@ function PostTab({toggleAbout, toggleMedia}) {
                                     See more
                                 </span>
                             </h4>
-                            <MediaList images={images} type="photos"/>
+                            <MediaList type="photos"/>
                         </div>
 
                     </div>
                 </div>
                 <div className="col-xl-8 col-xxl-9 col-lg-8 mt-3">
-                    <FeedBody/>
+                    {
+                        currentUser.id === userInfo.id ?
+                            <FeedBody/>
+                            : <></>
+                    }
+                    <div className="w-100 shadow-xss rounded-xxl border-0 ps-2 x pe-4 pb-2 mb-3 card h400">
+
+                    </div>
                 </div>
             </div>
         </>

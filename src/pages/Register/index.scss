@@ -17,8 +17,13 @@ div .bs-tooltip-start {
 .h17 {height: 17px !important; }
 .w17 {width: 17px !important; }
 
-.bottom-0 {bottom: 0px;}
-
 .opacity-30 {
     opacity: 30%;
 }
+.text-blue-gradiant { text: linear-gradient(to right, #0575e6, #021b79) !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.w114 {width: 114px !important; }
+.h17 {height: 17px !important; }
+.w17 {width: 17px !important; }

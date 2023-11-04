@@ -9,16 +9,24 @@ import {Toast} from "primereact/toast";
 import {setTypingStatus} from "~/features/typingStatus/index.jsx";
 import {selectUserData} from "~/features/userAccount/index.js";
 import {getFriendsStatus} from "~/features/onlineStatus/index.jsx";
-import {selectFriendList} from "~/features/getFriends/index.js";
+import {getFriends, selectFriendList} from "~/features/getFriends/index.js";
 import {addNotify} from "~/features/notification/index.jsx";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import {getRequestFriends} from "~/features/requestFriends/index.jsx";
+import {selectBottomChatStatus, setBtChatActive} from "~/features/bottomChat/index.jsx";
+import {switchConversationTo} from "~/features/switchConversation/index.js";
 
 function App() {
     const dispatch = useDispatch()
     const socketClient = useStompWsClient()
     const user = useSelector(selectUserData)
+    const btChatStatus = useSelector(selectBottomChatStatus)
     const friends = useSelector(selectFriendList)
     const toastBottomRight = useRef(null);
+    const notifySound = useRef()
 
+    TimeAgo.addLocale(en)
 
     useEffect(() => {
         if (!Notification) {
@@ -35,29 +43,26 @@ function App() {
         }
     })
 
+    const handleNewMessage = (message) => {
+        dispatch(addUnreadMessage(message))
+        dispatch(addNewMessage(message))
+        if (!btChatStatus){
+            friends.forEach(friend => {
+                if (friend.email === message.sender){
+                    dispatch(switchConversationTo(friend))
+                    dispatch(setBtChatActive())
+                }
+            })
+        }
+    }
 
     useEffect(() => {
         socketClient.onConnect = (frame) => {
             console.log(frame)
             socketClient.subscribe('/users/queue/messages', (message) => {
                 const messageContent = JSON.parse(message.body);
-                // Feature is in development
-                // if (messageContent && messageContent.sender !== user.email) {
-                //     // const notify = new Notification(messageContent.senderName, {
-                //     //     icon: "src/assets/img/logo.svg",
-                //     //     body: messageContent.content,
-                //     // });
-                //
-                //     if (messageContent.isStatusType) {
-                //         dispatch(setTypingStatus({
-                //             user: messageContent.email,
-                //             typingStatus: messageContent.typingStatus
-                //         }))
-                //     }
-                // }
                 if (!messageContent.isStatusType) {
-                    dispatch(addUnreadMessage(messageContent))
-                    dispatch(addNewMessage(messageContent))
+                    handleNewMessage(messageContent)
                 } else {
                     dispatch(setTypingStatus({
                         user: messageContent.sender,
@@ -66,10 +71,11 @@ function App() {
                 }
             })
             socketClient.subscribe('/users/queue/notify', (message) => {
-                //Feature is in development
+                notifySound.current.play()
                 const notify = message.body;
-                console.log(JSON.parse(notify))
                 dispatch(addNotify(JSON.parse(notify)))
+                dispatch(getFriends(user.id))
+                dispatch(getRequestFriends())
                 // showMessage(messageContent,toastBottomRight, 'success')
             })
         }
@@ -113,6 +119,7 @@ function App() {
                 <AppRoutes/>
             </BrowserRouter>
             <Toast ref={toastBottomRight} position="bottom-right"/>
+            <audio src="src/assets/the-notification-email.mp3" ref={notifySound} ></audio>
         </>
     )
 }

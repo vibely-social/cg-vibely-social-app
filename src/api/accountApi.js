@@ -25,7 +25,7 @@ export const registerApi = async (data) => {
 export const checkEmailApi = async (data) => {
     let response = {};
     try {
-        response = await axios.get(VIBELY_API + '/users?email=' + data)
+        response = await axios.get(VIBELY_API + '/users/check_email?email=' + data)
         return response.status
     } catch (e) {
         console.log("Check email error: ");

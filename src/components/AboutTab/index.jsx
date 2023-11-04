@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "~/pages/PersonalPage/index.css"
+import "~/pages/PersonalPage/index.scss"
 import OverView from "~/components/AboutTab/OverView/index.jsx";
 import Contact from "~/components/AboutTab/Contact/index.jsx";
 import UserDetail from "~/components/AboutTab/UserDetail/index.jsx";
@@ -40,13 +40,6 @@ function AboutTab() {
                             }
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="card w-100 shadow-xss rounded-xxl border-0 d-block mt-3"
-                 style={{height: 800}}>
-                <div className="card-body d-block p-4">
-                    <h3 className="fw-700 font-md">Other</h3>
                 </div>
             </div>
         </>

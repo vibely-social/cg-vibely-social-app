@@ -86,7 +86,7 @@ function Intro({toggle}) {
                             onChange={formikBio.handleChange}
                             onBlur={formikBio.handleBlur}
                             placeholder="Write something for us !!!"
-                            className="rounded-3 border-primary text-center">
+                            className="rounded-3 border-primary text-center bg-lightblue">
                         </textarea>
 
                         <form id="bio-form" className="" onSubmit={formikBio.handleSubmit}>
@@ -235,7 +235,6 @@ function Intro({toggle}) {
                                         type="submit"
                                         className="text-center p-1 w50 border-0 float-right rounded-2 d-inline-block hover-button">
                                         OK
-                                        {console.log(formikHobby.values)}
                                     </button>
                                 </div>
 

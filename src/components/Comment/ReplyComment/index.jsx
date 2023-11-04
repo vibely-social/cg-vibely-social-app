@@ -240,7 +240,7 @@ import Like from "~/assets/img/likebtn.png"
                             <div 
                                 className="comment-btn text-dark">
                             <ReactTimeAgo 
-                                date={replyData.date} 
+                                date={Date.parse(replyData.date)}
                                 locale="en-US"/>
                             </div>
                     </div>

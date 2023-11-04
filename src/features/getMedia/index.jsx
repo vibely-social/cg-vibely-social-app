@@ -1,45 +1,16 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getUserMedia} from "~/api/userMediaApi.js";
 
-export const getMedia = createAsyncThunk("media", async (id) => {
-    const response = await getUserMedia(id);
+export const getMedia = createAsyncThunk("media", async (id, pageIndex) => {
+    const response = await getUserMedia(id, pageIndex);
     return response.data;
 });
 
 const initialState = {
-    images: [
-        {
-            id: "1",
-            gallery: [
-                "https://placehold.co/600x400?text=Hello+0",
-                "https://placehold.co/600x400?text=Hello+1"
-            ]
-        },
-        {
-            id: "2",
-            gallery: [
-                "https://placehold.co/600x400?text=Hello+2",
-                "https://placehold.co/600x400?text=Hello+3"
-            ]
-        },
-        {
-            id: "3",
-            gallery: [
-                "https://placehold.co/600x400?text=Hello+4",
-                "https://placehold.co/600x400?text=Hello+5",
-                "https://placehold.co/600x400?text=Hello+6"
-            ]
-        },
-        {
-            id: "4",
-            gallery: [
-                "https://placehold.co/600x400?text=Hello+7",
-                "https://placehold.co/600x400?text=Hello+8",
-                "https://placehold.co/600x400?text=Hello+9",
-                "https://placehold.co/600x400?text=Hello+10"
-            ]
-        }
-    ],
+    currentUserId: -1,
+    pageIndex: 0,
+    hasMoreData: true,
+    images: [],
     status: 'idle',
     error: null
 }
@@ -59,7 +30,12 @@ export const getMediaSlice = createSlice({
             })
             .addCase(getMedia.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.images = action.payload;
+                if (action.payload.length === 0) {
+                    state.hasMoreData = false;
+                }
+                state.images = [...state.images, ...action.payload];
+                state.pageIndex += 1;
+
             })
             .addCase(getMedia.rejected, (state, action) => {
                 state.status = "failed";

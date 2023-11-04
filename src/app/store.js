@@ -10,7 +10,8 @@ import {loadOldMessagesSlice} from "~/features/loadOldMessages/index.jsx";
 import {messengerSlice} from "~/features/messeger/index.jsx";
 import {userInfoSlice} from "~/features/userInfo/UserInfoSlice.js";
 import {getCitiesSlice} from "~/features/getCities/index.js";
-import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.js";
+import {suggestionFriendsSlice} from "~/features/suggestionFriends/index.jsx";
+import {requestFriendsSlice } from '~/features/requestFriends';
 import {getMediaSlice} from "~/features/getMedia/index.jsx";
 import {typingStatusSlice} from "~/features/typingStatus/index.jsx";
 import {getMediaPostDetailsSlice} from "~/features/getMediaPostDetails/index.jsx";
@@ -33,6 +34,7 @@ const store = configureStore({
         messenger: messengerSlice.reducer,
         cities: getCitiesSlice.reducer,
         suggestionFriends: suggestionFriendsSlice.reducer,
+        requestFriends: requestFriendsSlice.reducer,
         media: getMediaSlice.reducer,
         typingStatus: typingStatusSlice.reducer,
         mediaPostDetails: getMediaPostDetailsSlice.reducer,
@@ -44,5 +46,4 @@ const store = configureStore({
         keyword: getKeyword.reducer,
     },
 });
-
 export default store
